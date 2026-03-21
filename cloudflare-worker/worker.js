@@ -10,12 +10,16 @@
  */
 
 const ALLOWED_ORIGINS = [
+  'https://potretai.studiocreative.id',
+  'https://potretai-v3-live.pages.dev',
   'https://studiocreative.id',
   'https://www.studiocreative.id',
   'http://127.0.0.1:5500',
   'http://127.0.0.1:5501',
   'http://localhost:3000',
+  'http://localhost:5173',
   'http://localhost:5500',
+  'http://localhost:5501',
   'null',
 ];
 
@@ -291,4 +295,3 @@ function translateError(status, errBody) {
   };
   return msgs[status] || errBody?.detail || `AI error (${status})`;
 }
-

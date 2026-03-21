@@ -13,11 +13,14 @@
  */
 
 const ALLOWED_ORIGINS = [
+  'https://potretai.studiocreative.id',
+  'https://potretai-v3-live.pages.dev',
   'https://potretai.com',
   'https://www.potretai.com',
   'https://studiocreative.id',
   'https://www.studiocreative.id',
   'http://localhost:3000',
+  'http://localhost:5173',
   'http://localhost:5500',
   'http://localhost:5501',
   'http://127.0.0.1:5500',

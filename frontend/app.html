@@ -44,7 +44,7 @@
     }
     .tb-hamburger:hover{background:#EEF3F5;color:#1E2A2F;}
     .tb-logo{
-      display:flex;align-items:center;text-decoration:none;flex-shrink:0;line-height:0;
+      display:flex;align-items:center;justify-content:flex-start;text-decoration:none;flex-shrink:0;line-height:0;
       min-width:0;padding:2px 0;overflow:hidden;
     }
     .tb-logo-frame{
@@ -52,8 +52,8 @@
       overflow:hidden;flex-shrink:0;
     }
     .tb-logo img{
-      display:block;height:36px;width:auto;max-width:148px;
-      object-fit:contain;filter:none;
+      display:block;height:34px;width:auto;max-width:148px;
+      object-fit:contain;object-position:left center;filter:none;transform:scale(1.06);transform-origin:left center;
     }
     .tb-spacer{flex:1;}
     .tb-nav{display:flex;align-items:center;gap:4px;}
@@ -122,65 +122,55 @@
 
     /* ── Sidebar ── */
     #sidebar{
-      width:278px;flex-shrink:0;
+      width:244px;flex-shrink:0;
       height:calc(100vh - 68px);position:sticky;top:68px;
-      overflow-y:auto;background:linear-gradient(180deg,#FFFFFF 0%,#FBFDFD 100%);
-      border-right:1px solid rgba(230,237,240,0.92);
-      padding:18px 16px 18px;display:flex;flex-direction:column;gap:8px;
+      overflow-y:auto;background:#FFFFFF;
+      border-right:1px solid rgba(238,243,245,0.92);
+      padding:14px 12px 16px;display:flex;flex-direction:column;gap:6px;
     }
     #sidebar::-webkit-scrollbar{width:3px;}
     #sidebar::-webkit-scrollbar-thumb{background:#EEF3F5;border-radius:2px;}
-    .sb-surface{
-      background:linear-gradient(180deg,#FFFFFF 0%,#FCFEFE 100%);
-      border:1px solid rgba(232,239,242,0.98);
-      border-radius:20px;padding:14px 12px;
-      box-shadow:0 1px 2px rgba(19,32,40,0.03),0 14px 32px rgba(19,32,40,0.03);
-    }
-    .sb-panel-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:var(--charcoal);letter-spacing:-0.02em;}
-    .sb-panel-sub{font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;color:#7E9099;margin-top:4px;}
+    .sb-surface{padding:0;background:transparent;border:none;box-shadow:none;}
     .sb-section-lbl{
       font-family:'Roboto Mono',monospace;font-size:9px;font-weight:500;
       color:#C4CDD2;letter-spacing:0.12em;text-transform:uppercase;
-      padding:6px 10px 8px;
+      padding:4px 10px 8px;
     }
     .sb-item{
-      display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:14px;
+      display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:12px;
       font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;
       color:var(--slate-grey);text-decoration:none;cursor:pointer;border:1px solid transparent;background:none;width:100%;
       transition:background 0.16s ease,color 0.16s ease,border-color 0.16s ease,box-shadow 0.16s ease;
     }
-    .sb-item:hover{background:#F7FAFB;color:var(--charcoal);border-color:rgba(229,237,240,0.96);}
+    .sb-item:hover{background:#F7FAFB;color:var(--charcoal);border-color:transparent;}
     .sb-item.active{
-      background:linear-gradient(180deg,rgba(221,243,246,0.9),rgba(245,251,252,0.95));border-color:rgba(31,166,181,0.16);
-      color:var(--charcoal);font-weight:600;box-shadow:0 1px 0 rgba(255,255,255,0.75) inset;
+      background:rgba(221,243,246,0.72);border-color:rgba(31,166,181,0.10);
+      color:var(--charcoal);font-weight:600;box-shadow:none;
     }
     .sb-item.active svg{color:var(--deep-teal);}
     .sb-item svg{flex-shrink:0;color:#9DB0B8;transition:color 0.13s ease;}
-    .sb-gen-group{
-      background:linear-gradient(180deg,#FCFEFE 0%,#F9FCFD 100%);border:1px solid rgba(232,239,242,0.96);border-radius:16px;
-      padding:9px;margin:2px 0 4px;
-    }
+    .sb-gen-group{padding:2px 0 2px;margin:0;}
     .sb-gen-label{
       font-family:'Roboto Mono',monospace;font-size:9px;font-weight:500;
       color:#C4CDD2;letter-spacing:0.12em;text-transform:uppercase;
-      padding:6px 10px 6px;
+      padding:6px 10px 3px;
     }
     .sb-subitem{
-      display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:12px;
+      display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;
       font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--slate-grey);
       text-decoration:none;cursor:pointer;border:1px solid transparent;background:none;width:100%;
       transition:background 0.16s ease,color 0.16s ease,border-color 0.16s ease;
     }
-    .sb-subitem:hover{background:#F7FAFB;color:var(--charcoal);border-color:rgba(238,243,245,0.98);}
-    .sb-subitem.active{color:var(--charcoal);background:rgba(221,243,246,0.62);border-color:rgba(31,166,181,0.18);font-weight:600;}
+    .sb-subitem:hover{background:#F7FAFB;color:var(--charcoal);border-color:transparent;}
+    .sb-subitem.active{color:var(--charcoal);background:rgba(221,243,246,0.72);border-color:rgba(31,166,181,0.10);font-weight:600;}
     .sb-subitem svg{color:#9DB0B8;transition:color 0.13s ease;}
     .sb-subitem.active svg{color:var(--deep-teal);}
-    .sb-divider{height:1px;background:#EEF4F6;margin:8px 0;}
+    .sb-divider{height:1px;background:#EEF4F6;margin:10px 10px;}
     .sb-spacer{flex:1;}
     .sb-plan-card{
-      background:linear-gradient(135deg,rgba(221,243,246,0.50),rgba(247,250,251,0.96));
-      border:1px solid rgba(31,166,181,0.14);border-radius:16px;padding:16px;margin-top:10px;
-      box-shadow:0 1px 2px rgba(19,32,40,0.03);
+      background:#FFFFFF;
+      border:1px solid rgba(238,243,245,1);border-radius:14px;padding:12px;margin-top:8px;
+      box-shadow:none;
     }
     .sb-plan-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
     .sb-plan-icon{
@@ -212,52 +202,51 @@
     #view-generator.active{display:flex;flex-direction:column;height:calc(100vh - 68px);}
 
     /* ── Dashboard ── */
-    .dash-wrap{padding:30px 40px 30px;max-width:1080px;}
-    .dash-overline{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#96A8B0;margin-bottom:10px;}
+    .dash-wrap{padding:30px 36px 30px;max-width:1020px;}
 
     /* Premium Hero Banner */
     .dash-hero{
-      background:linear-gradient(135deg,#132028 0%,#19272E 56%,#1E2A2F 100%);
-      border-radius:22px;padding:18px 19px;margin-bottom:14px;
+      background:linear-gradient(135deg,#132028 0%,#18262D 56%,#1E2A2F 100%);
+      border-radius:20px;padding:15px 16px;margin-bottom:12px;
       position:relative;overflow:hidden;
-      box-shadow:0 6px 16px rgba(19,32,40,0.06),0 1px 3px rgba(19,32,40,0.03);
+      box-shadow:0 5px 14px rgba(19,32,40,0.05),0 1px 2px rgba(19,32,40,0.03);
     }
     .dash-hero::before{
       content:'';position:absolute;top:-40px;right:-40px;width:220px;height:220px;
-      background:radial-gradient(circle,rgba(31,166,181,0.10) 0%,transparent 72%);
+      background:radial-gradient(circle,rgba(31,166,181,0.07) 0%,transparent 72%);
       pointer-events:none;
     }
     .dash-hero::after{
       content:'';position:absolute;bottom:-30px;left:60px;width:160px;height:160px;
-      background:radial-gradient(circle,rgba(221,243,246,0.06) 0%,transparent 74%);
+      background:radial-gradient(circle,rgba(221,243,246,0.04) 0%,transparent 74%);
       pointer-events:none;
     }
-    .dash-hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(210px,0.6fr);align-items:stretch;gap:12px;}
+    .dash-hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.8fr) minmax(182px,0.5fr);align-items:stretch;gap:10px;}
     .dash-hero-panel{display:flex;flex-direction:column;justify-content:space-between;min-height:100%;}
-    .dash-hero-kicker{display:inline-flex;align-items:center;gap:8px;margin-bottom:8px;font-family:'Roboto Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(221,243,246,0.72);}
+    .dash-hero-kicker{display:inline-flex;align-items:center;gap:8px;margin-bottom:6px;font-family:'Roboto Mono',monospace;font-size:7.5px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(221,243,246,0.68);}
     .dash-hero-kicker::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--ai-teal);box-shadow:0 0 0 6px rgba(31,166,181,0.10);}
     .dash-hero-text{}
-    .dash-hero-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.03em;color:#fff;margin-bottom:7px;max-width:500px;line-height:1.12;}
-    .dash-hero-sub{font-family:'Inter',sans-serif;font-size:12.5px;color:rgba(255,255,255,0.68);line-height:1.62;max-width:470px;}
-    .dash-hero-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:14px;}
+    .dash-hero-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.03em;color:#fff;margin-bottom:5px;max-width:440px;line-height:1.1;}
+    .dash-hero-sub{font-family:'Inter',sans-serif;font-size:11.5px;color:rgba(255,255,255,0.64);line-height:1.5;max-width:420px;}
+    .dash-hero-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;}
     .dash-hero-cta{
       display:inline-flex;align-items:center;gap:8px;
       background:var(--ai-teal);color:#fff;border:none;border-radius:10px;
-      padding:9px 14px;font-family:'Roboto Mono',monospace;font-size:10.5px;font-weight:500;
+      padding:7px 12px;font-family:'Roboto Mono',monospace;font-size:9.5px;font-weight:500;
       cursor:pointer;text-decoration:none;white-space:nowrap;
       box-shadow:0 4px 12px rgba(31,166,181,0.24);
       transition:transform 0.18s ease,box-shadow 0.18s ease;
     }
     .dash-hero-cta:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(31,166,181,0.28);}
-    .dash-hero-note{font-family:'Inter',sans-serif;font-size:11.5px;color:rgba(255,255,255,0.50);}
+    .dash-hero-note{font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,0.48);}
 
     /* Usage summary card inside hero */
     .dash-hero-usage{
       background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03));border:1px solid rgba(255,255,255,0.09);
-      border-radius:15px;padding:12px 12px 11px;min-width:198px;display:flex;flex-direction:column;justify-content:space-between;
+      border-radius:13px;padding:10px 10px 9px;min-width:176px;display:flex;flex-direction:column;justify-content:space-between;
     }
-    .dash-hero-usage-card-title{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;color:#fff;letter-spacing:-0.02em;margin-bottom:2px;}
-    .dash-hero-usage-card-sub{font-family:'Inter',sans-serif;font-size:11px;color:rgba(255,255,255,0.54);line-height:1.5;margin-bottom:10px;}
+    .dash-hero-usage-card-title{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:#fff;letter-spacing:-0.02em;margin-bottom:2px;}
+    .dash-hero-usage-card-sub{font-family:'Inter',sans-serif;font-size:10px;color:rgba(255,255,255,0.5);line-height:1.4;margin-bottom:7px;}
     .dash-hero-usage-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
     .dash-hero-usage-lbl{font-family:'Roboto Mono',monospace;font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:0.06em;text-transform:uppercase;}
     .dash-hero-usage-count{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:#1FA6B5;}
@@ -282,45 +271,46 @@
     .stat-icon-wrap svg{color:var(--deep-teal);}
     .stat-info{display:flex;flex-direction:column;gap:5px;}
     .stat-label{font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#98AAB2;}
-    .stat-num{font-family:'Montserrat',sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.02em;color:var(--charcoal);line-height:1.05;}
-    .stat-meta{font-family:'Inter',sans-serif;font-size:12px;color:#7F919A;line-height:1.45;}
+    .stat-num{font-family:'Montserrat',sans-serif;font-weight:700;font-size:19px;letter-spacing:-0.02em;color:var(--charcoal);line-height:1.05;}
+    .stat-meta{font-family:'Inter',sans-serif;font-size:11.5px;color:#7F919A;line-height:1.42;}
 
     /* Section header */
-    .dash-section{margin-bottom:20px;}
-    .dash-section-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px;gap:12px;}
-    .dash-section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:18px;color:#1E2A2F;letter-spacing:-0.02em;}
-    .dash-section-sub{font-family:'Inter',sans-serif;font-size:13px;color:#7F919A;margin-top:4px;line-height:1.55;}
+    .dash-section{margin-bottom:22px;}
+    .dash-section-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:10px;gap:12px;}
+    .dash-section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;color:#1E2A2F;letter-spacing:-0.02em;}
+    .dash-section-sub{font-family:'Inter',sans-serif;font-size:12px;color:#7F919A;margin-top:3px;line-height:1.5;}
     .dash-see-all{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:#1FA6B5;text-decoration:none;cursor:pointer;border:none;background:none;padding:0;transition:opacity 0.15s;}
     .dash-see-all:hover{opacity:0.75;}
 
     /* Service cards (2-column) */
-    .svc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,320px));justify-content:start;gap:10px;}
+    .svc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,240px));justify-content:start;gap:10px;}
     .svc-card{
       background:linear-gradient(180deg,#FFFFFF 0%,#FCFDFE 100%);border:1px solid rgba(232,239,242,0.98);border-radius:18px;overflow:hidden;cursor:pointer;
       box-shadow:var(--panel-shadow);
       transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.2s ease,border-color 0.2s ease,background 0.2s ease;
+      min-height:0;
     }
     .svc-card:hover{transform:translateY(-1px);box-shadow:var(--panel-shadow-hover);border-color:rgba(31,166,181,0.12);}
     .svc-card-inner{display:block;min-height:auto;}
-    .svc-body{padding:12px 12px 11px;display:flex;flex-direction:column;justify-content:center;min-width:0;}
-    .svc-topline{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+    .svc-body{padding:10px 10px 9px;display:flex;flex-direction:column;justify-content:center;min-width:0;}
+    .svc-topline{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
     .svc-mini-icon{
       width:28px;height:28px;border-radius:9px;background:rgba(221,243,246,0.70);border:1px solid rgba(31,166,181,0.10);
       display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--deep-teal);
     }
     .svc-pill{
-      display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;
+      display:inline-flex;align-items:center;gap:5px;padding:3px 7px;border-radius:999px;
       background:rgba(221,243,246,0.62);border:1px solid rgba(31,166,181,0.12);
-      font-family:'Roboto Mono',monospace;font-size:8px;color:var(--deep-teal);letter-spacing:0.06em;text-transform:uppercase;
+      font-family:'Roboto Mono',monospace;font-size:7.5px;color:var(--deep-teal);letter-spacing:0.06em;text-transform:uppercase;
       width:max-content;
     }
-    .svc-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:var(--charcoal);letter-spacing:-0.02em;line-height:1.15;margin-top:7px;}
-    .svc-desc{font-family:'Inter',sans-serif;font-size:11.5px;color:#758892;margin-top:4px;line-height:1.46;max-width:100%;}
-    .svc-footer{display:flex;align-items:center;justify-content:flex-start;gap:12px;margin-top:9px;}
+    .svc-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;color:var(--charcoal);letter-spacing:-0.02em;line-height:1.08;margin-top:4px;}
+    .svc-desc{font-family:'Inter',sans-serif;font-size:10px;color:#7B8B93;margin-top:2px;line-height:1.3;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .svc-footer{display:flex;align-items:center;justify-content:flex-start;gap:10px;margin-top:6px;}
     .svc-cta{
       display:inline-flex;align-items:center;gap:6px;
       background:var(--white);color:var(--deep-teal);border:1px solid rgba(31,166,181,0.18);border-radius:999px;
-      padding:5px 10px;font-family:'Roboto Mono',monospace;font-size:9px;font-weight:500;
+      padding:4px 7px;font-family:'Roboto Mono',monospace;font-size:7.5px;font-weight:500;
       cursor:pointer;white-space:nowrap;
       box-shadow:none;
       transition:transform 0.15s ease,background 0.15s ease,border-color 0.15s ease,color 0.15s ease;
@@ -342,102 +332,140 @@
     .dash-empty-text{font-family:'Inter',sans-serif;font-size:14px;color:#A7B0B5;line-height:1.7;margin-bottom:20px;}
 
     /* ── Generator ── */
-    .gen-header{
-      padding:22px 28px 0;background:#fff;
-      border-bottom:1px solid rgba(238,239,240,0.80);flex-shrink:0;
-    }
-    .gen-header-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:16px;border-bottom:1px solid #F4F6F8;margin-bottom:16px;}
     .gen-title-wrap{}
-    .gen-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:20px;color:#1E2A2F;letter-spacing:-0.02em;}
-    .gen-sub{font-family:'Inter',sans-serif;font-size:13px;color:#A7B0B5;margin-top:3px;}
-    .gen-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:16px;}
+    .gen-header{
+      padding:20px 24px 18px;background:#FFFFFF;
+      border-bottom:1px solid #EEF3F5;flex-shrink:0;
+      display:flex;flex-direction:column;gap:14px;
+    }
+    .gen-header-main{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    .gen-kicker{font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:#93A4AC;margin-bottom:7px;}
+    .gen-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px;color:#1E2A2F;letter-spacing:-0.03em;line-height:1.1;}
+    .gen-sub{font-family:'Inter',sans-serif;font-size:13px;color:#6B7C86;margin-top:5px;line-height:1.6;max-width:620px;}
+    .gen-tabs{display:inline-flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:4px;background:#F3F8F9;border:1px solid #E6EFF1;border-radius:14px;width:max-content;max-width:100%;}
     .gen-tabs::-webkit-scrollbar{display:none;}
     .gen-tab{
-      display:flex;align-items:center;gap:7px;padding:9px 18px;border-radius:100px;
-      font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;
-      color:#A7B0B5;border:1.5px solid #E8EDEF;background:#fff;cursor:pointer;white-space:nowrap;
+      display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:10px;
+      font-family:'Roboto Mono',monospace;font-size:11px;font-weight:500;
+      color:#6B7C86;border:none;background:transparent;cursor:pointer;white-space:nowrap;
       transition:all 0.18s ease;
     }
-    .gen-tab:hover{color:#1E2A2F;border-color:rgba(31,166,181,0.25);}
-    .gen-tab.active{background:#1FA6B5;color:#fff;border-color:#1FA6B5;box-shadow:0 3px 12px rgba(31,166,181,0.30);}
+    .gen-tab:hover{color:#1E2A2F;background:rgba(255,255,255,0.68);}
+    .gen-tab.active{background:#FFFFFF;color:#0E8EA0;box-shadow:0 1px 2px rgba(19,32,40,0.06),0 8px 18px rgba(19,32,40,0.04);}
     .gen-tab.locked{opacity:0.40;cursor:not-allowed;}
-    .gen-body{display:flex;flex:1;overflow:hidden;}
+    .gen-body{display:grid;grid-template-columns:minmax(338px,392px) minmax(0,1fr);gap:18px;flex:1;overflow:hidden;background:#F7FAFB;padding:18px;}
     .gen-left{
-      width:320px;flex-shrink:0;overflow-y:auto;
-      border-right:1px solid rgba(238,239,240,0.80);background:#fff;
+      width:auto;flex-shrink:0;overflow-y:auto;background:transparent;border-right:none;padding-right:4px;
     }
-    .gen-left::-webkit-scrollbar{width:3px;}
-    .gen-left::-webkit-scrollbar-thumb{background:#EEF3F5;border-radius:2px;}
-    .gen-right{flex:1;overflow-y:auto;background:#F5F7F9;padding:24px;}
+    .gen-left::-webkit-scrollbar{width:4px;}
+    .gen-left::-webkit-scrollbar-thumb{background:#DDE6EA;border-radius:999px;}
+    .gen-right{flex:1;overflow-y:auto;background:transparent;padding:0;}
     .gen-right::-webkit-scrollbar{width:5px;}
     .gen-right::-webkit-scrollbar-thumb{background:#D0D8DC;border-radius:3px;}
-    .tab-content{display:none;padding:20px;flex-direction:column;gap:20px;}
+    .tab-content{display:none;padding:0;flex-direction:column;gap:14px;}
     .tab-content.active{display:flex;}
 
     /* Form components in left panel */
-    .form-sec{display:flex;flex-direction:column;gap:8px;}
-    .form-sec-title{font-family:'Roboto Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#A7B0B5;padding:0 0 6px;margin-bottom:2px;}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-    .form-field{display:flex;flex-direction:column;gap:5px;}
-    .form-label{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#1E2A2F;letter-spacing:0.01em;}
+    .form-sec{
+      display:flex;flex-direction:column;gap:10px;background:#FFFFFF;border:1px solid #EEF3F5;border-radius:18px;padding:16px;
+      box-shadow:0 1px 2px rgba(19,32,40,0.03),0 10px 24px rgba(19,32,40,0.03);
+    }
+    .form-sec-title{
+      font-family:'Roboto Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.10em;text-transform:uppercase;color:#6B7C86;
+      padding:0 0 10px;margin-bottom:2px;border-bottom:1px solid #F1F5F6;display:flex;align-items:center;gap:6px;
+    }
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .form-field{display:flex;flex-direction:column;gap:6px;}
+    .form-label{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:#1E2A2F;letter-spacing:0.01em;}
     .form-select,.form-input-text{
-      width:100%;padding:10px 12px;border:1.5px solid #E8EDEF;border-radius:10px;
-      background:#FAFCFC;font-family:'Inter',sans-serif;font-size:13px;color:#1E2A2F;
+      width:100%;padding:11px 12px;border:1px solid #E5ECEF;border-radius:12px;
+      background:#FFFFFF;font-family:'Inter',sans-serif;font-size:13px;color:#1E2A2F;
       outline:none;transition:border-color 0.18s ease,box-shadow 0.18s ease,background 0.18s ease;
       -webkit-appearance:none;appearance:none;
     }
-    .form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23A7B0B5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;}
+    .form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7C86' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;}
     .form-select:focus,.form-input-text:focus{border-color:#1FA6B5;background:#fff;box-shadow:0 0 0 3px rgba(31,166,181,0.10);}
     .custom-input{margin-top:6px;display:none;}
     .upload-grid{display:grid;gap:10px;}
     .upload-grid.col2{grid-template-columns:1fr 1fr;}
-    .upload-top-lbl{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#1E2A2F;margin-bottom:6px;}
+    .upload-top-lbl{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:#1E2A2F;margin-bottom:8px;}
     .upload-box{
-      border:2px dashed #D8E0E4;border-radius:14px;padding:20px 12px;
+      border:1.5px dashed #CCE1E5;border-radius:16px;padding:22px 16px;
       display:flex;flex-direction:column;align-items:center;justify-content:center;
-      gap:8px;cursor:pointer;background:#FAFCFC;
-      transition:border-color 0.18s ease,background 0.18s ease,transform 0.18s ease;min-height:110px;
+      gap:8px;cursor:pointer;background:linear-gradient(180deg,#FCFEFF 0%,#F8FCFD 100%);
+      transition:border-color 0.18s ease,background 0.18s ease;min-height:132px;
     }
-    .upload-box:hover{border-color:#1FA6B5;background:rgba(31,166,181,0.04);transform:border-color 0.18s;}
-    .upload-box.has-file{border-color:#1FA6B5;background:rgba(31,166,181,0.04);padding:6px;cursor:default;border-style:solid;}
-    .upload-box.has-file img{width:100%;height:100%;object-fit:cover;border-radius:8px;max-height:140px;}
-    .upload-icon-svg{color:#C4CDD2;}
-    .upload-label-txt{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:#A7B0B5;text-align:center;line-height:1.5;}
-    .upload-hint-txt{font-family:'Roboto Mono',monospace;font-size:9.5px;color:#C4CDD2;text-align:center;letter-spacing:0.03em;}
-    .upload-clear{position:absolute;top:6px;right:6px;width:22px;height:22px;border-radius:50%;background:rgba(239,68,68,0.88);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;line-height:1;}
+    .upload-box:hover{border-color:#1FA6B5;background:rgba(221,243,246,0.52);}
+    .upload-box.has-file{border-color:#1FA6B5;background:#FFFFFF;padding:8px;cursor:default;border-style:solid;}
+    .upload-box.has-file img{width:100%;height:100%;object-fit:cover;border-radius:12px;max-height:188px;}
+    .upload-icon-svg{color:#AFC0C7;}
+    .upload-label-txt{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#1E2A2F;text-align:center;line-height:1.4;}
+    .upload-hint-txt{font-family:'Roboto Mono',monospace;font-size:9px;color:#6B7C86;text-align:center;letter-spacing:0.03em;}
+    .upload-clear{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;background:rgba(239,68,68,0.88);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;line-height:1;}
     .upload-relative{position:relative;}
+    .form-helper{
+      margin-top:6px;padding:10px 12px;background:#F7FAFB;border:1px solid #E7EFF2;border-radius:12px;
+      font-family:'Inter',sans-serif;font-size:11px;color:#6B7C86;line-height:1.6;
+    }
+    .form-helper strong{color:#0E8EA0;font-weight:600;}
+    .mode-choice-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .mode-btn{
+      flex:1;padding:10px 0;border-radius:12px;border:1px solid #E5ECEF;cursor:pointer;
+      font-family:'Roboto Mono',monospace;font-size:11px;font-weight:500;color:#6B7C86;background:#F7FAFB;
+      transition:background 0.15s ease,color 0.15s ease,border-color 0.15s ease;
+    }
+    .mode-btn.active{background:rgba(221,243,246,0.78);color:#0E8EA0;border-color:rgba(31,166,181,0.18);box-shadow:none;}
     .btn-generate{
       display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
-      background:linear-gradient(135deg,#1FA6B5 0%,#0C8A9A 100%);color:#fff;
-      font-family:'Roboto Mono',monospace;font-size:13.5px;font-weight:500;letter-spacing:0.03em;
-      padding:15px 20px;border:none;border-radius:12px;cursor:pointer;
-      box-shadow:0 4px 16px rgba(31,166,181,0.38);
-      transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.2s ease;
+      background:linear-gradient(135deg,#1FA6B5 0%,#0E8EA0 100%);color:#fff;
+      font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.03em;
+      padding:14px 16px;border:none;border-radius:14px;cursor:pointer;
+      box-shadow:0 8px 20px rgba(31,166,181,0.28);
+      transition:transform 0.18s ease,box-shadow 0.18s ease;
     }
-    .btn-generate:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(31,166,181,0.48);}
+    .btn-generate:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(31,166,181,0.32);}
     .btn-generate:active{transform:translateY(0);}
     .btn-generate:disabled{opacity:0.55;cursor:not-allowed;transform:none;}
-    .gen-bottom{padding:18px 20px;border-top:1px solid rgba(238,239,240,0.80);background:#fff;flex-shrink:0;}
-
-    /* Mode toggle (Studio) */
-    .mode-toggle{display:flex;background:#F4F6F8;border-radius:10px;padding:3px;gap:3px;}
-    .mode-btn{
-      flex:1;padding:8px 10px;border-radius:8px;border:none;cursor:pointer;
-      font-family:'Roboto Mono',monospace;font-size:11px;font-weight:500;color:#A7B0B5;background:none;
-      transition:background 0.15s ease,color 0.15s ease,box-shadow 0.15s ease;
-    }
-    .mode-btn.active{background:#fff;color:#1FA6B5;box-shadow:0 1px 4px rgba(30,42,47,0.08);}
+    .gen-bottom{padding:14px;border:none;background:#FFFFFF;flex-shrink:0;border:1px solid #EEF3F5;border-radius:18px;box-shadow:0 1px 2px rgba(19,32,40,0.03);}
+    .count-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+    .count-label{font-size:10px;color:#6B7C86;font-family:'Roboto Mono',monospace;letter-spacing:0.04em;text-transform:uppercase;}
+    .count-option{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:#F7FAFB;border:1px solid #E5ECEF;font-size:11px;color:#6B7C86;cursor:pointer;}
+    .count-option input{accent-color:#1FA6B5;}
+    .count-reco{font-size:9px;color:#8EA0A8;font-family:'Roboto Mono',monospace;letter-spacing:0.04em;}
+    .gen-cta-note{margin-top:9px;font-family:'Inter',sans-serif;font-size:11px;color:#6B7C86;line-height:1.55;}
 
     /* Output panel */
+    .output-workspace{
+      background:#FFFFFF;border:1px solid #EEF3F5;border-radius:24px;padding:18px;min-height:100%;
+      box-shadow:0 1px 2px rgba(19,32,40,0.03),0 10px 24px rgba(19,32,40,0.03);
+    }
+    .output-workspace-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #F1F5F6;}
+    .output-workspace-kicker{font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:0.10em;text-transform:uppercase;color:#93A4AC;margin-bottom:6px;}
+    .output-workspace-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:18px;color:#1E2A2F;letter-spacing:-0.02em;}
+    .output-workspace-sub{font-family:'Inter',sans-serif;font-size:12.5px;color:#6B7C86;line-height:1.6;max-width:360px;margin-top:4px;}
+    .ratio-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:0;}
+    .ratio-bar-lbl{font-family:'Roboto Mono',monospace;font-size:9px;font-weight:500;color:#93A4AC;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;}
+    .ratio-btn-group{display:flex;gap:4px;flex-wrap:wrap;background:#F7FAFB;border:1px solid #E8EFF2;border-radius:12px;padding:4px;}
+    .ratio-btn{
+      font-family:'Roboto Mono',monospace;font-size:10px;font-weight:500;
+      padding:6px 10px;border-radius:8px;border:none;
+      background:transparent;color:#6B7C86;cursor:pointer;
+      transition:color 0.15s ease,background 0.15s ease,box-shadow 0.15s ease;
+    }
+    .ratio-btn:hover{color:#1E2A2F;background:#FFFFFF;}
+    .ratio-btn.active{background:#FFFFFF;color:#0E8EA0;box-shadow:0 1px 2px rgba(19,32,40,0.06);}
+    .output-stage{min-height:490px;border-radius:20px;padding:18px;background:linear-gradient(180deg,#FBFDFE 0%,#F8FBFC 100%);border:1px solid #EAF1F3;}
     .output-empty{
       display:flex;flex-direction:column;align-items:center;justify-content:center;
-      text-align:center;padding:40px 24px;min-height:360px;
+      text-align:center;padding:28px 16px;min-height:420px;
     }
     .output-empty-icon{margin-bottom:14px;}
-    .output-empty-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:17px;color:#1E2A2F;margin-bottom:6px;}
-    .output-empty-sub{font-family:'Inter',sans-serif;font-size:14px;color:#A7B0B5;line-height:1.7;max-width:300px;margin:0 auto 22px;}
-    .output-example-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:320px;margin:0 auto;opacity:0.30;}
-    .output-example-grid img{border-radius:12px;width:100%;aspect-ratio:4/5;object-fit:cover;}
+    .output-empty-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:18px;color:#1E2A2F;margin-bottom:6px;letter-spacing:-0.02em;}
+    .output-empty-sub{font-family:'Inter',sans-serif;font-size:13px;color:#6B7C86;line-height:1.7;max-width:360px;margin:0 auto 24px;}
+    .output-example-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:360px;margin:0 auto;}
+    .output-example-card{background:#FFFFFF;border:1px solid #EEF3F5;border-radius:16px;padding:10px;box-shadow:0 1px 2px rgba(19,32,40,0.03);}
+    .output-example-thumb{aspect-ratio:4/5;border-radius:12px;background:linear-gradient(180deg,#EEF7F8 0%,#F7FAFB 100%);border:1px solid #EAF1F3;}
+    .output-example-meta{height:9px;width:58%;border-radius:999px;background:#E7EEF1;margin-top:10px;}
     .output-loading-hdr{margin-bottom:16px;}
     .loading-badge{
       display:inline-flex;align-items:center;gap:8px;
@@ -446,65 +474,54 @@
       font-family:'Roboto Mono',monospace;font-size:11px;color:#1FA6B5;
     }
     .loading-dot{width:7px;height:7px;border-radius:50%;background:#1FA6B5;animation:pulseDot 1.2s ease-in-out infinite;}
-    .loading-sub{font-family:'Inter',sans-serif;font-size:13px;color:#A7B0B5;margin-top:8px;}
+    .loading-sub{font-family:'Inter',sans-serif;font-size:12px;color:#6B7C86;margin-top:8px;}
     .skeleton-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
     .skeleton-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid #EEF3F5;}
     .skeleton-img{aspect-ratio:4/5;background:linear-gradient(90deg,#EEF3F5 25%,#F4F6F8 50%,#EEF3F5 75%);background-size:400% 100%;animation:shimmer 1.6s infinite;}
     .skeleton-footer{padding:10px 12px;display:flex;justify-content:space-between;align-items:center;}
     .skeleton-bar{height:10px;background:#EEF3F5;border-radius:100px;animation:shimmer 1.6s infinite;background-size:400% 100%;}
     @keyframes shimmer{0%{background-position:100% 50%}100%{background-position:-100% 50%}}
-    .results-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+    .results-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:12px;flex-wrap:wrap;}
     .results-badge{
       display:inline-flex;align-items:center;gap:7px;
-      background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.18);
-      border-radius:100px;padding:6px 14px;
-      font-family:'Roboto Mono',monospace;font-size:11px;color:#10B981;
+      background:rgba(31,166,181,0.08);border:1px solid rgba(31,166,181,0.16);
+      border-radius:100px;padding:7px 14px;
+      font-family:'Roboto Mono',monospace;font-size:10.5px;color:#0E8EA0;
     }
     .output-grid-premium{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
-    .result-card{background:#fff;border-radius:16px;overflow:hidden;border:1px solid #EEF3F5;box-shadow:0 1px 4px rgba(30,42,47,0.04);}
+    .result-card{background:#fff;border-radius:18px;overflow:hidden;border:1px solid #EEF3F5;box-shadow:0 1px 3px rgba(19,32,40,0.04);}
     .result-img-wrap{position:relative;overflow:hidden;cursor:pointer;}
-    .ratio-bar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
-    .ratio-bar-lbl{font-family:'Roboto Mono',monospace;font-size:10px;font-weight:500;color:#A7B0B5;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap;}
-    .ratio-btn-group{display:flex;gap:6px;flex-wrap:wrap;}
-    .ratio-btn{
-      font-family:'Roboto Mono',monospace;font-size:11px;font-weight:500;
-      padding:5px 12px;border-radius:8px;border:1.5px solid #E2E8EA;
-      background:#fff;color:#A7B0B5;cursor:pointer;
-      transition:border-color 0.15s ease,color 0.15s ease,background 0.15s ease;
-    }
-    .ratio-btn:hover{border-color:#1FA6B5;color:#1FA6B5;}
-    .ratio-btn.active{border-color:#1FA6B5;background:#1FA6B5;color:#fff;}
     .result-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s ease;}
     .result-img-wrap:hover .result-img{transform:scale(1.04);}
     .result-overlay{
-      position:absolute;inset:0;background:rgba(14,26,32,0.45);
+      position:absolute;inset:0;background:rgba(14,26,32,0.42);
       display:flex;align-items:center;justify-content:center;
       opacity:0;transition:opacity 0.2s ease;
     }
     .result-img-wrap:hover .result-overlay{opacity:1;}
     .result-overlay-btn{
-      background:rgba(255,255,255,0.92);color:#1E2A2F;border:none;border-radius:9px;
-      padding:8px 14px;cursor:pointer;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;
+      background:rgba(255,255,255,0.94);color:#1E2A2F;border:none;border-radius:10px;
+      padding:8px 14px;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
       display:flex;align-items:center;gap:5px;
     }
-    .result-footer{padding:10px 12px;display:flex;align-items:center;justify-content:space-between;}
-    .result-label{font-family:'Roboto Mono',monospace;font-size:9.5px;color:#A7B0B5;letter-spacing:0.03em;}
-    .result-actions{display:flex;gap:6px;}
+    .result-footer{padding:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+    .result-label{font-family:'Roboto Mono',monospace;font-size:9px;color:#93A4AC;letter-spacing:0.04em;text-transform:uppercase;}
+    .result-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
     .result-btn{
-      display:flex;align-items:center;gap:5px;padding:6px 11px;border-radius:8px;border:1.5px solid #EEF3F5;
-      background:#fff;font-family:'Roboto Mono',monospace;font-size:10.5px;font-weight:500;color:#A7B0B5;cursor:pointer;
+      display:flex;align-items:center;gap:5px;padding:7px 10px;border-radius:9px;border:1px solid #E7EEF1;
+      background:#fff;font-family:'Roboto Mono',monospace;font-size:10px;font-weight:500;color:#6B7C86;cursor:pointer;
       transition:border-color 0.15s ease,color 0.15s ease,background 0.15s ease;
     }
-    .result-btn:hover{border-color:#1FA6B5;color:#1FA6B5;}
+    .result-btn:hover{border-color:#1FA6B5;color:#1FA6B5;background:rgba(221,243,246,0.30);}
     .result-btn-dl{background:#1FA6B5;color:#fff;border-color:#1FA6B5;}
-    .result-btn-dl:hover{background:#0E8EA0;border-color:#0E8EA0;}
+    .result-btn-dl:hover{background:#0E8EA0;border-color:#0E8EA0;color:#fff;}
     .btn-regen-all{
-      display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9px;
-      border:1.5px solid #EEF3F5;background:#fff;cursor:pointer;
-      font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;color:#1E2A2F;
+      display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;
+      border:1px solid #E7EEF1;background:#fff;cursor:pointer;
+      font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#1E2A2F;
       transition:border-color 0.15s ease,background 0.15s ease;
     }
-    .btn-regen-all:hover{border-color:#1FA6B5;background:rgba(31,166,181,0.04);}
+    .btn-regen-all:hover{border-color:#1FA6B5;background:rgba(221,243,246,0.40);}
 
     /* ── History ── */
     .hist-wrap{padding:32px 36px;}
@@ -627,9 +644,10 @@
       .svc-grid{grid-template-columns:1fr;}
       .dash-stats-row{grid-template-columns:1fr 1fr;}
       .recent-grid{grid-template-columns:repeat(3,1fr);}
-      .gen-body{flex-direction:column;height:auto;}
-      .gen-left{width:100%;border-right:none;border-bottom:1px solid #EEF3F5;}
+      .gen-body{grid-template-columns:1fr;height:auto;padding:16px;gap:16px;}
+      .gen-left{width:100%;border-right:none;padding-right:0;}
       .gen-right{height:auto;min-height:300px;}
+      .output-workspace{padding:16px;}
       .output-grid-premium{grid-template-columns:1fr 1fr;}
       #view-generator.active{height:auto;}
     }
@@ -644,6 +662,11 @@
       .form-row{grid-template-columns:1fr;}
       .svc-grid{grid-template-columns:1fr;}
       .svc-footer{align-items:flex-start;flex-direction:column;}
+      .gen-header{padding:18px 16px 14px;}
+      .gen-body{padding:14px;gap:14px;}
+      .output-workspace{padding:14px;}
+      .output-workspace-head{padding-bottom:12px;margin-bottom:12px;}
+      .output-stage{padding:14px;min-height:360px;}
     }
   </style>
 </head>
@@ -656,7 +679,7 @@
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><line x1="2" y1="5" x2="16" y2="5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="2" y1="9" x2="16" y2="9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="2" y1="13" x2="16" y2="13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
   </button>
   <a class="tb-logo" href="#" onclick="navigateTo('dashboard');return false;">
-    <span class="tb-logo-frame"><img src="brand_asset/Logo potretai.png" alt="PotretAI Studio" onerror="this.removeAttribute('alt');this.style.display='none'"></span>
+    <span class="tb-logo-frame"><img src="/assets/logo-potretai.png" alt="PotretAI" onerror="this.removeAttribute('alt');this.style.display='none'"></span>
   </a>
   <div class="tb-spacer"></div>
   <nav class="tb-nav">
@@ -702,9 +725,6 @@
 <!-- ═══════════ SIDEBAR DESKTOP ═══════════ -->
 <nav id="sidebar">
   <div class="sb-surface">
-    <div class="sb-panel-title">Workspace</div>
-    <div class="sb-panel-sub">Akses cepat ke dashboard, generator, dan riwayat hasil PotretAI.</div>
-
     <div class="sb-section-lbl">Menu</div>
     <button class="sb-item active" data-view="dashboard" onclick="navigateTo('dashboard')">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
@@ -765,7 +785,6 @@
 <!-- ═══════════ VIEW: DASHBOARD ═══════════ -->
 <section id="view-dashboard" class="view-section active">
 <div class="dash-wrap">
-  <div class="dash-overline">Dashboard</div>
 
   <!-- Premium Hero Banner -->
   <div class="dash-hero">
@@ -773,8 +792,8 @@
       <div class="dash-hero-panel">
         <div class="dash-hero-text">
           <div class="dash-hero-kicker">Premium AI Portrait Suite</div>
-          <div class="dash-hero-title">Studio Foto dan Wisuda AI dalam satu workspace yang lebih rapi.</div>
-          <div class="dash-hero-sub">Pilih layanan, unggah foto wajah, lalu hasilkan portrait premium dengan alur yang lebih cepat, lebih tenang, dan terasa seperti produk SaaS modern.</div>
+          <div class="dash-hero-title">Studio Foto dan Wisuda AI dalam satu workspace yang lebih ringkas.</div>
+          <div class="dash-hero-sub">Masuk ke generator, unggah foto, lalu mulai hasilkan portrait premium dengan alur yang lebih cepat.</div>
         </div>
         <div class="dash-hero-actions">
           <button class="dash-hero-cta" onclick="navigateTo('generator')">
@@ -799,46 +818,12 @@
     </div>
   </div>
 
-  <!-- Quick Stats Row -->
-  <div class="dash-stats-row">
-    <div class="stat-card">
-      <div class="stat-icon-wrap">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-      </div>
-      <div class="stat-info">
-        <div class="stat-label">Total Foto Dibuat</div>
-        <div class="stat-num" id="stat-total">4</div>
-        <div class="stat-meta">Akumulasi hasil yang sudah selesai dibuat bulan ini.</div>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon-wrap">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      </div>
-      <div class="stat-info">
-        <div class="stat-label">Sesi Terakhir</div>
-        <div class="stat-num" id="stat-last">Baru saja</div>
-        <div class="stat-meta">Aktivitas generator terbaru dari workspace akun ini.</div>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon-wrap">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      </div>
-      <div class="stat-info">
-        <div class="stat-label">Plan Aktif</div>
-        <div class="stat-num">Premium</div>
-        <div class="stat-meta">Akses penuh ke Studio Foto AI dan Wisuda AI.</div>
-      </div>
-    </div>
-  </div>
-
   <!-- Service Cards -->
   <div class="dash-section">
     <div class="dash-section-hdr">
       <div>
-        <div class="dash-section-title">Layanan AI</div>
-        <div class="dash-section-sub">Dua layanan utama dengan tampilan yang lebih ringkas dan seimbang.</div>
+        <div class="dash-section-title">Masuk ke Generator</div>
+        <div class="dash-section-sub">Pilih workspace utama untuk mulai membuat hasil foto AI.</div>
       </div>
     </div>
     <div class="svc-grid">
@@ -852,7 +837,7 @@
               </div>
             </div>
             <div class="svc-name">Studio Foto AI</div>
-            <div class="svc-desc">Portrait premium yang clean dan cepat untuk kebutuhan formal.</div>
+            <div class="svc-desc">Portrait premium yang clean untuk kebutuhan formal.</div>
             <div class="svc-footer">
               <button class="svc-cta" onclick="event.stopPropagation();navigateTo('generator','studio_foto')">
                 Buka Generator
@@ -872,7 +857,7 @@
               </div>
             </div>
             <div class="svc-name">Wisuda AI</div>
-            <div class="svc-desc">Portrait wisuda elegan dengan nuansa formal yang rapi.</div>
+            <div class="svc-desc">Portrait wisuda elegan dengan nuansa formal rapi.</div>
             <div class="svc-footer">
               <button class="svc-cta" onclick="event.stopPropagation();navigateTo('generator','wisuda')">
                 Buka Generator
@@ -881,6 +866,40 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Stats Row -->
+  <div class="dash-stats-row">
+    <div class="stat-card">
+      <div class="stat-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </div>
+      <div class="stat-info">
+        <div class="stat-label">Total Foto Dibuat</div>
+        <div class="stat-num" id="stat-total">4</div>
+        <div class="stat-meta">Hasil yang sudah selesai dibuat.</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="stat-info">
+        <div class="stat-label">Sesi Terakhir</div>
+        <div class="stat-num" id="stat-last">Baru saja</div>
+        <div class="stat-meta">Aktivitas generator paling baru.</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="stat-info">
+        <div class="stat-label">Plan Aktif</div>
+        <div class="stat-num">Premium</div>
+        <div class="stat-meta">Akses aktif untuk kedua layanan.</div>
       </div>
     </div>
   </div>
@@ -911,8 +930,13 @@
 
   <!-- Header + Tabs -->
   <div class="gen-header">
-    <div class="gen-title">AI Photo Generator</div>
-    <div class="gen-sub">Upload foto wajah, pilih gaya, dan generate 4 foto AI profesional dalam hitungan detik</div>
+    <div class="gen-header-main">
+      <div class="gen-title-wrap">
+        <div class="gen-kicker">Workspace Generator</div>
+        <div class="gen-title">Generator Foto AI</div>
+        <div class="gen-sub">Siapkan foto wajah, pilih detail yang dibutuhkan, lalu generate hasil premium langsung dari workspace ini.</div>
+      </div>
+    </div>
     <div class="gen-tabs" role="tablist">
       <button class="gen-tab active" data-tab="studio_foto" onclick="switchTab('studio_foto')" role="tab">Studio Foto AI</button>
       <button class="gen-tab"        data-tab="wisuda"      onclick="switchTab('wisuda')"       role="tab">Wisuda AI</button>
@@ -929,9 +953,9 @@
       <div class="tab-content" id="tab-wisuda">
         <div class="form-sec">
           <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mode</div>
-          <div style="display:flex;gap:8px;">
-            <button class="mode-btn active" id="ws-mode-btn-wanita" onclick="setWisudaMode('wanita',this)" style="flex:1;padding:9px 0;border-radius:10px;border:1.5px solid #1FA6B5;background:rgba(31,166,181,0.1);color:#0E8EA0;font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;">Wanita</button>
-            <button class="mode-btn" id="ws-mode-btn-pria" onclick="setWisudaMode('pria',this)" style="flex:1;padding:9px 0;border-radius:10px;border:1.5px solid #EEF3F5;background:#F9FAFB;color:#A7B0B5;font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;">Pria</button>
+          <div class="mode-choice-row">
+            <button class="mode-btn active" id="ws-mode-btn-wanita" onclick="setWisudaMode('wanita',this)">Wanita</button>
+            <button class="mode-btn" id="ws-mode-btn-pria" onclick="setWisudaMode('pria',this)">Pria</button>
           </div>
         </div>
         <div class="form-sec">
@@ -949,9 +973,7 @@
               </div>
             </div>
           </div>
-          <div style="margin-top:8px;padding:8px 10px;background:rgba(31,166,181,0.06);border-radius:8px;border:1px solid rgba(31,166,181,0.15);">
-            <p style="font-family:'Roboto Mono',monospace;font-size:9.5px;color:#0E8EA0;line-height:1.6;">✓ Foto solo wajah menghadap depan · ✓ Pencahayaan cukup · ✗ Foto grup</p>
-          </div>
+          <div class="form-helper"><strong>Gunakan foto solo</strong> dengan wajah menghadap depan, pencahayaan cukup, dan tanpa foto grup.</div>
         </div>
         <div class="form-sec">
           <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>Jenjang &amp; Penampilan</div>
@@ -1019,7 +1041,7 @@
         <option value="baroque_white_simple">Baroque Putih Simple — Armchair + Bunga Minimal</option>
         <option value="baroque_arch_window">Baroque Arch Window — Relung Jendela Klasik</option>
         <option value="baroque_pastel_flowers">Baroque Pastel Bunga — Meja + Kursi + Lilin</option>
-        <option value="baroque_full_flowers">Baroque Grand Full Bunga — Set Mewah Penuh ✨</option>
+        <option value="baroque_full_flowers">Baroque Grand Full Bunga — Set Mewah Penuh</option>
       </optgroup>
       <optgroup label="── WHITE PANEL MODERN KLASIK ──">
         <option value="white_wainscoting_flowers">White Wainscoting + Jendela + Bunga Putih</option>
@@ -1114,17 +1136,18 @@
           </div>
         </div>
         <div class="gen-bottom">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-            <span style="font-size:12px;color:var(--color-text-secondary);font-family:'Roboto Mono',monospace">Jumlah foto:</span>
-            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--color-text-secondary)"><input type="radio" name="photo-count-ws" value="2"> 2 foto</label>
-            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--color-text-primary);font-weight:500"><input type="radio" name="photo-count-ws" value="4" checked> 4 foto</label>
-            <span style="font-size:10px;color:var(--color-text-tertiary);font-family:'Roboto Mono',monospace">(direkomendasikan)</span>
+          <div class="count-row">
+            <span class="count-label">Jumlah foto</span>
+            <label class="count-option"><input type="radio" name="photo-count-ws" value="2"> 2 foto</label>
+            <label class="count-option"><input type="radio" name="photo-count-ws" value="4" checked> 4 foto</label>
+            <span class="count-reco">Direkomendasikan: 4 foto</span>
           </div>
           <button class="btn-generate" id="btn-gen-ws" onclick="startGenerate()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             <span id="btn-gen-ws-label">Generate 4 Foto Wisuda</span>
             <svg id="btn-gen-ws-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
           </button>
+          <div class="gen-cta-note">Hasil generate akan muncul di panel kanan setelah proses selesai.</div>
         </div>
       </div><!-- /tab-wisuda -->
 
@@ -1133,9 +1156,9 @@
 <!-- MODE TOGGLE -->
   <div class="form-sec">
     <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mode Studio</div>
-  <div style="display:flex;gap:8px;">
-    <button class="mode-btn active" id="sf-mode-btn-wanita" onclick="setStudioFotoMode('wanita',this)" style="flex:1;padding:9px 0;border-radius:10px;border:1.5px solid #1FA6B5;background:rgba(31,166,181,0.1);color:#0E8EA0;font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;">Wanita</button>
-    <button class="mode-btn" id="sf-mode-btn-pria" onclick="setStudioFotoMode('pria',this)" style="flex:1;padding:9px 0;border-radius:10px;border:1.5px solid #EEF3F5;background:#F9FAFB;color:#A7B0B5;font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;">Pria</button>
+  <div class="mode-choice-row">
+    <button class="mode-btn active" id="sf-mode-btn-wanita" onclick="setStudioFotoMode('wanita',this)">Wanita</button>
+    <button class="mode-btn" id="sf-mode-btn-pria" onclick="setStudioFotoMode('pria',this)">Pria</button>
   </div>
 </div>
 
@@ -1186,9 +1209,7 @@
       </select>
     </div>
   </div>
-  <div style="margin-top:6px;padding:7px 10px;background:rgba(31,166,181,0.06);border-radius:8px;border-left:3px solid #1FA6B5;">
-    <span id="sf-framing-hint" style="font-size:11px;font-family:'Roboto Mono',monospace;color:#0E8EA0;">Tip: Full Body menampilkan seluruh tubuh dari kepala hingga kaki</span>
-  </div>
+  <div class="form-helper"><strong id="sf-framing-hint">Tip: Full Body menampilkan seluruh tubuh dari kepala hingga kaki</strong></div>
 </div>
 
 <!-- BACKGROUND -->
@@ -1335,17 +1356,18 @@
 
 <!-- GENERATE BUTTON -->
 <div class="gen-bottom">
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-    <span style="font-size:12px;color:var(--color-text-secondary);font-family:'Roboto Mono',monospace">Jumlah foto:</span>
-    <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--color-text-secondary)"><input type="radio" name="photo-count-sf" value="2"> 2 foto</label>
-    <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--color-text-primary);font-weight:500"><input type="radio" name="photo-count-sf" value="4" checked> 4 foto</label>
-    <span style="font-size:10px;color:var(--color-text-tertiary);font-family:'Roboto Mono',monospace">(direkomendasikan)</span>
+  <div class="count-row">
+    <span class="count-label">Jumlah foto</span>
+    <label class="count-option"><input type="radio" name="photo-count-sf" value="2"> 2 foto</label>
+    <label class="count-option"><input type="radio" name="photo-count-sf" value="4" checked> 4 foto</label>
+    <span class="count-reco">Direkomendasikan: 4 foto</span>
   </div>
   <button class="btn-generate" id="btn-gen-sf" onclick="startGenerate()">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
     <span id="btn-gen-sf-label">Generate 4 Foto Studio</span>
     <svg id="btn-gen-sf-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
   </button>
+  <div class="gen-cta-note">Setelah generate berjalan, preview hasil muncul di area kanan.</div>
 </div>
 </div><!-- /tab-studio_foto -->
 
@@ -1353,55 +1375,59 @@
 
     <!-- RIGHT PANEL: Output -->
     <div class="gen-right" id="gen-output-panel">
-
-      <!-- Aspect Ratio Selector -->
-      <div class="ratio-bar">
-        <span class="ratio-bar-lbl">Rasio Foto</span>
-        <div class="ratio-btn-group">
-          <button class="ratio-btn active" data-ratio="4:5" data-w="1024" data-h="1280" onclick="setRatio(this)">4:5</button>
-          <button class="ratio-btn" data-ratio="2:3" data-w="1024" data-h="1536" onclick="setRatio(this)">2:3</button>
-          <button class="ratio-btn" data-ratio="9:16" data-w="1024" data-h="1820" onclick="setRatio(this)">9:16</button>
-          <button class="ratio-btn" data-ratio="16:9" data-w="1536" data-h="1024" onclick="setRatio(this)">16:9</button>
-          <button class="ratio-btn" data-ratio="1:1" data-w="1024" data-h="1024" onclick="setRatio(this)">1:1</button>
-        </div>
-      </div>
-
-      <!-- Empty state -->
-      <div id="output-empty">
-        <div class="output-empty">
-          <div class="output-empty-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C4CDD2" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
-          <div class="output-empty-title">Siap untuk generate</div>
-          <div class="output-empty-sub">Isi form di sebelah kiri, lalu klik "Generate 4 Foto" — hasil dalam 15–30 detik.</div>
-          <div class="output-example-grid">
-            <img src="https://placehold.co/260x325/1FA6B5/FFFFFF?text=" alt="" loading="lazy" style="border-radius:10px;">
-            <img src="https://placehold.co/260x325/0E8EA0/FFFFFF?text=" alt="" loading="lazy" style="border-radius:10px;">
-            <img src="https://placehold.co/260x325/1E2A2F/1FA6B5?text=" alt="" loading="lazy" style="border-radius:10px;">
-            <img src="https://placehold.co/260x325/0D1E25/1FA6B5?text=" alt="" loading="lazy" style="border-radius:10px;">
+      <div class="output-workspace">
+        <div class="output-workspace-head">
+          <div>
+            <div class="output-workspace-kicker">Area Preview</div>
+            <div class="output-workspace-title">Hasil Generate</div>
+            <div class="output-workspace-sub">Panel ini menjadi tempat hasil portrait muncul, ditinjau, lalu diunduh setelah proses selesai.</div>
+          </div>
+          <div class="ratio-bar">
+            <span class="ratio-bar-lbl">Rasio Foto</span>
+            <div class="ratio-btn-group">
+              <button class="ratio-btn active" data-ratio="4:5" data-w="1024" data-h="1280" onclick="setRatio(this)">4:5</button>
+              <button class="ratio-btn" data-ratio="2:3" data-w="1024" data-h="1536" onclick="setRatio(this)">2:3</button>
+              <button class="ratio-btn" data-ratio="9:16" data-w="1024" data-h="1820" onclick="setRatio(this)">9:16</button>
+              <button class="ratio-btn" data-ratio="16:9" data-w="1536" data-h="1024" onclick="setRatio(this)">16:9</button>
+              <button class="ratio-btn" data-ratio="1:1" data-w="1024" data-h="1024" onclick="setRatio(this)">1:1</button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Loading state (skeleton shimmer) -->
-      <div id="output-loading" style="display:none;">
-        <div class="output-loading-hdr">
-          <div class="loading-badge"><span class="loading-dot"></span> Sedang memproses AI... <span id="gen-elapsed" style="font-family:'Roboto Mono',monospace;font-size:11px;opacity:0.75;margin-left:4px;">0s</span></div>
-          <div class="loading-sub" id="gen-status-msg">Mengirim ke AI server...</div>
+        <!-- Empty state -->
+        <div id="output-empty" class="output-stage">
+          <div class="output-empty">
+            <div class="output-empty-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#AFC0C7" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+            <div class="output-empty-title">Preview siap digunakan</div>
+            <div class="output-empty-sub">Pilih layanan, lengkapi form di kiri, lalu klik tombol generate untuk melihat hasil premium di panel ini.</div>
+            <div class="output-example-grid">
+              <div class="output-example-card"><div class="output-example-thumb"></div><div class="output-example-meta"></div></div>
+              <div class="output-example-card"><div class="output-example-thumb"></div><div class="output-example-meta"></div></div>
+            </div>
+          </div>
         </div>
-        <div class="skeleton-grid">
-          <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-footer"><div class="skeleton-bar" style="width:70px;"></div><div class="skeleton-bar" style="width:50px;"></div></div></div>
-          <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-footer"><div class="skeleton-bar" style="width:60px;"></div><div class="skeleton-bar" style="width:55px;"></div></div></div>
+
+        <!-- Loading state (skeleton shimmer) -->
+        <div id="output-loading" class="output-stage" style="display:none;">
+          <div class="output-loading-hdr">
+            <div class="loading-badge"><span class="loading-dot"></span> Sedang memproses AI... <span id="gen-elapsed" style="font-family:'Roboto Mono',monospace;font-size:11px;opacity:0.75;margin-left:4px;">0s</span></div>
+            <div class="loading-sub" id="gen-status-msg">Menyiapkan hasil preview premium...</div>
+          </div>
+          <div class="skeleton-grid">
+            <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-footer"><div class="skeleton-bar" style="width:70px;"></div><div class="skeleton-bar" style="width:50px;"></div></div></div>
+            <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-footer"><div class="skeleton-bar" style="width:60px;"></div><div class="skeleton-bar" style="width:55px;"></div></div></div>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div id="output-results" class="output-stage" style="display:none;">
+          <div class="results-hdr">
+            <div class="results-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 4 foto berhasil dibuat</div>
+            <button class="btn-regen-all" onclick="startGenerate()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Generate Ulang</button>
+          </div>
+          <div class="output-grid-premium" id="results-grid"></div>
         </div>
       </div>
-
-      <!-- Results -->
-      <div id="output-results" style="display:none;">
-        <div class="results-hdr">
-          <div class="results-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 4 foto berhasil dibuat</div>
-          <button class="btn-regen-all" onclick="startGenerate()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Generate Ulang</button>
-        </div>
-        <div class="output-grid-premium" id="results-grid"></div>
-      </div>
-
     </div><!-- /gen-right -->
   </div><!-- /gen-body -->
 
@@ -1485,7 +1511,7 @@
 <nav id="sidebar-mobile">
   <div class="sb-logo">
     <div style="display:flex;align-items:center;gap:8px;">
-      <img src="brand_asset/Logo potretai.png" alt="PotretAI" style="height:28px;width:auto;">
+      <img src="/assets/logo-potretai.png" alt="PotretAI" onerror="this.removeAttribute('alt');this.style.display='none'" style="height:28px;width:auto;">
       <div>
         <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;color:#1E2A2F;">PotretAI</div>
         <div style="font-family:'Roboto Mono',monospace;font-size:8px;color:#A7B0B5;">Studio &middot; Wisuda AI</div>
@@ -2273,7 +2299,7 @@ const FalEngine = {
 
   // Generate 4 solo photos via flux-pulid
   async generateSolo(prompt, faceUrl, count = 4) {
-    showToast(`🎨 AI sedang membuat ${count} foto...`, 'info');
+    showToast(`AI sedang membuat ${count} foto...`, 'info');
     const res = await fetch(`${WORKER_URL}/generate-pulid`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
