@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(open \"https://2ffab93b.potretai.pages.dev/app.html\")",
+      "Bash(open \"https://3984d7c1.potretai.pages.dev/app.html\")",
+      "Bash(open \"https://potretai.pages.dev/app.html\")",
+      "Bash(open \"https://2c3dcd35.potretai.pages.dev/app.html\")",
+      "Bash(find '/Users/dellasmarasut/Documents/WEB APP SaaS/PotretAIv3' -name *.env* -o -name .env)",
+      "Bash(curl -s -X POST \"https://potretai-worker.potretaiv3.workers.dev/generate-pulid\" -H \"Content-Type: application/json\" -H \"Origin: http://localhost:3000\" -d '{:*)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(''''success:'''', d.get\\(''''success''''\\)\\); print\\(''''urls:'''', [u[:80] for u in d.get\\(''''urls'''',[]\\)]\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\({k:v for k,v in d.items\\(\\) if k!=''''_debug''''}, indent=2\\)\\)\")",
+      "Bash(curl -s -X POST \"https://potretai-worker.potretaiv3.workers.dev/faceswap\" -H \"Content-Type: application/json\" -H \"Origin: http://localhost:3000\" -d '{:*)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(''''success:'''', d.get\\(''''success''''\\)\\); print\\(''''url:'''', str\\(d.get\\(''''url'''',''''''''\\)\\)[:80]\\); print\\(''''fallback:'''', d.get\\(''''fallback''''\\)\\)\")",
+      "Bash(curl -s -X POST \"https://potretai-worker.potretaiv3.workers.dev/faceswap\" -H \"Content-Type: application/json\" -H \"Origin: http://localhost:3000\" -d '{\"\"\"\"target_image_url\"\"\"\":\"\"\"\"https://v3b.fal.media/files/b/0a926445/3avHQQ5d3yV5UeGX43W9v_gen.jpg\"\"\"\",\"\"\"\"source_image_url\"\"\"\":\"\"\"\"https://pub-2b8bbe46f96a4d1ea50e97abec049c98.r2.dev/faces/daafaaeb-e6b4-4708-8ce9-f8e79f36e560.jpg\"\"\"\"}')",
+      "Bash(open \"https://77dd1369.potretai.pages.dev/app.html\")",
+      "Bash(python3 -c \":*)",
+      "Bash(open \"https://352dcf01.potretai.pages.dev/app.html\")",
+      "Bash(python3 -m json.tool)",
+      "Bash(open \"https://d56f1a9f.potretai.pages.dev/app.html\")",
+      "Bash(open \"https://94e36833.potretai.pages.dev/app.html\")",
+      "Bash(curl -s --max-time 50 -X POST \"https://potretai-worker.potretaiv3.workers.dev/faceswap\" -H \"Content-Type: application/json\" -H \"Origin: http://localhost:3000\" -d '{:*)",
+      "Bash(open \"https://6255b9e4.potretai.pages.dev/app.html\")",
+      "Bash(open \"https://cb90f02c.potretai.pages.dev/app.html\")",
+      "Bash(ping -c 3 cloudflare.com)",
+      "Bash(open \"/Users/dellasmarasut/Documents/WEB APP SaaS/PotretAIv3/frontend/app.html\")",
+      "Bash(open \"https://0d7ac52e.potretai.pages.dev/app.html\")",
+      "Bash(open http://localhost:3000)",
+      "Bash(open \"http://localhost:3000/app.html\")",
+      "Bash(ls /Users/dellasmarasut/Documents/WEB APP SaaS/PotretAIv3/*.*)",
+      "Bash(node -e \":*)",
+      "Bash(grep -n \"if \\(tab === ''studio_foto''\\)\" \"/Users/dellasmarasut/Documents/WEB APP SaaS/PotretAIv3/frontend/app.html\")",
+      "Bash(python3 -:*)",
+      "Bash(wrangler deploy:*)"
+    ]
+  }
+}

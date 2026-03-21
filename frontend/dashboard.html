@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard — PotretAI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'ai-teal':    '#1FA6B5',
+            'deep-teal':  '#0E8EA0',
+            'charcoal':   '#1E2A2F',
+            'soft-grey':  '#A7B0B5',
+            'light-grey': '#EEF3F5',
+            'coral':      '#FF7A5A',
+          },
+          fontFamily: {
+            display: ['Montserrat', 'sans-serif'],
+            body:    ['Inter', 'sans-serif'],
+            mono:    ['Roboto Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Global ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      font-family: Inter, sans-serif;
+      background: #1E2A2F;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* ── Topbar ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(30,42,47,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(31,166,181,.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 60px;
+    }
+    .topbar-logo {
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none;
+    }
+    .topbar-logo img  { height: 32px; }
+    .topbar-logo span {
+      font-family: Montserrat, sans-serif;
+      font-weight: 700; font-size: 1.05rem;
+      color: #1FA6B5;
+    }
+    .topbar-nav { display: flex; gap: 8px; align-items: center; }
+    .nav-link {
+      color: #A7B0B5; text-decoration: none; font-size: .85rem;
+      padding: 6px 14px; border-radius: 6px; font-weight: 500;
+      transition: color .2s, background .2s;
+    }
+    .nav-link:hover { color: #fff; background: rgba(31,166,181,.1); }
+    .nav-link.active { color: #1FA6B5; }
+    .btn-generate {
+      background: #1FA6B5; color: #fff; text-decoration: none;
+      padding: 8px 18px; border-radius: 8px; font-size: .85rem; font-weight: 600;
+      transition: background .2s cubic-bezier(.34,1.56,.64,1), transform .15s;
+    }
+    .btn-generate:hover { background: #0E8EA0; transform: translateY(-1px); }
+
+    /* ── Main layout ── */
+    .main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+
+    /* ── Section headers ── */
+    .section-title {
+      font-family: Montserrat, sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: #fff; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-title span { color: #1FA6B5; }
+
+    /* ── Credit Card ── */
+    .credit-card {
+      background: linear-gradient(135deg, #1FA6B5 0%, #0E8EA0 100%);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      box-shadow:
+        0 4px 14px rgba(31,166,181,.35),
+        0 1px 3px rgba(31,166,181,.2);
+    }
+    @media (max-width: 640px) {
+      .credit-card { grid-template-columns: 1fr 1fr; }
+    }
+    .credit-item__label {
+      font-size: .75rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .08em;
+      color: rgba(255,255,255,.7); margin-bottom: 4px;
+    }
+    .credit-item__value {
+      font-family: Montserrat, sans-serif;
+      font-size: 1.6rem; font-weight: 800; color: #fff;
+    }
+    .credit-item__value.plan {
+      font-size: 1.1rem; font-weight: 700;
+      background: rgba(255,255,255,.15);
+      display: inline-block; padding: 4px 14px;
+      border-radius: 20px;
+    }
+    .credit-item__sub {
+      font-size: .78rem; color: rgba(255,255,255,.6); margin-top: 2px;
+    }
+
+    /* ── History grid ── */
+    .history-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── History card ── */
+    .history-card {
+      background: #253238;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid rgba(14,142,160,.15);
+      transition: border-color .2s, transform .2s cubic-bezier(.34,1.56,.64,1),
+                  box-shadow .2s;
+    }
+    .history-card:hover {
+      border-color: #1FA6B5;
+      transform: translateY(-3px);
+      box-shadow:
+        0 4px 14px rgba(31,166,181,.2),
+        0 1px 3px rgba(31,166,181,.1);
+    }
+    .history-card__img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: #1E2A2F;
+      overflow: hidden;
+    }
+    .history-card__img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .3s ease;
+    }
+    .history-card:hover .history-card__img-wrap img {
+      transform: scale(1.04);
+    }
+    .history-card__body {
+      padding: 12px 14px 14px;
+    }
+    .history-card__date {
+      display: block;
+      font-size: .72rem; color: #A7B0B5;
+      margin-bottom: 10px; font-family: 'Roboto Mono', monospace;
+    }
+    .history-card__actions {
+      display: flex; gap: 8px;
+    }
+    .history-card__btn {
+      flex: 1; text-align: center;
+      padding: 7px 8px; border-radius: 7px;
+      font-size: .76rem; font-weight: 600;
+      text-decoration: none;
+      transition: background .2s, transform .15s cubic-bezier(.34,1.56,.64,1);
+    }
+    .history-card__btn--primary {
+      background: #1FA6B5; color: #fff;
+    }
+    .history-card__btn--primary:hover  { background: #0E8EA0; transform: translateY(-1px); }
+    .history-card__btn--secondary {
+      background: #1E2A2F; color: #A7B0B5;
+      border: 1.5px solid #2E3E45;
+    }
+    .history-card__btn--secondary:hover { border-color: #1FA6B5; color: #1FA6B5; }
+
+    /* ── Skeleton loading ── */
+    .skeleton-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .skeleton-card {
+      background: #253238;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .skeleton-img {
+      width: 100%; aspect-ratio: 4/5;
+      background: linear-gradient(90deg, #2a3940 25%, #324048 50%, #2a3940 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+    .skeleton-body { padding: 12px 14px 14px; }
+    .skeleton-line {
+      height: 10px; border-radius: 5px; margin-bottom: 8px;
+      background: linear-gradient(90deg, #2a3940 25%, #324048 50%, #2a3940 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+    .skeleton-line.short { width: 60%; }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ── Empty state ── */
+    .history-empty {
+      display: none;
+      flex-direction: column; align-items: center; justify-content: center;
+      padding: 60px 20px; text-align: center; gap: 12px;
+      background: #253238; border-radius: 16px;
+      border: 1.5px dashed rgba(31,166,181,.25);
+    }
+    .history-empty__icon { font-size: 2.5rem; opacity: .4; }
+    .history-empty__title {
+      font-family: Montserrat, sans-serif;
+      font-size: 1rem; font-weight: 700; color: #fff;
+    }
+    .history-empty__sub { font-size: .85rem; color: #A7B0B5; }
+    .history-empty__cta {
+      margin-top: 8px;
+      background: #1FA6B5; color: #fff;
+      padding: 10px 24px; border-radius: 8px;
+      text-decoration: none; font-weight: 600; font-size: .875rem;
+      transition: background .2s;
+    }
+    .history-empty__cta:hover { background: #0E8EA0; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Topbar ── -->
+  <header class="topbar">
+    <a class="topbar-logo" href="app.html">
+      <img src="assets/Logo_potretai.png" alt="PotretAI logo"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span style="display:none">PotretAI</span>
+      <span>PotretAI</span>
+    </a>
+    <nav class="topbar-nav">
+      <a class="nav-link active" href="dashboard.html">Dashboard</a>
+      <a class="nav-link" href="app.html">Generate</a>
+      <a class="nav-link" href="login-masuk.html">Keluar</a>
+      <a class="btn-generate" href="app.html">✦ Generate Foto</a>
+    </nav>
+  </header>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- Credit balance -->
+    <div class="section-title">
+      <span>✦</span> Paket & Kredit Kamu
+    </div>
+    <div class="credit-card">
+      <div class="credit-item">
+        <div class="credit-item__label">Paket Aktif</div>
+        <div class="credit-item__value plan" id="credit-plan">—</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-item__label">Generate Tersisa</div>
+        <div class="credit-item__value" id="credit-remaining">—</div>
+        <div class="credit-item__sub">generasi</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-item__label">Akses Kategori</div>
+        <div class="credit-item__value" style="font-size:.85rem;font-weight:600;margin-top:4px;" id="credit-categories">—</div>
+      </div>
+    </div>
+
+    <!-- Generation history -->
+    <div class="section-title">
+      <span>🖼</span> Riwayat Generate
+    </div>
+
+    <!-- Skeleton (shown while loading) -->
+    <div class="skeleton-grid" id="history-loading">
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line"></div></div></div>
+      <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line"></div></div></div>
+    </div>
+
+    <!-- Empty state -->
+    <div class="history-empty" id="history-empty">
+      <div class="history-empty__icon">📷</div>
+      <div class="history-empty__title">Belum ada riwayat generate</div>
+      <div class="history-empty__sub">Buat foto AI pertama kamu sekarang!</div>
+      <a class="history-empty__cta" href="app.html">✦ Generate Foto Sekarang</a>
+    </div>
+
+    <!-- History cards injected here -->
+    <div class="history-grid" id="history-grid"></div>
+
+  </main>
+
+  <script type="module">
+    import { loadUserHistory, loadUserCredit } from './js/historyHandler.js';
+
+    // ── Get user_id from session/localStorage ────────────────────────────────
+    // In production this comes from your auth system (JWT, session cookie, etc.)
+    // For now, read from localStorage where app.html stores it after login.
+    const user_id = localStorage.getItem('potretai_user_id') || '';
+
+    if (!user_id) {
+      // Not logged in — redirect to login
+      window.location.href = 'login-masuk.html';
+    } else {
+      // Load credit and history in parallel
+      loadUserCredit(user_id);
+      loadUserHistory(user_id);
+    }
+  </script>
+
+</body>
+</html>

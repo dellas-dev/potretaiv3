@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Masuk ke PotretAI Studio — Lanjutkan generate foto AI profesional kamu.">
+  <title>Masuk — PotretAI Studio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { height: 100%; }
+    body {
+      font-family: 'Inter', sans-serif; color: #1E2A2F; background: #fff;
+      display: flex; height: 100vh; overflow: hidden;
+    }
+
+    /* ── Left panel ── */
+    .left-panel {
+      width: 56%; flex-shrink: 0; height: 100vh; overflow: hidden; position: relative;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 5%,  rgba(31,166,181,0.40) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 55% at 88% 90%, rgba(14,142,160,0.32) 0%, transparent 52%),
+        radial-gradient(ellipse 50% 80% at 50% 50%, rgba(10,24,30,0.20)   0%, transparent 70%),
+        linear-gradient(152deg, #0A1A20 0%, #1E2A2F 55%, #071219 100%);
+    }
+    .left-panel::before {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+    }
+    .left-panel::after {
+      content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 1px; z-index: 10;
+      background: linear-gradient(180deg, transparent, rgba(31,166,181,0.4) 40%, rgba(31,166,181,0.4) 60%, transparent);
+    }
+    .left-content {
+      position: relative; z-index: 2; height: 100%;
+      display: flex; flex-direction: column; padding: 36px 48px 36px 52px;
+    }
+
+    /* ── Right panel ── */
+    .right-panel {
+      flex: 1; height: 100vh; overflow-y: auto;
+      display: flex; flex-direction: column; background: #fff;
+    }
+    .right-panel::-webkit-scrollbar { width: 4px; }
+    .right-panel::-webkit-scrollbar-thumb { background: #EEF3F5; border-radius: 2px; }
+    .right-inner {
+      flex: 1; display: flex; flex-direction: column; justify-content: center;
+      padding: 52px 56px; max-width: 460px; width: 100%; margin: 0 auto;
+    }
+
+    /* ── Buttons ── */
+    .btn-teal {
+      display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+      background: linear-gradient(135deg, #1FA6B5 0%, #0C8A9A 100%);
+      color: #fff; font-family: 'Roboto Mono', monospace; font-size: 13.5px; font-weight: 500;
+      letter-spacing: 0.025em; padding: 15px 20px; border: none; border-radius: 12px; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(31,166,181,0.40), 0 1px 4px rgba(31,166,181,0.22);
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
+    }
+    .btn-teal:hover   { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(31,166,181,0.50); }
+    .btn-teal:active  { transform: translateY(0); }
+    .btn-teal:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn-teal:focus-visible { outline: 3px solid rgba(31,166,181,0.5); outline-offset: 3px; }
+
+    .btn-google {
+      display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+      background: #fff; color: #1E2A2F;
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500;
+      padding: 14px 20px; border-radius: 12px; cursor: pointer;
+      border: 1.5px solid #E2E8EA;
+      box-shadow: 0 1px 4px rgba(30,42,47,0.07);
+      transition: background 0.18s ease, border-color 0.18s ease,
+                  transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
+    }
+    .btn-google:hover   { background: #F7FAFA; border-color: #B8C8CC; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(30,42,47,0.10); }
+    .btn-google:active  { transform: translateY(0); }
+    .btn-google:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-google:focus-visible { outline: 3px solid rgba(31,166,181,0.4); outline-offset: 3px; }
+
+    /* ── Form ── */
+    .form-label { font-size: 12.5px; font-weight: 600; color: #1E2A2F; letter-spacing: 0.02em; margin-bottom: 6px; display: block; }
+    .input-wrap { position: relative; }
+    .input-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: #C4CDD2; pointer-events: none; display: flex; align-items: center;
+      transition: color 0.2s ease;
+    }
+    .input-wrap:focus-within .input-icon { color: #1FA6B5; }
+    .form-input {
+      width: 100%; padding: 13px 44px 13px 42px;
+      border: 1.5px solid #E8EDEF; border-radius: 10px; background: #F9FBFB;
+      font-family: 'Inter', sans-serif; font-size: 14px; color: #1E2A2F; outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .form-input::placeholder { color: #C4CDD2; }
+    .form-input:focus { border-color: #1FA6B5; background: #fff; box-shadow: 0 0 0 3px rgba(31,166,181,0.13); }
+    .form-input.is-error { border-color: #EF4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.10); }
+
+    .pw-toggle {
+      position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: #C4CDD2; padding: 4px;
+      display: flex; align-items: center; transition: color 0.15s ease;
+    }
+    .pw-toggle:hover { color: #1FA6B5; }
+
+    .field-err { font-size: 11.5px; color: #EF4444; margin-top: 5px; display: none; align-items: center; gap: 4px; }
+    .field-err.show { display: flex; }
+
+    /* ── Divider ── */
+    .or-line {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 11.5px; color: #C4CDD2; margin: 20px 0;
+    }
+    .or-line::before, .or-line::after { content: ''; flex: 1; height: 1px; background: #EEF3F5; }
+
+    /* ── Tag pill ── */
+    .tag-dark {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(31,166,181,0.14); color: #1FA6B5;
+      font-family: 'Roboto Mono', monospace; font-size: 9.5px; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 4px 11px; border-radius: 100px; border: 1px solid rgba(31,166,181,0.22);
+    }
+
+    /* ── Photo cards ── */
+    .pcard {
+      border-radius: 16px; overflow: hidden; position: relative;
+      border: 1.5px solid rgba(255,255,255,0.07);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.20), 0 20px 40px rgba(0,0,0,0.22);
+    }
+    .pcard-label {
+      position: absolute; bottom: 9px; left: 9px;
+      font-family: 'Roboto Mono', monospace; font-size: 8.5px; font-weight: 500;
+      color: #fff; letter-spacing: 0.04em;
+      background: rgba(31,166,181,0.72); backdrop-filter: blur(8px);
+      padding: 3px 8px; border-radius: 100px;
+    }
+
+    /* ── Animations ── */
+    @keyframes floatA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-11px)} }
+    @keyframes floatB { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}  }
+    @keyframes floatC { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-13px)} }
+    .fa { animation: floatA 7.0s ease-in-out infinite; }
+    .fb { animation: floatB 5.5s ease-in-out infinite; animation-delay: -2.8s; }
+    .fc { animation: floatC 6.5s ease-in-out infinite; animation-delay: -1.4s; }
+
+    @keyframes pulseDot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.45;transform:scale(0.6)} }
+    .pulse { animation: pulseDot 2.2s ease-in-out infinite; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinning { animation: spin 0.75s linear infinite; }
+
+    /* ── Success ── */
+    #success-view { display: none; flex-direction: column; align-items: center; text-align: center; padding: 16px 0; gap: 0; }
+    @keyframes popIn    { from{transform:scale(0.4);opacity:0} to{transform:scale(1);opacity:1} }
+    @keyframes drawCheck { to { stroke-dashoffset: 0; } }
+    #s-circle { animation: popIn 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+    #s-check  { stroke-dasharray: 40; stroke-dashoffset: 40; animation: drawCheck 0.38s 0.32s ease forwards; }
+
+    /* ── Mobile ── */
+    @media (max-width: 767px) {
+      html, body { height: auto; overflow: auto; }
+      .left-panel { display: none; }
+      .right-panel { height: auto; overflow-y: visible; }
+      .right-inner { padding: 36px 24px; max-width: 100%; justify-content: flex-start; }
+      #mobile-logo { display: block !important; }
+      #back-link   { display: none !important; }
+    }
+    @media (min-width: 768px) and (max-width: 1100px) {
+      .left-panel { width: 46%; }
+      .left-content { padding: 32px 36px; }
+      .right-inner { padding: 44px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════ LEFT PANEL ════════════════ -->
+<div class="left-panel">
+  <div class="left-content">
+
+    <!-- Logo -->
+    <a href="index.html" style="display:block;margin-bottom:auto;">
+      <img src="brand_asset/Logo potretai.png" alt="PotretAI"
+        style="height:34px;width:auto;filter:brightness(0) invert(1);opacity:0.90;">
+    </a>
+
+    <!-- Center content -->
+    <div style="padding:28px 0 24px;">
+
+      <div class="tag-dark" style="margin-bottom:20px;">
+        <div class="pulse" style="width:6px;height:6px;background:#FF7A5A;border-radius:50%;flex-shrink:0;"></div>
+        Founding Member &middot; Sisa 73 dari 100 Slot
+      </div>
+
+      <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;
+                 font-size:clamp(24px,2.5vw,38px);line-height:1.13;
+                 letter-spacing:-0.03em;color:#fff;margin-bottom:13px;">
+        Selamat datang<br>
+        <span style="background:linear-gradient(125deg,#1FA6B5 0%,#64D9E6 100%);
+                     -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+                     background-clip:text;">kembali ke studio</span>
+      </h1>
+
+      <p style="font-family:'Inter',sans-serif;font-size:14px;
+                color:rgba(167,176,181,0.70);line-height:1.78;
+                max-width:320px;margin-bottom:28px;">
+        Lanjutkan membuat foto prewedding, wedding, studio, dan keluarga berkualitas profesional.
+      </p>
+
+      <!-- Floating photo cards -->
+      <div style="position:relative;height:224px;margin-bottom:28px;">
+
+        <div class="pcard fa" style="position:absolute;left:0;top:0;width:148px;height:210px;">
+          <img src="https://placehold.co/148x210/0D1E25/1FA6B5?text=Prewedding"
+               alt="Prewedding" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div class="pcard-label">&#128141; Prewedding &middot; Bali</div>
+        </div>
+
+        <div class="pcard fb" style="position:absolute;left:120px;top:16px;width:130px;height:184px;">
+          <img src="https://placehold.co/130x184/0E8EA0/FFFFFF?text=Wedding"
+               alt="Wedding" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div class="pcard-label">&#128112; Wedding &middot; Paris</div>
+        </div>
+
+        <div class="pcard fc" style="position:absolute;left:228px;top:6px;width:110px;height:160px;">
+          <img src="https://placehold.co/110x160/1FA6B5/FFFFFF?text=Studio"
+               alt="Studio" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div class="pcard-label">&#128247; Studio</div>
+        </div>
+
+        <!-- AI chip -->
+        <div style="position:absolute;bottom:-8px;right:0;
+                    display:flex;align-items:center;gap:8px;
+                    background:rgba(255,255,255,0.055);
+                    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+                    border:1px solid rgba(255,255,255,0.09);border-radius:11px;padding:8px 12px;">
+          <div style="width:26px;height:26px;background:linear-gradient(135deg,#1FA6B5,#0E8EA0);
+                      border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M6.5 1L7.97 4.84H12L8.8 7.1L9.73 11L6.5 8.88L3.27 11L4.2 7.1L1 4.84H5.03L6.5 1Z" fill="white"/>
+            </svg>
+          </div>
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:700;color:#fff;line-height:1.3;">4 foto dalam 30 detik</div>
+            <div style="font-family:'Roboto Mono',monospace;font-size:8.5px;color:#1FA6B5;letter-spacing:0.04em;">Powered by Flux AI</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Testimonial card -->
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);
+                  border-radius:14px;padding:15px 17px;margin-bottom:24px;">
+        <div style="margin-bottom:9px;">
+          <span style="color:#FF7A5A;font-size:11px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        </div>
+        <p style="font-family:'Inter',sans-serif;font-size:12.5px;color:rgba(255,255,255,0.68);
+                  line-height:1.75;margin-bottom:12px;font-style:italic;">
+          "Sebagai fotografer, saya pakai PotretAI untuk preview konsep ke klien. Hasilnya realistis banget dan klien langsung setuju."
+        </p>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="https://placehold.co/30x30/0E8EA0/FFFFFF?text=B"
+               alt="Budi" style="width:30px;height:30px;border-radius:50%;border:2px solid rgba(31,166,181,0.3);">
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:12px;color:#fff;">Budi Prasetyo</div>
+            <div style="font-family:'Roboto Mono',monospace;font-size:9px;color:rgba(167,176,181,0.5);">Surabaya &middot; Fotografer Profesional</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div style="display:flex;border-top:1px solid rgba(167,176,181,0.1);padding-top:18px;">
+        <div style="flex:1;text-align:center;">
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:19px;color:#fff;letter-spacing:-0.03em;line-height:1;">50K+</div>
+          <div style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(167,176,181,0.5);margin-top:3px;">Foto</div>
+        </div>
+        <div style="width:1px;background:rgba(167,176,181,0.12);"></div>
+        <div style="flex:1;text-align:center;">
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:19px;color:#fff;letter-spacing:-0.03em;line-height:1;">4.9&#9733;</div>
+          <div style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(167,176,181,0.5);margin-top:3px;">Rating</div>
+        </div>
+        <div style="width:1px;background:rgba(167,176,181,0.12);"></div>
+        <div style="flex:1;text-align:center;">
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:19px;color:#fff;letter-spacing:-0.03em;line-height:1;">3K+</div>
+          <div style="font-family:'Inter',sans-serif;font-size:10px;color:rgba(167,176,181,0.5);margin-top:3px;">Pengguna</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Urgency strip -->
+    <div style="background:rgba(255,90,58,0.08);border:1px solid rgba(255,122,90,0.18);
+                border-radius:11px;padding:11px 15px;display:flex;align-items:center;gap:10px;">
+      <div class="pulse" style="width:7px;height:7px;background:#FF7A5A;border-radius:50%;flex-shrink:0;"></div>
+      <p style="font-family:'Inter',sans-serif;font-size:11.5px;color:rgba(255,255,255,0.62);line-height:1.5;">
+        <strong style="color:rgba(255,122,90,0.9);font-weight:600;">73 slot tersisa.</strong>
+        Setelah habis, harga naik ke Rp 299rb&ndash;799rb/tahun.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════ RIGHT PANEL ════════════════ -->
+<div class="right-panel">
+
+  <!-- Top bar -->
+  <div style="padding:20px 56px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+    <a href="index.html" id="back-link"
+       style="display:flex;align-items:center;gap:5px;
+              font-family:'Inter',sans-serif;font-size:13px;font-weight:500;
+              color:#A7B0B5;text-decoration:none;transition:color 0.15s ease;"
+       onmouseover="this.style.color='#1FA6B5'" onmouseout="this.style.color='#A7B0B5'">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Beranda
+    </a>
+    <a href="index.html" id="mobile-logo" style="display:none;">
+      <img src="brand_asset/Logo potretai.png" alt="PotretAI" style="height:28px;width:auto;">
+    </a>
+  </div>
+
+  <div class="right-inner">
+
+    <!-- ── Form view ── -->
+    <div id="form-view">
+
+      <!-- Heading -->
+      <div style="margin-bottom:26px;">
+        <h2 style="font-family:'Montserrat',sans-serif;font-weight:800;
+                   font-size:25px;letter-spacing:-0.025em;color:#1E2A2F;margin-bottom:6px;">
+          Selamat Datang Kembali
+        </h2>
+        <p style="font-family:'Inter',sans-serif;font-size:14px;color:#A7B0B5;line-height:1.65;">
+          Masuk ke akun PotretAI Studio kamu.
+        </p>
+      </div>
+
+      <!-- Google — primary path -->
+      <button class="btn-google" id="google-btn" onclick="handleGoogle()">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+          <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/>
+          <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+          <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+        </svg>
+        <span id="google-label">Masuk dengan Google</span>
+      </button>
+      <p style="font-family:'Roboto Mono',monospace;font-size:10px;color:#C4CDD2;
+                text-align:center;letter-spacing:0.04em;margin-top:9px;">
+        &#9889; Paling cepat &mdash; satu klik tanpa password
+      </p>
+
+      <!-- Divider -->
+      <div class="or-line">atau masuk dengan email</div>
+
+      <!-- Login form — Email + Password only -->
+      <form id="login-form" onsubmit="handleLogin(event)" novalidate>
+
+        <!-- Email -->
+        <div style="margin-bottom:14px;">
+          <label class="form-label" for="email">Alamat Email</label>
+          <div class="input-wrap">
+            <input class="form-input" type="email" id="email" name="email"
+              placeholder="email@kamu.com" autocomplete="email" required>
+            <div class="input-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="field-err" id="err-email">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" stroke="#EF4444"/><line x1="6" y1="4" x2="6" y2="6.5" stroke="#EF4444" stroke-width="1.2" stroke-linecap="round"/><circle cx="6" cy="8.5" r="0.6" fill="#EF4444"/></svg>
+            Masukkan alamat email yang valid
+          </div>
+        </div>
+
+        <!-- Password — dengan label Lupa Password? di kanan -->
+        <div style="margin-bottom:24px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <label class="form-label" for="password" style="margin-bottom:0;">Password</label>
+            <a href="#" id="lupa-pw-link"
+               style="font-family:'Inter',sans-serif;font-size:12px;font-weight:500;
+                      color:#1FA6B5;text-decoration:none;"
+               onmouseover="this.style.textDecoration='underline'"
+               onmouseout="this.style.textDecoration='none'"
+               onclick="handleLupaPassword(event)">
+              Lupa Password?
+            </a>
+          </div>
+          <div class="input-wrap">
+            <input class="form-input" type="password" id="password" name="password"
+              placeholder="Masukkan password kamu" autocomplete="current-password" required>
+            <div class="input-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <button type="button" class="pw-toggle" onclick="togglePw()" aria-label="Tampilkan password">
+              <svg id="eye-icon" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="field-err" id="err-password">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" stroke="#EF4444"/><line x1="6" y1="4" x2="6" y2="6.5" stroke="#EF4444" stroke-width="1.2" stroke-linecap="round"/><circle cx="6" cy="8.5" r="0.6" fill="#EF4444"/></svg>
+            Masukkan password kamu
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-teal" id="submit-btn">
+          <span id="submit-label">Masuk Sekarang</span>
+          <svg id="submit-arrow" width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2.5 7.5h10M8.5 4l3.5 3.5L8.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <svg id="submit-spinner" class="spinning" width="15" height="15" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none;">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+          </svg>
+        </button>
+
+        <!-- Wrong credential error (shown after failed attempt) -->
+        <div id="err-credential" style="display:none;margin-top:14px;
+             background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.18);
+             border-radius:10px;padding:12px 14px;
+             display:none;align-items:center;gap:10px;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;">
+            <circle cx="8" cy="8" r="7" stroke="#EF4444" stroke-width="1.4"/>
+            <line x1="8" y1="5" x2="8" y2="8.5" stroke="#EF4444" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="8" cy="11" r="0.8" fill="#EF4444"/>
+          </svg>
+          <p style="font-family:'Inter',sans-serif;font-size:13px;color:#EF4444;line-height:1.5;">
+            Email atau password salah. Periksa kembali atau
+            <a href="#" style="color:#EF4444;font-weight:600;text-decoration:underline;"
+               onclick="handleLupaPassword(event)">reset password</a>.
+          </p>
+        </div>
+
+      </form>
+
+      <!-- Divider bawah -->
+      <div style="height:1px;background:#EEF3F5;margin:20px 0;"></div>
+
+      <!-- Footer link -->
+      <p style="font-family:'Inter',sans-serif;font-size:13.5px;color:#A7B0B5;text-align:center;">
+        Belum punya akun?
+        <a href="login.html"
+           style="color:#1FA6B5;font-weight:600;text-decoration:none;margin-left:4px;"
+           onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+          Daftar &mdash; Harga Founding Member
+        </a>
+      </p>
+
+      <!-- Urgency micro-note -->
+      <p style="font-family:'Roboto Mono',monospace;font-size:9.5px;color:#C4CDD2;
+                text-align:center;margin-top:8px;letter-spacing:0.03em;">
+        &#9888; Sisa 73 slot Founding Member dari 100
+      </p>
+
+    </div><!-- /form-view -->
+
+
+    <!-- ── Lupa Password view ── -->
+    <div id="forgot-view" style="display:none;flex-direction:column;">
+
+      <button onclick="showFormView()"
+        style="display:inline-flex;align-items:center;gap:5px;margin-bottom:28px;
+               background:none;border:none;cursor:pointer;padding:0;
+               font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:#A7B0B5;
+               transition:color 0.15s ease;"
+        onmouseover="this.style.color='#1FA6B5'" onmouseout="this.style.color='#A7B0B5'">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Kembali ke Login
+      </button>
+
+      <h2 style="font-family:'Montserrat',sans-serif;font-weight:800;
+                 font-size:23px;letter-spacing:-0.025em;color:#1E2A2F;margin-bottom:8px;">
+        Reset Password
+      </h2>
+      <p style="font-family:'Inter',sans-serif;font-size:14px;color:#A7B0B5;line-height:1.65;margin-bottom:28px;">
+        Masukkan email kamu. Kami akan kirim link untuk membuat password baru.
+      </p>
+
+      <form id="forgot-form" onsubmit="handleForgot(event)" novalidate>
+        <div style="margin-bottom:20px;">
+          <label class="form-label" for="forgot-email">Alamat Email</label>
+          <div class="input-wrap">
+            <input class="form-input" type="email" id="forgot-email" name="forgot_email"
+              placeholder="email@kamu.com" autocomplete="email" required>
+            <div class="input-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="field-err" id="err-forgot-email">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" stroke="#EF4444"/><line x1="6" y1="4" x2="6" y2="6.5" stroke="#EF4444" stroke-width="1.2" stroke-linecap="round"/><circle cx="6" cy="8.5" r="0.6" fill="#EF4444"/></svg>
+            Masukkan email yang valid
+          </div>
+        </div>
+
+        <button type="submit" class="btn-teal" id="forgot-btn">
+          <span id="forgot-label">Kirim Link Reset</span>
+          <svg id="forgot-arrow" width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2.5 7.5h10M8.5 4l3.5 3.5L8.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <svg id="forgot-spinner" class="spinning" width="15" height="15" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none;">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Email sent confirmation (hidden) -->
+      <div id="forgot-sent" style="display:none;margin-top:20px;
+           background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);
+           border-radius:12px;padding:16px 18px;text-align:center;">
+        <div style="font-size:28px;margin-bottom:10px;">&#128140;</div>
+        <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:#1E2A2F;margin-bottom:6px;">
+          Email terkirim!
+        </div>
+        <p style="font-family:'Inter',sans-serif;font-size:13px;color:#A7B0B5;line-height:1.65;">
+          Cek inbox kamu dan ikuti link untuk reset password. Jika tidak ada, cek folder spam.
+        </p>
+      </div>
+
+    </div><!-- /forgot-view -->
+
+
+    <!-- ── Success view ── -->
+    <div id="success-view">
+      <svg id="s-circle" width="72" height="72" viewBox="0 0 72 72" fill="none" style="margin-bottom:22px;">
+        <circle cx="36" cy="36" r="34" fill="rgba(31,166,181,0.10)" stroke="rgba(31,166,181,0.25)" stroke-width="1.5"/>
+        <circle cx="36" cy="36" r="26" fill="rgba(31,166,181,0.12)"/>
+        <path id="s-check" d="M24 36l9 9 15-15"
+          stroke="#1FA6B5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3 style="font-family:'Montserrat',sans-serif;font-weight:800;
+                 font-size:22px;letter-spacing:-0.02em;color:#1E2A2F;margin-bottom:8px;">
+        Berhasil masuk! &#127881;
+      </h3>
+      <p style="font-family:'Inter',sans-serif;font-size:14px;color:#A7B0B5;
+                line-height:1.7;margin-bottom:28px;max-width:260px;">
+        Selamat datang kembali. Mengalihkan ke studio...
+      </p>
+      <div style="width:180px;height:3px;background:#EEF3F5;border-radius:100px;overflow:hidden;">
+        <div id="redirect-bar"
+          style="height:100%;width:0;background:linear-gradient(90deg,#1FA6B5,#10B981);
+                 border-radius:100px;transition:width 1.5s linear;"></div>
+      </div>
+      <p style="font-family:'Roboto Mono',monospace;font-size:10px;color:#C4CDD2;
+                margin-top:8px;letter-spacing:0.04em;">Mengalihkan dalam 1 detik...</p>
+    </div><!-- /success-view -->
+
+  </div><!-- /right-inner -->
+
+  <!-- Footer -->
+  <div style="padding:14px 56px 18px;border-top:1px solid #EEF3F5;flex-shrink:0;text-align:center;">
+    <span style="font-family:'Roboto Mono',monospace;font-size:10px;color:#D0D8DB;letter-spacing:0.04em;">
+      &copy; 2025 PotretAI Studio &middot;
+      <a href="index.html" style="color:#C4CDD2;text-decoration:none;"
+         onmouseover="this.style.color='#1FA6B5'" onmouseout="this.style.color='#C4CDD2'">studiocreative.id</a>
+    </span>
+  </div>
+
+</div><!-- /right-panel -->
+
+
+<script>
+  'use strict';
+
+  // ── Mobile sync ───────────────────────────────────────────
+  const mobileLogo = document.getElementById('mobile-logo');
+  const backLink   = document.getElementById('back-link');
+  function syncMobile() {
+    const m = window.innerWidth < 768;
+    if (mobileLogo) mobileLogo.style.display = m ? 'block' : 'none';
+    if (backLink)   backLink.style.display    = m ? 'none'  : 'flex';
+  }
+  syncMobile();
+  window.addEventListener('resize', syncMobile);
+
+  // ── Password show / hide ──────────────────────────────────
+  let pwVisible = false;
+  function togglePw() {
+    pwVisible = !pwVisible;
+    document.getElementById('password').type = pwVisible ? 'text' : 'password';
+    document.getElementById('eye-icon').innerHTML = pwVisible
+      ? `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+         <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`
+      : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+  }
+
+  // ── Field helpers ─────────────────────────────────────────
+  function setField(fid, eid, err) {
+    document.getElementById(fid)?.classList.toggle('is-error', err);
+    document.getElementById(eid)?.classList.toggle('show', err);
+  }
+  function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+
+  // ── Login submit ──────────────────────────────────────────
+  async function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const pw    = document.getElementById('password').value;
+    const eErr  = !isEmail(email);
+    const pErr  = !pw;
+    setField('email',    'err-email',    eErr);
+    setField('password', 'err-password', pErr);
+    // Hide credential error on new attempt
+    document.getElementById('err-credential').style.display = 'none';
+    if (eErr || pErr) return;
+
+    // Loading
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    document.getElementById('submit-label').textContent     = 'Memeriksa akun...';
+    document.getElementById('submit-arrow').style.display   = 'none';
+    document.getElementById('submit-spinner').style.display = 'block';
+
+    // TODO: ganti dengan Supabase auth.signInWithPassword({ email, password })
+    await new Promise(r => setTimeout(r, 1500));
+
+    // Simulasi: jika password === "wrongpassword" → tampilkan error
+    // Di production: tangkap error dari Supabase
+    const simulateError = false;
+    if (simulateError) {
+      btn.disabled = false;
+      document.getElementById('submit-label').textContent     = 'Masuk Sekarang';
+      document.getElementById('submit-arrow').style.display   = 'block';
+      document.getElementById('submit-spinner').style.display = 'none';
+      document.getElementById('err-credential').style.display = 'flex';
+      return;
+    }
+
+    showSuccess();
+  }
+
+  function showSuccess() {
+    document.getElementById('form-view').style.display    = 'none';
+    document.getElementById('success-view').style.display = 'flex';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.getElementById('redirect-bar').style.width = '100%';
+    }));
+    setTimeout(() => { window.location.href = 'app.html'; }, 1700);
+  }
+
+  // ── Google OAuth ──────────────────────────────────────────
+  function handleGoogle() {
+    const btn = document.getElementById('google-btn');
+    btn.disabled = true;
+    document.getElementById('google-label').textContent = 'Mengalihkan ke Google...';
+    // TODO: Supabase auth.signInWithOAuth({ provider: 'google' })
+    setTimeout(() => { window.location.href = 'app.html'; }, 1200);
+  }
+
+  // ── View switchers ────────────────────────────────────────
+  function handleLupaPassword(e) {
+    e.preventDefault();
+    document.getElementById('form-view').style.display   = 'none';
+    document.getElementById('forgot-view').style.display = 'flex';
+    document.getElementById('success-view').style.display = 'none';
+    setTimeout(() => document.getElementById('forgot-email')?.focus(), 100);
+  }
+
+  function showFormView() {
+    document.getElementById('forgot-view').style.display  = 'none';
+    document.getElementById('form-view').style.display    = 'block';
+  }
+
+  // ── Forgot password submit ────────────────────────────────
+  async function handleForgot(e) {
+    e.preventDefault();
+    const email = document.getElementById('forgot-email').value;
+    if (!isEmail(email)) {
+      setField('forgot-email', 'err-forgot-email', true);
+      return;
+    }
+    setField('forgot-email', 'err-forgot-email', false);
+
+    const btn = document.getElementById('forgot-btn');
+    btn.disabled = true;
+    document.getElementById('forgot-label').textContent      = 'Mengirim...';
+    document.getElementById('forgot-arrow').style.display    = 'none';
+    document.getElementById('forgot-spinner').style.display  = 'block';
+
+    // TODO: Supabase auth.resetPasswordForEmail(email)
+    await new Promise(r => setTimeout(r, 1400));
+
+    document.getElementById('forgot-form').style.display = 'none';
+    document.getElementById('forgot-sent').style.display  = 'block';
+  }
+
+  // ── Live blur validation ──────────────────────────────────
+  document.getElementById('email').addEventListener('blur', function() {
+    if (this.value) setField('email', 'err-email', !isEmail(this.value));
+  });
+  document.getElementById('password').addEventListener('blur', function() {
+    if (this.value) setField('password', 'err-password', false);
+  });
+  document.getElementById('email').addEventListener('input',    () => {
+    setField('email',    'err-email',    false);
+    document.getElementById('err-credential').style.display = 'none';
+  });
+  document.getElementById('password').addEventListener('input', () => {
+    setField('password', 'err-password', false);
+    document.getElementById('err-credential').style.display = 'none';
+  });
+  document.getElementById('forgot-email').addEventListener('input', () => setField('forgot-email', 'err-forgot-email', false));
+</script>
+
+</body>
+</html>

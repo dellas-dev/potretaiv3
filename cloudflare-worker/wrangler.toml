@@ -1,0 +1,209 @@
+# ─────────────────────────────────────────────────────────
+# PotretAI — Cloudflare Worker Config (Production)
+# Docs: https://developers.cloudflare.com/workers/wrangler/
+# ─────────────────────────────────────────────────────────
+
+name             = "potretai-worker"
+main             = "worker.js"
+compatibility_date = "2026-03-11"
+
+workers_dev = true
+
+# ── Non-Sensitive Environment Variables ────────────────────
+[vars]
+SERVICE_NAME = "PotretAI Worker"
+VERSION      = "3.2.0"
+
+# Model policy — ONLY this model is permitted for AI generation.
+# Changing this value does NOT swap the model — falClient.js
+# has the endpoint hardcoded to prevent any accidental override.
+FAL_MODEL    = "fal-ai/flux-pulid"
+
+# R2 Public URL — enable R2 public access first, then paste URL here.
+# Dashboard → R2 → potretai-faces → Settings → Public Access → Allow Access
+# Example: R2_CDN_BASE = "https://pub-abc123def456.r2.dev"
+R2_CDN_BASE  = "https://pub-2b8bbe46f96a4d1ea50e97abec049c98.r2.dev"
+
+# ── Secrets (sensitive — stored encrypted by Cloudflare) ───
+# JANGAN tulis secret langsung di file ini!
+#
+# wrangler secret put FAL_KEY
+#   → env.FAL_KEY — fal.ai API key untuk image generation
+#
+# wrangler secret put ADMIN_KEY
+#   → env.ADMIN_KEY — kunci autentikasi POST /verify-payment (admin only)
+#
+# wrangler secret put TURNSTILE_SECRET
+#   → env.TURNSTILE_SECRET — Cloudflare Turnstile secret key untuk bot protection
+#   → Dapatkan di: https://dash.cloudflare.com → Turnstile → Add Site
+
+# ── Workers AI — Face Detection ───────────────────────────
+# Model: @cf/facebook/detr-resnet-50
+# Docs : https://developers.cloudflare.com/workers-ai/models/detr-resnet-50/
+[ai]
+binding = "AI"
+
+# ── R2 Bucket — Face Reference Storage ────────────────────
+# Accessed via env.FACES_BUCKET inside the Worker.
+[[r2_buckets]]
+binding     = "FACES_BUCKET"
+bucket_name = "potretai-faces"
+
+# ── KV Namespace — Embedding Cache + File Metadata + Rate Limit ──
+# Stores:
+#   face:{sha256}      — face detection cache (5-hour TTL auto-expire)
+#   face-file:{uuid}   — file tracking metadata for cleanup scheduler
+#   rate:{ip}:{minute} — rate-limit counters per IP (2-minute TTL)
+#
+# Create namespace: wrangler kv:namespace create "FACE_CACHE"
+# Copy the returned id into the field below.
+[[kv_namespaces]]
+binding = "FACE_CACHE"
+id      = "785bdce0d9e04c3b80f2692caf6251ab"
+
+# ── R2 Bucket — Generated Image Storage ───────────────────
+# Stores final AI-generated images served via Cloudflare CDN.
+# Accessed via env.RESULT_BUCKET inside the Worker.
+# Public CDN URL: https://cdn.potretai.com/images/{job_id}.png
+#
+# Create bucket : wrangler r2 bucket create generated-images
+# Custom domain : R2 → generated-images → Settings → Custom Domain → cdn.potretai.com
+[[r2_buckets]]
+binding     = "RESULT_BUCKET"
+bucket_name = "generated-images"
+
+# ── R2 Bucket — Payment Proof Storage ─────────────────────
+# Stores uploaded payment proof images from users.
+# Accessed via env.PAYMENT_PROOFS inside the Worker.
+#
+# Create bucket: wrangler r2 bucket create payment-proofs
+[[r2_buckets]]
+binding     = "PAYMENT_PROOFS"
+bucket_name = "payment-proofs"
+
+# ── KV Namespace — User Credits ────────────────────────────
+# Stores:
+#   user:{user_id}  — { plan, generates_remaining, categories, watermark, updated_at }
+#
+# Create namespace: wrangler kv:namespace create "USER_CREDITS"
+# Copy the returned id into the field below.
+[[kv_namespaces]]
+binding = "USER_CREDITS"
+id      = "3dba2a5fdf4e4958ac8c38230dca6747"
+
+# ── KV Namespace — Payment Orders ─────────────────────────
+# Stores:
+#   order:{orderId}       — order data (amount, user, status, created_at)
+#   proof:{orderId}       — payment proof URL + submitted_at timestamp
+#
+# Create namespace: wrangler kv:namespace create "PAYMENT_ORDERS"
+# Copy the returned id into the field below.
+[[kv_namespaces]]
+binding = "PAYMENT_ORDERS"
+id      = "ce7f12684e394bc98662aa1eb821cac4"
+
+# ── KV Namespace — Result Cache ────────────────────────────
+# Caches generation results by prompt hash to avoid duplicate fal.ai calls.
+# Key: cache:{sha256}   TTL: 86400s (24 h)
+#
+# Create namespace: wrangler kv:namespace create "RESULT_CACHE"
+[[kv_namespaces]]
+binding = "RESULT_CACHE"
+id      = "8395b9c0d3ec4c36bd7021b938f77d0b"
+
+# ── KV Namespace — Affiliate & Referral Data ───────────────
+# Stores:
+#   ref:{user_id}        — referrer stats (commission, total_sales)
+#   user_ref:{user_id}   — which referral code a user signed up with
+#
+# Create namespace: wrangler kv:namespace create "AFFILIATE_DATA"
+[[kv_namespaces]]
+binding = "AFFILIATE_DATA"
+id      = "4e2ca0dd75a642fc8e23dc84ad02ae79"
+
+# ── KV Namespace — Per-User Rate Limit ────────────────────
+# Stores:
+#   rate:{user_id}  — generation counter per 60-second window (TTL: 60s)
+#
+# Create namespace: wrangler kv:namespace create "RATE_LIMIT"
+# Copy the returned id into the field below.
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id      = "b64dd82380fa47fca69999547edd4a8f"
+
+# ── KV Namespace — Async Job Status ───────────────────────
+# Stores generation job status for frontend polling via GET /status.
+# Stores:
+#   job:{job_id}  — { status: "queued|processing|done|failed", images?, error? }
+#   TTL: 1h for transient states, 24h for "done"
+#
+# Create namespace: wrangler kv:namespace create "JOBS_KV"
+# Copy the returned id into the field below.
+[[kv_namespaces]]
+binding = "JOBS_KV"
+id      = "50c60bd587f34699a8fbe780a8e7d0f2"
+
+# ── KV Namespace — Usage Analytics ────────────────────────
+# Stores:
+#   stats:daily:{YYYY-MM-DD}    — per-day counters (TTL: 90 days)
+#   stats:totals                — all-time running totals
+#   stats:seen:{user_id}:{date} — user dedup flag (TTL: 25 h)
+#
+# Create namespace: wrangler kv:namespace create "USAGE_ANALYTICS"
+# Copy the returned id into the field below.
+[[kv_namespaces]]
+binding = "USAGE_ANALYTICS"
+id      = "c7b209bb906442928378ff3bc35fa0a8"
+
+# ── KV Namespace — Generation History ─────────────────────
+# Stores per-user generation history (latest 20 shown in dashboard).
+#   history:{user_id}:{ms_timestamp}  — { user_id, image_url, share_url, prompt, created_at }
+#   TTL: 30 days (auto-expired by KV; explicit cleanup via historyCleanup.js)
+#
+# Create namespace: wrangler kv:namespace create "HISTORY_KV"
+# Copy the returned id into the field below.
+[[kv_namespaces]]
+binding = "HISTORY_KV"
+id      = "7b02999a3c504b1981c5ff8e7f0e0467"
+
+# ── KV Namespace — Share Links ─────────────────────────────
+# Stores public share metadata created by shareGenerator.js.
+#   share:{share_id}  — { user_id, image_url, prompt, created_at, views }
+#   TTL: 90 days (auto-expired by KV)
+#
+# Create namespace: wrangler kv:namespace create "SHARE_KV"
+# Copy the returned id into the field below.
+[[kv_namespaces]]
+binding = "SHARE_KV"
+id      = "4d72b918f9f8494d946ff79daf79d071"
+
+# ── Queues — Async Image Generation ────────────────────────
+# Producer: worker.js enqueues jobs via env.GEN_QUEUE.send()
+# Consumer: queue() handler in worker.js processes batches
+#
+# Create queue: wrangler queues create potretai-generate
+[[queues.producers]]
+binding = "GEN_QUEUE"
+queue   = "potretai-generate"
+
+[[queues.consumers]]
+queue             = "potretai-generate"
+max_batch_size    = 3
+max_batch_timeout = 5
+
+# ── Cron Trigger — Hourly Face File Cleanup ────────────────
+# Calls scheduled() in worker.js every hour.
+# Deletes R2 objects + KV records older than 5 hours.
+# Docs: https://developers.cloudflare.com/workers/configuration/cron-triggers/
+[triggers]
+crons = ["0 * * * *"]
+
+# ── Custom Domain — Production API Subdomain ──────────────
+# Serves all Worker endpoints at: https://api.potretai.studiocreative.id
+# Prerequisites:
+#   1. studiocreative.id must be added to your Cloudflare account
+#   2. DNS CNAME: api.potretai → potretai-worker.<account>.workers.dev
+# [[routes]]
+# pattern   = "api.potretai.studiocreative.id/*"
+# zone_name = "studiocreative.id"
+# ↑ Uncomment setelah domain studiocreative.id ditambahkan ke Cloudflare account

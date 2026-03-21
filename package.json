@@ -1,0 +1,28 @@
+{
+  "name": "potretaiv3",
+  "version": "3.3.0",
+  "description": "PotretAI v3 — AI Photography SaaS (test workspace)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test":          "vitest run --config tests/test.config.js",
+    "test:watch":    "vitest --config tests/test.config.js",
+    "test:coverage": "vitest run --config tests/test.config.js --coverage",
+    "test:ui":       "vitest --config tests/test.config.js --ui",
+    "test:prompts":  "vitest run --config tests/test.config.js tests/prompts/",
+    "test:ai":       "vitest run --config tests/test.config.js tests/ai/",
+    "test:security": "vitest run --config tests/test.config.js tests/security/",
+    "test:payments": "vitest run --config tests/test.config.js tests/payments/",
+    "test:queue":    "vitest run --config tests/test.config.js tests/queue/",
+    "test:cache":    "vitest run --config tests/test.config.js tests/cache/",
+    "test:analytics":"vitest run --config tests/test.config.js tests/analytics/",
+    "test:storage":  "vitest run --config tests/test.config.js tests/storage/",
+    "test:frontend": "vitest run --config tests/test.config.js tests/frontend/",
+    "test:load":     "vitest run --config tests/test.config.js tests/load/"
+  },
+  "devDependencies": {
+    "vitest": "^1.6.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "@vitest/ui": "^1.6.0"
+  }
+}
