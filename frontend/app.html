@@ -31,7 +31,7 @@
     }
     .tb-hamburger:hover{background:#EEF3F5;color:#1E2A2F;}
     .tb-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
-    .tb-logo img{height:46px;width:auto;}
+    .tb-logo img{height:38px;width:auto;}
     .tb-spacer{flex:1;}
     .tb-nav{display:flex;align-items:center;gap:2px;}
     .tb-nav-item{
@@ -623,7 +623,7 @@
   <!-- Greeting -->
   <div class="dash-greeting-row">
     <div>
-      <div class="dash-greeting-title">Selamat datang, <span id="user-firstname">Rina</span> &#128075;</div>
+      <div class="dash-greeting-title">Selamat datang, <span id="user-firstname">Rina</span></div>
       <div class="dash-greeting-sub">Buat foto AI profesional — pilih kategori di bawah.</div>
     </div>
     <div class="dash-usage-card">
@@ -639,17 +639,17 @@
   <!-- Quick stats -->
   <div class="dash-stats-grid">
     <div class="stat-card">
-      <div class="stat-icon">&#128247;</div>
+      <div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
       <div class="stat-num" id="stat-total">4</div>
       <div class="stat-label">Total Foto Dibuat</div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon">&#128336;</div>
+      <div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
       <div class="stat-num" id="stat-last">Baru saja</div>
       <div class="stat-label">Sesi Terakhir</div>
     </div>
     <div class="stat-card">
-      <div class="stat-icon">&#11088;</div>
+      <div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
       <div class="stat-num">Premium</div>
       <div class="stat-label">Plan Aktif</div>
     </div>
@@ -681,11 +681,11 @@
     <div class="cat-grid">
       <div class="cat-card" onclick="navigateTo('generator','studio_foto')">
         <div class="cat-img-wrap"><img class="cat-img" src="https://placehold.co/400x280/1FA6B5/FFFFFF?text=Studio+Foto+AI" alt="Studio Foto AI" loading="lazy"><div class="cat-overlay"><span class="cat-start">Pilih Paket &#8594;</span></div></div>
-        <div class="cat-body"><div class="cat-emoji">📸</div><div><div class="cat-title">Studio Foto AI</div><div class="cat-desc">40+ tema indoor & outdoor</div></div></div>
+        <div class="cat-body"><div class="cat-emoji"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><div><div class="cat-title">Studio Foto AI</div><div class="cat-desc">40+ tema indoor & outdoor</div></div></div>
       </div>
       <div class="cat-card" onclick="navigateTo('generator','wisuda')">
         <div class="cat-img-wrap"><img class="cat-img" src="https://placehold.co/400x280/1E2A2F/1FA6B5?text=Wisuda+AI" alt="Wisuda AI" loading="lazy"><div class="cat-overlay"><span class="cat-start">Pilih Paket &#8594;</span></div></div>
-        <div class="cat-body"><div class="cat-emoji">🎓</div><div><div class="cat-title">Wisuda AI</div><div class="cat-desc">Foto kelulusan estetik & elegan</div></div></div>
+        <div class="cat-body"><div class="cat-emoji"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg></div><div><div class="cat-title">Wisuda AI</div><div class="cat-desc">Foto kelulusan estetik & elegan</div></div></div>
       </div>
     </div>
   </div>
@@ -698,7 +698,7 @@
     </div>
     <div class="recent-grid" id="dashboard-recent">
       <div class="dash-empty" id="dashboard-empty">
-        <div class="dash-empty-icon">&#128444;</div>
+        <div class="dash-empty-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C4CDD2" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
         <div class="dash-empty-text">Belum ada foto yang dibuat.<br>Mulai generate sekarang!</div>
         <button class="btn-primary-sm" onclick="navigateTo('generator')">Buat Foto Pertama</button>
       </div>
@@ -716,8 +716,8 @@
     <div class="gen-title">AI Photo Generator</div>
     <div class="gen-sub">Upload foto wajah, pilih gaya, dan generate 4 foto AI profesional dalam hitungan detik</div>
     <div class="gen-tabs" role="tablist">
-      <button class="gen-tab active" data-tab="wisuda"       onclick="switchTab('wisuda')"       role="tab">🎓 Wisuda</button>
-      <button class="gen-tab"        data-tab="studio_foto" onclick="switchTab('studio_foto')" role="tab">📸 Studio Foto</button>
+      <button class="gen-tab active" data-tab="wisuda"       onclick="switchTab('wisuda')"       role="tab">Wisuda AI</button>
+      <button class="gen-tab"        data-tab="studio_foto" onclick="switchTab('studio_foto')" role="tab">Studio Foto AI</button>
     </div>
   </div>
 
@@ -731,14 +731,14 @@
       <div class="tab-content active" id="tab-wisuda">
         <!-- Mode Gender -->
         <div class="form-sec">
-          <div class="form-sec-title">👤 Mode</div>
+          <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Mode</div>
           <div style="display:flex;gap:8px;">
             <button class="mode-btn active" id="ws-mode-btn-wanita" onclick="setWisudaMode('wanita',this)" style="flex:1;padding:9px 0;border-radius:10px;border:1.5px solid #1FA6B5;background:rgba(31,166,181,0.1);color:#0E8EA0;font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;">Wanita</button>
             <button class="mode-btn" id="ws-mode-btn-pria" onclick="setWisudaMode('pria',this)" style="flex:1;padding:9px 0;border-radius:10px;border:1.5px solid #EEF3F5;background:#F9FAFB;color:#A7B0B5;font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;">Pria</button>
           </div>
         </div>
         <div class="form-sec">
-          <div class="form-sec-title">📷 Foto Referensi Wajah</div>
+          <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Foto Referensi Wajah</div>
           <div class="upload-grid">
             <div>
               <div class="upload-top-lbl">Foto Wajah Kamu (Solo)</div>
@@ -757,7 +757,7 @@
           </div>
         </div>
         <div class="form-sec">
-          <div class="form-sec-title">🎓 Jenjang &amp; Penampilan</div>
+          <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>Jenjang &amp; Penampilan</div>
           <div class="form-row">
             <div class="form-field">
               <label class="form-label">Jenjang</label>
@@ -782,7 +782,7 @@
           </div>
         </div>
         <div class="form-sec">
-          <div class="form-sec-title">👗 Outfit Wisuda</div>
+          <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/></svg>Outfit Wisuda</div>
 
           <!-- Outfit Wanita (default tampil) -->
           <div class="form-field" id="ws-outfit-wanita-wrap">
@@ -1182,7 +1182,7 @@
       <!-- Empty state -->
       <div id="output-empty">
         <div class="output-empty">
-          <div class="output-empty-icon">&#10024;</div>
+          <div class="output-empty-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C4CDD2" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
           <div class="output-empty-title">Siap untuk generate</div>
           <div class="output-empty-sub">Isi form di sebelah kiri, lalu klik "Generate 4 Foto" — hasil dalam 15–30 detik.</div>
           <div class="output-example-grid">
@@ -1209,8 +1209,8 @@
       <!-- Results -->
       <div id="output-results" style="display:none;">
         <div class="results-hdr">
-          <div class="results-badge">&#10003; 4 foto berhasil dibuat</div>
-          <button class="btn-regen-all" onclick="startGenerate()">&#8635; Generate Ulang</button>
+          <div class="results-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 4 foto berhasil dibuat</div>
+          <button class="btn-regen-all" onclick="startGenerate()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Generate Ulang</button>
         </div>
         <div class="output-grid-premium" id="results-grid"></div>
       </div>
@@ -1232,7 +1232,7 @@
   </div>
   <div class="hist-grid" id="history-grid">
     <div class="hist-empty" id="history-empty">
-      <div style="font-size:36px;margin-bottom:12px;">&#128444;</div>
+      <div style="margin-bottom:12px;"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C4CDD2" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
       <div style="font-family:'Inter',sans-serif;font-size:14px;color:#A7B0B5;margin-bottom:16px;">Belum ada foto di riwayat.<br>Mulai generate sekarang!</div>
       <button class="btn-primary-sm" onclick="navigateTo('generator')">Generate Sekarang</button>
     </div>
@@ -1256,7 +1256,7 @@
   <div class="acct-card">
     <div class="acct-card-title">Plan Aktif</div>
     <div class="plan-badge">
-      <span style="font-size:20px;">&#11088;</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       <div>
         <div class="plan-badge-text">Studio Foto & Wisuda AI</div>
         <div class="plan-badge-sub">Lifetime Access &middot; Pesan via WhatsApp</div>
@@ -1273,8 +1273,8 @@
     <div style="margin-top:14px;">
       <div style="font-family:'Roboto Mono',monospace;font-size:10px;color:#A7B0B5;letter-spacing:0.04em;margin-bottom:10px;">AKSES GENERATOR</div>
       <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#128247; Studio Foto AI</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#127891; Wisuda AI</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Studio Foto AI</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>Wisuda AI</span></div>
       </div>
     </div>
   </div>
@@ -1297,7 +1297,7 @@
 <div id="sidebar-overlay" onclick="closeMobileSidebar()"></div>
 <nav id="sidebar-mobile">
   <div class="sb-logo">
-    <img src="../brand_asset/Logo potretai.png" alt="PotretAI">
+    <img src="../brand_asset/Logo potretai.png" alt="PotretAI" style="height:32px;width:auto;">
     <button onclick="closeMobileSidebar()" style="background:none;border:none;cursor:pointer;color:#A7B0B5;padding:4px;">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><line x1="2" y1="2" x2="16" y2="16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="16" y1="2" x2="2" y2="16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
     </button>
@@ -1327,7 +1327,7 @@
   <button id="lightbox-close" onclick="closeLightbox(null,true)">&times;</button>
   <img id="lightbox-img" src="" alt="Foto AI PotretAI">
   <div id="lightbox-dl" style="position:absolute;bottom:24px;right:24px;">
-    <button class="btn-primary-sm" id="lightbox-dl-btn" onclick="lightboxDownload()">&#8595; Unduh Foto</button>
+    <button class="btn-primary-sm" id="lightbox-dl-btn" onclick="lightboxDownload()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Unduh Foto</button>
   </div>
 </div>
 
@@ -2134,14 +2134,14 @@ const GalleryRenderer = {
           ${faceTag}
           <div style="position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,0.35);color:rgba(255,255,255,0.8);font-family:'Roboto Mono',monospace;font-size:11px;padding:3px 8px;border-radius:4px;pointer-events:none;">PotretAI.id</div>
           <div class="result-overlay">
-            <button class="result-overlay-btn" onclick="event.stopPropagation();openLightbox('${url}')">&#128269; Buka Penuh</button>
-            <button class="result-overlay-btn" style="margin-left:8px;" onclick="event.stopPropagation();downloadImage('${url}','${tab}-${i+1}')">&#8595; Unduh</button>
+            <button class="result-overlay-btn" onclick="event.stopPropagation();openLightbox('${url}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> Buka Penuh</button>
+            <button class="result-overlay-btn" style="margin-left:8px;" onclick="event.stopPropagation();downloadImage('${url}','${tab}-${i+1}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Unduh</button>
           </div>
         </div>
         <div class="result-footer">
           <span class="result-label">${ratioLabel} &middot; ${rW}&times;${rH}</span>
           <div class="result-actions">
-            <button class="result-btn result-btn-dl" onclick="downloadImage('${url}','${tab}-${i+1}')">&#8595; Unduh</button>
+            <button class="result-btn result-btn-dl" onclick="downloadImage('${url}','${tab}-${i+1}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Unduh</button>
           </div>
         </div>
       </div>`;
@@ -2747,7 +2747,7 @@ function renderHistory(filter) {
       <img src="${url}" alt="${tab}" loading="lazy" onclick="openLightbox('${url}')"
         onerror="this.src='https://placehold.co/200x250?text=Error'">
       <div class="hist-photo-badge">${{wisuda:'Wisuda',studio_foto:'Studio'}[tab] || tab}</div>
-      <button class="hist-photo-dl" onclick="downloadImage('${url}','${tab}');event.stopPropagation();" title="Unduh">&#8595;</button>
+      <button class="hist-photo-dl" onclick="downloadImage('${url}','${tab}');event.stopPropagation();" title="Unduh"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
     </div>`).join('');
 }
 
@@ -2818,7 +2818,7 @@ async function downloadImage(url, filename) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(a.href);
-    showToast('Foto berhasil diunduh! &#127881;', 'success');
+      showToast('Foto berhasil diunduh!', 'success');
   } catch {
     showToast('Gagal mengunduh. Coba klik kanan > Simpan gambar.', 'error');
   }
