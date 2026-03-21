@@ -25,7 +25,7 @@ import { addCredit, getUserCredit }    from '@utils/creditManager.js';
 import {
   createMockEnv,
   MockQueueMessage,
-  preweddingInput,
+  studioInput,
   makeFalResponse,
 } from '@helpers/mockEnv.js';
 
@@ -131,8 +131,8 @@ describe('Queue stability — 20 concurrent jobs', () => {
     const msgs = Array.from({ length: 20 }, (_, i) =>
       new MockQueueMessage({
         job_id:   `job-load-${i}`,
-        category: 'prewedding',
-        input:    preweddingInput(),
+        category: 'studio',
+        input:    studioInput(),
       })
     );
 
@@ -151,8 +151,8 @@ describe('Queue stability — 20 concurrent jobs', () => {
     const msgs = Array.from({ length: 20 }, (_, i) =>
       new MockQueueMessage({
         job_id:   `job-success-${i}`,
-        category: 'prewedding',
-        input:    preweddingInput(),
+        category: 'studio',
+        input:    studioInput(),
       })
     );
 
@@ -225,8 +225,8 @@ describe('Daily cost limit — 2000 cap', () => {
 
     const msg = new MockQueueMessage({
       job_id:   'job-over-limit',
-      category: 'prewedding',
-      input:    preweddingInput(),
+      category: 'studio',
+      input:    studioInput(),
     });
     await processQueue({ messages: [msg] }, env);
     expect(msg.acked).toBe(true);

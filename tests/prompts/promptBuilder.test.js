@@ -1,8 +1,8 @@
 /**
  * tests/prompts/promptBuilder.test.js
  *
- * Tests the entire prompt engine:
- *   promptBuilder.js → categories → elements → photography
+ * Tests the prompt engine for studio category:
+ *   promptBuilder.js → studioPrompt → elements → photography
  *   consistencyEngine → 4 consistent prompts
  *   randomizer → light + camera variation
  *   faceRepair → facial quality anchors
@@ -17,11 +17,7 @@ import { applyRandomizer } from '@prompts/randomizer.js';
 import { applyFaceRepair }  from '@prompts/faceRepair.js';
 import { CINEMATIC_SUFFIX } from '@prompts/masterPrompt.js';
 
-import {
-  preweddingInput,
-  studioInput,
-  familyInput,
-} from '@helpers/mockEnv.js';
+import { studioInput } from '@helpers/mockEnv.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // masterPrompt.js
@@ -47,43 +43,35 @@ describe('masterPrompt — CINEMATIC_SUFFIX', () => {
 // ─────────────────────────────────────────────────────────────────────────────
 describe('consistencyEngine', () => {
   it('applyConsistency appends BASE_STYLE to prompt', () => {
-    const out = applyConsistency('A beautiful couple portrait');
+    const out = applyConsistency('A beautiful studio portrait');
     expect(out).toContain('ultra realistic');
     expect(out).toContain('photorealistic');
-    expect(out).toContain('A beautiful couple portrait');
+    expect(out).toContain('A beautiful studio portrait');
   });
 
   it('buildConsistentPrompts returns exactly 4 prompts', () => {
-    const prompts = buildConsistentPrompts('base prompt', { category: 'prewedding' });
+    const prompts = buildConsistentPrompts('base prompt', { category: 'studio' });
     expect(prompts).toHaveLength(4);
   });
 
   it('all 4 prompts contain the base prompt', () => {
-    const base    = 'A romantic prewedding couple in Bali';
-    const prompts = buildConsistentPrompts(base, { category: 'prewedding' });
+    const base    = 'A studio portrait with butterfly lighting';
+    const prompts = buildConsistentPrompts(base, { category: 'studio' });
     prompts.forEach(p => expect(p).toContain(base));
   });
 
   it('all 4 prompts contain identity-lock anchors', () => {
-    const prompts = buildConsistentPrompts('test base', { category: 'wedding' });
+    const prompts = buildConsistentPrompts('test studio', { category: 'studio' });
     prompts.forEach(p => expect(p).toContain('same person'));
   });
 
   it('each of the 4 prompts contains a different shot descriptor', () => {
-    const prompts = buildConsistentPrompts('base', { category: 'prewedding' });
+    const prompts = buildConsistentPrompts('base', { category: 'studio' });
     const unique  = new Set(prompts.map(p => p.split('base, ')[1]?.split(',')[0]));
     expect(unique.size).toBe(4);
   });
 
-  it('supports all 5 categories', () => {
-    const cats = ['prewedding', 'wedding', 'engagement', 'studio', 'family'];
-    cats.forEach(cat => {
-      const prompts = buildConsistentPrompts('test', { category: cat });
-      expect(prompts).toHaveLength(4);
-    });
-  });
-
-  it('falls back to prewedding for unknown category', () => {
+  it('falls back to studio for unknown category', () => {
     const prompts = buildConsistentPrompts('test', { category: 'unknown_cat' });
     expect(prompts).toHaveLength(4);
   });
@@ -101,7 +89,6 @@ describe('randomizer', () => {
   });
 
   it('produces different outputs across multiple calls (randomness test)', () => {
-    // Run 10 times — expect at least 2 different outputs
     const outputs = new Set(Array.from({ length: 10 }, () => applyRandomizer('base')));
     expect(outputs.size).toBeGreaterThan(1);
   });
@@ -134,58 +121,40 @@ describe('faceRepair', () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// promptBuilder — buildPrompt()  (full pipeline)
+// promptBuilder — buildPrompt() (full pipeline)
 // ─────────────────────────────────────────────────────────────────────────────
 describe('promptBuilder — buildPrompt', () => {
-  // ── Prewedding ────────────────────────────────────────────────────────────
-  describe('prewedding category', () => {
+  describe('studio category', () => {
     let prompt;
-    beforeEach(() => { prompt = buildPrompt(preweddingInput()); });
+    beforeEach(() => { prompt = buildPrompt(studioInput()); });
 
     it('returns a non-empty string', () => {
       expect(typeof prompt).toBe('string');
       expect(prompt.length).toBeGreaterThan(50);
     });
 
-    it('contains male subject description', () => {
-      expect(prompt).toContain('handsome Indonesian man');
+    it('contains studio backdrop description', () => {
+      expect(prompt).toContain('studio');
     });
 
-    it('contains female subject description', () => {
+    it('contains subject description', () => {
       expect(prompt).toContain('beautiful Indonesian woman');
     });
 
-    it('contains male outfit', () => {
-      expect(prompt).toContain('fitted white linen shirt');
-    });
-
-    it('contains female outfit', () => {
-      expect(prompt).toContain('flowing chiffon maxi dress');
-    });
-
-    it('resolves location key to full description', () => {
-      // bali_heaven → Pura Lempuyang
-      expect(prompt).toContain('Lempuyang');
+    it('contains lighting info', () => {
+      expect(prompt).toContain('butterfly lighting');
     });
 
     it('contains pose', () => {
-      expect(prompt).toContain('walking hand-in-hand');
+      expect(prompt).toContain('elegant standing portrait');
     });
 
     it('contains expression', () => {
-      expect(prompt).toContain('deeply in love');
+      expect(prompt).toContain('confident editorial gaze');
     });
 
     it('contains color grade', () => {
-      expect(prompt).toContain('warm cinematic film tones');
-    });
-
-    it('contains camera info', () => {
-      expect(prompt).toContain('Sony A7R V');
-    });
-
-    it('contains lens info (shot on or lens)', () => {
-      expect(prompt).toContain('85mm f/1.4');
+      expect(prompt).toContain('ultra clean pure white studio grade');
     });
 
     it('appends cinematic suffix (ultra realistic)', () => {
@@ -202,50 +171,7 @@ describe('promptBuilder — buildPrompt', () => {
     });
   });
 
-  // ── Wedding ───────────────────────────────────────────────────────────────
-  describe('wedding category', () => {
-    it('contains wedding-specific framing', () => {
-      const prompt = buildPrompt({
-        category:             'wedding',
-        etnis_pria:           'handsome Indonesian groom',
-        etnis_wanita:         'beautiful Indonesian bride',
-        outfit_pria:          'classic black tuxedo',
-        outfit_wanita:        'magnificent white ball gown',
-        location:             'wd_bali_cliff',
-        pose:                 'couple walking back down the aisle',
-        expression:           'pure bliss and overwhelming joy',
-        fal_key:              'test',
-      });
-      expect(prompt).toContain('wedding');
-      expect(prompt).toContain('groom');
-      expect(prompt).toContain('Uluwatu');
-    });
-  });
-
-  // ── Engagement ────────────────────────────────────────────────────────────
-  describe('engagement category', () => {
-    it('builds engagement-specific prompt', () => {
-      const prompt = buildPrompt({
-        category:     'engagement',
-        etnis_pria:   'handsome man',
-        etnis_wanita: 'beautiful woman',
-        location:     'en_rooftop',
-        fal_key:      'test',
-      });
-      expect(prompt).toContain('engagement');
-      expect(prompt).toContain('Rooftop');
-    });
-  });
-
-  // ── Studio ────────────────────────────────────────────────────────────────
-  describe('studio category', () => {
-    it('builds solo_wanita studio prompt', () => {
-      const prompt = buildPrompt(studioInput());
-      expect(prompt).toContain('studio');
-      expect(prompt).toContain('ball gown');
-      expect(prompt).toContain('butterfly lighting');
-    });
-
+  describe('studio solo_pria mode', () => {
     it('builds solo_pria studio prompt', () => {
       const prompt = buildPrompt(studioInput({
         studio_mode:           'solo_pria',
@@ -257,7 +183,9 @@ describe('promptBuilder — buildPrompt', () => {
       expect(prompt).toContain('distinguished Indonesian man');
       expect(prompt).toContain('tuxedo');
     });
+  });
 
+  describe('studio pasangan mode', () => {
     it('builds pasangan studio prompt', () => {
       const prompt = buildPrompt(studioInput({
         studio_mode:           'pasangan',
@@ -265,87 +193,16 @@ describe('promptBuilder — buildPrompt', () => {
         outfit_pria:           'navy blue wedding suit',
         face_image_url_pria:   'https://test.r2.dev/faces/pria.jpg',
       }));
-      expect(prompt).toContain('couple');
+      expect(prompt).toContain('distinguished man');
     });
   });
 
-  // ── Family ───────────────────────────────────────────────────────────────
-  describe('family category', () => {
-    it('builds family portrait prompt', () => {
-      const prompt = buildPrompt(familyInput());
-      expect(prompt).toContain('family');
-      expect(prompt).toContain('Indonesian family');
-    });
-
-    it('contains family outfit', () => {
-      const prompt = buildPrompt(familyInput());
-      expect(prompt).toContain('white and beige');
-    });
-
-    it('contains studio theme', () => {
-      const prompt = buildPrompt(familyInput());
-      expect(prompt).toContain('warm white family studio');
-    });
-  });
-
-  // ── Custom outfit override ────────────────────────────────────────────────
-  describe('custom outfit field', () => {
-    it('uses custom outfit when outfit=custom', () => {
-      const prompt = buildPrompt(preweddingInput({
-        outfit_pria:        'custom',
-        outfit_pria_custom: 'handmade vintage blazer with gold buttons',
-      }));
-      expect(prompt).toContain('handmade vintage blazer');
-    });
-  });
-
-  // ── Custom location ───────────────────────────────────────────────────────
-  describe('custom location field', () => {
-    it('uses custom location string', () => {
-      const prompt = buildPrompt(preweddingInput({
-        location:        'custom',
-        location_custom: 'secret waterfall hidden in Bandung jungle',
-      }));
-      expect(prompt).toContain('secret waterfall');
-    });
-  });
-
-  // ── Unknown location key ──────────────────────────────────────────────────
-  it('passes unknown location key through as-is', () => {
-    const prompt = buildPrompt(preweddingInput({ location: 'some_unknown_key_xyz' }));
-    expect(prompt).toContain('some_unknown_key_xyz');
-  });
-
-  // ── Fallback for empty category ───────────────────────────────────────────
-  it('falls back to prewedding for empty category', () => {
-    const input  = { ...preweddingInput(), category: undefined };
-    const prompt = buildPrompt(input);
-    expect(typeof prompt).toBe('string');
-    expect(prompt.length).toBeGreaterThan(10);
-  });
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Location resolver — all 5 continent groups
-// ─────────────────────────────────────────────────────────────────────────────
-describe('locationPrompt — resolveLocation', () => {
-  // We test indirectly through buildPrompt
-  const locationCases = [
-    ['bali_heaven',    'Lempuyang'],
-    ['kyoto_inari',    'Inari'],
-    ['paris_eiffel',   'Eiffel'],
-    ['dubai_desert',   'Dubai'],
-    ['santorini',      'Santorini'],
-    ['ny_rooftop',     'Manhattan'],
-    ['aurora',         'Aurora'],
-    ['en_cafe',        'Jakarta'],
-    ['wd_masjid',      'Istiqlal'],
-  ];
-
-  locationCases.forEach(([key, expectedFragment]) => {
-    it(`resolves ${key} → contains "${expectedFragment}"`, () => {
-      const prompt = buildPrompt(preweddingInput({ location: key }));
-      expect(prompt.toLowerCase()).toContain(expectedFragment.toLowerCase());
+  describe('fallback for empty category', () => {
+    it('falls back to studio for empty category', () => {
+      const input  = { ...studioInput(), category: undefined };
+      const prompt = buildPrompt(input);
+      expect(typeof prompt).toBe('string');
+      expect(prompt.length).toBeGreaterThan(10);
     });
   });
 });

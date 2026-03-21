@@ -7,7 +7,7 @@
  * Job schema (message body):
  * {
  *   job_id   : string,   — crypto.randomUUID() from /generate handler
- *   category : string,   — prewedding | wedding | engagement | studio | family
+ *   category : string,   — studio | wisuda
  *   input    : object,   — buildGeneratorInput() payload
  * }
  *
@@ -51,11 +51,8 @@ async function writeJobStatus(job_id, data, env) {
 
 // ── Default image sizes per slot in the 2×2 grid ─────────────────────────────
 const SLOT_SIZES = {
-  prewedding: [IMAGE_SIZES.portrait_2x3, IMAGE_SIZES.portrait_4x5,  IMAGE_SIZES.portrait_2x3, IMAGE_SIZES.portrait_4x5],
-  wedding:    [IMAGE_SIZES.portrait_2x3, IMAGE_SIZES.portrait_4x5,  IMAGE_SIZES.portrait_2x3, IMAGE_SIZES.portrait_4x5],
-  engagement: [IMAGE_SIZES.portrait_4x5, IMAGE_SIZES.portrait_4x5,  IMAGE_SIZES.portrait_4x5, IMAGE_SIZES.portrait_4x5],
-  studio:     [IMAGE_SIZES.portrait_4x5, IMAGE_SIZES.portrait_2x3,  IMAGE_SIZES.portrait_4x5, IMAGE_SIZES.portrait_2x3],
-  family:     [IMAGE_SIZES.portrait_4x5, IMAGE_SIZES.portrait_4x5,  IMAGE_SIZES.landscape,    IMAGE_SIZES.landscape],
+  studio: [IMAGE_SIZES.portrait_4x5, IMAGE_SIZES.portrait_2x3, IMAGE_SIZES.portrait_4x5, IMAGE_SIZES.portrait_2x3],
+  wisuda: [IMAGE_SIZES.portrait_4x5, IMAGE_SIZES.portrait_2x3, IMAGE_SIZES.portrait_4x5, IMAGE_SIZES.portrait_2x3],
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -224,16 +221,11 @@ async function handleJob(message, env) {
 // Generation speed: 20 inference steps → ~15–25s per image on fal.ai.
 // ─────────────────────────────────────────────────────────────────────────────
 async function handleLegacyJob(message, env, job_id, input) {
-  const { prompt, face_image_url, face_image_url_wanita, image_size, id_weight, fal_key } = input;
-  const isCouple = !!face_image_url_wanita;
+  const { prompt, face_image_url, image_size, id_weight, fal_key } = input;
 
-  console.log(`[Queue] Legacy job ${job_id} — couple=${isCouple} — submitting to fal.ai async queue`);
+  console.log(`[Queue] Legacy job ${job_id} — submitting to fal.ai async queue`);
 
-  // For couple jobs: hint the AI to place man on left and woman on right
-  // so InsightFace can reliably identify which face to swap in Step 2 (inswapper).
-  const finalPrompt = isCouple
-    ? `${prompt}, man standing on the LEFT side of the frame, woman standing on the RIGHT side of the frame`
-    : prompt;
+  const finalPrompt = prompt;
 
   const FAL_QUEUE = 'https://queue.fal.run/fal-ai/flux-pulid';
 
@@ -286,12 +278,9 @@ async function handleLegacyJob(message, env, job_id, input) {
     return;
   }
 
-  // Store fal_request_id (and wanita_face_url for couple jobs) in JOBS_KV.
-  // /status reads these to proxy fal.ai status and run the inswapper step.
+  // Store fal_request_id in JOBS_KV for /status polling.
   // fal_key is NOT stored — handleStatus reads env.FAL_KEY from Worker secrets.
-  const kvPayload = { status: 'processing', fal_request_id };
-  if (isCouple) kvPayload.wanita_face_url = face_image_url_wanita;
-  await writeJobStatus(job_id, kvPayload, env);
+  await writeJobStatus(job_id, { status: 'processing', fal_request_id }, env);
 
   console.log(`[Queue] Legacy job ${job_id} submitted to fal.ai — fal_request_id=${fal_request_id}`);
   message.ack();  // Queue consumer done immediately — fal.ai runs async
@@ -301,15 +290,11 @@ async function handleLegacyJob(message, env, job_id, input) {
 // Resolve the primary face URL from input based on category
 // ─────────────────────────────────────────────────────────────────────────────
 function resolveFaceUrl(input, category) {
-  if (category === 'family') {
-    return input.face_image_url_ayah || input.face_image_url_ibu || input.face_image_url || null;
-  }
   if (category === 'studio') {
     const mode = input.studio_mode || 'solo_wanita';
     if (mode === 'solo_wanita') return input.face_image_url_wanita || input.face_image_url || null;
     if (mode === 'solo_pria')   return input.face_image_url_pria   || input.face_image_url || null;
     return input.face_image_url_pria || input.face_image_url_wanita || input.face_image_url || null;
   }
-  // couple categories
-  return input.face_image_url_pria || input.face_image_url_wanita || input.face_image_url || null;
+  return input.face_image_url_wanita || input.face_image_url_pria || input.face_image_url || null;
 }

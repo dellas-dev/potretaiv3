@@ -7,33 +7,20 @@ import { applyConsistency }  from './consistencyEngine.js';
 import { applyRandomizer }   from './randomizer.js';
 import { applyFaceRepair }   from './faceRepair.js';
 
-import { categoryPrompt as preweddingCategory } from './categories/preweddingPrompt.js';
-import { categoryPrompt as weddingCategory }    from './categories/weddingPrompt.js';
-import { categoryPrompt as engagementCategory } from './categories/engagementPrompt.js';
-import { categoryPrompt as studioCategory }     from './categories/studioPrompt.js';
-import { categoryPrompt as familyCategory }     from './categories/familyPrompt.js';
+import { categoryPrompt as studioCategory } from './categories/studioPrompt.js';
 
-import { outfitPrompt }      from './elements/outfitPrompt.js';
-import { locationPrompt }    from './elements/locationPrompt.js';
-import { posePrompt }        from './elements/posePrompt.js';
-import { expressionPrompt }  from './elements/expressionPrompt.js';
-import { atmospherePrompt }  from './elements/atmospherePrompt.js';
-import { timePrompt }        from './elements/timePrompt.js';
+import { outfitPrompt }     from './elements/outfitPrompt.js';
+import { posePrompt }       from './elements/posePrompt.js';
+import { expressionPrompt } from './elements/expressionPrompt.js';
 
-import { colorGradePrompt }  from './photography/colorGradePrompt.js';
-import { lightingPrompt }    from './photography/lightingPrompt.js';
-import { cameraPrompt }      from './photography/cameraPrompt.js';
-import { lensPrompt }        from './photography/lensPrompt.js';
-import { aperturePrompt }    from './photography/aperturePrompt.js';
+import { colorGradePrompt } from './photography/colorGradePrompt.js';
+import { lightingPrompt }   from './photography/lightingPrompt.js';
+import { cameraPrompt }     from './photography/cameraPrompt.js';
 
 // ── Internal lookup helpers ──
 
 const categoryModifiers = {
-  prewedding: preweddingCategory,
-  wedding:    weddingCategory,
-  engagement: engagementCategory,
-  studio:     studioCategory,
-  family:     familyCategory,
+  studio: studioCategory,
 };
 
 /**
@@ -106,126 +93,6 @@ function buildBasePrompt(config) {
 
   switch (cat) {
 
-    case 'prewedding': {
-      const deskMap = {
-        "Indonesia":      "handsome Indonesian man",
-        "Asia Tenggara":  "handsome Southeast Asian man",
-        "Asia Timur":     "handsome East Asian man",
-        "Kaukasia":       "handsome Caucasian man",
-      };
-      const deskMapW = {
-        "Indonesia":      "beautiful Indonesian woman",
-        "Asia Tenggara":  "beautiful Southeast Asian woman",
-        "Asia Timur":     "beautiful East Asian woman",
-        "Kaukasia":       "beautiful Caucasian woman",
-      };
-      const subjectP = config.hasFacePria   ? 'a man'   : (deskMap[config.etnis_pria]   || 'handsome Indonesian man');
-      const subjectW = config.hasFaceWanita ? 'a woman' : (deskMapW[config.etnis_wanita] || 'beautiful Indonesian woman');
-
-      const opP  = resolve(outfitPrompt.prewedding.male,   config.outfit_pria,   config.outfit_pria_custom);
-      const opW  = resolve(outfitPrompt.prewedding.female, config.outfit_wanita, config.outfit_wanita_custom);
-      const lok  = resolve(locationPrompt.prewedding,      config.location,      config.location_custom);
-      const pose = resolve(posePrompt.prewedding,          config.pose);
-      const eks  = resolve(expressionPrompt.prewedding,    config.expression);
-      const wkt  = resolve(timePrompt.prewedding,          config.time);
-      const sua  = resolve(atmospherePrompt.prewedding,    config.atmosphere);
-      const grd  = resolve(colorGradePrompt.prewedding,    config.color_grade);
-      const kam  = resolve(cameraPrompt.prewedding,        config.camera);
-      const len  = resolve(lensPrompt.prewedding,          config.lens);
-      const apt  = aperturePrompt.prewedding.default;
-
-      return [
-        `${subjectP} and ${subjectW}`,
-        pose,
-        `man ${opP}`,
-        `woman ${opW}`,
-        `at ${lok}`,
-        wkt, sua, eks,
-        grd, kam, len, apt,
-        catMod,
-        masterPrompt,
-      ].filter(Boolean).join(', ');
-    }
-
-    case 'wedding': {
-      const deskMap = {
-        "Indonesia":      "handsome Indonesian man",
-        "Asia Tenggara":  "handsome Southeast Asian man",
-        "Asia Timur":     "handsome East Asian man",
-        "Kaukasia":       "handsome Caucasian man",
-      };
-      const deskMapW = {
-        "Indonesia":      "beautiful Indonesian woman",
-        "Asia Tenggara":  "beautiful Southeast Asian woman",
-        "Asia Timur":     "beautiful East Asian woman",
-        "Kaukasia":       "beautiful Caucasian woman",
-      };
-      const subjectP = (config.hasFacePria   ? 'a man'   : (deskMap[config.etnis_pria]   || 'handsome Indonesian man'))   + ' groom';
-      const subjectW = (config.hasFaceWanita ? 'a woman' : (deskMapW[config.etnis_wanita] || 'beautiful Indonesian woman')) + ' bride';
-
-      const opP   = resolve(outfitPrompt.wedding.male,   config.outfit_pria);
-      const opW   = resolve(outfitPrompt.wedding.female, config.outfit_wanita);
-      const venue = resolve(locationPrompt.wedding,      config.location, config.location_custom);
-      const pose  = resolve(posePrompt.wedding,          config.pose);
-      const wkt   = resolve(timePrompt.wedding,          config.time);
-      const grd   = resolve(colorGradePrompt.wedding,    config.color_grade);
-      const kam   = resolve(cameraPrompt.wedding,        config.camera);
-
-      // Decoration inline map (from buildWedding line 1734)
-      const dekorasiMap = {
-        "Fresh Flower Arch Elegan":  "fresh flower arch floral arrangement surrounding",
-        "Candle & Rose Petals":      "candles and rose petals romantic setting",
-        "Hanging Fairy Lights":      "hanging fairy lights warm glow",
-        "Tropical Lush Greenery":    "tropical lush greenery decoration",
-        "Minimal White Modern":      "minimal white modern decoration",
-      };
-      const dkr = dekorasiMap[config.dekorasi] || '';
-
-      return [
-        `${subjectP} and ${subjectW}`,
-        pose,
-        `groom ${opP}`,
-        `bride ${opW}`,
-        `at ${venue}`,
-        dkr,
-        wkt,
-        "deeply in love expression soulful romantic gaze",
-        "medium portrait",
-        grd, kam, "85mm f/1.4",
-        catMod,
-        masterPrompt,
-      ].filter(Boolean).join(', ');
-    }
-
-    case 'engagement': {
-      const subjectP = config.hasFacePria   ? 'a man'   : 'handsome Indonesian man';
-      const subjectW = config.hasFaceWanita ? 'a woman' : 'beautiful Indonesian woman';
-
-      const opP  = resolve(outfitPrompt.engagement.male,   config.outfit_pria);
-      const opW  = resolve(outfitPrompt.engagement.female, config.outfit_wanita);
-      const lok  = resolve(locationPrompt.engagement,      config.location, config.location_custom);
-      const pose = resolve(posePrompt.engagement,          config.pose);
-      const sua  = resolve(atmospherePrompt.engagement,    config.atmosphere);
-      const wkt  = resolve(timePrompt.engagement,          config.time);
-      const grd  = resolve(colorGradePrompt.engagement,    config.color_grade);
-
-      return [
-        `${subjectP} and ${subjectW}`,
-        pose,
-        `man ${opP}`,
-        `woman ${opW}`,
-        `at ${lok}`,
-        wkt, sua,
-        "candid natural expression",
-        "medium portrait shot",
-        grd,
-        "shot on Sony A7R V",
-        "85mm f/1.4",
-        catMod,
-        masterPrompt,
-      ].filter(Boolean).join(', ');
-    }
-
     case 'studio': {
       const mode = config.studio_mode || 'solo_wanita';
 
@@ -286,40 +153,6 @@ function buildBasePrompt(config) {
         `studio background: ${tema}`,
         light, grd, kam,
         "85mm f/1.4",
-        catMod,
-        masterPrompt,
-      ].filter(Boolean).join(', ');
-    }
-
-    case 'family': {
-      // Etnis map
-      const familyDeskMap = {
-        "Keluarga Indonesia":  "Indonesian family",
-        "Asia Tenggara":       "Southeast Asian family",
-        "Campuran (Mixed)":    "mixed ethnicity family",
-      };
-      // Anggota map (from FAMILY_ANGGOTA_MAP in app.html lines 1562-1568)
-      const anggotaMap = {
-        "Pasangan (Tanpa Anak)":    "couple portrait, two people together, intimate",
-        "Ayah + Ibu + 1 Anak":      "family of three, mother father and one child",
-        "Ayah + Ibu + 2 Anak":      "family of four, mother father and two children",
-        "Ayah + Ibu + 3 Anak":      "family of five, mother father and three children",
-        "Keluarga Besar":           "large extended family group, multiple generations",
-      };
-
-      const etnis   = familyDeskMap[config.etnis_family]   || 'Indonesian family';
-      const anggota = anggotaMap[config.family_anggota]     || 'family portrait';
-      const outfit  = resolve(outfitPrompt.family,           config.family_outfit);
-      const tema    = resolve(locationPrompt.family,         config.family_tema);
-      const sua     = resolve(atmospherePrompt.family,       config.family_suasana);
-      const grd     = resolve(colorGradePrompt.family,       config.color_grade);
-      const kam     = resolve(cameraPrompt.family,           config.camera);
-      const apt     = aperturePrompt.family.default;
-
-      return [
-        `${etnis} ${anggota}`,
-        `wearing ${outfit}`,
-        tema, sua, grd, kam, apt,
         catMod,
         masterPrompt,
       ].filter(Boolean).join(', ');

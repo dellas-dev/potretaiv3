@@ -17,7 +17,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 import { processQueue }       from '@queue/generateQueue.js';
-import { createMockEnv, MockQueueMessage, preweddingInput, studioInput, familyInput, makeFalResponse, makeFalError } from '@helpers/mockEnv.js';
+import { createMockEnv, MockQueueMessage, studioInput, makeFalResponse, makeFalError } from '@helpers/mockEnv.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Stub fetch helpers
@@ -82,8 +82,8 @@ afterEach(() => { vi.unstubAllGlobals(); });
 function makeJob(overrides = {}) {
   return {
     job_id:   'job-test-001',
-    category: 'prewedding',
-    input:    preweddingInput(),
+    category: 'studio',
+    input:    studioInput(),
     ...overrides,
   };
 }
@@ -119,21 +119,21 @@ describe('handleJob — malformed job', () => {
   beforeEach(() => { env = createMockEnv(); });
 
   it('acks and drops job missing job_id', async () => {
-    const msg = new MockQueueMessage({ category: 'prewedding', input: preweddingInput() });
+    const msg = new MockQueueMessage({ category: 'studio', input: studioInput() });
     await processQueue(makeBatch([msg]), env);
     expect(msg.acked).toBe(true);
     expect(msg.retried).toBe(false);
   });
 
   it('acks and drops job missing category', async () => {
-    const msg = new MockQueueMessage({ job_id: 'j1', input: preweddingInput() });
+    const msg = new MockQueueMessage({ job_id: 'j1', input: studioInput() });
     await processQueue(makeBatch([msg]), env);
     expect(msg.acked).toBe(true);
     expect(msg.retried).toBe(false);
   });
 
   it('acks and drops job missing input', async () => {
-    const msg = new MockQueueMessage({ job_id: 'j1', category: 'prewedding' });
+    const msg = new MockQueueMessage({ job_id: 'j1', category: 'studio' });
     await processQueue(makeBatch([msg]), env);
     expect(msg.acked).toBe(true);
     expect(msg.retried).toBe(false);
@@ -189,11 +189,10 @@ describe('handleJob — missing face URL', () => {
   let env;
   beforeEach(() => { env = createMockEnv(); });
 
-  it('acks and drops prewedding job with no face URLs', async () => {
-    const input = preweddingInput({
-      face_image_url_pria:  null,
+  it('acks and drops studio job with no face URLs', async () => {
+    const input = studioInput({
       face_image_url_wanita: null,
-      face_image_url:        null,
+      face_image_url: null,
     });
     const msg = new MockQueueMessage(makeJob({ input }));
     await processQueue(makeBatch([msg]), env);
@@ -216,21 +215,6 @@ describe('handleJob — missing face URL', () => {
     expect(msg.retried).toBe(false);
   });
 
-  it('acks and drops family job with no face URLs', async () => {
-    const input = familyInput({
-      face_image_url_ayah: null,
-      face_image_url_ibu:  null,
-      face_image_url:      null,
-    });
-    const msg = new MockQueueMessage({
-      job_id:   'job-family-no-face',
-      category: 'family',
-      input,
-    });
-    await processQueue(makeBatch([msg]), env);
-    expect(msg.acked).toBe(true);
-    expect(msg.retried).toBe(false);
-  });
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -404,48 +388,6 @@ describe('handleJob — happy path', () => {
 // Face URL resolution per category
 // ─────────────────────────────────────────────────────────────────────────────
 describe('handleJob — face URL resolution', () => {
-  it('uses pria face URL as primary for prewedding', async () => {
-    stubFullSuccess();
-    const env = createMockEnv();
-    const msg = new MockQueueMessage(makeJob({ category: 'prewedding' }));
-    await processQueue(makeBatch([msg]), env);
-
-    // Verify first fal.ai call used pria face URL
-    const [, reqInit] = vi.mocked(fetch).mock.calls[0];
-    const body = JSON.parse(reqInit.body);
-    expect(body.image_url).toBe('https://test.r2.dev/faces/pria.jpg');
-  });
-
-  it('uses ayah face URL as primary for family', async () => {
-    stubFullSuccess();
-    const env = createMockEnv();
-    const msg = new MockQueueMessage({
-      job_id:   'job-family',
-      category: 'family',
-      input:    familyInput(),
-    });
-    await processQueue(makeBatch([msg]), env);
-
-    const [, reqInit] = vi.mocked(fetch).mock.calls[0];
-    const body = JSON.parse(reqInit.body);
-    expect(body.image_url).toBe('https://test.r2.dev/faces/ayah.jpg');
-  });
-
-  it('falls back to ibu face URL when ayah is missing (family)', async () => {
-    stubFullSuccess();
-    const env = createMockEnv();
-    const msg = new MockQueueMessage({
-      job_id:   'job-family-ibu',
-      category: 'family',
-      input:    familyInput({ face_image_url_ayah: null }),
-    });
-    await processQueue(makeBatch([msg]), env);
-
-    const [, reqInit] = vi.mocked(fetch).mock.calls[0];
-    const body = JSON.parse(reqInit.body);
-    expect(body.image_url).toBe('https://test.r2.dev/faces/ibu.jpg');
-  });
-
   it('uses wanita face URL for studio solo_wanita', async () => {
     stubFullSuccess();
     const env = createMockEnv();
@@ -469,7 +411,7 @@ describe('handleJob — watermark', () => {
   it('injects watermark text in prompt when watermark=true', async () => {
     stubFullSuccess();
     const env = createMockEnv();
-    const input = preweddingInput({ watermark: true });
+    const input = studioInput({ watermark: true });
     const msg = new MockQueueMessage(makeJob({ input }));
     await processQueue(makeBatch([msg]), env);
 
@@ -481,7 +423,7 @@ describe('handleJob — watermark', () => {
   it('does NOT inject watermark when watermark=false', async () => {
     stubFullSuccess();
     const env = createMockEnv();
-    const input = preweddingInput({ watermark: false });
+    const input = studioInput({ watermark: false });
     const msg = new MockQueueMessage(makeJob({ input }));
     await processQueue(makeBatch([msg]), env);
 

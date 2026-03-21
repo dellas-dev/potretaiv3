@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PotretAI Studio — AI Photo Generator</title>
+  <title>PotretAI Studio — Foto Studio & Wisuda Premium</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -592,12 +592,9 @@
     <span class="sb-parent-text">Generator</span>
     <svg class="sb-chevron" id="sb-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 5.5l3 3 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </div>
-  <div class="sb-submenu" id="sb-submenu">
-    <button class="sb-subitem" data-tab="prewedding" onclick="navigateTo('generator','prewedding')">&#128141; Prewedding</button>
-    <button class="sb-subitem" data-tab="wedding"    onclick="navigateTo('generator','wedding')">&#128112; Wedding</button>
-    <button class="sb-subitem" data-tab="engagement" onclick="navigateTo('generator','engagement')">&#128142; Engagement</button>
-    <button class="sb-subitem" data-tab="studio"     onclick="navigateTo('generator','studio')">&#128247; Studio</button>
-    <button class="sb-subitem" data-tab="family"     onclick="navigateTo('generator','family')">&#128106; Family</button>
+  <div class="sb-submenu open" id="sb-submenu">
+    <button class="sb-subitem" data-tab="studio" onclick="navigateTo('generator','studio')">&#128247; Studio Foto AI</button>
+    <button class="sb-subitem" data-tab="wisuda" onclick="navigateTo('generator','wisuda')">&#127891; Wisuda AI</button>
   </div>
   <button class="sb-item" data-view="history" onclick="navigateTo('history')">
     <svg class="sb-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -669,54 +666,24 @@
       </div>
     </div>
     <div class="cat-grid">
-      <div class="cat-card" onclick="navigateTo('generator','prewedding')">
-        <div class="cat-img-wrap">
-          <img class="cat-img" src="https://placehold.co/400x280/0D1E25/1FA6B5?text=Prewedding" alt="Prewedding AI" loading="lazy">
-          <div class="cat-overlay"><span class="cat-start">Mulai Generate &#8594;</span></div>
-        </div>
-        <div class="cat-body">
-          <div class="cat-emoji">&#128141;</div>
-          <div><div class="cat-title">Prewedding</div><div class="cat-desc">Ratusan lokasi dunia</div></div>
-        </div>
-      </div>
-      <div class="cat-card" onclick="navigateTo('generator','wedding')">
-        <div class="cat-img-wrap">
-          <img class="cat-img" src="https://placehold.co/400x280/0E8EA0/FFFFFF?text=Wedding" alt="Wedding AI" loading="lazy">
-          <div class="cat-overlay"><span class="cat-start">Mulai Generate &#8594;</span></div>
-        </div>
-        <div class="cat-body">
-          <div class="cat-emoji">&#128112;</div>
-          <div><div class="cat-title">Wedding</div><div class="cat-desc">Foto resepsi & akad</div></div>
-        </div>
-      </div>
-      <div class="cat-card" onclick="navigateTo('generator','engagement')">
-        <div class="cat-img-wrap">
-          <img class="cat-img" src="https://placehold.co/400x280/1FA6B5/FFFFFF?text=Engagement" alt="Engagement AI" loading="lazy">
-          <div class="cat-overlay"><span class="cat-start">Mulai Generate &#8594;</span></div>
-        </div>
-        <div class="cat-body">
-          <div class="cat-emoji">&#128142;</div>
-          <div><div class="cat-title">Engagement</div><div class="cat-desc">Foto lamaran casual</div></div>
-        </div>
-      </div>
       <div class="cat-card" onclick="navigateTo('generator','studio')">
         <div class="cat-img-wrap">
-          <img class="cat-img" src="https://placehold.co/400x280/1E2A2F/1FA6B5?text=Studio" alt="Studio AI" loading="lazy">
-          <div class="cat-overlay"><span class="cat-start">Mulai Generate &#8594;</span></div>
+          <img class="cat-img" src="https://placehold.co/400x280/1E2A2F/1FA6B5?text=Studio" alt="Studio Foto AI" loading="lazy">
+          <div class="cat-overlay"><span class="cat-start">Pilih Paket &#8594;</span></div>
         </div>
         <div class="cat-body">
           <div class="cat-emoji">&#128247;</div>
-          <div><div class="cat-title">Studio</div><div class="cat-desc">40+ tema studio</div></div>
+          <div><div class="cat-title">Studio Foto AI</div><div class="cat-desc">40+ tema indoor & outdoor</div></div>
         </div>
       </div>
-      <div class="cat-card" onclick="navigateTo('generator','family')">
+      <div class="cat-card" onclick="navigateTo('generator','wisuda')">
         <div class="cat-img-wrap">
-          <img class="cat-img" src="https://placehold.co/400x280/FF7A5A/FFFFFF?text=Family" alt="Family AI" loading="lazy">
-          <div class="cat-overlay"><span class="cat-start">Mulai Generate &#8594;</span></div>
+          <img class="cat-img" src="https://placehold.co/400x280/0D1E25/1FA6B5?text=Wisuda" alt="Wisuda AI" loading="lazy">
+          <div class="cat-overlay"><span class="cat-start">Pilih Paket &#8594;</span></div>
         </div>
         <div class="cat-body">
-          <div class="cat-emoji">&#128106;</div>
-          <div><div class="cat-title">Family</div><div class="cat-desc">Portrait keluarga</div></div>
+          <div class="cat-emoji">&#127891;</div>
+          <div><div class="cat-title">Wisuda AI</div><div class="cat-desc">Foto kelulusan estetik & elegan</div></div>
         </div>
       </div>
     </div>
@@ -745,14 +712,11 @@
 
   <!-- Header + Tabs -->
   <div class="gen-header">
-    <div class="gen-title">AI Photo Generator</div>
-    <div class="gen-sub">Upload foto wajah, pilih gaya, dan generate 4 foto profesional dalam 30 detik</div>
+    <div class="gen-title">Foto Studio & Wisuda Premium</div>
+    <div class="gen-sub">Pilih paket, upload foto wajah — hasil profesional tanpa ke studio</div>
     <div class="gen-tabs" role="tablist">
-      <button class="gen-tab active" data-tab="prewedding" onclick="switchTab('prewedding')" role="tab">&#128141; Prewedding</button>
-      <button class="gen-tab" data-tab="wedding"    onclick="switchTab('wedding')"    role="tab">&#128112; Wedding</button>
-      <button class="gen-tab" data-tab="engagement" onclick="switchTab('engagement')" role="tab">&#128142; Engagement</button>
-      <button class="gen-tab" data-tab="studio"     onclick="switchTab('studio')"     role="tab">&#128247; Studio</button>
-      <button class="gen-tab" data-tab="family"     onclick="switchTab('family')"     role="tab">&#128106; Family</button>
+      <button class="gen-tab active" data-tab="studio" onclick="switchTab('studio')" role="tab">&#128247; Studio Foto AI</button>
+      <button class="gen-tab" data-tab="wisuda"  onclick="switchTab('wisuda')"  role="tab">&#127891; Wisuda AI</button>
     </div>
   </div>
 
@@ -762,352 +726,13 @@
     <!-- LEFT PANEL -->
     <div class="gen-left" id="gen-form-panel">
 
-      <!-- ===== TAB: PREWEDDING ===== -->
-      <div class="tab-content active" id="tab-prewedding">
-
-        <div class="form-sec">
-          <div class="form-sec-title">&#128247; Foto Referensi Wajah</div>
-          <div class="upload-grid col2">
-            <div>
-              <div class="upload-top-lbl">Foto Pria</div>
-              <div class="upload-relative">
-                <div class="upload-box" id="upload-pw-pria" onclick="triggerUpload('inp-pw-pria')">
-                  <input type="file" id="inp-pw-pria" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-pw-pria')">
-                  <svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                  <span class="upload-label-txt">Klik atau drag</span>
-                  <span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="upload-top-lbl">Foto Wanita</div>
-              <div class="upload-relative">
-                <div class="upload-box" id="upload-pw-wanita" onclick="triggerUpload('inp-pw-wanita')">
-                  <input type="file" id="inp-pw-wanita" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-pw-wanita')">
-                  <svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                  <span class="upload-label-txt">Klik atau drag</span>
-                  <span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Panduan foto -->
-          <div style="margin-top:10px;padding:10px 12px;background:rgba(31,166,181,0.07);border-radius:10px;border:1px solid rgba(31,166,181,0.18);">
-            <div style="font-size:.72rem;font-weight:700;color:#1FA6B5;margin-bottom:6px;letter-spacing:.04em;">📸 PANDUAN FOTO TERBAIK</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:.7rem;line-height:1.6;">
-              <span style="color:#34c759;">✓ Foto solo (1 wajah)</span>
-              <span style="color:#ff3b30;">✗ Foto grup/ramai</span>
-              <span style="color:#34c759;">✓ Wajah menghadap depan</span>
-              <span style="color:#ff3b30;">✗ Wajah menyamping jauh</span>
-              <span style="color:#34c759;">✓ Pencahayaan terang merata</span>
-              <span style="color:#ff3b30;">✗ Foto gelap / blur</span>
-              <span style="color:#34c759;">✓ Ekspresi natural / senyum</span>
-              <span style="color:#ff3b30;">✗ Tertutup masker / kacamata</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-sec">
-          <div class="form-sec-title">&#128100; Penampilan</div>
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label">Etnis Pria</label>
-              <select class="form-select" id="pw-etnis-pria">
-                <option value="indonesian_male">Indonesia</option>
-                <option value="sea_male">Asia Tenggara</option>
-                <option value="eastasian_male">Asia Timur</option>
-                <option value="caucasian_male">Kaukasia</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Etnis Wanita</label>
-              <select class="form-select" id="pw-etnis-wanita">
-                <option value="indonesian_female">Indonesia</option>
-                <option value="sea_female">Asia Tenggara</option>
-                <option value="eastasian_female">Asia Timur</option>
-                <option value="caucasian_female">Kaukasia</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-sec">
-          <div class="form-sec-title">&#128083; Outfit</div>
-          <div class="form-field">
-            <label class="form-label">Outfit Pria</label>
-            <select class="form-select" id="pw-outfit-pria" onchange="checkCustom(this,'pw-outfit-pria-c')">
-              <option value="white_linen">Kemeja Putih Linen + Celana Khaki</option>
-              <option value="batik_formal">Batik Premium + Celana Hitam</option>
-              <option value="suit_beige">Jas Beige Modern</option>
-              <option value="casual_denim">Casual Denim Smart</option>
-              <option value="all_black">All Black Minimalis</option>
-              <option value="baju_koko">Baju Koko Elegan</option>
-              <option value="custom">&#9999; Tulis sendiri...</option>
-            </select>
-            <input type="text" class="form-input-text custom-input" id="pw-outfit-pria-c" placeholder="Deskripsikan outfit pria...">
-          </div>
-          <div class="form-field">
-            <label class="form-label">Outfit Wanita</label>
-            <select class="form-select" id="pw-outfit-wanita" onchange="checkCustom(this,'pw-outfit-wanita-c')">
-              <option value="champagne_chiffon">Gaun Chiffon Champagne</option>
-              <option value="kebaya_modern">Kebaya Modern</option>
-              <option value="boho_lace">Boho Lace Maxi Dress</option>
-              <option value="all_white">All White Elegan</option>
-              <option value="hijab_elegant">Hijab Syar'i Elegan</option>
-              <option value="kebaya_bali">Kebaya Bali</option>
-              <option value="custom">&#9999; Tulis sendiri...</option>
-            </select>
-            <input type="text" class="form-input-text custom-input" id="pw-outfit-wanita-c" placeholder="Deskripsikan outfit wanita...">
-          </div>
-        </div>
-
-        <div class="form-sec">
-          <div class="form-sec-title">&#127759; Lokasi</div>
-          <div class="form-field">
-            <label class="form-label">Lokasi</label>
-            <select class="form-select" id="pw-lokasi" onchange="checkCustom(this,'pw-lokasi-c')">
-              <optgroup label="&#127470;&#127465; Indonesia">
-                <option value="bali_heaven">Pura Lempuyang (Gates of Heaven), Bali</option>
-                <option value="bali_ubud">Tegallalang Rice Terrace, Ubud</option>
-                <option value="bali_uluwatu">Tebing Uluwatu, Bali</option>
-                <option value="lombok_pink">Pink Beach, Lombok</option>
-                <option value="jogja_borobudur">Candi Borobudur, Jogjakarta</option>
-                <option value="raja_ampat">Raja Ampat, Papua Barat</option>
-                <option value="bromo">Gunung Bromo, Jawa Timur</option>
-              </optgroup>
-              <optgroup label="&#127981; Asia">
-                <option value="santorini">Santorini, Yunani</option>
-                <option value="paris">Eiffel Tower, Paris</option>
-                <option value="tokyo_sakura">Sakura Park, Tokyo</option>
-                <option value="kyoto_bamboo">Bamboo Forest, Kyoto</option>
-                <option value="maldives">Maldives Overwater Villa</option>
-                <option value="phuket">Phi Phi Islands, Thailand</option>
-              </optgroup>
-              <optgroup label="&#127468;&#127463; Eropa">
-                <option value="venice">Kanal Venezia, Italia</option>
-                <option value="tuscany">Bukit Tuscany, Italia</option>
-                <option value="amalfi">Pantai Amalfi, Italia</option>
-                <option value="prague">Old Town Prague, Ceko</option>
-                <option value="colosseum">Colosseum, Roma</option>
-              </optgroup>
-              <optgroup label="&#9999; Custom">
-                <option value="custom">Tulis lokasi sendiri...</option>
-              </optgroup>
-            </select>
-            <input type="text" class="form-input-text custom-input" id="pw-lokasi-c" placeholder="Nama lokasi & suasana...">
-          </div>
-        </div>
-
-        <div class="form-sec">
-          <div class="form-sec-title">&#127775; Gaya Foto</div>
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label">Pose</label>
-              <select class="form-select" id="pw-pose">
-                <option value="walking">Berjalan Bersama</option>
-                <option value="back_hug">Back Hug</option>
-                <option value="almost_kiss">Almost Kiss</option>
-                <option value="slow_dance">Slow Dance</option>
-                <option value="spinning">Berputar Ceria</option>
-                <option value="wide_landscape">Landscape Dramatis</option>
-                <option value="classic_standing">Portrait Klasik</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Ekspresi</label>
-              <select class="form-select" id="pw-ekspresi">
-                <option value="deeply_love">Saling Tatap Penuh Cinta</option>
-                <option value="candid_laugh">Tawa Candid</option>
-                <option value="dreamy">Dreamy Romantis</option>
-                <option value="elegant">Elegan Serius</option>
-                <option value="playful">Playful Natural</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Waktu & Cahaya</label>
-              <select class="form-select" id="pw-waktu">
-                <option value="golden_hour">Golden Hour</option>
-                <option value="blue_hour">Blue Hour</option>
-                <option value="sunset">Sunset Dramatis</option>
-                <option value="morning">Pagi Lembut</option>
-                <option value="cloudy">Mendung Dreamy</option>
-                <option value="night_romantic">Malam Romantis</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Suasana</label>
-              <select class="form-select" id="pw-suasana">
-                <option value="clear">Langit Cerah</option>
-                <option value="misty">Berkabut Dreamy</option>
-                <option value="sakura">Hujan Sakura</option>
-                <option value="fairy">Fairy Lights</option>
-                <option value="moody">Moody Sinematik</option>
-                <option value="tropical">Tropis Hijau</option>
-                <option value="autumn">Daun Gugur Autumn</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Color Grade</label>
-              <select class="form-select" id="pw-grade">
-                <option value="warm_cinematic">Warm Cinematic</option>
-                <option value="bright_airy">Bright & Airy</option>
-                <option value="dark_moody">Dark Moody</option>
-                <option value="soft_pastel">Soft Pastel</option>
-                <option value="vivid_bold">Vivid Bold</option>
-                <option value="bw_fine_art">Hitam Putih Fine Art</option>
-                <option value="golden_regal">Golden Regal</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Gaya Foto</label>
-              <select class="form-select" id="pw-style">
-                <option value="cinematic">Sinematik</option>
-                <option value="fine_art">Fine Art</option>
-                <option value="editorial">Editorial</option>
-                <option value="romantic">Romantis</option>
-                <option value="documentary">Documentary</option>
-                <option value="warm_lifestyle">Warm Lifestyle</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-sec">
-          <div class="form-sec-title">&#128247; Kamera & Lensa</div>
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label">Kamera</label>
-              <select class="form-select" id="pw-kamera">
-                <option value="sony_a7r5">Sony A7R V</option>
-                <option value="canon_r5">Canon EOS R5</option>
-                <option value="fuji_gfx">Fujifilm GFX 100S</option>
-                <option value="hasselblad">Hasselblad X2D</option>
-                <option value="nikon_z9">Nikon Z9</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Lensa</label>
-              <select class="form-select" id="pw-lensa">
-                <option value="85_14">85mm f/1.4</option>
-                <option value="85_12">85mm f/1.2</option>
-                <option value="50_12">50mm f/1.2</option>
-                <option value="35_14">35mm f/1.4 Wide</option>
-                <option value="135_18">135mm f/1.8 Tele</option>
-                <option value="70200">70-200mm f/2.8</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAACrY2J6Znp3ydDOq" data-callback="onTurnstileSuccess" data-size="invisible"></div>
-
-        <div class="gen-bottom">
-          <button class="btn-generate" id="btn-gen-pw" onclick="startGenerate()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <span id="btn-gen-pw-label">Generate 2 Foto</span>
-            <svg id="btn-gen-pw-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-          </button>
-        </div>
-
-      </div><!-- /tab-prewedding -->
-
-      <!-- ===== TAB: WEDDING ===== -->
-      <div class="tab-content" id="tab-wedding">
-        <div class="form-sec">
-          <div class="form-sec-title">&#128247; Foto Referensi Wajah</div>
-          <div class="upload-grid col2">
-            <div><div class="upload-top-lbl">Pengantin Pria</div><div class="upload-relative"><div class="upload-box" id="upload-wd-pria" onclick="triggerUpload('inp-wd-pria')"><input type="file" id="inp-wd-pria" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-wd-pria')"><svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag</span><span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span></div></div></div>
-            <div><div class="upload-top-lbl">Pengantin Wanita</div><div class="upload-relative"><div class="upload-box" id="upload-wd-wanita" onclick="triggerUpload('inp-wd-wanita')"><input type="file" id="inp-wd-wanita" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-wd-wanita')"><svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag</span><span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span></div></div></div>
-          </div>
-          <!-- Panduan foto -->
-          <div style="margin-top:10px;padding:10px 12px;background:rgba(31,166,181,0.07);border-radius:10px;border:1px solid rgba(31,166,181,0.18);">
-            <div style="font-size:.72rem;font-weight:700;color:#1FA6B5;margin-bottom:6px;letter-spacing:.04em;">📸 PANDUAN FOTO TERBAIK</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:.7rem;line-height:1.6;">
-              <span style="color:#34c759;">✓ Foto solo (1 wajah)</span>
-              <span style="color:#ff3b30;">✗ Foto grup/ramai</span>
-              <span style="color:#34c759;">✓ Wajah menghadap depan</span>
-              <span style="color:#ff3b30;">✗ Wajah menyamping jauh</span>
-              <span style="color:#34c759;">✓ Pencahayaan terang merata</span>
-              <span style="color:#ff3b30;">✗ Foto gelap / blur</span>
-              <span style="color:#34c759;">✓ Ekspresi natural / senyum</span>
-              <span style="color:#ff3b30;">✗ Tertutup masker / kacamata</span>
-            </div>
-          </div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#128083; Busana Pernikahan</div>
-          <div class="form-field"><label class="form-label">Busana Pengantin Pria</label><select class="form-select" id="wd-outfit-pria"><option value="black_tux_premium">Tuxedo Hitam Premium</option><option value="white_tux">Tuxedo Putih Elegan</option><option value="beskap_jawa">Beskap Jawa Tradisional</option><option value="baju_koko_penganten">Baju Koko Pengantin</option><option value="suit_navy">Jas Navy Klasik</option><option value="barong">Barong Bali</option></select></div>
-          <div class="form-field"><label class="form-label">Busana Pengantin Wanita</label><select class="form-select" id="wd-outfit-wanita"><option value="white_aline">Gaun Putih A-Line + Veil</option><option value="ball_gown">Princess Ball Gown</option><option value="kebaya_encim_wed">Kebaya Encim Pengantin</option><option value="kebaya_bali_bridal">Kebaya Bali Bridal</option><option value="hijab_pengantin">Hijab Pengantin Syar'i</option><option value="gaun_mermaid">Gaun Mermaid</option></select></div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#127968; Venue & Dekorasi</div>
-          <div class="form-field"><label class="form-label">Venue</label><select class="form-select" id="wd-venue" onchange="checkCustom(this,'wd-venue-c')"><option value="uluwatu_cliff">Uluwatu Cliff Edge, Bali</option><option value="ayana_bali">AYANA Rock Bar, Bali</option><option value="chapel_white">White Chapel Garden</option><option value="ballroom_mewah">Grand Ballroom Mewah</option><option value="outdoor_garden">Outdoor Garden Romantic</option><option value="beach_ceremony">Beach Ceremony Sunset</option><option value="custom">&#9999; Tulis sendiri...</option></select><input type="text" class="form-input-text custom-input" id="wd-venue-c" placeholder="Nama venue pernikahan..."></div>
-          <div class="form-field"><label class="form-label">Dekorasi</label><select class="form-select" id="wd-dekorasi"><option value="fresh_flower">Fresh Flower Arch Elegan</option><option value="romantic_candle">Candle & Rose Petals</option><option value="hanging_lights">Hanging Fairy Lights</option><option value="tropical_lush">Tropical Lush Greenery</option><option value="minimal_white">Minimal White Modern</option></select></div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#127775; Gaya Foto</div>
-          <div class="form-row">
-            <div class="form-field"><label class="form-label">Pose</label><select class="form-select" id="wd-pose"><option value="slow_dance">Slow Dance Romantis</option><option value="almost_kiss">Almost Kiss</option><option value="back_hug">Back Hug Mesra</option><option value="classic_standing">Portrait Klasik</option><option value="walking">Berjalan Bersama</option></select></div>
-            <div class="form-field"><label class="form-label">Waktu</label><select class="form-select" id="wd-waktu"><option value="golden_hour">Golden Hour</option><option value="sunset">Sunset Dramatis</option><option value="blue_hour">Blue Hour</option><option value="morning">Pagi Segar</option></select></div>
-            <div class="form-field"><label class="form-label">Color Grade</label><select class="form-select" id="wd-grade"><option value="bright_airy">Bright & Airy</option><option value="warm_cinematic">Warm Cinematic</option><option value="soft_pastel">Soft Pastel</option><option value="ultra_clean">Ultra Clean White</option><option value="dark_luxury">Dark Luxury</option></select></div>
-            <div class="form-field"><label class="form-label">Kamera</label><select class="form-select" id="wd-kamera"><option value="canon_r5">Canon EOS R5</option><option value="sony_a7r5">Sony A7R V</option><option value="fuji_gfx">Fujifilm GFX 100S</option><option value="hasselblad">Hasselblad X2D</option></select></div>
-          </div>
-        </div>
-        <div class="gen-bottom"><button class="btn-generate" id="btn-gen-wd" onclick="startGenerate()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg><span id="btn-gen-wd-label">Generate 2 Foto</span><svg id="btn-gen-wd-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></button></div>
-      </div><!-- /tab-wedding -->
-
-      <!-- ===== TAB: ENGAGEMENT ===== -->
-      <div class="tab-content" id="tab-engagement">
-        <div class="form-sec">
-          <div class="form-sec-title">&#128247; Foto Referensi Wajah</div>
-          <div class="upload-grid col2">
-            <div><div class="upload-top-lbl">Foto Pria</div><div class="upload-relative"><div class="upload-box" id="upload-en-pria" onclick="triggerUpload('inp-en-pria')"><input type="file" id="inp-en-pria" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-en-pria')"><svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag</span><span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span></div></div></div>
-            <div><div class="upload-top-lbl">Foto Wanita</div><div class="upload-relative"><div class="upload-box" id="upload-en-wanita" onclick="triggerUpload('inp-en-wanita')"><input type="file" id="inp-en-wanita" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-en-wanita')"><svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag</span><span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span></div></div></div>
-          </div>
-          <!-- Panduan foto -->
-          <div style="margin-top:10px;padding:10px 12px;background:rgba(31,166,181,0.07);border-radius:10px;border:1px solid rgba(31,166,181,0.18);">
-            <div style="font-size:.72rem;font-weight:700;color:#1FA6B5;margin-bottom:6px;letter-spacing:.04em;">📸 PANDUAN FOTO TERBAIK</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:.7rem;line-height:1.6;">
-              <span style="color:#34c759;">✓ Foto solo (1 wajah)</span>
-              <span style="color:#ff3b30;">✗ Foto grup/ramai</span>
-              <span style="color:#34c759;">✓ Wajah menghadap depan</span>
-              <span style="color:#ff3b30;">✗ Wajah menyamping jauh</span>
-              <span style="color:#34c759;">✓ Pencahayaan terang merata</span>
-              <span style="color:#ff3b30;">✗ Foto gelap / blur</span>
-              <span style="color:#34c759;">✓ Ekspresi natural / senyum</span>
-              <span style="color:#ff3b30;">✗ Tertutup masker / kacamata</span>
-            </div>
-          </div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#128083; Outfit Casual</div>
-          <div class="form-field"><label class="form-label">Outfit Pria</label><select class="form-select" id="en-outfit-pria"><option value="casual_linen">Linen Shirt Beige + Chinos</option><option value="denim_smart">Denim Smart Casual</option><option value="polo_casual">Polo Shirt Pastel</option><option value="korea_street">Korean Street Style</option></select></div>
-          <div class="form-field"><label class="form-label">Outfit Wanita</label><select class="form-select" id="en-outfit-wanita"><option value="flowy_midi">Flowy Midi Dress Floral</option><option value="casual_chic">Casual Chic Korean</option><option value="sundress">Sundress Colorful</option><option value="korean_casual">Korean Casual Pastel</option></select></div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#127759; Lokasi Casual</div>
-          <div class="form-field"><label class="form-label">Lokasi</label><select class="form-select" id="en-lokasi" onchange="checkCustom(this,'en-lokasi-c')"><option value="cafe_menteng">Cafe Cozy Menteng, Jakarta</option><option value="bali_swing">Bali Swing Tegallalang</option><option value="botanical_garden">Kebun Raya Bogor</option><option value="beach_lombok">Pantai Selong Belanak, Lombok</option><option value="tokyo_street">Harajuku Street, Tokyo</option><option value="paris_cafe">Sidewalk Cafe, Paris</option><option value="custom">&#9999; Tulis lokasi sendiri...</option></select><input type="text" class="form-input-text custom-input" id="en-lokasi-c" placeholder="Nama lokasi & suasana..."></div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#127775; Gaya Foto</div>
-          <div class="form-row">
-            <div class="form-field"><label class="form-label">Pose</label><select class="form-select" id="en-pose"><option value="almost_kiss">Almost Kiss</option><option value="candid_walk">Berjalan Candid</option><option value="back_hug">Back Hug</option><option value="sitting">Duduk Santai</option><option value="whispering">Berbisik Mesra</option></select></div>
-            <div class="form-field"><label class="form-label">Suasana</label><select class="form-select" id="en-suasana"><option value="fairy">Fairy Lights</option><option value="clear">Cerah Ceria</option><option value="misty">Berkabut</option><option value="sakura">Sakura</option><option value="autumn">Autumn</option></select></div>
-            <div class="form-field"><label class="form-label">Waktu</label><select class="form-select" id="en-waktu"><option value="golden_hour">Golden Hour</option><option value="morning">Pagi Lembut</option><option value="cloudy">Mendung Dreamy</option><option value="blue_hour">Blue Hour</option></select></div>
-            <div class="form-field"><label class="form-label">Color Grade</label><select class="form-select" id="en-grade"><option value="warm_cinematic">Warm Cinematic</option><option value="bright_airy">Bright & Airy</option><option value="soft_pastel">Soft Pastel</option><option value="vivid_bold">Vivid Bold</option></select></div>
-          </div>
-        </div>
-        <div class="gen-bottom"><button class="btn-generate" id="btn-gen-en" onclick="startGenerate()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg><span id="btn-gen-en-label">Generate 2 Foto</span><svg id="btn-gen-en-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></button></div>
-      </div><!-- /tab-engagement -->
-
-      <!-- ===== TAB: STUDIO ===== -->
-      <div class="tab-content" id="tab-studio">
+      <!-- ===== TAB: STUDIO FOTO ===== -->
+      <div class="tab-content active" id="tab-studio">
         <div class="form-sec">
           <div class="form-sec-title">&#128101; Mode Studio</div>
           <div class="mode-toggle">
             <button class="mode-btn active" data-mode="solo_wanita" onclick="setStudioMode('solo_wanita',this)">Solo Wanita</button>
             <button class="mode-btn" data-mode="solo_pria"   onclick="setStudioMode('solo_pria',this)">Solo Pria</button>
-            <button class="mode-btn" data-mode="pasangan"    onclick="setStudioMode('pasangan',this)">Pasangan</button>
           </div>
         </div>
         <div class="form-sec">
@@ -1116,7 +741,6 @@
             <div id="st-upload-wanita-wrap"><div class="upload-top-lbl" id="st-upload-lbl-w">Foto Wanita</div><div class="upload-relative"><div class="upload-box" id="upload-st-wanita" onclick="triggerUpload('inp-st-wanita')"><input type="file" id="inp-st-wanita" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-st-wanita')"><svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag</span><span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span></div></div></div>
             <div id="st-upload-pria-wrap" style="display:none"><div class="upload-top-lbl">Foto Pria</div><div class="upload-relative"><div class="upload-box" id="upload-st-pria" onclick="triggerUpload('inp-st-pria')"><input type="file" id="inp-st-pria" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-st-pria')"><svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag</span><span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span></div></div></div>
           </div>
-          <!-- Panduan foto -->
           <div style="margin-top:10px;padding:10px 12px;background:rgba(31,166,181,0.07);border-radius:10px;border:1px solid rgba(31,166,181,0.18);">
             <div style="font-size:.72rem;font-weight:700;color:#1FA6B5;margin-bottom:6px;letter-spacing:.04em;">📸 PANDUAN FOTO TERBAIK</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:.7rem;line-height:1.6;">
@@ -1134,10 +758,10 @@
         <div class="form-sec" id="st-outfit-sec">
           <div class="form-sec-title">&#128083; Outfit Studio</div>
           <div class="form-field" id="st-outfit-wanita-field"><label class="form-label">Outfit Wanita</label><select class="form-select" id="st-outfit-wanita"><option value="evening_gown">Evening Gown Navy</option><option value="korean_fashion">Korean Fashion Cream</option><option value="batik_modern">Batik Modern</option><option value="editorial">Editorial High Fashion</option><option value="casual_chic">Casual Chic</option></select></div>
-          <div class="form-field" id="st-outfit-pria-field" style="display:none"><label class="form-label">Outfit Pria</label><select class="form-select" id="st-outfit-pria"><option value="korean_fashion">Korean Minimal Turtleneck</option><option value="business_formal">Business Formal</option><option value="batik_premium">Batik Premium</option><option value="all_black">All Black Minimalis</option><option value="all_white">All White Clean</option></select></div>
+          <div class="form-field" id="st-outfit-pria-field" style="display:none"><label class="form-label">Outfit Pria</label><select class="form-select" id="st-outfit-pria"><option value="korean_fashion">Korean Minimal Turtleneck</option><option value="business_formal">Business Formal</option><option value="batik_premium">Batik Premium</option><option value="all_black_st">All Black Minimalis</option><option value="all_white_st">All White Clean</option></select></div>
         </div>
         <div class="form-sec">
-          <div class="form-sec-title">&#127968; Tema & Lighting</div>
+          <div class="form-sec-title">&#127968; Tema &amp; Lighting</div>
           <div class="form-field"><label class="form-label">Tema Background</label><select class="form-select" id="st-tema"><option value="korean_studio">Korean Soft Studio</option><option value="luxury_white">Luxury White Seamless</option><option value="marble_studio">Marble Elegant</option><option value="editorial">Editorial Abstract</option><option value="vogue_studio">Vogue Style</option><option value="pastel_studio">Pastel Dreamy</option><option value="minimal_concrete">Concrete Industrial</option><option value="penthouse">Penthouse City View</option><option value="japanese_minimal">Japanese Minimal</option><option value="velvet_luxury">Velvet Luxury</option></select></div>
           <div class="form-field"><label class="form-label">Lighting</label><select class="form-select" id="st-lighting"><option value="butterfly">Butterfly (Glamour)</option><option value="rembrandt">Rembrandt (Dramatis)</option><option value="high_key">High Key (Bersih Terang)</option><option value="loop">Loop (Natural)</option><option value="low_key">Low Key (Moody)</option><option value="ring_light">Ring Light (Beauty)</option><option value="split">Split (Artistik)</option></select></div>
         </div>
@@ -1145,61 +769,14 @@
           <div class="form-sec-title">&#127775; Gaya Foto</div>
           <div class="form-row">
             <div class="form-field"><label class="form-label">Pose</label><select class="form-select" id="st-pose"><option value="classic_standing">Standing Klasik</option><option value="beauty_closeup">Beauty Close-up</option><option value="medium_portrait">Medium Portrait</option><option value="34_portrait">3/4 Portrait</option><option value="sitting">Duduk Elegan</option></select></div>
-            <div class="form-field"><label class="form-label">Ekspresi</label><select class="form-select" id="st-ekspresi"><option value="elegant">Elegan & Percaya Diri</option><option value="professional">Professional</option><option value="soft_natural">Soft Natural</option><option value="intense">Intense Editorial</option><option value="candid_laugh">Candid Smile</option></select></div>
+            <div class="form-field"><label class="form-label">Ekspresi</label><select class="form-select" id="st-ekspresi"><option value="elegant">Elegan &amp; Percaya Diri</option><option value="professional">Professional</option><option value="soft_natural">Soft Natural</option><option value="intense">Intense Editorial</option><option value="playful">Playful Natural</option></select></div>
             <div class="form-field"><label class="form-label">Color Grade</label><select class="form-select" id="st-grade"><option value="ultra_clean">Ultra Clean White</option><option value="dark_luxury">Dark Luxury</option><option value="warm_cinematic">Warm Cinematic</option><option value="bw_fine_art">Hitam Putih Fine Art</option><option value="golden_regal">Golden Regal</option></select></div>
             <div class="form-field"><label class="form-label">Kamera</label><select class="form-select" id="st-kamera"><option value="hasselblad">Hasselblad X2D</option><option value="sony_a7r5">Sony A7R V</option><option value="fuji_gfx">Fujifilm GFX 100S</option><option value="canon_r5">Canon EOS R5</option></select></div>
           </div>
         </div>
-        <div class="gen-bottom"><button class="btn-generate" id="btn-gen-st" onclick="startGenerate()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg><span id="btn-gen-st-label">Generate 2 Foto</span><svg id="btn-gen-st-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></button></div>
+        <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAACrY2J6Znp3ydDOq" data-callback="onTurnstileSuccess" data-size="invisible"></div>
+        <div class="gen-bottom"><button class="btn-generate" id="btn-gen-pw" onclick="startGenerate()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg><span id="btn-gen-pw-label">Generate 2 Foto</span><svg id="btn-gen-pw-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></button></div>
       </div><!-- /tab-studio -->
-
-      <!-- ===== TAB: FAMILY ===== -->
-      <div class="tab-content" id="tab-family">
-        <div class="form-sec">
-          <div class="form-sec-title">&#128247; Foto Referensi (Opsional)</div>
-          <div class="upload-grid">
-            <div><div class="upload-top-lbl">Foto Keluarga / Referensi</div><div class="upload-relative"><div class="upload-box" id="upload-fm-keluarga" onclick="triggerUpload('inp-fm-keluarga')"><input type="file" id="inp-fm-keluarga" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-fm-keluarga')"><svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag foto referensi</span><span class="upload-hint-txt">Opsional &middot; JPG PNG WEBP &middot; Max 10MB</span></div></div></div>
-          </div>
-          <!-- Panduan foto -->
-          <div style="margin-top:10px;padding:10px 12px;background:rgba(31,166,181,0.07);border-radius:10px;border:1px solid rgba(31,166,181,0.18);">
-            <div style="font-size:.72rem;font-weight:700;color:#1FA6B5;margin-bottom:6px;letter-spacing:.04em;">📸 PANDUAN FOTO TERBAIK</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:.7rem;line-height:1.6;">
-              <span style="color:#34c759;">✓ Foto referensi keluarga</span>
-              <span style="color:#ff3b30;">✗ Foto blur / buram</span>
-              <span style="color:#34c759;">✓ Wajah terlihat jelas</span>
-              <span style="color:#ff3b30;">✗ Foto terlalu jauh</span>
-              <span style="color:#34c759;">✓ Pencahayaan terang merata</span>
-              <span style="color:#ff3b30;">✗ Foto gelap / backlit</span>
-              <span style="color:#34c759;">✓ JPG PNG WEBP · Max 10MB</span>
-              <span style="color:#ff3b30;">✗ Ekspresi tertutup aksesori</span>
-            </div>
-          </div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#128106; Komposisi Keluarga</div>
-          <div class="form-row">
-            <div class="form-field"><label class="form-label">Etnis Keluarga</label><select class="form-select" id="fm-etnis"><option value="indonesian_family">Keluarga Indonesia</option><option value="sea_family">Asia Tenggara</option><option value="mixed_family">Campuran (Mixed)</option></select></div>
-            <div class="form-field"><label class="form-label">Anggota Keluarga</label><select class="form-select" id="fm-anggota"><option value="couple_only">Pasangan (Tanpa Anak)</option><option value="family_1_child">Ayah + Ibu + 1 Anak</option><option value="family_2_child">Ayah + Ibu + 2 Anak</option><option value="family_3_child">Ayah + Ibu + 3 Anak</option><option value="extended">Keluarga Besar</option></select></div>
-          </div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#128083; Outfit Keluarga</div>
-          <div class="form-field"><label class="form-label">Tema Outfit</label><select class="form-select" id="fm-outfit"><option value="white_beige">White & Beige Elegan</option><option value="earth_tone">Earth Tone Natural</option><option value="batik_keluarga">Batik Keluarga</option><option value="busana_muslim">Busana Muslim Keluarga</option><option value="formal">Formal Semi-Formal</option><option value="casual_modern">Casual Modern Lifestyle</option><option value="adat_jawa">Adat Jawa Tradisional</option><option value="adat_bali">Adat Bali</option></select></div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#127968; Tema Studio</div>
-          <div class="form-field"><label class="form-label">Background</label><select class="form-select" id="fm-tema"><option value="luxury_white">Luxury White Studio</option><option value="lifestyle">Lifestyle Home Studio</option><option value="penthouse">Penthouse View</option><option value="garden_outdoor">Outdoor Garden</option><option value="minimal_concrete">Concrete Minimalis</option><option value="warm_wooden">Warm Wooden Studio</option></select></div>
-          <div class="form-field"><label class="form-label">Suasana</label><select class="form-select" id="fm-suasana"><option value="warm_happy">Hangat & Bahagia</option><option value="elegant_formal">Elegan Formal</option><option value="candid_natural">Candid Natural</option><option value="playful_fun">Playful & Fun</option></select></div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#127775; Gaya Foto</div>
-          <div class="form-row">
-            <div class="form-field"><label class="form-label">Color Grade</label><select class="form-select" id="fm-grade"><option value="warm_cinematic">Warm Cinematic</option><option value="bright_airy">Bright & Airy</option><option value="classic_warm">Classic Warm Film</option><option value="ultra_clean">Ultra Clean</option><option value="bw_fine_art">Hitam Putih</option></select></div>
-            <div class="form-field"><label class="form-label">Kamera</label><select class="form-select" id="fm-kamera"><option value="canon_r5">Canon EOS R5</option><option value="sony_a7r5">Sony A7R V</option><option value="fuji_gfx">Fujifilm GFX 100S</option></select></div>
-          </div>
-        </div>
-        <div class="gen-bottom"><button class="btn-generate" id="btn-gen-fm" onclick="startGenerate()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg><span id="btn-gen-fm-label">Generate 2 Foto</span><svg id="btn-gen-fm-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></button></div>
-      </div><!-- /tab-family -->
 
     </div><!-- /gen-left -->
 
@@ -1265,12 +842,9 @@
   <div class="hist-title">Riwayat Foto</div>
   <div class="hist-sub">Semua foto yang pernah kamu generate</div>
   <div class="hist-filter-tabs">
-    <button class="cat-filter-btn active" data-filter="all"        onclick="filterHistory('all',this)">Semua</button>
-    <button class="cat-filter-btn" data-filter="prewedding"        onclick="filterHistory('prewedding',this)">Prewedding</button>
-    <button class="cat-filter-btn" data-filter="wedding"           onclick="filterHistory('wedding',this)">Wedding</button>
-    <button class="cat-filter-btn" data-filter="engagement"        onclick="filterHistory('engagement',this)">Engagement</button>
-    <button class="cat-filter-btn" data-filter="studio"            onclick="filterHistory('studio',this)">Studio</button>
-    <button class="cat-filter-btn" data-filter="family"            onclick="filterHistory('family',this)">Family</button>
+    <button class="cat-filter-btn active" data-filter="all"    onclick="filterHistory('all',this)">Semua</button>
+    <button class="cat-filter-btn" data-filter="studio" onclick="filterHistory('studio',this)">Studio Foto</button>
+    <button class="cat-filter-btn" data-filter="wisuda"  onclick="filterHistory('wisuda',this)">Wisuda</button>
   </div>
   <div class="hist-grid" id="history-grid">
     <div class="hist-empty" id="history-empty">
@@ -1301,7 +875,7 @@
       <span style="font-size:20px;">&#11088;</span>
       <div>
         <div class="plan-badge-text">Founding Premium</div>
-        <div class="plan-badge-sub">Lifetime Access &middot; Akses semua 5 generator</div>
+        <div class="plan-badge-sub">Lifetime Access &middot; Studio Foto & Wisuda AI</div>
       </div>
     </div>
     <div style="margin-top:16px;padding:14px;background:#F4F6F8;border-radius:12px;">
@@ -1315,11 +889,8 @@
     <div style="margin-top:14px;">
       <div style="font-family:'Roboto Mono',monospace;font-size:10px;color:#A7B0B5;letter-spacing:0.04em;margin-bottom:10px;">AKSES GENERATOR</div>
       <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#128141; Prewedding</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#128112; Wedding</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#128142; Engagement</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#128247; Studio</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#128106; Family</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#128247; Studio Foto AI</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#127891; Wisuda AI</span></div>
       </div>
     </div>
   </div>
@@ -1399,11 +970,7 @@ function getTurnstileToken() { return _turnstileToken; }
 const AUTO_MODIFIERS = `ultra realistic, photorealistic, 8k resolution, professional photography, sharp focus, high detail skin texture, cinematic lighting, natural lighting, depth of field, bokeh, professional lens, 85mm lens, full frame camera, RAW photo, HDR, realistic skin tones, no text, no watermark`;
 
 const CATEGORY_MODIFIERS = {
-  prewedding: `romantic couple photography, love story session, engagement editorial, soft romantic atmosphere`,
-  wedding:    `wedding photography, bridal portrait, elegant ceremony, luxury wedding editorial`,
-  engagement: `casual couple portrait, lifestyle engagement, modern couple photography, natural candid`,
-  studio:     `professional studio photography, controlled studio lighting, fashion editorial, clean studio setup`,
-  family:     `family portrait photography, warm family lifestyle, natural family candid, heartfelt family session`,
+  studio: `professional studio photography, controlled studio lighting, fashion editorial, clean studio setup`,
 };
 
 const DESKRIPSI_MAP = {
@@ -1411,47 +978,9 @@ const DESKRIPSI_MAP = {
   eastasian_male:'handsome East Asian man', caucasian_male:'handsome Caucasian man',
   indonesian_female:'beautiful Indonesian woman', sea_female:'beautiful Southeast Asian woman',
   eastasian_female:'beautiful East Asian woman', caucasian_female:'beautiful Caucasian woman',
-  indonesian_family:'Indonesian family', sea_family:'Southeast Asian family', mixed_family:'mixed ethnicity family',
 };
 
 const OUTFIT_MAP = {
-  // Prewedding Pria
-  white_linen:'wearing white linen shirt, tailored khaki trousers, brown leather loafers',
-  batik_formal:'wearing premium batik shirt, tailored dark trousers, leather shoes',
-  suit_beige:'wearing modern beige suit, white dress shirt, no tie, minimalist',
-  casual_denim:'wearing denim jacket, white shirt, slim dark jeans, clean sneakers',
-  all_black:'wearing all black outfit, black shirt, black trousers, minimal powerful',
-  baju_koko:'wearing elegant embroidered baju koko, tailored trousers, peci',
-  // Prewedding Wanita
-  champagne_chiffon:'wearing champagne chiffon maxi dress, flowing elegant, soft ruffles',
-  kebaya_modern:'wearing modern kebaya, contemporary Indonesian fashion, elegant',
-  boho_lace:'wearing bohemian lace maxi dress, flowy romantic, boho chic',
-  all_white:'wearing all-white matching outfit, white flowing dress, elegant minimal',
-  hijab_elegant:"wearing elegant hijab syar'i, white gamis long dress, graceful",
-  kebaya_bali:'wearing Balinese kebaya, songket fabric, traditional gold accessories',
-  // Wedding
-  black_tux_premium:'black premium tuxedo, white dress shirt, silk bow tie, patent shoes',
-  white_tux:'white elegant tuxedo, sophisticated ivory dress shirt, black trousers',
-  beskap_jawa:'traditional Javanese beskap resmi, blangkon, kain batik, pengantin adat',
-  baju_koko_penganten:"elegant baju koko pengantin, white embroidered, Islamic wedding formal",
-  suit_navy:'classic navy wedding suit, white dress shirt, tie, polished shoes',
-  barong:'Balinese barong formal attire, elegant traditional dress, wedding ceremony',
-  white_aline:'white bridal gown A-line, flowing elegant train, lace detail, veil',
-  ball_gown:'princess ball gown, full skirt, strapless, crystal beading, cathedral veil',
-  kebaya_encim_wed:'kebaya encim pengantin, white lace kebaya, batik kain, traditional elegant',
-  kebaya_bali_bridal:'Balinese bridal kebaya, gold songket, traditional headpiece, payas agung',
-  hijab_pengantin:"elegant bridal hijab syar'i, white lace long dress, graceful modest bridal",
-  gaun_mermaid:'mermaid bridal gown, fitted silhouette, flared skirt, elegant figure',
-  // Engagement
-  casual_linen:'casual linen shirt light beige, relaxed chinos, loafers, relaxed smart',
-  denim_smart:'denim jacket smart casual, white shirt, slim dark jeans, clean sneakers',
-  polo_casual:'polo shirt pastel color, chinos tailored, casual refined',
-  korea_street:'Korean street style, oversized hoodie, baggy pants, trendy casual',
-  flowy_midi:'flowy midi dress soft floral print, light feminine casual',
-  casual_chic:'casual chic top and skirt, modern Korean fashion, stylish',
-  sundress:'sundress floral colorful, summer casual, light and fresh',
-  korean_casual:'Korean casual fashion, pastel colors, oversized fit, trendy',
-  // Studio
   korean_fashion:'Korean fashion minimal grey turtleneck slim cut, clean modern',
   business_formal:'business formal navy suit, white shirt, tie, polished professional',
   batik_premium:'premium batik shirt contemporary print, dark trousers, Indonesian elegant',
@@ -1461,104 +990,25 @@ const OUTFIT_MAP = {
   evening_gown:'evening gown deep navy blue strapless pleated bodice, sophisticated',
   batik_modern:'modern batik dress contemporary cut, Indonesian fashion forward',
   editorial_st:'editorial fashion outfit, avant-garde, high fashion conceptual',
-  // Family
-  white_beige:'white and beige coordinated family outfits, soft elegant matching',
-  earth_tone:'earth tone natural coordinated outfits, warm brown and terracotta',
-  batik_keluarga:'Indonesian batik family outfits, coordinated motif, cultural pride',
-  busana_muslim:"busana muslim keluarga, white and soft coordinated modest fashion",
-  formal:'formal semi-formal outfits, suits and dresses, classic family portrait',
-  casual_modern:'casual modern coordinated outfits, jeans and tops, relaxed lifestyle',
-  adat_jawa:'traditional Javanese adat outfits, beskap and kebaya, heritage',
-  adat_bali:'traditional Balinese adat outfits, songket and kebaya, ceremony wear',
-};
-
-const LOCATION_MAP = {
-  bali_heaven:'iconic split gate Candi Bentar framing Mount Agung, mystical reflection pool, Pura Lempuyang Bali',
-  bali_ubud:'emerald green rice terraces, palm trees, Tegallalang Ubud Bali',
-  bali_uluwatu:'dramatic limestone cliff over Indian Ocean, Uluwatu temple silhouette, Bali',
-  lombok_pink:'pristine Pink Beach Lombok, turquoise water, white sand, dramatic hills',
-  jogja_borobudur:'ancient Buddhist Borobudur temple complex, misty morning, sunrise stupa detail',
-  raja_ampat:'crystal clear turquoise lagoon, dramatic limestone karst islands, Raja Ampat Papua',
-  bromo:'dramatic volcanic Mount Bromo crater, ash plain, mystical mist at sunrise',
-  santorini:'iconic white Santorini buildings, blue dome church, Aegean Sea cliff view',
-  paris:'Champ de Mars park with Eiffel Tower background, Paris golden hour',
-  tokyo_sakura:'Ueno Park full sakura bloom, pink cherry blossom canopy, Tokyo spring',
-  kyoto_bamboo:'towering bamboo grove path, filtered sunlight, Arashiyama Kyoto',
-  maldives:'overwater bungalow, crystal turquoise Indian Ocean, white sand sandbank',
-  phuket:'dramatic Phi Phi island limestone karst, emerald green water, Thailand',
-  venice:'romantic gondola canal Grande, historic Venetian architecture, Italy',
-  tuscany:'rolling Tuscan hills, cypress tree avenue, golden wheat fields, Italy',
-  amalfi:'colorful Amalfi Coast cliffside villages, Mediterranean Sea, Italy',
-  prague:'Old Town Square Prague, baroque architecture, cobblestone, Czech Republic',
-  colosseum:'ancient Roman Colosseum iconic exterior, golden sunset, Rome Italy',
-  // Engagement specific
-  cafe_menteng:'cozy cafe interior warm wood tones, bookshelves ambient light, Menteng Jakarta',
-  bali_swing:'lush jungle Tegallalang swing, tropical green forest valley, Bali',
-  botanical_garden:'lush tropical botanical garden, giant trees, historic greenhouse, Kebun Raya Bogor',
-  beach_lombok:'pristine white sand Selong Belanak beach, turquoise water, Lombok',
-  tokyo_street:'Harajuku Takeshita Street, colorful street fashion, Tokyo Japan',
-  paris_cafe:'classic Parisian sidewalk cafe, iron bistro chairs, cobblestone street',
-  // Wedding venues
-  uluwatu_cliff:'Uluwatu Cliff Edge dramatic limestone cliff over Indian Ocean, sunset ceremony',
-  ayana_bali:'AYANA Rock Bar cliff terrace, infinity pool, Indian Ocean panorama, Bali',
-  chapel_white:'white chapel outdoor garden, romantic floral decor, soft light',
-  ballroom_mewah:'luxury grand ballroom, crystal chandelier, marble floor, elegant reception',
-  outdoor_garden:'outdoor botanical garden ceremony, lush greenery, floral arch',
-  beach_ceremony:'beachfront ceremony, white sand, ocean backdrop, sunset glow',
-  // Family themes
-  luxury_white:'luxury white seamless studio, flawless bright backdrop, high-end fashion',
-  lifestyle:'lifestyle studio set, natural indoor home aesthetic, lived-in warmth',
-  penthouse:'penthouse lifestyle studio, floor-to-ceiling windows, city skyline view',
-  garden_outdoor:'outdoor garden, soft natural light, lush green botanical backdrop',
-  minimal_concrete:'minimalist concrete studio, raw industrial grey, modern editorial',
-  warm_wooden:'warm wooden studio, natural timber tones, cozy family atmosphere',
-};
-
-const WAKTU_MAP = {
-  golden_hour:'golden hour, warm golden sunlight, long soft shadows',
-  blue_hour:'blue hour, cool blue twilight, soft diffused light',
-  sunset:'dramatic sunset, orange and pink sky, warm rim light',
-  morning:'soft morning light, gentle sunrise glow, fresh atmosphere',
-  cloudy:'overcast cloudy sky, soft diffused natural light, no harsh shadows',
-  night_romantic:'romantic night setting, city lights bokeh, warm ambient light',
-};
-
-const SUASANA_MAP = {
-  clear:'clear sky, perfect weather, vibrant colors',
-  misty:'misty dreamy atmosphere, soft fog, ethereal mood',
-  sakura:'sakura petals falling, cherry blossom trees, pink bokeh',
-  fairy:'fairy lights bokeh, warm ambient glow, magical atmosphere',
-  moody:'dramatic moody atmosphere, deep shadows, cinematic tension',
-  tropical:'lush tropical foliage, vibrant greens, humid tropical air',
-  autumn:'autumn leaves, warm orange and red tones, falling leaves bokeh',
+  editorial:'editorial fashion outfit, avant-garde, high fashion conceptual',
+  casual_chic:'casual chic top and skirt, modern fashion, stylish everyday look',
 };
 
 const POSE_MAP = {
-  walking:'couple walking together, hand in hand, relaxed natural walk',
-  back_hug:'man hugging woman from behind, tender embrace, intimate close',
-  slow_dance:'couple slow dancing, romantic sway, intimate connection',
-  almost_kiss:'almost kiss, foreheads touching, intimate close face to face',
-  spinning:'man spinning woman joyfully, laughter, dynamic motion',
-  laying:'couple laying together, relaxed candid, looking at each other',
-  wide_landscape:'couple standing in grand landscape, wide dramatic composition',
-  sitting:'couple sitting intimately, relaxed natural, candid connection',
-  whispering:'whispering in ear, candid intimate moment, genuine laughter',
-  classic_standing:'classic standing portrait, elegant formal pose, eye contact',
-  candid_walk:'walking together candid, genuine natural moment',
   beauty_closeup:'close-up beauty shot, face and shoulders, flawless detail',
   medium_portrait:'medium portrait, 3/4 framing, natural body language',
   '34_portrait':'3/4 portrait, three-quarter body framing, elegant pose',
+  classic_standing:'classic standing portrait, elegant formal pose, eye contact',
+  sitting:'elegant sitting pose, relaxed natural posture, studio setting',
 };
 
 const EKSPRESI_MAP = {
-  deeply_love:'deeply in love expression, soulful romantic gaze, tender emotion',
-  candid_laugh:'genuine candid laughter, joyful smile, real natural moment',
-  dreamy:'dreamy faraway gaze, soft romantic expression, ethereal mood',
   elegant:'elegant serious expression, confident composed, editorial look',
   playful:'playful natural expression, fun lighthearted, genuine smile',
   professional:'professional confident expression, strong direct gaze',
   soft_natural:'soft natural expression, relaxed genuine, approachable warmth',
   intense:'intense editorial expression, high fashion serious, powerful gaze',
+  candid_laugh:'genuine candid laughter, joyful smile, real natural moment',
 };
 
 const GRADE_MAP = {
@@ -1574,31 +1024,14 @@ const GRADE_MAP = {
   golden_regal:'golden regal warm tones, rich amber, sophisticated warmth',
 };
 
-const STYLE_MAP = {
-  cinematic:'cinematic photography style, movie still aesthetic, dramatic light',
-  fine_art:'fine art photography style, painterly composition, artistic vision',
-  editorial:'editorial fashion photography, magazine quality, styled composition',
-  romantic:'romantic photography style, soft light, intimate tender mood',
-  documentary:'documentary photography style, candid natural, authentic moment',
-  warm_lifestyle:'warm lifestyle photography, natural candid, golden warmth',
-};
-
 const KAMERA_MAP = {
   sony_a7r5:'shot on Sony A7R V',
   canon_r5:'shot on Canon EOS R5',
   fuji_gfx:'shot on Fujifilm GFX 100S',
   hasselblad:'shot on Hasselblad X2D',
-  nikon_z9:'shot on Nikon Z9',
 };
 
-const LENSA_MAP = {
-  '85_14':'85mm f/1.4 prime lens',
-  '85_12':'85mm f/1.2 prime lens',
-  '50_12':'50mm f/1.2 prime lens',
-  '35_14':'35mm f/1.4 wide prime lens',
-  '135_18':'135mm f/1.8 telephoto portrait lens',
-  '70200':'70-200mm f/2.8 telephoto zoom lens',
-};
+
 
 const STUDIO_LIGHTING_MAP = {
   butterfly:'butterfly lighting soft top light symmetrical glamour, catchlight in eyes',
@@ -1624,28 +1057,13 @@ const STUDIO_TEMA_MAP = {
   velvet_luxury:'deep velvet luxury backdrop, rich jewel tones, sumptuous texture',
 };
 
-const FAMILY_SUASANA_MAP = {
-  warm_happy:'warm happy family atmosphere, joyful natural smiles, loving connection',
-  elegant_formal:'elegant formal family portrait, composed dignified, timeless',
-  candid_natural:'candid natural family moment, genuine laughter, authentic bond',
-  playful_fun:'playful fun family energy, dynamic movement, joyful chaos',
-};
-
-const FAMILY_ANGGOTA_MAP = {
-  couple_only:'couple portrait, two people together, intimate',
-  family_1_child:'family of three, mother father and one child',
-  family_2_child:'family of four, mother father and two children',
-  family_3_child:'family of five, mother father and three children',
-  extended:'large extended family group, multiple generations',
-};
-
 // ═══════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════
 
 const AppState = {
   currentView: 'dashboard',
-  currentTab: 'prewedding',
+  currentTab: 'studio',
   studioMode: 'solo_wanita',
   isGenerating: false,
   generatedImages: [],  // [{url, tab, timestamp}]
@@ -1775,64 +1193,15 @@ function resolve(map, key, customId) {
 
 const PromptBuilder = {
 
-  buildPrewedding(hf = {}) {
-    const etP = hf.pria   ? 'a man'   : resolve(DESKRIPSI_MAP, val('pw-etnis-pria'));
-    const etW = hf.wanita ? 'a woman' : resolve(DESKRIPSI_MAP, val('pw-etnis-wanita'));
-    const opP = resolve(OUTFIT_MAP, val('pw-outfit-pria'), 'pw-outfit-pria-c');
-    const opW = resolve(OUTFIT_MAP, val('pw-outfit-wanita'), 'pw-outfit-wanita-c');
-    const lok = resolve(LOCATION_MAP, val('pw-lokasi'), 'pw-lokasi-c');
-    const pose = resolve(POSE_MAP, val('pw-pose'));
-    const eks  = resolve(EKSPRESI_MAP, val('pw-ekspresi'));
-    const wkt  = resolve(WAKTU_MAP, val('pw-waktu'));
-    const sua  = resolve(SUASANA_MAP, val('pw-suasana'));
-    const grd  = resolve(GRADE_MAP, val('pw-grade'));
-    const sty  = resolve(STYLE_MAP, val('pw-style'));
-    const kam  = resolve(KAMERA_MAP, val('pw-kamera'));
-    const len  = resolve(LENSA_MAP, val('pw-lensa'));
-    return `${etP} and ${etW}, ${pose}, man wearing ${opP}, woman wearing ${opW}, at ${lok}, ${wkt}, ${sua}, ${eks}, ${sty}, ${grd}, ${kam}, ${len}, f/1.4 shallow depth of field, ${CATEGORY_MODIFIERS.prewedding}, ${AUTO_MODIFIERS}`;
-  },
-
-  buildWedding(hf = {}) {
-    const etP = (hf.pria   ? 'a man'   : resolve(DESKRIPSI_MAP, val('pw-etnis-pria') || 'indonesian_male')) + ' groom';
-    const etW = (hf.wanita ? 'a woman' : resolve(DESKRIPSI_MAP, val('pw-etnis-wanita') || 'indonesian_female')) + ' bride';
-    const opP = resolve(OUTFIT_MAP, val('wd-outfit-pria'));
-    const opW = resolve(OUTFIT_MAP, val('wd-outfit-wanita'));
-    const venue = resolve(LOCATION_MAP, val('wd-venue'), 'wd-venue-c');
-    const dkr  = val('wd-dekorasi');
-    const pose = resolve(POSE_MAP, val('wd-pose'));
-    const wkt  = resolve(WAKTU_MAP, val('wd-waktu'));
-    const grd  = resolve(GRADE_MAP, val('wd-grade'));
-    const kam  = resolve(KAMERA_MAP, val('wd-kamera'));
-    const dkrText = {fresh_flower:'fresh flower arch floral arrangement surrounding',romantic_candle:'candles and rose petals romantic setting',hanging_lights:'hanging fairy lights warm glow',tropical_lush:'tropical lush greenery decoration',minimal_white:'minimal white modern decoration'}[dkr] || '';
-    return `${etP} and ${etW}, ${pose}, groom wearing ${opP}, bride wearing ${opW}, at ${venue}, ${dkrText}, ${wkt}, deeply in love expression soulful romantic gaze, medium portrait, ${grd}, ${kam}, 85mm f/1.4, ${CATEGORY_MODIFIERS.wedding}, ${AUTO_MODIFIERS}`;
-  },
-
-  buildEngagement(hf = {}) {
-    const etP = hf.pria   ? 'a man'   : resolve(DESKRIPSI_MAP, 'indonesian_male');
-    const etW = hf.wanita ? 'a woman' : resolve(DESKRIPSI_MAP, 'indonesian_female');
-    const opP = resolve(OUTFIT_MAP, val('en-outfit-pria'));
-    const opW = resolve(OUTFIT_MAP, val('en-outfit-wanita'));
-    const lok = resolve(LOCATION_MAP, val('en-lokasi'), 'en-lokasi-c');
-    const pose = resolve(POSE_MAP, val('en-pose'));
-    const sua  = resolve(SUASANA_MAP, val('en-suasana'));
-    const wkt  = resolve(WAKTU_MAP, val('en-waktu'));
-    const grd  = resolve(GRADE_MAP, val('en-grade'));
-    return `${etP} and ${etW}, ${pose}, man wearing ${opP}, woman wearing ${opW}, at ${lok}, ${wkt}, ${sua}, candid natural expression, medium portrait shot, ${grd}, shot on Sony A7R V, 85mm f/1.4, ${CATEGORY_MODIFIERS.engagement}, ${AUTO_MODIFIERS}`;
-  },
-
   buildStudio(hf = {}) {
     const mode = AppState.studioMode;
     let subjek;
     if (mode === 'solo_wanita') {
       const subj = hf.wanita ? 'a woman' : resolve(DESKRIPSI_MAP,'indonesian_female');
       subjek = `${subj}, wearing ${resolve(OUTFIT_MAP, val('st-outfit-wanita'))}`;
-    } else if (mode === 'solo_pria') {
+    } else {
       const subj = hf.pria ? 'a man' : resolve(DESKRIPSI_MAP,'indonesian_male');
       subjek = `${subj}, wearing ${resolve(OUTFIT_MAP, val('st-outfit-pria'))}`;
-    } else {
-      const subP = hf.pria   ? 'a man'   : resolve(DESKRIPSI_MAP,'indonesian_male');
-      const subW = hf.wanita ? 'a woman' : resolve(DESKRIPSI_MAP,'indonesian_female');
-      subjek = `${subP} and ${subW}, man wearing ${resolve(OUTFIT_MAP, val('st-outfit-pria'))}, woman wearing ${resolve(OUTFIT_MAP, val('st-outfit-wanita'))}`;
     }
     const tema = resolve(STUDIO_TEMA_MAP, val('st-tema'));
     const light = resolve(STUDIO_LIGHTING_MAP, val('st-lighting'));
@@ -1843,25 +1212,9 @@ const PromptBuilder = {
     return `${subjek}, ${pose}, ${eks}, studio background: ${tema}, ${light}, ${grd}, ${kam}, 85mm f/1.4, ${CATEGORY_MODIFIERS.studio}, ${AUTO_MODIFIERS}`;
   },
 
-  buildFamily() {
-    const etnis = resolve(DESKRIPSI_MAP, val('fm-etnis'));
-    const anggota = FAMILY_ANGGOTA_MAP[val('fm-anggota')] || 'family portrait';
-    const outfit = resolve(OUTFIT_MAP, val('fm-outfit'));
-    const tema = resolve(LOCATION_MAP, val('fm-tema')) || resolve(STUDIO_TEMA_MAP, val('fm-tema'));
-    const sua  = FAMILY_SUASANA_MAP[val('fm-suasana')] || '';
-    const grd  = resolve(GRADE_MAP, val('fm-grade'));
-    const kam  = resolve(KAMERA_MAP, val('fm-kamera'));
-    return `${etnis} ${anggota}, wearing ${outfit}, ${tema}, ${sua}, ${grd}, ${kam}, 50mm f/2.0, f/2.8 group portrait clarity, ${CATEGORY_MODIFIERS.family}, ${AUTO_MODIFIERS}`;
-  },
-
   build(tab) {
-    // Deteksi slot mana yang sudah ada foto referensi
-    // Jika ada → hilangkan deskripsi fisik dari prompt agar tidak konflik dengan PuLID
     const faceSlots = {
-      prewedding: { pria: 'upload-pw-pria',  wanita: 'upload-pw-wanita' },
-      wedding:    { pria: 'upload-wd-pria',  wanita: 'upload-wd-wanita' },
-      engagement: { pria: 'upload-en-pria',  wanita: 'upload-en-wanita' },
-      studio:     { pria: 'upload-st-pria',  wanita: 'upload-st-wanita' },
+      studio: { pria: 'upload-st-pria', wanita: 'upload-st-wanita' },
     };
     const slots = faceSlots[tab] || {};
     const hf = {
@@ -1869,14 +1222,9 @@ const PromptBuilder = {
       wanita: !!(slots.wanita && AppState.faceUrls[slots.wanita]),
     };
     const builders = {
-      prewedding: () => this.buildPrewedding(hf),
-      wedding:    () => this.buildWedding(hf),
-      engagement: () => this.buildEngagement(hf),
-      studio:     () => this.buildStudio(hf),
-      family:     () => this.buildFamily(),
+      studio: () => this.buildStudio(hf),
     };
     const prompt = builders[tab]?.() || '';
-    // Debug: lihat prompt di browser console (F12 → Console)
     console.log(`[PotretAI Prompt] tab=${tab} | hasFace=${JSON.stringify(hf)}\n${prompt}`);
     return prompt;
   }
@@ -2061,13 +1409,7 @@ async function uploadFaceToStorage(file, boxId, inputId, previewSrc) {
 
 function getFaceUrls(tab) {
   const slotMap = {
-    prewedding: ['upload-pw-pria',  'upload-pw-wanita'],
-    wedding:    ['upload-wd-pria',  'upload-wd-wanita'],
-    engagement: ['upload-en-pria',  'upload-en-wanita'],
-    studio: AppState.studioMode === 'solo_wanita' ? ['upload-st-wanita'] :
-            AppState.studioMode === 'solo_pria'   ? ['upload-st-pria']   :
-                                                    ['upload-st-wanita', 'upload-st-pria'],
-    family: ['upload-fm-keluarga'],
+    studio: ['upload-st-pria', 'upload-st-wanita'],
   };
   return (slotMap[tab] || []).map(id => AppState.faceUrls[id]).filter(Boolean);
 }
@@ -2116,13 +1458,7 @@ async function startGenerate() {
 
   // Cek apakah ada file yang dipilih tapi belum ter-upload ke server
   const slotMap = {
-    prewedding: ['upload-pw-pria','upload-pw-wanita'],
-    wedding:    ['upload-wd-pria','upload-wd-wanita'],
-    engagement: ['upload-en-pria','upload-en-wanita'],
-    studio:     AppState.studioMode==='solo_wanita' ? ['upload-st-wanita'] :
-                AppState.studioMode==='solo_pria'   ? ['upload-st-pria']   :
-                                                      ['upload-st-wanita','upload-st-pria'],
-    family:     ['upload-fm-keluarga'],
+    studio: ['upload-st-pria', 'upload-st-wanita'],
   };
   const slots = slotMap[tab] || [];
   const pendingUpload = slots.some(id => UploadFiles[id] && !AppState.faceUrls[id]);
@@ -2170,7 +1506,7 @@ async function startGenerate() {
   }
 }
 
-const TAB_BTN_ID = { prewedding:'pw', wedding:'wd', engagement:'en', studio:'st', family:'fm' };
+const TAB_BTN_ID = { studio:'pw', wisuda:'ws' };
 
 function setBtnLoading(tab, loading) {
   const pfx  = TAB_BTN_ID[tab] || tab.slice(0,2);
@@ -2229,7 +1565,7 @@ function renderHistory(filter) {
     <div class="hist-photo">
       <img src="${url}" alt="${tab}" loading="lazy" onclick="openLightbox('${url}')"
         onerror="this.src='https://placehold.co/200x250?text=Error'">
-      <div class="hist-photo-badge">${{prewedding:'Prewedding',wedding:'Wedding',engagement:'Engagement',studio:'Studio',family:'Family'}[tab] || tab}</div>
+      <div class="hist-photo-badge">${{studio:'Studio Foto',wisuda:'Wisuda'}[tab] || tab}</div>
       <button class="hist-photo-dl" onclick="downloadImage('${url}','${tab}');event.stopPropagation();" title="Unduh">&#8595;</button>
     </div>`).join('');
 }
@@ -2376,7 +1712,7 @@ function closeMobileSidebar() {
 
 document.addEventListener('DOMContentLoaded', () => {
   navigateTo('dashboard');
-  switchTab('prewedding');
+  switchTab('studio');
   updateUsageUI();
   // Open sidebar submenu by default
   const sm = document.getElementById('sb-submenu');

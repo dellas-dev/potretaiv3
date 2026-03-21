@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PotretAI Studio — AI Photo Generator</title>
+  <title>PotretAI Studio — Foto Studio & Wisuda Premium</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -590,12 +590,9 @@
     <span class="sb-parent-text">Generator</span>
     <svg class="sb-chevron" id="sb-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 5.5l3 3 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </div>
-  <div class="sb-submenu" id="sb-submenu">
-    <button class="sb-subitem" data-tab="wisuda"       onclick="navigateTo('generator','wisuda')">🎓 Wisuda</button>
-    <button class="sb-subitem" data-tab="profesional"  onclick="navigateTo('generator','profesional')">💼 Profesional</button>
-    <button class="sb-subitem" data-tab="maternity"    onclick="navigateTo('generator','maternity')">🤰 Maternity</button>
-    <button class="sb-subitem" data-tab="studio_foto" onclick="navigateTo('generator','studio_foto')">📸 Studio Foto</button>
-    <button class="sb-subitem" data-tab="prewedding"   onclick="navigateTo('generator','prewedding')" style="display:none">💍 Prewedding</button>
+  <div class="sb-submenu open" id="sb-submenu">
+    <button class="sb-subitem" data-tab="wisuda"      onclick="navigateTo('generator','wisuda')">🎓 Wisuda AI</button>
+    <button class="sb-subitem" data-tab="studio_foto" onclick="navigateTo('generator','studio_foto')">📸 Studio Foto AI</button>
   </div>
   <button class="sb-item" data-view="history" onclick="navigateTo('history')">
     <svg class="sb-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -610,8 +607,8 @@
   <div class="sb-spacer"></div>
   <div class="sb-upgrade">
     <div style="font-size:20px;margin-bottom:8px;">&#9889;</div>
-    <div class="sb-upgrade-title">Plan Aktif: Premium</div>
-    <div class="sb-upgrade-sub">Akses 6 generator &middot; 200 foto/bln</div>
+    <div class="sb-upgrade-title">Studio Foto & Wisuda AI</div>
+    <div class="sb-upgrade-sub">Pesan via WhatsApp &middot; Bayar QRIS</div>
     <button class="sb-upgrade-btn" onclick="navigateTo('account')">Lihat Detail Plan</button>
   </div>
 </nav>
@@ -627,7 +624,7 @@
   <div style="text-align:center;padding:32px 20px 24px;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:20px">
     <div style="font-size:11px;font-weight:500;color:#1FA6B5;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">AI Photo Studio Indonesia</div>
     <h1 style="font-size:24px;font-weight:500;color:var(--color-text-primary);margin:0 0 10px;line-height:1.3">Foto Studio Profesional<br>dengan Wajah Kamu Sendiri</h1>
-    <p style="font-size:14px;color:var(--color-text-secondary);margin:0 0 20px;line-height:1.6;max-width:400px;margin-left:auto;margin-right:auto">Upload 1 foto wajah → AI generate 4 foto studio profesional dalam 30 detik. Wisuda, Studio Foto, Maternity.</p>
+    <p style="font-size:14px;color:var(--color-text-secondary);margin:0 0 20px;line-height:1.6;max-width:400px;margin-left:auto;margin-right:auto">Studio Foto & Wisuda AI — cukup upload 1 foto wajah, hasil profesional tanpa ke studio. Pesan via WhatsApp.</p>
     <button onclick="navigateTo('generator','studio_foto')" style="background:#1FA6B5;color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;">
       Coba Gratis — 4 Foto
     </button>
@@ -693,25 +690,13 @@
       </div>
     </div>
     <div class="cat-grid">
-      <div class="cat-card" onclick="navigateTo('generator','wisuda')">
-        <div class="cat-img-wrap"><img class="cat-img" src="https://placehold.co/400x280/1E2A2F/1FA6B5?text=Wisuda+AI" alt="Wisuda" loading="lazy"><div class="cat-overlay"><span class="cat-start">Mulai Generate &#8594;</span></div></div>
-        <div class="cat-body"><div class="cat-emoji">🎓</div><div><div class="cat-title">Wisuda</div><div class="cat-desc">Foto S1 / S2 / S3 profesional</div></div></div>
-      </div>
-      <div class="cat-card" onclick="navigateTo('generator','profesional')">
-        <div class="cat-img-wrap"><img class="cat-img" src="https://placehold.co/400x280/0E8EA0/FFFFFF?text=Profesional+AI" alt="Profesional" loading="lazy"><div class="cat-overlay"><span class="cat-start">Mulai Generate &#8594;</span></div></div>
-        <div class="cat-body"><div class="cat-emoji">💼</div><div><div class="cat-title">Profesional</div><div class="cat-desc">LinkedIn / CV / KTP</div></div></div>
-      </div>
-      <div class="cat-card" onclick="navigateTo('generator','maternity')">
-        <div class="cat-img-wrap"><img class="cat-img" src="https://placehold.co/400x280/FF7A5A/FFFFFF?text=Maternity+AI" alt="Maternity" loading="lazy"><div class="cat-overlay"><span class="cat-start">Mulai Generate &#8594;</span></div></div>
-        <div class="cat-body"><div class="cat-emoji">🤰</div><div><div class="cat-title">Maternity</div><div class="cat-desc">Foto kehamilan 7–9 bulan</div></div></div>
-      </div>
       <div class="cat-card" onclick="navigateTo('generator','studio_foto')">
-        <div class="cat-img-wrap"><img class="cat-img" src="https://placehold.co/400x280/1FA6B5/FFFFFF?text=Studio+Korea" alt="Studio Foto" loading="lazy"><div class="cat-overlay"><span class="cat-start">Mulai Generate &#8594;</span></div></div>
-        <div class="cat-body"><div class="cat-emoji">🇰🇷</div><div><div class="cat-title">Studio Foto</div><div class="cat-desc">K-drama aesthetic studio</div></div></div>
+        <div class="cat-img-wrap"><img class="cat-img" src="https://placehold.co/400x280/1FA6B5/FFFFFF?text=Studio+Foto+AI" alt="Studio Foto AI" loading="lazy"><div class="cat-overlay"><span class="cat-start">Pilih Paket &#8594;</span></div></div>
+        <div class="cat-body"><div class="cat-emoji">📸</div><div><div class="cat-title">Studio Foto AI</div><div class="cat-desc">40+ tema indoor & outdoor</div></div></div>
       </div>
-      <div class="cat-card" onclick="navigateTo('generator','prewedding')" style="display:none">
-        <div class="cat-img-wrap"><img class="cat-img" src="https://placehold.co/400x280/0D1E25/1FA6B5?text=Prewedding+AI" alt="Prewedding" loading="lazy"><div class="cat-overlay"><span class="cat-start">Mulai Generate &#8594;</span></div></div>
-        <div class="cat-body"><div class="cat-emoji">💍</div><div><div class="cat-title">Prewedding</div><div class="cat-desc">Ratusan lokasi dunia</div></div></div>
+      <div class="cat-card" onclick="navigateTo('generator','wisuda')">
+        <div class="cat-img-wrap"><img class="cat-img" src="https://placehold.co/400x280/1E2A2F/1FA6B5?text=Wisuda+AI" alt="Wisuda AI" loading="lazy"><div class="cat-overlay"><span class="cat-start">Pilih Paket &#8594;</span></div></div>
+        <div class="cat-body"><div class="cat-emoji">🎓</div><div><div class="cat-title">Wisuda AI</div><div class="cat-desc">Foto kelulusan estetik & elegan</div></div></div>
       </div>
     </div>
   </div>
@@ -743,10 +728,7 @@
     <div class="gen-sub">Upload foto wajah, pilih gaya, dan generate 4 foto AI profesional dalam hitungan detik</div>
     <div class="gen-tabs" role="tablist">
       <button class="gen-tab active" data-tab="wisuda"       onclick="switchTab('wisuda')"       role="tab">🎓 Wisuda</button>
-      <button class="gen-tab"        data-tab="profesional"  onclick="switchTab('profesional')"  role="tab">💼 Profesional</button>
-      <button class="gen-tab"        data-tab="maternity"    onclick="switchTab('maternity')"    role="tab">🤰 Maternity</button>
       <button class="gen-tab"        data-tab="studio_foto" onclick="switchTab('studio_foto')" role="tab">📸 Studio Foto</button>
-      <button class="gen-tab"        data-tab="prewedding"   onclick="switchTab('prewedding')"   role="tab" style="display:none">💍 Prewedding</button>
     </div>
   </div>
 
@@ -970,350 +952,6 @@
         </div>
       </div><!-- /tab-wisuda -->
 
-      <!-- ══════════════ TAB: PROFESIONAL ══════════════ -->
-      <div class="tab-content" id="tab-profesional">
-        <!-- Mode Gender -->
-        <div class="form-sec">
-          <div class="form-sec-title">👤 Mode</div>
-          <div style="display:flex;gap:8px;">
-            <button class="mode-btn active" id="pr-mode-btn-wanita" onclick="setProfesionalMode('wanita',this)" style="flex:1;padding:9px 0;border-radius:10px;border:1.5px solid #1FA6B5;background:rgba(31,166,181,0.1);color:#0E8EA0;font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;">Wanita</button>
-            <button class="mode-btn" id="pr-mode-btn-pria" onclick="setProfesionalMode('pria',this)" style="flex:1;padding:9px 0;border-radius:10px;border:1.5px solid #EEF3F5;background:#F9FAFB;color:#A7B0B5;font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;">Pria</button>
-          </div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">📷 Foto Referensi Wajah</div>
-          <div class="upload-grid">
-            <div>
-              <div class="upload-top-lbl">Foto Wajah Kamu</div>
-              <div class="upload-relative">
-                <div class="upload-box" id="upload-pr-wajah" onclick="triggerUpload('inp-pr-wajah')">
-                  <input type="file" id="inp-pr-wajah" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-pr-wajah')">
-                  <svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                  <span class="upload-label-txt">Klik atau drag foto wajah</span>
-                  <span class="upload-hint-txt">JPG PNG WEBP · Max 5MB</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">👤 Penampilan &amp; Tipe Foto</div>
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label">Etnis / Penampilan</label>
-              <select class="form-select" id="pr-ethnicity">
-                <option value="indonesian_f">Indonesia Wanita</option>
-                <option value="indonesian_m">Indonesia Pria</option>
-                <option value="javanese_f">Jawa Wanita</option>
-                <option value="chinese_indo_f">Chinese-Indo Wanita</option>
-                <option value="chinese_indo_m">Chinese-Indo Pria</option>
-                <option value="korean_f">Korea Wanita</option>
-                <option value="korean_m">Korea Pria</option>
-                <option value="sea_m">Asia Tenggara Pria</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Tipe Foto</label>
-              <select class="form-select" id="pr-type">
-                <option value="linkedin">LinkedIn / CV Profesional</option>
-                <option value="ktp">KTP / ID Card</option>
-                <option value="passport">Passport / Visa</option>
-                <option value="executive">Executive Branding</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">👔 Outfit Profesional</div>
-          <!-- Outfit Wanita (default tampil) -->
-          <div class="form-field" id="pr-outfit-wanita-wrap">
-            <label class="form-label">Outfit Wanita</label>
-            <select class="form-select" id="pr-outfit-wanita" onchange="checkCustom(this,'pr-outfit-c')">
-      <option value="white_blazer">Blazer Putih Terstruktur — Smart Professional</option>
-      <option value="black_blazer">Blazer Hitam + Kemeja Putih — Polished</option>
-      <option value="navy_blazer">Blazer Navy — Business Professional</option>
-      <option value="grey_blazer">Blazer Abu + Blouse Putih — Minimal Clean</option>
-      <option value="pastel_blazer">Blazer Pastel Pink + Blouse Putih — Modern</option>
-    </select>
-          </div>
-          <!-- Outfit Pria (default tersembunyi) -->
-          <div class="form-field" id="pr-outfit-pria-wrap" style="display:none">
-            <label class="form-label">Outfit Pria</label>
-            <select class="form-select" id="pr-outfit-pria" onchange="checkCustom(this,'pr-outfit-c')">
-      <option value="navy_suit">Suit Navy + Kemeja Putih + Dasi</option>
-      <option value="grey_suit">Suit Charcoal Grey + Kemeja Putih</option>
-      <option value="black_suit">Suit Hitam Formal + Kemeja Putih</option>
-      <option value="white_shirt_tie">Kemeja Putih + Dasi Gelap — Business Formal</option>
-    </select>
-          </div>
-          <input type="text" class="form-input-text custom-input" id="pr-outfit-c" placeholder="Contoh: jas coklat, batik formal, gamis elegan..." style="display:none">
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">🖼️ Background</div>
-          <div class="form-field">
-            <label class="form-label">Pilih Background</label>
-            <select class="form-select" id="pr-background">
-      <optgroup label="── STANDARD PROFESSIONAL ──">
-        <option value="grey_soft">Abu Muda — Corporate Clean (Default)</option>
-        <option value="grey_medium">Abu Medium Netral — Headshot Standard</option>
-        <option value="white_clean">Putih Bersih — Clean Professional</option>
-        <option value="office_blur">Kantor Blur — Environment Professional</option>
-      </optgroup>
-    </select>
-          </div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">📐 Framing &amp; Ekspresi</div>
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label">Framing</label>
-              <select class="form-select" id="pr-shot">
-      <option value="headshot_front">Headshot Standard — Menghadap Kamera (LinkedIn)</option>
-      <option value="headshot_slight">Headshot — Sedikit Miring, Senyum Natural</option>
-      <option value="standing_arms">Berdiri — Tangan Menyilang Profesional (3/4)</option>
-      <option value="standing_natural">Berdiri — Satu Tangan di Saku, Santai (3/4)</option>
-    </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Ekspresi</label>
-              <select class="form-select" id="pr-expression">
-                <option value="confident direct eye contact, professional authority, trustworthy gaze">Percaya Diri + Direct Eye Contact</option>
-                <option value="warm genuine professional smile with teeth, approachable friendly leadership">Senyum Hangat (Approachable)</option>
-                <option value="friendly engaging smile, excellent teeth, high social likability, recruiter magnet">Friendly + Engaging Smile</option>
-                <option value="serious authoritative expression, powerful executive presence, no smile">Serius + Autoritatif</option>
-                <option value="neutral expression strong direct gaze, no smile, executive confident">Neutral Percaya Diri</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Pencahayaan</label>
-              <select class="form-select" id="pr-lighting">
-      <option value="beauty_soft">Beauty Dish — Flattering & Professional (Default)</option>
-      <option value="soft_studio">Soft Studio — Bright Even Clean</option>
-      <option value="window_clean">Cahaya Jendela Natural — Clean Indoor</option>
-    </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Komposisi Foto</label>
-              <select class="form-select" id="pr-framing">
-                <option value="headshot">Headshot — Wajah &amp; Bahu</option>
-                <option value="half_body">Half Body — Pinggang ke Atas</option>
-                <option value="id_card">ID Card — KTP/Passport Style</option>
-                <option value="three_quarter">3/4 Body — Kepala ke Lutut</option>
-                <option value="full_body">Full Body — Kepala ke Kaki</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Lensa</label>
-              <select class="form-select" id="pr-lens">
-                <option value="85mm f/1.4 portrait prime, creamy background separation, classic flattering portrait">85mm f/1.4 — Portrait Classic</option>
-                <option value="50mm f/1.4 standard prime, natural human perspective">50mm f/1.4 — Natural</option>
-                <option value="100mm f/2.0 medium telephoto, flattering portrait compression">100mm f/2.0 — Flattering</option>
-                <option value="135mm f/1.8 telephoto, beautiful subject separation, compressed">135mm f/1.8 — Compressed</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="gen-bottom">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-            <span style="font-size:12px;color:var(--color-text-secondary);font-family:'Roboto Mono',monospace">Jumlah foto:</span>
-            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--color-text-secondary)"><input type="radio" name="photo-count-pr" value="2"> 2 foto</label>
-            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--color-text-primary);font-weight:500"><input type="radio" name="photo-count-pr" value="4" checked> 4 foto</label>
-            <span style="font-size:10px;color:var(--color-text-tertiary);font-family:'Roboto Mono',monospace">(direkomendasikan)</span>
-          </div>
-          <button class="btn-generate" id="btn-gen-pr" onclick="startGenerate()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <span id="btn-gen-pr-label">Generate 4 Foto Profesional</span>
-            <svg id="btn-gen-pr-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-          </button>
-        </div>
-      </div><!-- /tab-profesional -->
-
-      <!-- ══════════════ TAB: MATERNITY ══════════════ -->
-      <div class="tab-content" id="tab-maternity">
-
-        <!-- UPLOAD -->
-        <div class="form-sec">
-          <div class="form-sec-title">📷 Foto Referensi Wajah Bumil</div>
-          <div class="upload-grid">
-            <div>
-              <div class="upload-top-lbl">Foto Wajah (Solo Bumil)</div>
-              <div class="upload-relative">
-                <div class="upload-box" id="upload-mt-wajah" onclick="triggerUpload('inp-mt-wajah')">
-                  <input type="file" id="inp-mt-wajah" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-mt-wajah')">
-                  <svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                  <span class="upload-label-txt">Klik atau drag foto wajah</span>
-                  <span class="upload-hint-txt">JPG PNG WEBP · Max 10MB · Bumil solo</span>
-                </div>
-                <div id="us-upload-mt-wajah" style="display:none;position:absolute;bottom:6px;left:6px;right:6px;border-radius:6px;padding:3px 8px;font-size:9.5px;font-family:'Roboto Mono',monospace;color:#fff;text-align:center;pointer-events:none;"></div>
-              </div>
-            </div>
-          </div>
-          <div style="margin-top:8px;padding:8px 10px;background:rgba(31,166,181,0.06);border-radius:8px;border:1px solid rgba(31,166,181,0.15);">
-            <p style="font-family:'Roboto Mono',monospace;font-size:9.5px;color:#0E8EA0;line-height:1.6;">✓ Foto wajah bumil menghadap kamera · ✓ Pencahayaan cukup · ✓ Usia kehamilan 7-9 bulan</p>
-          </div>
-        </div>
-
-        <!-- KOMPOSISI — Kontrol utama, cascade ke Pose & Lensa -->
-        <div class="form-sec">
-          <div class="form-sec-title">📐 Komposisi Foto</div>
-          <div class="form-row">
-            <div class="form-field" style="flex:2">
-              <label class="form-label">Komposisi / Framing</label>
-              <select class="form-select" id="mt-framing" onchange="onMaternityFramingChange(this.value)">
-                <option value="full_body">Full Body — Kepala sampai Kaki</option>
-                <option value="three_quarter">3/4 Body — Kepala sampai Lutut</option>
-                <option value="half_body">Half Body — Pinggang ke Atas</option>
-                <option value="belly_focus">Belly Focus — Perut & Tangan Detail</option>
-                <option value="silhouette">Silhouette — Profil Dramatis Samping</option>
-                <option value="wide_shot">Wide Shot — Figure di Latar Luas</option>
-              </select>
-            </div>
-            <div class="form-field" style="flex:1">
-              <label class="form-label">Etnis</label>
-              <select class="form-select" id="mt-ethnicity">
-                <option value="indonesian_f">Indonesia</option>
-                <option value="javanese_f">Jawa</option>
-                <option value="chinese_indo_f">Chinese-Indo</option>
-                <option value="korean_f">Korea</option>
-                <option value="sea_f">Asia Tenggara</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- OUTFIT -->
-        <div class="form-sec">
-          <div class="form-sec-title">👗 Outfit Maternity</div>
-          <div class="form-field">
-            <label class="form-label">Pilih Outfit</label>
-            <select class="form-select" id="mt-outfit" onchange="checkCustom(this,'mt-outfit-c')">
-      <optgroup label="── TULLE & CHIFFON ──">
-        <option value="blush_tulle">Gaun Tulle Off-Shoulder Blush Pink</option>
-        <option value="dusty_rose_tulle">Gaun Tulle Dusty Rose — Ruffled Sleeves</option>
-        <option value="sage_chiffon">Gaun Chiffon Sage Green Off-Shoulder</option>
-      </optgroup>
-      <optgroup label="── SILK & SATIN ──">
-        <option value="white_silk">Gaun Silk Off-Shoulder Putih — Empire Waist</option>
-        <option value="ivory_satin">Gaun Satin Cowl-Neck Ivory — Minimal</option>
-      </optgroup>
-      <optgroup label="── LACE & FITTED ──">
-        <option value="lace_white">Gaun Lace Putih — Long Sleeves</option>
-        <option value="ribbed_fitted">Fitted Ribbed Jersey Dress — Minimal Elegan</option>
-      </optgroup>
-      <optgroup label="── MUSLIMAH ──">
-        <option value="hijab_chiffon">Hijab + Gaun Chiffon Flowing — Modest Elegan</option>
-      </optgroup>
-    </select>
-            <input type="text" class="form-input-text custom-input" id="mt-outfit-c" placeholder="Contoh: gaun tulle sage green off-shoulder, kebaya putih, gamis dusty rose...">
-          </div>
-        </div>
-
-        <!-- BACKGROUND STUDIO -->
-        <div class="form-sec">
-          <div class="form-sec-title">🎨 Background Studio</div>
-          <div class="form-field">
-            <label class="form-label">Pilih Background</label>
-            <select class="form-select" id="mt-background" onchange="checkCustom(this,'mt-bg-c')">
-      <optgroup label="── STUDIO POLOS ──">
-        <option value="white_clean">Studio Putih Seamless Bersih</option>
-        <option value="cream_warm">Studio Krem Hangat</option>
-        <option value="grey_soft">Studio Abu Muda Lembut</option>
-        <option value="painted_canvas">Canvas Backdrop Abu-Lavender (Fine Art)</option>
-      </optgroup>
-      <optgroup label="── STUDIO + BUNGA ──">
-        <option value="white_flowers">Studio Putih + Mawar Putih & Peony di Lantai ✨</option>
-        <option value="pink_flowers">Studio Krem + Mawar Pink & Peony Natural ✨</option>
-        <option value="sakura">Studio Krem + Ranting Sakura + Petals ✨</option>
-      </optgroup>
-    </select>
-            <input type="text" class="form-input-text custom-input" id="mt-bg-c" placeholder="Contoh: studio putih dengan bunga putih, studio gelap dramatis, studio abu lembut...">
-          </div>
-        </div>
-
-        <!-- POSE — auto-cascade from framing -->
-        <div class="form-sec">
-          <div class="form-sec-title">🤸 Pose</div>
-          <div class="form-field">
-            <label class="form-label">Pose <span id="mt-pose-hint" style="font-size:10px;color:#1FA6B5;font-family:'Roboto Mono',monospace;"></span></label>
-            <select class="form-select" id="mt-pose">
-      <optgroup label="── BERDIRI ──">
-        <option value="standing_cradle">Berdiri — Tangan Memeluk Perut dari Bawah</option>
-        <option value="standing_side">Profil Samping 90° — Tangan di Perut</option>
-        <option value="standing_hip">Berdiri — Satu Tangan Pinggul, Satu di Perut</option>
-      </optgroup>
-      <optgroup label="── DUDUK ──">
-        <option value="sitting_chair">Duduk di Kursi — Tangan di Perut</option>
-        <option value="sitting_floor">Duduk di Lantai — Gaun Tersebar Natural</option>
-        <option value="sitting_floor_arm">Duduk di Lantai — Bertumpu Satu Tangan</option>
-      </optgroup>
-    </select>
-          </div>
-        </div>
-
-        <!-- GAYA FOTO row -->
-        <div class="form-sec">
-          <div class="form-sec-title">✨ Gaya Foto</div>
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label">Pencahayaan</label>
-              <select class="form-select" id="mt-lighting">
-      <option value="soft_wrap">Soft Wrap — Natural & Merata (Default)</option>
-      <option value="window_light">Cahaya Jendela Natural</option>
-      <option value="high_key">High Key — Terang Bersih</option>
-    </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Color Grade</label>
-              <select class="form-select" id="mt-grade">
-      <option value="clean_bright">Clean Bright — Terang Bersih (Default)</option>
-      <option value="soft_warm">Soft Warm — Hangat Natural</option>
-      <option value="bright_airy">Bright Airy — Cerah & Ringan</option>
-    </select>
-            </div>
-          </div>
-          <div class="form-row" style="margin-top:10px">
-            <div class="form-field">
-              <label class="form-label">Gaya Foto</label>
-              <select class="form-select" id="mt-style">
-                <option value="fine_art_natural">Fine Art — Natural & Timeless</option>
-                <option value="editorial_fashion">Editorial Fashion Magazine</option>
-                <option value="romantic_soft">Romantic Soft & Feminine</option>
-                <option value="documentary_candid">Documentary Candid Authentic</option>
-                <option value="dark_dramatic">Dark Dramatic Moody</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Lensa <span id="mt-lens-hint" style="font-size:10px;color:#1FA6B5;font-family:'Roboto Mono',monospace;"></span></label>
-              <select class="form-select" id="mt-lens">
-                <option value="85mm f/1.4 portrait prime lens, beautiful subject isolation, creamy background bokeh, flattering compression">85mm f/1.4 — Portrait (Default)</option>
-                <option value="50mm f/1.4 prime lens, natural perspective, versatile full body and portrait, classic look">50mm f/1.4 — Versatile Natural</option>
-                <option value="35mm f/1.4 wide prime lens, full body environmental, shows gown completely from head to toe">35mm f/1.4 — Full Body Lebar</option>
-                <option value="24-70mm f/2.8 professional zoom, flexible full body to 3/4 framing, workhorse lens">24-70mm f/2.8 — Zoom Profesional</option>
-                <option value="70-200mm f/2.8 telephoto zoom, compressed perspective, dreamy background blur, intimate compression">70-200mm f/2.8 — Telephoto Dreamlike</option>
-                <option value="135mm f/1.8 telephoto prime, highly compressed romantic bokeh, cinematic subject separation">135mm f/1.8 — Telephoto Cinematic</option>
-                <option value="105mm f/2.8 macro, extreme detail close-up of belly and hands, intimate fine art detail">105mm f/2.8 — Macro Detail</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- GENERATE BUTTON -->
-        <div class="gen-bottom">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-            <span style="font-size:12px;color:var(--color-text-secondary);font-family:'Roboto Mono',monospace">Jumlah foto:</span>
-            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--color-text-secondary)"><input type="radio" name="photo-count-mt" value="2"> 2 foto</label>
-            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--color-text-primary);font-weight:500"><input type="radio" name="photo-count-mt" value="4" checked> 4 foto</label>
-            <span style="font-size:10px;color:var(--color-text-tertiary);font-family:'Roboto Mono',monospace">(direkomendasikan)</span>
-          </div>
-          <button class="btn-generate" id="btn-gen-mt" onclick="startGenerate()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <span id="btn-gen-mt-label">Generate 4 Foto Maternity</span>
-            <svg id="btn-gen-mt-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-          </button>
-        </div>
-
-      </div><!-- /tab-maternity -->
-
       <!-- ══════════════ TAB: STUDIO KOREA ══════════════ -->
       <div class="tab-content" id="tab-studio_foto">
 <!-- MODE TOGGLE -->
@@ -1535,357 +1173,6 @@
 </div>
 </div><!-- /tab-studio_foto -->
 
-      <!-- ===== TAB: PREWEDDING ===== -->
-      <div class="tab-content" id="tab-prewedding">
-
-        <!-- UPLOAD -->
-        <div class="form-sec">
-          <div class="form-sec-title">📷 Foto Referensi Wajah</div>
-          <div class="upload-grid col2">
-            <div>
-              <div class="upload-top-lbl">Foto Pria</div>
-              <div class="upload-relative">
-                <div class="upload-box" id="upload-pw-pria" onclick="triggerUpload('inp-pw-pria')">
-                  <input type="file" id="inp-pw-pria" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-pw-pria')">
-                  <svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                  <span class="upload-label-txt">Klik atau drag</span>
-                  <span class="upload-hint-txt">JPG PNG WEBP · Max 10MB</span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="upload-top-lbl">Foto Wanita</div>
-              <div class="upload-relative">
-                <div class="upload-box" id="upload-pw-wanita" onclick="triggerUpload('inp-pw-wanita')">
-                  <input type="file" id="inp-pw-wanita" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-pw-wanita')">
-                  <svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                  <span class="upload-label-txt">Klik atau drag</span>
-                  <span class="upload-hint-txt">JPG PNG WEBP · Max 10MB</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div style="margin-top:8px;padding:8px 10px;background:rgba(31,166,181,0.06);border-radius:8px;border:1px solid rgba(31,166,181,0.15);">
-            <p style="font-family:'Roboto Mono',monospace;font-size:9.5px;color:#0E8EA0;line-height:1.6;margin:0;">✓ Upload foto wajah pria & wanita masing-masing · ✓ Wajah menghadap depan · ✓ Pencahayaan terang</p>
-          </div>
-        </div>
-
-        <!-- PENAMPILAN -->
-        <div class="form-sec">
-          <div class="form-sec-title">👤 Penampilan</div>
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label">Etnis Pria</label>
-              <select class="form-select" id="pw-etnis-pria">
-                <option value="indonesian_male">Indonesia</option>
-                <option value="sea_male">Asia Tenggara</option>
-                <option value="eastasian_male">Asia Timur</option>
-                <option value="caucasian_male">Kaukasia</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Etnis Wanita</label>
-              <select class="form-select" id="pw-etnis-wanita">
-                <option value="indonesian_female">Indonesia</option>
-                <option value="sea_female">Asia Tenggara</option>
-                <option value="eastasian_female">Asia Timur</option>
-                <option value="caucasian_female">Kaukasia</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- OUTFIT PRIA -->
-        <div class="form-sec">
-          <div class="form-sec-title">👔 Outfit Pria</div>
-          <div class="form-field">
-            <select class="form-select" id="pw-outfit-pria" onchange="checkCustom(this,'pw-outfit-pria-c')">
-              <option value="white_linen">Kemeja Putih Linen + Celana Khaki</option>
-              <option value="batik_formal">Batik Premium + Celana Hitam</option>
-              <option value="suit_beige">Jas Beige Modern</option>
-              <option value="casual_denim">Casual Denim Smart</option>
-              <option value="all_black">All Black Minimalis</option>
-              <option value="baju_koko">Baju Koko Elegan</option>
-              <option value="custom">✏️ Tulis sendiri...</option>
-            </select>
-            <input type="text" class="form-input-text custom-input" id="pw-outfit-pria-c" placeholder="Deskripsikan outfit pria...">
-          </div>
-        </div>
-
-        <!-- OUTFIT WANITA -->
-        <div class="form-sec">
-          <div class="form-sec-title">👗 Outfit Wanita</div>
-          <div class="form-field">
-            <select class="form-select" id="pw-outfit-wanita" onchange="checkCustom(this,'pw-outfit-wanita-c')">
-              <option value="champagne_chiffon">Gaun Chiffon Champagne</option>
-              <option value="kebaya_modern">Kebaya Modern</option>
-              <option value="boho_lace">Boho Lace Maxi Dress</option>
-              <option value="all_white">All White Elegan</option>
-              <option value="hijab_elegant">Hijab Syar'i Elegan</option>
-              <option value="kebaya_bali">Kebaya Bali</option>
-              <option value="custom">✏️ Tulis sendiri...</option>
-            </select>
-            <input type="text" class="form-input-text custom-input" id="pw-outfit-wanita-c" placeholder="Deskripsikan outfit wanita...">
-          </div>
-        </div>
-
-        <!-- LOKASI -->
-        <div class="form-sec">
-          <div class="form-sec-title">🌏 Lokasi</div>
-          <div class="form-field">
-            <select class="form-select" id="pw-lokasi" onchange="checkCustom(this,'pw-lokasi-c')">
-              <optgroup label="── Indonesia ──">
-                <option value="bali_heaven">Pura Lempuyang — Gates of Heaven, Bali</option>
-                <option value="bali_ubud">Tegallalang Rice Terrace, Ubud</option>
-                <option value="bali_uluwatu">Tebing Uluwatu, Bali</option>
-                <option value="lombok_pink">Pink Beach, Lombok</option>
-                <option value="jogja_borobudur">Candi Borobudur, Jogjakarta</option>
-                <option value="raja_ampat">Raja Ampat, Papua Barat</option>
-                <option value="bromo">Gunung Bromo, Jawa Timur</option>
-              </optgroup>
-              <optgroup label="── Asia ──">
-                <option value="tokyo_sakura">Sakura Park, Tokyo</option>
-                <option value="kyoto_bamboo">Bamboo Forest, Kyoto</option>
-                <option value="maldives">Maldives Overwater Villa</option>
-                <option value="phuket">Phi Phi Islands, Thailand</option>
-              </optgroup>
-              <optgroup label="── Eropa ──">
-                <option value="santorini">Santorini, Yunani</option>
-                <option value="paris">Eiffel Tower, Paris</option>
-                <option value="venice">Kanal Venezia, Italia</option>
-                <option value="tuscany">Bukit Tuscany, Italia</option>
-                <option value="amalfi">Pantai Amalfi, Italia</option>
-                <option value="prague">Old Town Prague, Ceko</option>
-              </optgroup>
-              <optgroup label="── Custom ──">
-                <option value="custom">✏️ Tulis lokasi sendiri...</option>
-              </optgroup>
-            </select>
-            <input type="text" class="form-input-text custom-input" id="pw-lokasi-c" placeholder="Nama lokasi & suasana...">
-          </div>
-        </div>
-
-        <!-- GAYA FOTO -->
-        <div class="form-sec">
-          <div class="form-sec-title">✨ Gaya Foto</div>
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label">Pose</label>
-              <select class="form-select" id="pw-pose">
-                <option value="walking">Berjalan Bersama</option>
-                <option value="back_hug">Back Hug</option>
-                <option value="almost_kiss">Almost Kiss</option>
-                <option value="slow_dance">Slow Dance</option>
-                <option value="spinning">Berputar Ceria</option>
-                <option value="wide_landscape">Landscape Dramatis</option>
-                <option value="classic_standing">Portrait Klasik</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Waktu & Cahaya</label>
-              <select class="form-select" id="pw-waktu">
-                <option value="golden_hour">Golden Hour</option>
-                <option value="blue_hour">Blue Hour</option>
-                <option value="sunset">Sunset Dramatis</option>
-                <option value="morning">Pagi Lembut</option>
-                <option value="cloudy">Mendung Dreamy</option>
-                <option value="night_romantic">Malam Romantis</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row" style="margin-top:10px">
-            <div class="form-field">
-              <label class="form-label">Ekspresi</label>
-              <select class="form-select" id="pw-ekspresi">
-                <option value="deeply_love">Saling Tatap Penuh Cinta</option>
-                <option value="candid_laugh">Tawa Candid</option>
-                <option value="dreamy">Dreamy Romantis</option>
-                <option value="elegant">Elegan Serius</option>
-                <option value="playful">Playful Natural</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Suasana</label>
-              <select class="form-select" id="pw-suasana">
-                <option value="clear">Langit Cerah</option>
-                <option value="misty">Berkabut Dreamy</option>
-                <option value="sakura">Hujan Sakura</option>
-                <option value="fairy">Fairy Lights</option>
-                <option value="moody">Moody Sinematik</option>
-                <option value="tropical">Tropis Hijau</option>
-                <option value="autumn">Daun Gugur Autumn</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row" style="margin-top:10px">
-            <div class="form-field">
-              <label class="form-label">Color Grade</label>
-              <select class="form-select" id="pw-grade">
-                <option value="warm_cinematic">Warm Cinematic</option>
-                <option value="bright_airy">Bright & Airy</option>
-                <option value="dark_moody">Dark Moody</option>
-                <option value="soft_pastel">Soft Pastel</option>
-                <option value="vivid_bold">Vivid Bold</option>
-                <option value="bw_fine_art">Hitam Putih Fine Art</option>
-                <option value="golden_regal">Golden Regal</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Gaya Foto</label>
-              <select class="form-select" id="pw-style">
-                <option value="cinematic">Sinematik</option>
-                <option value="fine_art">Fine Art</option>
-                <option value="editorial">Editorial</option>
-                <option value="romantic">Romantis</option>
-                <option value="documentary">Documentary</option>
-                <option value="warm_lifestyle">Warm Lifestyle</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row" style="margin-top:10px">
-            <div class="form-field">
-              <label class="form-label">Lensa</label>
-              <select class="form-select" id="pw-lensa">
-                <option value="85_14">85mm f/1.4 — Portrait</option>
-                <option value="85_12">85mm f/1.2 — Portrait Creamy</option>
-                <option value="50_12">50mm f/1.2 — Natural</option>
-                <option value="35_14">35mm f/1.4 — Wide Environmental</option>
-                <option value="135_18">135mm f/1.8 — Telephoto Dreamy</option>
-                <option value="70200">70-200mm f/2.8 — Zoom Tele</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label class="form-label">Kamera</label>
-              <select class="form-select" id="pw-kamera">
-                <option value="sony_a7r5">Sony A7R V</option>
-                <option value="canon_r5">Canon EOS R5</option>
-                <option value="fuji_gfx">Fujifilm GFX 100S</option>
-                <option value="hasselblad">Hasselblad X2D</option>
-                <option value="nikon_z9">Nikon Z9</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- GENERATE -->
-        <div class="gen-bottom">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-            <span style="font-size:12px;color:var(--color-text-secondary);font-family:'Roboto Mono',monospace">Jumlah foto:</span>
-            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--color-text-secondary)"><input type="radio" name="photo-count-pw" value="2"> 2 foto</label>
-            <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:var(--color-text-primary);font-weight:500"><input type="radio" name="photo-count-pw" value="4" checked> 4 foto</label>
-            <span style="font-size:10px;color:var(--color-text-tertiary);font-family:'Roboto Mono',monospace">(direkomendasikan)</span>
-          </div>
-          <button class="btn-generate" id="btn-gen-pw" onclick="startGenerate()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <span id="btn-gen-pw-label">Generate 4 Foto Prewedding</span>
-            <svg id="btn-gen-pw-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-          </button>
-        </div>
-
-      </div><!-- /tab-prewedding -->
-
-      <!-- OLD ENGAGEMENT AND STUDIO TABS REMOVED — replaced by Wisuda/Profesional/Maternity/Studio Foto above -->
-      <!-- ===== TAB: OLD STUDIO PLACEHOLDER (removed) ===== -->
-      <div class="tab-content" id="tab-studio" style="display:none!important">
-        <div class="form-sec">
-          <div class="form-sec-title">&#128101; Mode Studio</div>
-          <div class="mode-toggle">
-            <button class="mode-btn active" data-mode="solo_wanita" onclick="setStudioMode('solo_wanita',this)">Solo Wanita</button>
-            <button class="mode-btn" data-mode="solo_pria"   onclick="setStudioMode('solo_pria',this)">Solo Pria</button>
-            <button class="mode-btn" data-mode="pasangan"    onclick="setStudioMode('pasangan',this)">Pasangan</button>
-          </div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#128247; Foto Referensi Wajah</div>
-          <div class="upload-grid col2" id="st-upload-grid">
-            <div id="st-upload-wanita-wrap"><div class="upload-top-lbl" id="st-upload-lbl-w">Foto Wanita</div><div class="upload-relative"><div class="upload-box" id="upload-st-wanita" onclick="triggerUpload('inp-st-wanita')"><input type="file" id="inp-st-wanita" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-st-wanita')"><svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag</span><span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span></div></div></div>
-            <div id="st-upload-pria-wrap" style="display:none"><div class="upload-top-lbl">Foto Pria</div><div class="upload-relative"><div class="upload-box" id="upload-st-pria" onclick="triggerUpload('inp-st-pria')"><input type="file" id="inp-st-pria" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-st-pria')"><svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag</span><span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span></div></div></div>
-          </div>
-          <!-- Panduan foto -->
-          <div style="margin-top:10px;padding:10px 12px;background:rgba(31,166,181,0.07);border-radius:10px;border:1px solid rgba(31,166,181,0.18);">
-            <div style="font-size:.72rem;font-weight:700;color:#1FA6B5;margin-bottom:6px;letter-spacing:.04em;">📸 PANDUAN FOTO TERBAIK</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:.7rem;line-height:1.6;">
-              <span style="color:#34c759;">✓ Foto solo (1 wajah)</span>
-              <span style="color:#ff3b30;">✗ Foto grup/ramai</span>
-              <span style="color:#34c759;">✓ Wajah menghadap depan</span>
-              <span style="color:#ff3b30;">✗ Wajah menyamping jauh</span>
-              <span style="color:#34c759;">✓ Pencahayaan terang merata</span>
-              <span style="color:#ff3b30;">✗ Foto gelap / blur</span>
-              <span style="color:#34c759;">✓ Ekspresi natural / senyum</span>
-              <span style="color:#ff3b30;">✗ Tertutup masker / kacamata</span>
-            </div>
-          </div>
-        </div>
-        <div class="form-sec" id="st-outfit-sec">
-          <div class="form-sec-title">&#128083; Outfit Studio</div>
-          <div class="form-field" id="st-outfit-wanita-field"><label class="form-label">Outfit Wanita</label><select class="form-select" id="st-outfit-wanita"><option value="evening_gown">Evening Gown Navy</option><option value="korean_fashion">Korean Fashion Cream</option><option value="batik_modern">Batik Modern</option><option value="editorial">Editorial High Fashion</option><option value="casual_chic">Casual Chic</option></select></div>
-          <div class="form-field" id="st-outfit-pria-field" style="display:none"><label class="form-label">Outfit Pria</label><select class="form-select" id="st-outfit-pria"><option value="korean_fashion">Korean Minimal Turtleneck</option><option value="business_formal">Business Formal</option><option value="batik_premium">Batik Premium</option><option value="all_black">All Black Minimalis</option><option value="all_white">All White Clean</option></select></div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#127968; Tema & Lighting</div>
-          <div class="form-field"><label class="form-label">Tema Background</label><select class="form-select" id="st-tema"><option value="korean_studio">Korean Soft Studio</option><option value="luxury_white">Luxury White Seamless</option><option value="marble_studio">Marble Elegant</option><option value="editorial">Editorial Abstract</option><option value="vogue_studio">Vogue Style</option><option value="pastel_studio">Pastel Dreamy</option><option value="minimal_concrete">Concrete Industrial</option><option value="penthouse">Penthouse City View</option><option value="japanese_minimal">Japanese Minimal</option><option value="velvet_luxury">Velvet Luxury</option></select></div>
-          <div class="form-field"><label class="form-label">Lighting</label><select class="form-select" id="st-lighting"><option value="butterfly">Butterfly (Glamour)</option><option value="rembrandt">Rembrandt (Dramatis)</option><option value="high_key">High Key (Bersih Terang)</option><option value="loop">Loop (Natural)</option><option value="low_key">Low Key (Moody)</option><option value="ring_light">Ring Light (Beauty)</option><option value="split">Split (Artistik)</option></select></div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#127775; Gaya Foto</div>
-          <div class="form-row">
-            <div class="form-field"><label class="form-label">Pose</label><select class="form-select" id="st-pose"><option value="classic_standing">Standing Klasik</option><option value="beauty_closeup">Beauty Close-up</option><option value="medium_portrait">Medium Portrait</option><option value="34_portrait">3/4 Portrait</option><option value="sitting">Duduk Elegan</option></select></div>
-            <div class="form-field"><label class="form-label">Ekspresi</label><select class="form-select" id="st-ekspresi"><option value="elegant">Elegan & Percaya Diri</option><option value="professional">Professional</option><option value="soft_natural">Soft Natural</option><option value="intense">Intense Editorial</option><option value="candid_laugh">Candid Smile</option></select></div>
-            <div class="form-field"><label class="form-label">Color Grade</label><select class="form-select" id="st-grade"><option value="ultra_clean">Ultra Clean White</option><option value="dark_luxury">Dark Luxury</option><option value="warm_cinematic">Warm Cinematic</option><option value="bw_fine_art">Hitam Putih Fine Art</option><option value="golden_regal">Golden Regal</option></select></div>
-            <div class="form-field"><label class="form-label">Kamera</label><select class="form-select" id="st-kamera"><option value="hasselblad">Hasselblad X2D</option><option value="sony_a7r5">Sony A7R V</option><option value="fuji_gfx">Fujifilm GFX 100S</option><option value="canon_r5">Canon EOS R5</option></select></div>
-          </div>
-        </div>
-        <div class="gen-bottom"><button class="btn-generate" id="btn-gen-st" onclick="startGenerate()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg><span id="btn-gen-st-label">Generate 4 Foto</span><svg id="btn-gen-st-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></button></div>
-      </div><!-- /tab-studio -->
-
-      <!-- ===== TAB: FAMILY (hidden — removed from UI) ===== -->
-      <div class="tab-content" id="tab-family" style="display:none!important">
-        <div class="form-sec">
-          <div class="form-sec-title">&#128247; Foto Referensi (Opsional)</div>
-          <div class="upload-grid">
-            <div><div class="upload-top-lbl">Foto Keluarga / Referensi</div><div class="upload-relative"><div class="upload-box" id="upload-fm-keluarga" onclick="triggerUpload('inp-fm-keluarga')"><input type="file" id="inp-fm-keluarga" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-fm-keluarga')"><svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag foto referensi</span><span class="upload-hint-txt">Opsional &middot; JPG PNG WEBP &middot; Max 10MB</span></div></div></div>
-          </div>
-          <!-- Panduan foto -->
-          <div style="margin-top:10px;padding:10px 12px;background:rgba(31,166,181,0.07);border-radius:10px;border:1px solid rgba(31,166,181,0.18);">
-            <div style="font-size:.72rem;font-weight:700;color:#1FA6B5;margin-bottom:6px;letter-spacing:.04em;">📸 PANDUAN FOTO TERBAIK</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:.7rem;line-height:1.6;">
-              <span style="color:#34c759;">✓ Foto referensi keluarga</span>
-              <span style="color:#ff3b30;">✗ Foto blur / buram</span>
-              <span style="color:#34c759;">✓ Wajah terlihat jelas</span>
-              <span style="color:#ff3b30;">✗ Foto terlalu jauh</span>
-              <span style="color:#34c759;">✓ Pencahayaan terang merata</span>
-              <span style="color:#ff3b30;">✗ Foto gelap / backlit</span>
-              <span style="color:#34c759;">✓ JPG PNG WEBP · Max 10MB</span>
-              <span style="color:#ff3b30;">✗ Ekspresi tertutup aksesori</span>
-            </div>
-          </div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#128106; Komposisi Keluarga</div>
-          <div class="form-row">
-            <div class="form-field"><label class="form-label">Etnis Keluarga</label><select class="form-select" id="fm-etnis"><option value="indonesian_family">Keluarga Indonesia</option><option value="sea_family">Asia Tenggara</option><option value="mixed_family">Campuran (Mixed)</option></select></div>
-            <div class="form-field"><label class="form-label">Anggota Keluarga</label><select class="form-select" id="fm-anggota"><option value="couple_only">Pasangan (Tanpa Anak)</option><option value="family_1_child">Ayah + Ibu + 1 Anak</option><option value="family_2_child">Ayah + Ibu + 2 Anak</option><option value="family_3_child">Ayah + Ibu + 3 Anak</option><option value="extended">Keluarga Besar</option></select></div>
-          </div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#128083; Outfit Keluarga</div>
-          <div class="form-field"><label class="form-label">Tema Outfit</label><select class="form-select" id="fm-outfit"><option value="white_beige">White & Beige Elegan</option><option value="earth_tone">Earth Tone Natural</option><option value="batik_keluarga">Batik Keluarga</option><option value="busana_muslim">Busana Muslim Keluarga</option><option value="formal">Formal Semi-Formal</option><option value="casual_modern">Casual Modern Lifestyle</option><option value="adat_jawa">Adat Jawa Tradisional</option><option value="adat_bali">Adat Bali</option></select></div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#127968; Tema Studio</div>
-          <div class="form-field"><label class="form-label">Background</label><select class="form-select" id="fm-tema"><option value="luxury_white">Luxury White Studio</option><option value="lifestyle">Lifestyle Home Studio</option><option value="penthouse">Penthouse View</option><option value="garden_outdoor">Outdoor Garden</option><option value="minimal_concrete">Concrete Minimalis</option><option value="warm_wooden">Warm Wooden Studio</option></select></div>
-          <div class="form-field"><label class="form-label">Suasana</label><select class="form-select" id="fm-suasana"><option value="warm_happy">Hangat & Bahagia</option><option value="elegant_formal">Elegan Formal</option><option value="candid_natural">Candid Natural</option><option value="playful_fun">Playful & Fun</option></select></div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#127775; Gaya Foto</div>
-          <div class="form-row">
-            <div class="form-field"><label class="form-label">Color Grade</label><select class="form-select" id="fm-grade"><option value="warm_cinematic">Warm Cinematic</option><option value="bright_airy">Bright & Airy</option><option value="classic_warm">Classic Warm Film</option><option value="ultra_clean">Ultra Clean</option><option value="bw_fine_art">Hitam Putih</option></select></div>
-            <div class="form-field"><label class="form-label">Kamera</label><select class="form-select" id="fm-kamera"><option value="canon_r5">Canon EOS R5</option><option value="sony_a7r5">Sony A7R V</option><option value="fuji_gfx">Fujifilm GFX 100S</option></select></div>
-          </div>
-        </div>
-        <div class="gen-bottom"><button class="btn-generate" id="btn-gen-fm" onclick="startGenerate()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg><span id="btn-gen-fm-label">Generate 4 Foto</span><svg id="btn-gen-fm-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></button></div>
-      </div><!-- /tab-family -->
-
     </div><!-- /gen-left -->
 
     <!-- RIGHT PANEL: Output -->
@@ -1952,10 +1239,7 @@
   <div class="hist-filter-tabs">
     <button class="cat-filter-btn active" data-filter="all"          onclick="filterHistory('all',this)">Semua</button>
     <button class="cat-filter-btn" data-filter="wisuda"             onclick="filterHistory('wisuda',this)">Wisuda</button>
-    <button class="cat-filter-btn" data-filter="profesional"        onclick="filterHistory('profesional',this)">Profesional</button>
-    <button class="cat-filter-btn" data-filter="maternity"          onclick="filterHistory('maternity',this)">Maternity</button>
     <button class="cat-filter-btn" data-filter="studio_foto"       onclick="filterHistory('studio_foto',this)">Studio Foto</button>
-    <button class="cat-filter-btn" data-filter="prewedding"         onclick="filterHistory('prewedding',this)">Prewedding</button>
   </div>
   <div class="hist-grid" id="history-grid">
     <div class="hist-empty" id="history-empty">
@@ -1985,8 +1269,8 @@
     <div class="plan-badge">
       <span style="font-size:20px;">&#11088;</span>
       <div>
-        <div class="plan-badge-text">Founding Premium</div>
-        <div class="plan-badge-sub">Lifetime Access &middot; Akses semua 6 generator</div>
+        <div class="plan-badge-text">Studio Foto & Wisuda AI</div>
+        <div class="plan-badge-sub">Lifetime Access &middot; Pesan via WhatsApp</div>
       </div>
     </div>
     <div style="margin-top:16px;padding:14px;background:#F4F6F8;border-radius:12px;">
@@ -2000,12 +1284,8 @@
     <div style="margin-top:14px;">
       <div style="font-family:'Roboto Mono',monospace;font-size:10px;color:#A7B0B5;letter-spacing:0.04em;margin-bottom:10px;">AKSES GENERATOR</div>
       <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#127891; Wisuda</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#128188; Profesional</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#129328; Maternity</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#127916; Studio Foto</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#128141; Prewedding</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#128112; Wedding</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#128247; Studio Foto AI</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#127891; Wisuda AI</span></div>
       </div>
     </div>
   </div>
@@ -2459,7 +1739,6 @@ const AppState = {
   currentView: 'dashboard',
   currentTab: 'wisuda',
   wisudaMode: 'wanita',
-  profesionalMode: 'wanita',
   studioMode: 'solo_wanita',
   koreaMode: 'solo_wanita',
   isGenerating: false,
@@ -2570,78 +1849,6 @@ function setKoreaMode(mode, btn) {
   if (skTab) skTab.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b === btn));
 }
 
-
-// ── Maternity: Komposisi cascade → auto-update Pose dan Lensa ───────
-const MT_FRAMING_PRESETS = {
-  full_body: {
-    pose: 'STANDING POSE: facing camera, both hands cradling belly from below, looking down with tender smile, full length standing',
-    lens: '35mm f/1.4 wide prime lens, full body environmental, shows gown completely from head to toe',
-    poseHint: '→ Full Body — berdiri',
-    lensHint: '→ 35mm wide (full body)',
-  },
-  three_quarter: {
-    pose: 'STANDING POSE: one hand on top of belly one hand cupping below, slight three-quarter angle, serene expression, full length standing',
-    lens: '50mm f/1.4 prime lens, natural perspective, versatile full body and portrait, classic look',
-    poseHint: '→ 3/4 Body — berdiri',
-    lensHint: '→ 50mm natural',
-  },
-  half_body: {
-    pose: 'STANDING POSE: hands intertwined resting on top of belly, direct camera gaze, confident full standing',
-    lens: '85mm f/1.4 portrait prime lens, beautiful subject isolation, creamy background bokeh, flattering compression',
-    poseHint: '→ Half Body — berdiri',
-    lensHint: '→ 85mm portrait',
-  },
-  belly_focus: {
-    pose: 'STANDING POSE: arms relaxed at sides, gown flowing to floor, looking down softly, full length ethereal standing',
-    lens: '105mm f/2.8 macro, extreme detail close-up of belly and hands, intimate fine art detail',
-    poseHint: '→ Belly Focus — close-up',
-    lensHint: '→ 105mm macro detail',
-  },
-  silhouette: {
-    pose: 'SIDE PROFILE POSE: body exactly 90 degrees sideways, one hand on lower back one hand on belly, looking forward, complete side silhouette head to feet, NOT facing camera',
-    lens: '85mm f/1.4 portrait prime lens, beautiful subject isolation, creamy background bokeh, flattering compression',
-    poseHint: '→ Silhouette — profil samping',
-    lensHint: '→ 85mm silhouette',
-  },
-  wide_shot: {
-    pose: 'STANDING POSE: facing camera, both hands cradling belly from below, looking down with tender smile, full length standing',
-    lens: '35mm f/1.4 wide prime lens, full body environmental, shows gown completely from head to toe',
-    poseHint: '→ Wide Shot — berdiri lebar',
-    lensHint: '→ 35mm wide',
-  },
-};
-
-function onMaternityFramingChange(framingValue) {
-  const preset = MT_FRAMING_PRESETS[framingValue];
-  if (!preset) return;
-
-  // Auto-update Pose
-  const poseSelect = document.getElementById('mt-pose');
-  if (poseSelect) {
-    const matchingOpt = Array.from(poseSelect.options).find(o => o.value === preset.pose);
-    if (matchingOpt) {
-      poseSelect.value = preset.pose;
-    } else {
-      poseSelect.selectedIndex = 0;
-    }
-    const poseHint = document.getElementById('mt-pose-hint');
-    if (poseHint) poseHint.textContent = preset.poseHint;
-  }
-
-  // Auto-update Lensa
-  const lensSelect = document.getElementById('mt-lens');
-  if (lensSelect) {
-    const matchingLens = Array.from(lensSelect.options).find(o => o.value === preset.lens);
-    if (matchingLens) {
-      lensSelect.value = preset.lens;
-    }
-    const lensHint = document.getElementById('mt-lens-hint');
-    if (lensHint) lensHint.textContent = preset.lensHint;
-  }
-
-  console.log('[PotretAI] Maternity framing changed:', framingValue, '→ auto-set pose & lens');
-}
-
 // ── Studio Foto gender mode toggle ─────────────────────────────────
 function setStudioFotoMode(mode, btn) {
   AppState.studioFotoMode = mode;
@@ -2722,42 +1929,6 @@ function setWisudaMode(mode, btn) {
 
   // Show/hide appropriate ethnicity options based on gender
   const ethSel = document.getElementById('ws-ethnicity');
-  if (ethSel) {
-    Array.from(ethSel.options).forEach(opt => {
-      const v = opt.value;
-      if (mode === 'pria') {
-        opt.hidden = v.endsWith('_f');
-      } else {
-        opt.hidden = v.endsWith('_m');
-      }
-    });
-    const firstVisible = Array.from(ethSel.options).find(o => !o.hidden);
-    if (firstVisible) ethSel.value = firstVisible.value;
-  }
-}
-
-// ── Profesional gender mode toggle ────────────────────────────────
-function setProfesionalMode(mode, btn) {
-  AppState.profesionalMode = mode;
-
-  // Update button styles
-  ['wanita','pria'].forEach(m => {
-    const b = document.getElementById('pr-mode-btn-' + m);
-    if (!b) return;
-    const active = m === mode;
-    b.style.background   = active ? 'rgba(31,166,181,0.1)' : '#F9FAFB';
-    b.style.borderColor  = active ? '#1FA6B5' : '#EEF3F5';
-    b.style.color        = active ? '#0E8EA0' : '#A7B0B5';
-  });
-
-  // Show/hide outfit wraps
-  const wWrap = document.getElementById('pr-outfit-wanita-wrap');
-  const pWrap = document.getElementById('pr-outfit-pria-wrap');
-  if (wWrap) wWrap.style.display = mode === 'pria' ? 'none' : '';
-  if (pWrap) pWrap.style.display = mode === 'pria' ? ''     : 'none';
-
-  // Show/hide appropriate ethnicity options based on gender
-  const ethSel = document.getElementById('pr-ethnicity');
   if (ethSel) {
     Array.from(ethSel.options).forEach(opt => {
       const v = opt.value;
@@ -2870,327 +2041,12 @@ const PromptBuilder = {
     return parts.filter(Boolean).join(', ');
   },
 
-  buildProfesional(hf = {}) {
-    const SUBJ = {
-      indonesian_f:'beautiful Indonesian woman, warm golden skin',
-      indonesian_m:'handsome Indonesian man, warm skin tone',
-      javanese_f:'beautiful Javanese woman, graceful features',
-      chinese_indo_f:'beautiful Chinese-Indonesian woman, fair skin',
-      chinese_indo_m:'handsome Chinese-Indonesian man, fair skin',
-      korean_f:'beautiful Korean woman, fair dewy skin',
-      korean_m:'handsome Korean man, fair clean skin',
-      sea_m:'handsome Southeast Asian man, warm tan skin',
-    };
-    const LIGHT = {
-      studio_butterfly:'butterfly studio lighting, symmetrical glamour, catchlight in eyes',
-      window_natural:'natural window light, soft diffused organic indoor',
-      golden_hour:'warm golden hour outdoor light',
-      studio_high_key:'high-key soft box lighting, bright even, clean commercial',
-      studio_rembrandt:'Rembrandt dramatic side lighting, painterly triangle shadow',
-    };
-    const FRAMING = {
-      headshot:'professional headshot, face and shoulders, face prominent, tight framing',
-      half_body:'half body portrait, waist up, professional stance, arms visible',
-      id_card:'front-facing ID card framing, head and shoulders, identity document standard',
-      three_quarter:'3/4 body portrait, three-quarter length, professional full look',
-      full_body:'full body professional portrait, head to toe, complete look',
-    };
-    const profesionalMode     = AppState.profesionalMode || 'wanita';
-    const profesionalModeSubj = profesionalMode;
-    const defaultPrSubjKey    = profesionalModeSubj === 'pria' ? 'indonesian_m' : 'indonesian_f';
-    const subject             = hf.wanita || hf.pria ? 'a professional person' : (SUBJ[val('pr-ethnicity')] || SUBJ[defaultPrSubjKey]);
-    const outfitIdPr          = profesionalMode === 'pria' ? 'pr-outfit-pria' : 'pr-outfit-wanita';
-    const outfitEl            = document.getElementById(outfitIdPr);
-    const outfit              = outfitEl?.value === 'custom' ? val('pr-outfit-c') : (outfitEl?.value || 'sharp dark navy blazer, white dress shirt, professional attire');
-    const bg         = val('pr-background') || 'professional soft grey gradient backdrop';
-    const framing    = FRAMING[val('pr-framing')] || FRAMING.headshot;
-    const expression = val('pr-expression') || 'confident direct eye contact, professional authority';
-    const lighting   = LIGHT[val('pr-lighting')] || LIGHT.studio_butterfly;
-    const lens       = val('pr-lens') || '85mm f/1.4 portrait prime lens';
-    const prType     = val('pr-type');
-    let framingFinal = framing;
-    if (prType === 'ktp' || prType === 'passport') {
-      framingFinal = 'ID card framing, head and shoulders, front facing, identity document photo standard';
-    }
-    // Background khusus KTP/Passport: paksa warna dengan prefix eksplisit
-    let bgFinal = bg;
-    if (prType === 'ktp' || prType === 'passport') {
-      // Untuk KTP/Passport, paksa background eksplisit sangat kuat
-      // agar flux-pulid mengikuti warna yang dipilih user
-      bgFinal = `${bg}, solid flat background color, uniform single color background, no texture no pattern no gradient, ID photo background`;
-    }
-    const lensCmd  = lens;
-    const isFullBP = val('pr-framing') === 'full_body';
-    const negHintP = isFullBP ? 'full body shot showing complete figure, do not crop, full length' : '';
-    const parts    = [
-      framingFinal,
-      negHintP,
-      subject,
-      outfit,
-      bgFinal,
-      'background must match exactly as described, precise background color and setting',
-      lighting,
-      expression,
-      'professional clean appearance, polished grooming, professional attire',
-      lensCmd,
-      'shot on Canon EOS R5',
-      'professional headshot photography, corporate portrait, personal branding, clean studio quality',
-      'ultra realistic, photorealistic, sharp focus, professional photography, no text, no watermark',
-    ];
-    return parts.filter(Boolean).join(', ');
-  },
-
-  buildMaternity(hf = {}) {
-    const SUBJ = {
-      indonesian_f:  'beautiful Indonesian woman, warm golden skin, dark lustrous hair',
-      javanese_f:    'beautiful Javanese woman, graceful refined features, warm complexion',
-      chinese_indo_f:'beautiful Chinese-Indonesian woman, fair porcelain skin, elegant',
-      korean_f:      'beautiful Korean woman, fair dewy skin, graceful elegant',
-      sea_f:         'beautiful Southeast Asian woman, warm tan skin, graceful features',
-    };
-
-    const LIGHT = {
-      soft_wrap:        'soft wrap studio lighting, even gentle illumination, no harsh shadows, flattering skin glow, natural studio feel',
-      window_natural:   'large soft window natural light, beautiful directional softbox feel, organic warm glow, lifestyle natural',
-      high_key_bright:  'high-key bright studio lighting, clean even exposure, fresh bright white, commercial clean',
-      butterfly_glamour:'butterfly glamour lighting, symmetrical soft top light, beautiful catchlight in both eyes, flattering facial light',
-      rembrandt_side:   'Rembrandt dramatic side lighting, painterly triangle shadow, depth and dimension, fine art quality',
-      low_key_moody:    'low-key dramatic studio, single dramatic light source, deep rich shadows, fine art moody atmosphere',
-      backlit_rim:      'soft backlit studio rim light, gentle halo outline around figure, ethereal dreamy atmosphere, contre-jour',
-      candle_warm:      'warm candlelight intimate studio, soft amber glowing light, romantic soft warm atmosphere',
-    };
-
-    const GRADE = {
-      soft_pastel_natural: 'soft pastel natural color grade, muted gentle tones, slightly lifted shadows, film-like organic, true skin colors',
-      warm_film:           'warm nostalgic film tone, slightly desaturated, organic warmth, golden undertones, timeless',
-      bright_airy_clean:   'bright airy clean grade, lifted whites, fresh clean tones, modern lifestyle',
-      muted_organic:       'muted organic earth tones, desaturated natural palette, timeless editorial',
-      dark_moody_cinematic:'dark moody cinematic grade, rich deep shadows, high contrast, dramatic fine art',
-      bw_fine_art:         'black and white fine art, rich silver gelatin tones, timeless classic, high contrast dramatic',
-      korean_dewy_soft:    'Korean soft dewy grade, slightly lifted bright, clean skin tones, beauty aesthetic',
-    };
-
-    const STYLE = {
-      fine_art_natural:   'fine art portrait photography, painterly natural composition, gallery quality, timeless organic',
-      editorial_fashion:  'editorial fashion fine art portrait photography, magazine quality, styled composed, high-end publication',
-      romantic_soft:      'romantic soft fine art portrait photography, tender intimate mood, feminine emotional connection',
-      documentary_candid: 'documentary lifestyle fine art portrait photography, authentic natural candid feel, genuine emotion',
-      dark_dramatic:      'dark dramatic fine art maternity, moody powerful, contrast-rich artistic composition',
-    };
-
-    const FRAMING = {
-      full_body:     'full body portrait, complete figure head to toe, full length, entire gown visible, feet included, wide enough to show complete silhouette',
-      three_quarter: '3/4 body portrait, head to approximately knee, three-quarter length, flowing skirt partially visible',
-      half_body:     'half body portrait, waist up, upper body and hands visible, tight intimate framing',
-      belly_focus:   'close-up intimate portrait, belly and hands as focal point, waist to chest area, fine art detail',
-      silhouette:    'dramatic side profile full silhouette, strong outline of rounded belly and figure against light, full length profile',
-      wide_shot:     'wide atmospheric studio shot, figure with space around, complete environment visible, sense of scale and elegance',
-    };
-
-    const subjKey  = val('mt-ethnicity') || 'indonesian_f';
-    const subj     = hf.wanita
-      ? 'a beautiful glowing expectant woman'
-      : (SUBJ[subjKey] || SUBJ.indonesian_f);
-    const fullSubj = `${subj}, expectant mother 7-9 months along, beautiful prominent rounded belly, glowing skin, radiant motherhood`;
-
-    const outfitEl = document.getElementById('mt-outfit');
-    const outfit   = outfitEl?.value === 'custom'
-      ? val('mt-outfit-c')
-      : (outfitEl?.value || 'wearing soft blush pink tulle off-shoulder elegant flowing gown, layered flowing skirt, delicate feminine');
-
-    const bgEl = document.getElementById('mt-background');
-    const bg   = bgEl?.value === 'custom'
-      ? val('mt-bg-c')
-      : (bgEl?.value || 'pure white seamless studio backdrop, soft even wrap lighting');
-
-    const framingKey = val('mt-framing') || 'full_body';
-    const framingCmd = FRAMING[framingKey] || FRAMING.full_body;
-
-    const pose     = val('mt-pose') || 'standing upright, both hands gently cradling rounded belly from below, looking down with tender maternal smile';
-    const lighting = LIGHT[val('mt-lighting')] || LIGHT.soft_wrap;
-    const grade    = GRADE[val('mt-grade')] || GRADE.soft_pastel_natural;
-    const styleKey = val('mt-style') || 'fine_art_natural';
-    const style    = STYLE[styleKey] || STYLE.fine_art_natural;
-    const lens     = val('mt-lens') || '85mm f/1.4 portrait prime lens, beautiful subject isolation, creamy background bokeh, flattering compression';
-
-    const isFullOrWide = framingKey === 'full_body' || framingKey === 'wide_shot' || framingKey === 'silhouette';
-    const framingEnforce = isFullOrWide
-      ? `${framingCmd}, do not crop the feet, complete figure from head to toe must be visible`
-      : framingCmd;
-
-    const expression = 'serene radiant maternal expression, soft natural smile, tender loving gaze downward or forward, glowing radiant confidence';
-
-    const parts = [
-      framingEnforce,
-      fullSubj,
-      outfit,
-      bg,
-      pose,
-      lighting,
-      expression,
-      'hands always touching or cradling the rounded belly naturally',
-      grade,
-      style,
-      lens,
-      'shot on Sony A7R V, professional fine art portrait photography session',
-      'natural organic skin texture, realistic maternal radiant glow, no plastic skin, authentic beauty',
-      'award-winning studio portrait photography, clean bright professional quality, fine art portrait',
-      'ultra realistic, photorealistic, sharp focus, professional photography, no text, no watermark',
-    ];
-
-    const prompt = parts.filter(Boolean).join(', ');
-    console.log(`[PotretAI buildMaternity] framing=${framingKey} → ${prompt}`);
-    return prompt;
-  },
-
-  buildPrewedding(hf = {}) {
-    const POSE_PW = {
-      walking:          'couple walking hand in hand toward camera, both faces clearly visible and filling upper half of frame, upper body and faces prominent, 3/4 body portrait from waist up, faces large and sharp',
-      back_hug:         'man standing behind woman in gentle back hug, both faces turned toward camera clearly visible, upper body 3/4 portrait, faces large and clearly visible',
-      almost_kiss:      'couple faces very close almost kissing, both faces filling center of frame, intimate close portrait, faces occupy 30 percent of frame, half body',
-      slow_dance:       'couple slow dancing face to face, both faces clearly visible smiling, upper body portrait, faces large and prominent in frame, 3/4 body',
-      spinning:         'man spinning woman, both faces laughing and clearly visible toward camera, 3/4 body portrait waist up, faces large and sharp',
-      wide_landscape:   'couple standing close together facing camera, both faces prominent and clearly visible, 3/4 body portrait, scenic background behind them, faces sharp and large',
-      classic_standing: 'couple standing side by side facing camera directly, both faces large and clearly visible smiling, 3/4 body portrait waist up, faces occupy upper third of frame',
-    };
-
-    const OUTFIT_PW_M = {
-      white_linen:  'man wearing white linen shirt, khaki chino trousers, brown leather loafers',
-      batik_formal: 'man wearing premium batik shirt, black dress trousers, black leather oxford shoes',
-      suit_beige:   'man wearing modern beige suit, white dress shirt, tan leather oxford shoes',
-      casual_denim: 'man wearing smart casual denim jacket, light chino trousers, white leather sneakers',
-      all_black:    'man wearing all black minimalist outfit, black shirt, black slim trousers, black leather shoes',
-      baju_koko:    'man wearing elegant baju koko, dark dress trousers, black leather shoes',
-    };
-
-    const OUTFIT_PW_F = {
-      champagne_chiffon: 'woman wearing flowing champagne chiffon maxi dress, nude strappy heels',
-      kebaya_modern:     'woman wearing modern white lace kebaya, batik kain fabric wrap, gold strappy sandals',
-      boho_lace:         'woman wearing bohemian lace maxi dress, beige leather sandals',
-      all_white:         'woman wearing elegant all white flowing dress, white heels',
-      hijab_elegant:     'woman wearing elegant hijab syari, long flowing pastel dress, nude flat shoes',
-      kebaya_bali:       'woman wearing traditional Balinese kebaya, colorful kain Bali fabric, gold sandals',
-    };
-
-    const LIGHT_PW = {
-      golden_hour:    'warm golden hour natural sunlight, long soft shadows, magical romantic warm light',
-      blue_hour:      'blue hour cool twilight, soft diffused blue light, romantic dusk atmosphere',
-      sunset:         'dramatic sunset orange and pink sky, warm rim backlight, cinematic romantic glow',
-      morning:        'soft gentle morning light, fresh warm sunrise glow, serene peaceful atmosphere',
-      cloudy:         'overcast soft diffused natural daylight, even flattering light, no harsh shadows, dreamy',
-      night_romantic: 'romantic night setting, warm city lights bokeh, soft ambient practical lights, intimate',
-      soft_outdoor:   'bright soft natural daylight, open shade, even flattering light',
-      soft_studio:    'large softbox studio lighting, bright even clean illumination',
-      window_warm:    'warm window light, soft directional romantic indoor light',
-    };
-
-    const EKSPRESI_PW = {
-      deeply_love:  'couple gazing into each other eyes with deep love, genuine emotional connection',
-      candid_laugh: 'couple laughing candidly together, genuine joy, natural unposed moment',
-      dreamy:       'couple with dreamy romantic expressions, soft smiles, lost in each other',
-      elegant:      'couple with elegant composed expressions, sophisticated regal mood',
-      playful:      'couple being playful and natural, light fun energy, genuine personality',
-    };
-
-    const SUASANA_PW = {
-      clear:   'clear sky perfect weather, vibrant natural colors, crisp atmosphere',
-      misty:   'soft morning mist, dreamy ethereal atmosphere, gentle fog adding depth',
-      sakura:  'cherry blossom sakura petals falling, pink bokeh, magical spring bloom',
-      fairy:   'warm fairy lights bokeh all around, magical ambient glow, enchanting',
-      moody:   'moody cinematic atmosphere, dramatic clouds, deep rich contrast',
-      tropical:'lush tropical greenery, vibrant rich greens, warm humid tropical light',
-      autumn:  'autumn foliage, orange and red maple leaves, warm golden bokeh',
-    };
-
-    const GRADE_PW = {
-      warm_cinematic: 'warm cinematic color grade, golden honey tones, film-like warmth',
-      bright_airy:    'bright airy clean grade, lifted whites, fresh clear romantic colors',
-      dark_moody:     'dark moody cinematic grade, deep rich shadows, dramatic tonal depth',
-      soft_pastel:    'soft pastel dreamy grade, gentle muted romantic colors',
-      vivid_bold:     'vivid bold saturated colors, punchy contrast, striking visual impact',
-      bw_fine_art:    'black and white fine art, rich silver tones, timeless classic',
-      golden_regal:   'golden regal tones, luxurious warm amber, majestic rich coloring',
-    };
-
-    const STYLE_PW = {
-      cinematic:      'cinematic movie still quality, dramatic wide composition',
-      fine_art:       'fine art portrait, painterly gallery quality, timeless',
-      editorial:      'editorial fashion photography, magazine quality, polished',
-      romantic:       'romantic soft photography, tender intimate mood',
-      documentary:    'documentary natural style, authentic candid feel, genuine moment',
-      warm_lifestyle: 'warm lifestyle photography, natural relaxed inviting energy',
-    };
-
-    const KAMERA_PW = {
-      sony_a7r5:  'shot on Sony A7R V',
-      canon_r5:   'shot on Canon EOS R5',
-      fuji_gfx:   'shot on Fujifilm GFX 100S medium format',
-      hasselblad: 'shot on Hasselblad X2D 100C medium format',
-      nikon_z9:   'shot on Nikon Z9',
-    };
-
-    const LENSA_PW = {
-      '85_14':  '85mm f/1.4 portrait lens, creamy background bokeh',
-      '85_12':  '85mm f/1.2 portrait lens, extremely shallow depth of field',
-      '50_12':  '50mm f/1.2 natural perspective, beautiful bokeh',
-      '35_14':  '35mm f/1.4 wide prime, environmental couple portrait',
-      '135_18': '135mm f/1.8 telephoto, dreamy compressed bokeh separation',
-      '70200':  '70-200mm f/2.8 telephoto zoom, romantic creamy background blur',
-    };
-
-    const etP  = hf.pria   ? 'handsome Indonesian man, warm skin tone' : resolve(DESKRIPSI_MAP, val('pw-etnis-pria'));
-    const etW  = hf.wanita ? 'beautiful Indonesian woman, warm golden skin' : resolve(DESKRIPSI_MAP, val('pw-etnis-wanita'));
-
-    const pose     = POSE_PW[val('pw-pose')]       || POSE_PW.walking;
-    const outPraw  = val('pw-outfit-pria');
-    const outWraw  = val('pw-outfit-wanita');
-    const outP     = outPraw === 'custom' ? val('pw-outfit-pria-c')   : (OUTFIT_PW_M[outPraw] || 'man wearing coordinated outfit, leather shoes');
-    const outW     = outWraw === 'custom' ? val('pw-outfit-wanita-c') : (OUTFIT_PW_F[outWraw] || 'woman wearing coordinated dress, heels');
-    const outfitLine = `${outW}, ${outP}`;
-    const lok      = resolve(LOCATION_MAP, val('pw-lokasi'), 'pw-lokasi-c') || 'romantic outdoor garden, natural daylight';
-    const light    = LIGHT_PW[val('pw-waktu')]        || LIGHT_PW.golden_hour;
-    const ekspresi = EKSPRESI_PW[val('pw-ekspresi')]  || EKSPRESI_PW.deeply_love;
-    const suasana  = SUASANA_PW[val('pw-suasana')]    || SUASANA_PW.clear;
-    const grade    = GRADE_PW[val('pw-grade')]         || GRADE_PW.warm_cinematic;
-    const style    = STYLE_PW[val('pw-style')]         || STYLE_PW.romantic;
-    const kamera   = KAMERA_PW[val('pw-kamera')]       || KAMERA_PW.sony_a7r5;
-    const lensa    = LENSA_PW[val('pw-lensa')]         || LENSA_PW['85_14'];
-    const couple   = `${etP} and ${etW}, loving couple`;
-
-    const parts = [
-      pose,
-      couple,
-      outfitLine,
-      lok,
-      light,
-      suasana,
-      ekspresi,
-      grade,
-      style,
-      lensa,
-      kamera,
-      'ultra realistic photography, sharp focus, no watermark',
-    ].filter(Boolean);
-
-    let prompt = parts.join(', ');
-    if (prompt.length > 900) {
-      const cut = prompt.lastIndexOf(',', 900);
-      prompt = cut > 600 ? prompt.substring(0, cut) : prompt.substring(0, 900);
-    }
-    console.log('[PW prompt]', prompt.length, 'chars:', prompt);
-    return prompt;
-  },
-
-
   build(tab) {
     // Deteksi slot mana yang sudah ada foto referensi
     // Jika ada → hilangkan deskripsi fisik dari prompt agar tidak konflik dengan PuLID
     const faceSlots = {
       wisuda:      { pria: 'upload-ws-wajah', wanita: 'upload-ws-wajah' },
-      profesional: { pria: 'upload-pr-wajah', wanita: 'upload-pr-wajah' },
-      maternity:   { pria: null,              wanita: 'upload-mt-wajah' },
       studio_foto: { pria: 'upload-sk-wajah', wanita: 'upload-sk-wajah' },
-      prewedding:  { pria: 'upload-pw-pria',  wanita: 'upload-pw-wanita' },
     };
     const slots = faceSlots[tab] || {};
     const hf = {
@@ -3199,9 +2055,6 @@ const PromptBuilder = {
     };
     const builders = {
       wisuda:       () => this.buildWisuda(hf),
-      profesional:  () => this.buildProfesional(hf),
-      maternity:    () => this.buildMaternity(hf),
-      prewedding:   () => this.buildPrewedding(hf),
     };
     const prompt = builders[tab]?.() || '';
     // Debug: lihat prompt di browser console (F12 → Console)
@@ -3215,8 +2068,7 @@ const PromptBuilder = {
 //   uploadFace(file)              → fal.ai storage URL (multipart)
 //   generateSolo(prompt, url)     → 4 URLs via flux-pulid
 //   generateInstantID(p, url)     → 4 URLs via instantid
-//   generateBase(prompt, n)       → n URLs via flux-schnell
-//   faceswapCouple(base, m, f)    → 1 URL via easel advanced-face-swap
+
 // ═══════════════════════════════════════════════════════════
 
 const FalEngine = {
@@ -3263,79 +2115,6 @@ const FalEngine = {
     return data.urls || [];
   },
 
-  // Generate base couple photo via flux-schnell (no face)
-  async generateBase(prompt, count = 4) {
-    showToast('🎨 AI sedang membuat foto couple...', 'info');
-    const res = await fetch(`${WORKER_URL}/generate-base`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, count }),
-    });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.error || 'Generate base gagal');
-    return data.urls || [];
-  },
-
-  // Swap both faces into a couple photo via Easel AI (graceful fallback)
-  async faceswapCouple(targetUrl, maleUrl, femaleUrl) {
-    try {
-      // Step 1: Submit job to queue
-      const submitRes = await fetch(`${WORKER_URL}/faceswap-submit`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          target_image: targetUrl,
-          male_url: maleUrl,
-          female_url: femaleUrl,
-        }),
-      });
-      const submitData = await submitRes.json().catch(() => ({}));
-      if (!submitRes.ok || !submitData.request_id) {
-        console.warn('[FalEngine] faceswap submit failed:', submitData);
-        return { url: targetUrl, fallback: true };
-      }
-
-      const requestId = submitData.request_id;
-      console.log('[FalEngine] faceswap submitted, request_id:', requestId);
-
-      // Step 2: Poll until completed (max 90 seconds, every 4 seconds)
-      for (let i = 0; i < 30; i++) {
-        await new Promise(r => setTimeout(r, 4000));
-
-        const pollRes = await fetch(`${WORKER_URL}/faceswap-poll`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ request_id: requestId }),
-        });
-        const pollData = await pollRes.json().catch(() => ({}));
-
-        console.log('[FalEngine] faceswap poll', i + 1, ':', pollData.status);
-
-        if (pollData.status === 'completed') {
-          if (pollData.url) {
-            console.log('[FalEngine] faceswap success:', pollData.url);
-            return { url: pollData.url, fallback: false };
-          }
-          console.warn('[FalEngine] faceswap completed but no url');
-          return { url: targetUrl, fallback: true };
-        }
-
-        if (pollData.status === 'error' || pollData.status === 'FAILED') {
-          console.warn('[FalEngine] faceswap failed at poll');
-          return { url: targetUrl, fallback: true };
-        }
-        // 'IN_QUEUE' or 'IN_PROGRESS' — continue polling
-      }
-
-      // Timeout after 90s
-      console.warn('[FalEngine] faceswap polling timeout');
-      return { url: targetUrl, fallback: true };
-
-    } catch (e) {
-      console.warn('[FalEngine] faceswapCouple error:', e.message);
-      return { url: targetUrl, fallback: true };
-    }
-  },
 };
 
 function setGenStatus(msg) {
@@ -3483,23 +2262,17 @@ function getPhotoFiles(tab) {
   const f = AppState.faceUrls;
   const mode = AppState.studioMode;
   // Solo menus — single face upload, routed as femaleFile for unified pulid pipeline
-  if (tab === 'wisuda')      return { pria: null, wanita: f['upload-ws-wajah'] || null };
-  if (tab === 'profesional') return { pria: null, wanita: f['upload-pr-wajah'] || null };
-  if (tab === 'maternity')   return { pria: null, wanita: f['upload-mt-wajah'] || null };
+  if (tab === 'wisuda') return { pria: null, wanita: f['upload-ws-wajah'] || null };
   if (tab === 'studio_foto'){
     const sfM = AppState.studioFotoMode || 'wanita';
     if (sfM === 'pria') return { pria: f['upload-sk-wajah'] || null, wanita: null };
     return { pria: null, wanita: f['upload-sk-wajah'] || null };
   }
-  // Couple menus
-  if (tab === 'prewedding') return { pria: f['upload-pw-pria'] || null,  wanita: f['upload-pw-wanita'] || null };
-  if (tab === 'engagement') return { pria: f['upload-en-pria'] || null,  wanita: f['upload-en-wanita'] || null };
   if (tab === 'studio') {
     if (mode === 'solo_wanita') return { pria: null,                          wanita: f['upload-st-wanita'] || null };
     if (mode === 'solo_pria')   return { pria: f['upload-st-pria']   || null, wanita: null };
     return { pria: f['upload-st-pria'] || null, wanita: f['upload-st-wanita'] || null };
   }
-  if (tab === 'family') return { pria: null, wanita: f['upload-fm-keluarga'] || null };
   return { pria: null, wanita: null };
 }
 
@@ -3848,144 +2621,6 @@ function buildSoloPrompt(tab) {
     return prompt;
   }
 
-  // ══════════════════════════════════════════════════════════════
-  // TAB: PROFESIONAL
-  // ══════════════════════════════════════════════════════════════
-  if (tab === 'profesional') {
-    const POSE = {
-      headshot_front:   'professional headshot, facing camera directly, half body',
-      headshot_slight:  'professional headshot, slight angle to camera, warm smile, half body',
-      standing_arms:    'standing, arms crossed professionally, confident posture, 3/4 body',
-      standing_natural: 'standing naturally, one hand in pocket, relaxed professional, 3/4 body',
-    };
-    const OUTFIT_W = {
-      white_blazer:  'woman wearing crisp white structured blazer, smart professional look, black pointed toe heels',
-      black_blazer:  'woman wearing black fitted blazer, white dress shirt underneath, black court heels',
-      navy_blazer:   'woman wearing navy blue structured blazer, professional business attire, navy or black heels',
-      grey_blazer:   'woman wearing light grey blazer, white blouse, clean minimal professional, nude heels',
-      pastel_blazer: 'woman wearing soft pastel pink blazer, white blouse, modern feminine professional, blush heels',
-    };
-    const OUTFIT_M = {
-      white_shirt_tie: 'man wearing white dress shirt, dark tie, professional business formal, black oxford leather shoes',
-      navy_suit:       'man wearing navy blue suit, white dress shirt, formal professional, black oxford shoes',
-      grey_suit:       'man wearing charcoal grey suit, white shirt, clean professional, dark oxford shoes',
-      black_suit:      'man wearing black formal suit, white dress shirt, sharp professional, black leather oxford shoes',
-    };
-    const BACKGROUND = {
-      white_clean:  'pure white seamless studio backdrop, clean professional',
-      grey_soft:    'soft light grey studio backdrop, corporate clean',
-      grey_medium:  'medium neutral grey studio backdrop, headshot standard',
-      office_blur:  'blurred modern office interior background, bokeh, professional environment',
-    };
-    const LIGHTING = {
-      beauty_soft:  'beauty dish studio lighting, flattering even light, professional headshot quality',
-      soft_studio:  'large softbox studio lighting, bright even illumination, catchlights in eyes',
-      window_clean: 'natural window side light, clean directional soft indoor light',
-    };
-
-    const prMode   = AppState.profesionalMode || 'wanita';
-    const subj     = ETHNICITY[g('pr-ethnicity')] || (prMode === 'pria' ? ETHNICITY.indonesian_m : ETHNICITY.indonesian_f);
-    const poseKey  = g('pr-shot') || 'headshot_front';
-    const pose     = POSE[poseKey] || POSE.headshot_front;
-    const outfitId = prMode === 'pria' ? 'pr-outfit-pria' : 'pr-outfit-wanita';
-    const outfitEl = document.getElementById(outfitId);
-    const outfitMap = prMode === 'pria' ? OUTFIT_M : OUTFIT_W;
-    const outfit   = outfitMap[outfitEl?.value] || (prMode === 'pria' ? OUTFIT_M.navy_suit : OUTFIT_W.white_blazer);
-    const bg       = BACKGROUND[g('pr-background')] || BACKGROUND.grey_soft;
-    const light    = LIGHTING[g('pr-lighting')]     || LIGHTING.beauty_soft;
-
-    const parts = [
-      pose,
-      subj,
-      outfit,
-      bg,
-      light,
-      'confident professional expression, natural smile',
-      'clean bright true colors',
-      QUALITY,
-    ].filter(Boolean);
-
-    let prompt = parts.join(', ');
-    if (prompt.length > 900) {
-      const cut = prompt.lastIndexOf(',', 900);
-      prompt = cut > 600 ? prompt.substring(0, cut) : prompt.substring(0, 900);
-    }
-    prompt += ', ultra realistic photography, natural studio lighting, solid non-gradient background, sharp focus, no watermark';
-    console.log('[PR prompt]', prompt.length, 'chars | framing: headshot/3q');
-    return prompt;
-  }
-
-  // ══════════════════════════════════════════════════════════════
-  // TAB: MATERNITY
-  // ══════════════════════════════════════════════════════════════
-  if (tab === 'maternity') {
-    const POSE = {
-      standing_cradle:   'standing, both hands cradling round belly from below, soft downward gaze, full body',
-      standing_side:     'standing side profile 90 degrees, hands on belly, elegant profile silhouette, full body',
-      standing_hip:      'standing, one hand on hip one hand on belly, three-quarter angle, full body',
-      sitting_chair:     'sitting on chair, hands folded on belly, elegant seated pose, 3/4 body',
-      sitting_floor:     'sitting on floor, legs to one side, gown spread around, hands on belly, full body',
-      sitting_floor_arm: 'sitting on floor, one arm propping, other hand on belly, gown fanned around, full body',
-    };
-    const OUTFIT = {
-      blush_tulle:      'soft blush pink off-shoulder tulle flowing gown, layered skirt',
-      white_silk:       'white flowing silk off-shoulder gown, empire waist, elegant drape',
-      dusty_rose_tulle: 'dusty rose off-shoulder tulle gown, ruffled sleeves, voluminous skirt',
-      sage_chiffon:     'sage green off-shoulder chiffon dress, flutter sleeves, A-line skirt',
-      ivory_satin:      'ivory satin cowl-neck bias-cut gown, sophisticated minimal',
-      lace_white:       'delicate white lace gown, long sleeves, fitted top, flowing skirt',
-      ribbed_fitted:    'fitted ribbed jersey dress, elegant minimal silhouette',
-      hijab_chiffon:    'hijab with soft chiffon flowing gown, modest elegant style',
-    };
-    const BACKGROUND = {
-      white_clean:    'pure white seamless studio backdrop',
-      cream_warm:     'warm cream studio backdrop',
-      grey_soft:      'soft light grey studio backdrop',
-      white_flowers:  'white studio, loose white garden roses and peonies on floor around subject, organic arrangement',
-      pink_flowers:   'cream studio, blush pink roses and white peonies loosely placed on floor, natural clusters',
-      sakura:         'cream studio, cherry blossom branches in tall vases both sides, pink petals on floor',
-      painted_canvas: 'soft grey-lavender painted canvas backdrop, fine art studio',
-    };
-    const LIGHTING = {
-      soft_wrap:    'large softbox wrap lighting, bright even illumination, soft open shadows',
-      window_light: 'natural window side light, soft directional daylight, clean warm shadows',
-      high_key:     'high-key bright studio lighting, near-shadowless, fresh clean light',
-    };
-    const GRADE = {
-      clean_bright: 'clean bright exposure, true accurate colors, no grain',
-      soft_warm:    'slightly warm neutral tones, clean open shadows, true natural skin',
-      bright_airy:  'bright airy clean, lifted whites, fresh clear colors',
-    };
-
-    const subj    = ETHNICITY[g('mt-ethnicity')] || ETHNICITY.indonesian_f;
-    const pose    = POSE[g('mt-pose')]           || POSE.standing_cradle;
-    const outfit  = OUTFIT[g('mt-outfit')]        || OUTFIT.blush_tulle;
-    const bg      = BACKGROUND[g('mt-background')] || BACKGROUND.white_clean;
-    const light   = LIGHTING[g('mt-lighting')]   || LIGHTING.soft_wrap;
-    const grade   = GRADE[g('mt-grade')]         || GRADE.clean_bright;
-    const subjFull = subj + ', full round belly 8 months, glowing radiant skin, mother-to-be';
-
-    const parts = [
-      pose,
-      subjFull,
-      bg,
-      outfit,
-      light,
-      grade,
-      'serene maternal expression, natural warm smile',
-      QUALITY,
-    ].filter(Boolean);
-
-    let prompt = parts.join(', ');
-    if (prompt.length > 900) {
-      const cut = prompt.lastIndexOf(',', 900);
-      prompt = cut > 600 ? prompt.substring(0, cut) : prompt.substring(0, 900);
-    }
-    prompt += ', ultra realistic photography, natural studio lighting, solid non-gradient background, sharp focus, no watermark';
-    console.log('[MT prompt]', prompt.length, 'chars | framing: full body');
-    return prompt;
-  }
-
   // Fallback
   return 'beautiful Indonesian woman, studio portrait, clean bright, sharp focus, ultra realistic';
 }
@@ -4001,7 +2636,7 @@ async function startGenerate() {
   const tab = AppState.currentTab;
 
   // Read photo count from per-tab radio (default 4)
-  const tabSuffix = { studio_foto: 'sf', wisuda: 'ws', profesional: 'pr', maternity: 'mt', prewedding: 'pw', wedding: 'wd' }[tab] || tab;
+  const tabSuffix = { studio_foto: 'sf', wisuda: 'ws' }[tab] || tab;
   const photoCount = parseInt(document.querySelector(`input[name="photo-count-${tabSuffix}"]:checked`)?.value || '4');
   console.log(`[PotretAI] photoCount: ${photoCount}`);
 
@@ -4009,7 +2644,7 @@ async function startGenerate() {
   const isLocalDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'file:';
   const tokenCost = Math.ceil(photoCount / 4); // 1 token per 4 photos
   if (!isLocalDev && !TokenManager.consume(tokenCost)) {
-    showToast('❌ Token habis! Silakan beli paket untuk melanjutkan.', 'error');
+    showToast('❌ Kuota habis. Pesan paket via WhatsApp untuk lanjut.', 'error');
     document.getElementById('modal-beli-token')?.style.setProperty('display', 'flex');
     return;
   }
@@ -4024,10 +2659,8 @@ async function startGenerate() {
     let urls = [];
 
     // ── SOLO MENUS (flux-pulid) ────────────────────────────────────
-    if (tab === 'wisuda' || tab === 'maternity' || tab === 'studio_foto') {
-      const faceBoxId = tab === 'wisuda'       ? 'upload-ws-wajah'
-                      : tab === 'maternity'    ? 'upload-mt-wajah'
-                      : 'upload-sk-wajah';
+    if (tab === 'wisuda' || tab === 'studio_foto') {
+      const faceBoxId = tab === 'wisuda' ? 'upload-ws-wajah' : 'upload-sk-wajah';
       const faceFile = UploadFiles[faceBoxId] || null;
       const prompt   = buildSoloPrompt(tab);
       console.log(`[PotretAI Prompt] tab=${tab}`, prompt);
@@ -4039,70 +2672,6 @@ async function startGenerate() {
         showToast('⚠️ Upload foto wajah dulu untuk hasil terbaik', 'info');
       }
       urls = await FalEngine.generateSolo(prompt, faceUrl || '', photoCount);
-    }
-
-    // ── PROFESIONAL (InstantID) ───────────────────────────────────
-    else if (tab === 'profesional') {
-      const faceFile = UploadFiles['upload-pr-wajah'] || null;
-      if (!faceFile) { showToast('❌ Upload foto wajah dulu untuk foto profesional', 'error'); throw new Error('Upload foto wajah dulu'); }
-      const prompt  = buildSoloPrompt(tab);
-      console.log('[PotretAI Prompt] tab=profesional', prompt);
-      const faceUrl = await FalEngine.uploadFace(faceFile);
-      urls = await FalEngine.generateInstantID(prompt, faceUrl, photoCount);
-    }
-
-    // ── COUPLE MENUS (flux-schnell base + Easel FaceSwap) ─────────
-    else if (tab === 'prewedding' || tab === 'wedding') {
-      const maleBoxId   = tab === 'prewedding' ? 'upload-pw-pria'   : 'upload-wd-pria';
-      const femaleBoxId = tab === 'prewedding' ? 'upload-pw-wanita' : 'upload-wd-wanita';
-      const maleFile    = UploadFiles[maleBoxId]   || null;
-      const femaleFile  = UploadFiles[femaleBoxId] || null;
-
-      const prompt = PromptBuilder.build(tab);
-      if (!prompt || prompt.trim() === '') {
-        showToast('❌ Gagal membangun prompt. Coba lagi.', 'error');
-        setBtnLoading(tab, false);
-        AppState.isGenerating = false;
-        return;
-      }
-      console.log(`[PotretAI Prompt] tab=${tab}`, prompt);
-
-      // Upload both faces in parallel (if provided)
-      let maleUrl = null, femaleUrl = null;
-      if (maleFile || femaleFile) {
-        showToast('📤 Mengupload foto referensi...', 'info');
-        [maleUrl, femaleUrl] = await Promise.all([
-          maleFile   ? FalEngine.uploadFace(maleFile)   : Promise.resolve(null),
-          femaleFile ? FalEngine.uploadFace(femaleFile) : Promise.resolve(null),
-        ]);
-      }
-
-      // Generate 4 base couple photos
-      const baseUrls = await FalEngine.generateBase(prompt, 4);
-
-      if (maleUrl && femaleUrl && baseUrls.length) {
-        showToast('✨ Memproses wajah ke foto 1/' + baseUrls.length + '...', 'info');
-        urls = [...baseUrls]; // show base images immediately
-        GalleryRenderer.render(urls, tab);
-
-        // Process ONE at a time sequentially
-        for (let i = 0; i < baseUrls.length; i++) {
-          showToast(`✨ Swap wajah foto ${i + 1}/${baseUrls.length}...`, 'info');
-          const result = await FalEngine.faceswapCouple(
-            baseUrls[i], maleUrl, femaleUrl
-          ).catch(() => ({ url: baseUrls[i], fallback: true }));
-
-          urls[i] = result.url;
-          GalleryRenderer.render([...urls], tab); // update gallery after each
-
-          if (!result.fallback) {
-            console.log('[PotretAI] faceswap', i + 1, 'done:', result.url);
-          }
-        }
-        showToast('✅ Selesai!', 'success');
-      } else {
-        urls = baseUrls;
-      }
     }
 
     const valid = (urls || []).filter(Boolean);
@@ -4126,8 +2695,7 @@ async function startGenerate() {
 }
 
 const TAB_BTN_ID = {
-  wisuda:'ws', profesional:'pr', maternity:'mt', studio_foto:'sf',
-  prewedding:'pw', wedding:'wd', engagement:'en', studio:'st', family:'fm'
+  wisuda:'ws', studio_foto:'sf',
 };
 
 function setBtnLoading(tab, loading) {
@@ -4138,10 +2706,7 @@ function setBtnLoading(tab, loading) {
   if (!btn) return;
   btn.disabled = loading;
   const labels = {
-    wisuda:'Generate 4 Foto Wisuda', profesional:'Generate 4 Foto Profesional',
-    maternity:'Generate 4 Foto Maternity', studio_foto:'Generate 4 Foto Studio',
-    prewedding:'Generate 4 Foto Prewedding',
-    engagement:'Generate 4 Foto', studio:'Generate 4 Foto', family:'Generate 4 Foto',
+    wisuda:'Generate 4 Foto Wisuda', studio_foto:'Generate 4 Foto Studio',
   };
   if (lbl) lbl.textContent = loading ? 'AI sedang memproses...' : (labels[tab] || 'Generate 4 Foto');
   if (spin) spin.style.display = loading ? 'block' : 'none';
@@ -4192,7 +2757,7 @@ function renderHistory(filter) {
     <div class="hist-photo">
       <img src="${url}" alt="${tab}" loading="lazy" onclick="openLightbox('${url}')"
         onerror="this.src='https://placehold.co/200x250?text=Error'">
-      <div class="hist-photo-badge">${{prewedding:'Prewedding',wedding:'Wedding',engagement:'Engagement',studio:'Studio',family:'Family'}[tab] || tab}</div>
+      <div class="hist-photo-badge">${{wisuda:'Wisuda',studio_foto:'Studio'}[tab] || tab}</div>
       <button class="hist-photo-dl" onclick="downloadImage('${url}','${tab}');event.stopPropagation();" title="Unduh">&#8595;</button>
     </div>`).join('');
 }
@@ -4341,16 +2906,21 @@ function handleBuyPackage(pkg) {
   document.getElementById('modal-beli-token').style.display = 'none';
 
   const config = {
-    basic:   { amount: 97000,  tokens: 20, label: 'Paket Dasar',   qris: 'img/qris-basic.png'   },
-    premium: { amount: 297000, tokens: 60, label: 'Paket Premium', qris: 'img/qris-premium.png' },
+    studio_spark:    { amount: 69000,  photos: 4,  label: 'Studio Spark',    desc: '4 foto studio premium',      qris: 'img/qris-studio-spark.png'    },
+    studio_sign:     { amount: 119000, photos: 8,  label: 'Studio Signature', desc: '8 foto studio premium',      qris: 'img/qris-studio-sign.png'     },
+    studio_pres:     { amount: 179000, photos: 12, label: 'Studio Prestige', desc: '12 foto studio premium',     qris: 'img/qris-studio-pres.png'     },
+    wisuda_spark:    { amount: 79000,  photos: 4,  label: 'Wisuda Spark',    desc: '4 foto wisuda elegan',       qris: 'img/qris-wisuda-spark.png'    },
+    wisuda_sign:     { amount: 129000, photos: 8,  label: 'Wisuda Signature', desc: '8 foto wisuda elegan',       qris: 'img/qris-wisuda-sign.png'     },
+    wisuda_pres:     { amount: 189000, photos: 12, label: 'Wisuda Prestige', desc: '12 foto wisuda elegan',      qris: 'img/qris-wisuda-pres.png'     },
+    best_deal:        { amount: 199000, photos: 16, label: 'PotretAI Best Deal', desc: 'Studio Signature + Wisuda Signature', qris: 'img/qris-best-deal.png' },
   };
-  const c = config[pkg];
+  const c = config[pkg] || config.best_deal;
 
-  document.getElementById('qris-title').textContent  = c.label + ' — Rp ' + c.amount.toLocaleString('id');
-  document.getElementById('qris-tokens').textContent = c.tokens + ' foto';
-  document.getElementById('qris-img').src            = c.qris;
-  document.getElementById('qris-pkg').value          = pkg;
-  document.getElementById('modal-qris').style.display = 'flex';
+  document.getElementById('qris-title').textContent   = c.label + ' — Rp ' + c.amount.toLocaleString('id');
+  document.getElementById('qris-tokens').textContent  = c.photos + ' foto';
+  document.getElementById('qris-img').src             = c.qris;
+  document.getElementById('qris-pkg').value           = pkg;
+  document.getElementById('modal-qris').style.display  = 'flex';
 }
 
 // Admin function — call from browser console after confirming payment via WA
@@ -4374,30 +2944,66 @@ document.addEventListener('DOMContentLoaded', () => {
       closeMobileSidebar();
     }
   });
-  // Initialize maternity framing cascade on load
-  const mtFramingInit = document.getElementById('mt-framing');
-  if (mtFramingInit) onMaternityFramingChange(mtFramingInit.value);
 
-  console.log('%cPotretAI Studio v3.0 🎓💼🤰📸💍', 'color:#1FA6B5;font-family:monospace;font-size:14px;font-weight:bold;');
+  console.log('%cPotretAI Studio v3.0 🎓📸', 'color:#1FA6B5;font-family:monospace;font-size:14px;font-weight:bold;');
 });
 </script>
 
-<div id="modal-beli-token" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
-  <div style="background:var(--color-background-primary,#fff);border-radius:16px;padding:28px;max-width:360px;width:90%;border:0.5px solid var(--color-border-tertiary,#d0d8dc);">
-    <h2 style="font-size:18px;font-weight:500;margin:0 0 6px;color:var(--color-text-primary,#1E2A2F)">Beli Paket Foto</h2>
-    <p style="font-size:13px;color:var(--color-text-secondary,#A7B0B5);margin:0 0 20px;line-height:1.6">Token Anda habis. Pilih paket untuk melanjutkan generate foto AI.</p>
+<div id="modal-beli-token" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;overflow-y:auto;padding:20px;">
+  <div style="background:var(--color-background-primary,#fff);border-radius:16px;padding:24px;max-width:480px;width:100%;border:0.5px solid var(--color-border-tertiary,#d0d8dc);">
+    <h2 style="font-size:18px;font-weight:500;margin:0 0 4px;color:var(--color-text-primary,#1E2A2F)">Pilih Paket</h2>
+    <p style="font-size:13px;color:var(--color-text-secondary,#A7B0B5);margin:0 0 20px;line-height:1.5">Pesan via WhatsApp — bayar dengan QRIS. Proses cepat & mudah.</p>
 
-    <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;" onclick="handleBuyPackage('basic')">
-      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary,#1E2A2F)">Paket Dasar</div>
-      <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:2px 0 6px">20 foto · Studio Foto + Wisuda · 60 hari</div>
-      <div style="font-size:22px;font-weight:500;color:var(--color-text-primary,#1E2A2F)">Rp 97.000</div>
+    <!-- Studio Foto AI -->
+    <div style="font-size:11px;font-weight:600;color:#A7B0B5;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px">Studio Foto AI</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;">
+      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('studio_spark')">
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Spark</div>
+        <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 69.000</div>
+        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">4 foto</div>
+      </div>
+      <div style="border:1.5px solid #1FA6B5;border-radius:10px;padding:12px;cursor:pointer;background:rgba(31,166,181,0.06);" onclick="handleBuyPackage('studio_sign')">
+        <div style="font-size:10px;font-weight:600;color:#1FA6B5;margin-bottom:2px">REKOMENDASI</div>
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Signature</div>
+        <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 119.000</div>
+        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">8 foto</div>
+      </div>
+      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('studio_pres')">
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Prestige</div>
+        <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 179.000</div>
+        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">12 foto</div>
+      </div>
     </div>
 
-    <div style="border:1.5px solid #1FA6B5;border-radius:10px;padding:14px;margin-bottom:16px;cursor:pointer;background:rgba(31,166,181,0.06);" onclick="handleBuyPackage('premium')">
-      <div style="font-size:11px;font-weight:500;color:#1FA6B5;margin-bottom:3px">PALING POPULER</div>
-      <div style="font-size:13px;font-weight:500;color:var(--color-text-primary,#1E2A2F)">Paket Premium</div>
-      <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:2px 0 6px">60 foto · Semua Menu · 90 hari</div>
-      <div style="font-size:22px;font-weight:500;color:var(--color-text-primary,#1E2A2F)">Rp 297.000</div>
+    <!-- Wisuda AI -->
+    <div style="font-size:11px;font-weight:600;color:#A7B0B5;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px">Wisuda AI</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;">
+      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('wisuda_spark')">
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Spark</div>
+        <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 79.000</div>
+        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">4 foto</div>
+      </div>
+      <div style="border:1.5px solid #1FA6B5;border-radius:10px;padding:12px;cursor:pointer;background:rgba(31,166,181,0.06);" onclick="handleBuyPackage('wisuda_sign')">
+        <div style="font-size:10px;font-weight:600;color:#1FA6B5;margin-bottom:2px">REKOMENDASI</div>
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Signature</div>
+        <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 129.000</div>
+        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">8 foto</div>
+      </div>
+      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('wisuda_pres')">
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Prestige</div>
+        <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 189.000</div>
+        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">12 foto</div>
+      </div>
+    </div>
+
+    <!-- Bundle -->
+    <div style="border:1.5px solid #FF7A5A;border-radius:10px;padding:14px;margin-bottom:16px;cursor:pointer;background:rgba(255,122,90,0.06);" onclick="handleBuyPackage('best_deal')">
+      <div style="font-size:10px;font-weight:600;color:#FF7A5A;margin-bottom:3px">BEST DEAL</div>
+      <div style="font-size:14px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">PotretAI Best Deal</div>
+      <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:2px 0 4px">Studio Signature + Wisuda Signature — 16 foto total</div>
+      <div style="font-size:20px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Rp 199.000</div>
     </div>
 
     <button onclick="document.getElementById('modal-beli-token').style.display='none'" style="width:100%;padding:10px;border-radius:8px;border:0.5px solid var(--color-border-tertiary,#d0d8dc);background:transparent;font-size:13px;color:var(--color-text-secondary,#A7B0B5);cursor:pointer;">

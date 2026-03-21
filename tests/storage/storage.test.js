@@ -18,8 +18,7 @@ import { processQueue }  from '@queue/generateQueue.js';
 import {
   createMockEnv,
   MockQueueMessage,
-  preweddingInput,
-  familyInput,
+  studioInput,
   makeFalResponse,
 } from '@helpers/mockEnv.js';
 
@@ -45,8 +44,8 @@ function makeProofRequest(orderId, mimeType = 'image/jpeg') {
 function makeJob(overrides = {}) {
   return {
     job_id:   'job-storage-001',
-    category: 'prewedding',
-    input:    preweddingInput(),
+    category: 'studio',
+    input:    studioInput(),
     ...overrides,
   };
 }
@@ -262,22 +261,6 @@ describe('Result metadata storage — RESULT_BUCKET', () => {
     });
   });
 
-  it('family category generates landscape slots for images 3 and 4', async () => {
-    stubFullSuccess();
-    const msg = new MockQueueMessage({
-      job_id:   'job-family-001',
-      category: 'family',
-      input:    familyInput(),
-    });
-    await processQueue({ messages: [msg] }, env);
-
-    // Check the 3rd and 4th fal.ai calls used landscape size
-    const calls = vi.mocked(fetch).mock.calls;
-    const body3 = JSON.parse(calls[2][1].body);
-    const body4 = JSON.parse(calls[3][1].body);
-    expect(body3.image_size).toEqual({ width: 1536, height: 1024 });
-    expect(body4.image_size).toEqual({ width: 1536, height: 1024 });
-  });
 });
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -3,9 +3,7 @@
  *
  * Tests the AI generation pipeline end-to-end:
  *   falClient.js    — fal-ai/flux-pulid API wrapper
- *   generateCouple  — couple generator module
  *   generateSolo    — solo/studio generator module
- *   generateFamily  — family generator module
  *   watermark.js    — trial watermark injection
  *
  * fal.ai HTTP calls are intercepted with vi.stubGlobal('fetch').
@@ -14,11 +12,9 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 import { generateImageWithFace, generateFourImagesWithFace, IMAGE_SIZES } from '@ai/falClient.js';
-import { generateCoupleImage } from '@ai/generateCouple.js';
 import { generateSoloImage }   from '@ai/generateSolo.js';
-import { generateFamilyImage } from '@ai/generateFamily.js';
 import { applyWatermark }      from '@ai/watermark.js';
-import { preweddingInput, studioInput, familyInput, makeFalResponse, makeFalError } from '@helpers/mockEnv.js';
+import { studioInput, makeFalResponse, makeFalError } from '@helpers/mockEnv.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helper — stub globalThis.fetch to return a fake fal.ai response
@@ -209,55 +205,6 @@ describe('applyWatermark', () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// generateCoupleImage
-// ─────────────────────────────────────────────────────────────────────────────
-describe('generateCoupleImage', () => {
-  beforeEach(() => { stubFetch(makeFalResponse); });
-
-  it('returns success + 4 images for prewedding input', async () => {
-    const result = await generateCoupleImage(preweddingInput());
-    expect(result.success).toBe(true);
-    expect(result.images).toHaveLength(4);
-  });
-
-  it('makes 4 fetch calls (one per slot)', async () => {
-    await generateCoupleImage(preweddingInput());
-    expect(vi.mocked(fetch).mock.calls).toHaveLength(4);
-  });
-
-  it('fails gracefully when no face URL provided', async () => {
-    const result = await generateCoupleImage({
-      ...preweddingInput(),
-      face_image_url_pria:  null,
-      face_image_url_wanita: null,
-      face_image_url:        null,
-    });
-    expect(result.success).toBe(false);
-    expect(result.error).toContain('face_image_url');
-  });
-
-  it('applies watermark when watermark=true', async () => {
-    await generateCoupleImage(preweddingInput({ watermark: true }));
-    const [, reqInit] = vi.mocked(fetch).mock.calls[0];
-    const body = JSON.parse(reqInit.body);
-    expect(body.prompt).toContain('PotretAI Trial');
-  });
-
-  it('does NOT apply watermark when watermark=false', async () => {
-    await generateCoupleImage(preweddingInput({ watermark: false }));
-    const [, reqInit] = vi.mocked(fetch).mock.calls[0];
-    const body = JSON.parse(reqInit.body);
-    expect(body.prompt).not.toContain('PotretAI Trial');
-  });
-
-  it('fails gracefully when fal.ai returns 500', async () => {
-    vi.stubGlobal('fetch', vi.fn(() => Promise.resolve(makeFalError(500))));
-    const result = await generateCoupleImage(preweddingInput());
-    expect(result.success).toBe(false);
-  });
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
 // generateSoloImage
 // ─────────────────────────────────────────────────────────────────────────────
 describe('generateSoloImage', () => {
@@ -286,38 +233,4 @@ describe('generateSoloImage', () => {
   });
 });
 
-// ─────────────────────────────────────────────────────────────────────────────
-// generateFamilyImage
-// ─────────────────────────────────────────────────────────────────────────────
-describe('generateFamilyImage', () => {
-  beforeEach(() => { stubFetch(makeFalResponse); });
 
-  it('returns success + 4 images for family input', async () => {
-    const result = await generateFamilyImage(familyInput());
-    expect(result.success).toBe(true);
-    expect(result.images).toHaveLength(4);
-  });
-
-  it('prefers ayah face URL as primary reference', async () => {
-    await generateFamilyImage(familyInput());
-    const [, reqInit] = vi.mocked(fetch).mock.calls[0];
-    const body = JSON.parse(reqInit.body);
-    expect(body.image_url).toBe('https://test.r2.dev/faces/ayah.jpg');
-  });
-
-  it('falls back to ibu face URL if ayah missing', async () => {
-    await generateFamilyImage(familyInput({ face_image_url_ayah: null }));
-    const [, reqInit] = vi.mocked(fetch).mock.calls[0];
-    const body = JSON.parse(reqInit.body);
-    expect(body.image_url).toBe('https://test.r2.dev/faces/ibu.jpg');
-  });
-
-  it('uses landscape size for slots 3 and 4', async () => {
-    await generateFamilyImage(familyInput());
-    const calls = vi.mocked(fetch).mock.calls;
-    const body3 = JSON.parse(calls[2][1].body);
-    const body4 = JSON.parse(calls[3][1].body);
-    expect(body3.image_size).toEqual(IMAGE_SIZES.landscape);
-    expect(body4.image_size).toEqual(IMAGE_SIZES.landscape);
-  });
-});

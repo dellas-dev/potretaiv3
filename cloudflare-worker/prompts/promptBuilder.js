@@ -15,11 +15,7 @@
  *   queue/generateQueue.js → buildPrompt(input)
  */
 
-import { buildPreweddingPrompt } from './categories/preweddingPrompt.js';
-import { buildWeddingPrompt }    from './categories/weddingPrompt.js';
-import { buildEngagementPrompt } from './categories/engagementPrompt.js';
-import { buildStudioPrompt }     from './categories/studioPrompt.js';
-import { buildFamilyPrompt }     from './categories/familyPrompt.js';
+import { buildStudioPrompt } from './categories/studioPrompt.js';
 
 import { formatColorGrade } from './photography/colorGradePrompt.js';
 import { formatCamera }     from './photography/cameraPrompt.js';
@@ -34,15 +30,11 @@ import { CINEMATIC_SUFFIX } from './masterPrompt.js';
 // buildBasePrompt — delegates to category-specific builder
 // ─────────────────────────────────────────────────────────────────────────────
 function buildBasePrompt(input) {
-  const category = input.category || 'prewedding';
+  const category = input.category || 'studio';
 
   switch (category) {
-    case 'prewedding':  return buildPreweddingPrompt(input);
-    case 'wedding':     return buildWeddingPrompt(input);
-    case 'engagement':  return buildEngagementPrompt(input);
-    case 'studio':      return buildStudioPrompt(input);
-    case 'family':      return buildFamilyPrompt(input);
-    default:            return buildPreweddingPrompt(input);
+    case 'studio':  return buildStudioPrompt(input);
+    default:        return buildStudioPrompt(input);
   }
 }
 

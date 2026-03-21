@@ -195,31 +195,6 @@ export function createMockEnv(overrides = {}) {
 // Fixture helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Returns a minimal valid prewedding input object */
-export function preweddingInput(overrides = {}) {
-  return {
-    category:             'prewedding',
-    face_image_url_pria:  'https://test.r2.dev/faces/pria.jpg',
-    face_image_url_wanita:'https://test.r2.dev/faces/wanita.jpg',
-    etnis_pria:           'handsome Indonesian man, late 20s, tall fit build, warm tan skin',
-    etnis_wanita:         'beautiful Indonesian woman, mid 20s, slender graceful, warm golden skin',
-    outfit_pria:          'fitted white linen shirt, sleeves rolled, slim dark trousers',
-    outfit_wanita:        'flowing chiffon maxi dress champagne ivory, off-shoulder',
-    location:             'bali_heaven',
-    pose:                 'walking hand-in-hand through the scenery',
-    expression:           'deeply in love, tender genuine smiles',
-    atmosphere:           'golden hour, warm amber sunlight',
-    color_grade:          'warm cinematic film tones, golden, romantic',
-    camera:               'Sony A7R V, 61MP full frame',
-    lens:                 '85mm f/1.4 portrait lens, beautiful compression, buttery bokeh',
-    id_weight:            1,
-    watermark:            false,
-    user_id:              'user_test_001',
-    fal_key:              'test_fal_key_xxxxxxxxxxx',
-    ...overrides,
-  };
-}
-
 /** Returns a minimal valid studio solo input */
 export function studioInput(overrides = {}) {
   return {
@@ -236,27 +211,6 @@ export function studioInput(overrides = {}) {
     id_weight:             1,
     watermark:             false,
     user_id:               'user_test_002',
-    fal_key:               'test_fal_key_xxxxxxxxxxx',
-    ...overrides,
-  };
-}
-
-/** Returns a minimal valid family input */
-export function familyInput(overrides = {}) {
-  return {
-    category:              'family',
-    face_image_url_ayah:   'https://test.r2.dev/faces/ayah.jpg',
-    face_image_url_ibu:    'https://test.r2.dev/faces/ibu.jpg',
-    etnis_family:          'beautiful Indonesian family, warm tan golden skin',
-    family_anggota:        'family of four, parents with two children',
-    family_outfit:         'coordinated family outfits in white and beige tones',
-    family_tema:           'warm white family studio, soft warm-toned white seamless backdrop',
-    family_suasana:        'genuinely happy and joyful family',
-    expression:            'warm natural smiles',
-    color_grade:           'warm golden family tones',
-    id_weight:             1,
-    watermark:             false,
-    user_id:               'user_test_003',
     fal_key:               'test_fal_key_xxxxxxxxxxx',
     ...overrides,
   };

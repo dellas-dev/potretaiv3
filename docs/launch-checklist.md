@@ -14,7 +14,7 @@
 |--------|--------|
 | `frontend/` | ✅ Exists |
 | `cloudflare-worker/` | ✅ Exists |
-| `cloudflare-worker/ai/` | ✅ Exists — falClient.js, generateCouple/Solo/Family.js, watermark.js |
+| `cloudflare-worker/ai/` | ✅ Exists — falClient.js, generateSolo.js, watermark.js |
 | `cloudflare-worker/prompts/` | ✅ Exists — promptBuilder.js, consistencyEngine.js, masterPrompt.js, randomizer.js |
 | `cloudflare-worker/utils/` | ✅ Exists — 18 utilities including security, creditManager, rateLimiter |
 | `cloudflare-worker/payments/` | ✅ Exists — createOrder.js, submitProof.js, verifyPayment.js |
