@@ -3,1725 +3,594 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PotretAI Studio — Foto Studio & Wisuda Premium</title>
+  <meta name="description" content="PotretAI — Buat foto studio premium & foto wisuda elegan dengan AI. Cukup upload foto wajah, hasil profesional tanpa ke studio. Pesan via WhatsApp.">
+  <title>PotretAI — Foto Studio & Wisuda Premium dengan AI</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <style>
-    /* ── Reset ── */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html,body{height:100%;overflow:hidden;}
-    body{font-family:'Inter',sans-serif;color:#1E2A2F;background:#F4F6F8;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;color:#1E2A2F;background:#fff;overflow-x:hidden;line-height:1.6;}
 
-    /* ── Topbar ── */
-    #topbar{
-      position:sticky;top:0;z-index:50;height:68px;
-      background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-      border-bottom:1px solid #EEF3F5;
-      display:flex;align-items:center;padding:0 20px;gap:0;
-      box-shadow:0 1px 8px rgba(30,42,47,0.05);
+    /* ─── COLOR SYSTEM ─── */
+    :root{
+      --teal:#1FA6B5;
+      --teal-dark:#0E8EA0;
+      --charcoal:#1E2A2F;
+      --grey-soft:#A7B0B5;
+      --grey-light:#EEF3F5;
+      --grey-mid:#D8E0E4;
+      --coral:#FF7A5A;
+      --white:#fff;
     }
-    .tb-hamburger{
-      display:none;align-items:center;justify-content:center;
-      width:38px;height:38px;border:none;background:none;cursor:pointer;
-      border-radius:9px;color:#A7B0B5;margin-right:8px;
-      transition:background 0.15s ease,color 0.15s ease;
-    }
-    .tb-hamburger:hover{background:#EEF3F5;color:#1E2A2F;}
-    .tb-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
-    .tb-logo img{height:46px;width:auto;}
-    .tb-spacer{flex:1;}
-    .tb-nav{display:flex;align-items:center;gap:2px;}
-    .tb-nav-item{
-      font-family:'Inter',sans-serif;font-size:12px;font-weight:500;
-      color:#A7B0B5;padding:6px 10px;border-radius:8px;
-      text-decoration:none;cursor:pointer;border:none;background:none;
-      transition:color 0.15s ease,background 0.15s ease;white-space:nowrap;
-    }
-    .tb-nav-item:hover{color:#1E2A2F;background:#EEF3F5;}
-    .tb-nav-item.active{color:#1FA6B5;background:rgba(31,166,181,0.09);font-weight:600;}
-    .tb-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
-    .tb-usage{
-      display:flex;align-items:center;gap:7px;padding:7px 13px;
-      border-radius:100px;background:rgba(31,166,181,0.07);border:1px solid rgba(31,166,181,0.14);
-    }
-    .tb-usage-dot{width:7px;height:7px;border-radius:50%;background:#1FA6B5;animation:pulseDot 2.2s ease-in-out infinite;}
-    .tb-usage-text{font-family:'Roboto Mono',monospace;font-size:10px;color:#0E8EA0;white-space:nowrap;}
-    .tb-divider{width:1px;height:24px;background:#EEF3F5;}
-    .tb-avatar-wrap{
-      display:flex;align-items:center;gap:8px;cursor:pointer;
-      padding:4px 8px 4px 4px;border-radius:100px;
-      border:1.5px solid transparent;position:relative;
-      transition:border-color 0.15s ease,background 0.15s ease;
-    }
-    .tb-avatar-wrap:hover{border-color:#EEF3F5;background:#F8FAFA;}
-    .tb-avatar{
-      width:34px;height:34px;border-radius:50%;
-      background:linear-gradient(135deg,#1FA6B5,#0E8EA0);
-      display:flex;align-items:center;justify-content:center;
-      color:#fff;font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;
-    }
-    .tb-username{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:#1E2A2F;}
-    .tb-chevron{color:#A7B0B5;transition:transform 0.2s ease;}
-    .tb-chevron.open{transform:rotate(180deg);}
-    .avatar-dropdown{
-      position:absolute;top:calc(100% + 10px);right:0;
-      background:#fff;border:1px solid #EEF3F5;border-radius:14px;
-      padding:8px;min-width:224px;z-index:200;
-      box-shadow:0 4px 20px rgba(30,42,47,0.10),0 20px 48px rgba(30,42,47,0.08);
-      display:none;
-    }
-    .avatar-dropdown.open{display:block;}
-    .dd-header{padding:10px 12px 8px;}
-    .dd-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;color:#1E2A2F;}
-    .dd-email{font-family:'Roboto Mono',monospace;font-size:10.5px;color:#A7B0B5;margin-top:2px;}
-    .dd-divider{height:1px;background:#EEF3F5;margin:4px 0;}
-    .dd-item{
-      display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;
-      font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:#1E2A2F;
-      text-decoration:none;cursor:pointer;border:none;background:none;width:100%;text-align:left;
-      transition:background 0.13s ease;
-    }
-    .dd-item:hover{background:#EEF3F5;}
-    .dd-item.logout{color:#EF4444;}
-    .dd-item.logout:hover{background:rgba(239,68,68,0.07);}
-    .dd-item svg{flex-shrink:0;color:#A7B0B5;}
-    .dd-item.logout svg{color:#EF4444;}
 
-    /* ── Layout ── */
-    #app-wrapper{display:flex;flex-direction:column;height:100vh;}
-    #main-layout{display:flex;flex:1;overflow:hidden;}
-    #content-area{flex:1;overflow-y:auto;background:#F4F6F8;}
-    #content-area::-webkit-scrollbar{width:5px;}
-    #content-area::-webkit-scrollbar-thumb{background:#D8E0E4;border-radius:3px;}
+    /* ─── TYPOGRAPHY ─── */
+    h1,h2,h3,h4{font-family:'Montserrat',sans-serif;line-height:1.2;}
+    .mono{font-family:'Roboto Mono',monospace;}
 
-    /* ── Sidebar ── */
-    #sidebar{
-      width:240px;flex-shrink:0;
-      height:calc(100vh - 68px);position:sticky;top:68px;
-      overflow-y:auto;background:#fff;border-right:1px solid #EEF3F5;
-      padding:14px 10px;display:flex;flex-direction:column;gap:1px;
+    /* ─── NAV ─── */
+    #nav{
+      position:sticky;top:0;z-index:100;
+      background:rgba(255,255,255,0.96);backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--grey-light);
+      padding:0 24px;height:64px;
+      display:flex;align-items:center;justify-content:space-between;
     }
-    #sidebar::-webkit-scrollbar{width:3px;}
-    #sidebar::-webkit-scrollbar-thumb{background:#EEF3F5;border-radius:2px;}
-    .sb-section-lbl{
-      font-family:'Roboto Mono',monospace;font-size:9.5px;font-weight:500;
-      color:#C4CDD2;letter-spacing:0.1em;text-transform:uppercase;
-      padding:8px 10px 4px;margin-top:6px;
-    }
-    .sb-item{
-      display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:10px;
-      font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;
-      color:#A7B0B5;text-decoration:none;cursor:pointer;border:none;background:none;width:100%;
-      transition:background 0.13s ease,color 0.13s ease;
-    }
-    .sb-item:hover{background:#EEF3F5;color:#1E2A2F;}
-    .sb-item.active{
-      background:linear-gradient(135deg,rgba(31,166,181,0.12),rgba(14,142,160,0.07));
-      color:#1FA6B5;font-weight:600;
-      box-shadow:0 2px 8px rgba(31,166,181,0.13);
-    }
-    .sb-item svg{flex-shrink:0;}
-    .sb-parent{
-      display:flex;align-items:center;padding:9px 10px;border-radius:10px;cursor:pointer;
-      font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;color:#A7B0B5;
-      transition:background 0.13s ease,color 0.13s ease;
-    }
-    .sb-parent:hover{background:#EEF3F5;color:#1E2A2F;}
-    .sb-parent svg.sb-icon{flex-shrink:0;margin-right:10px;}
-    .sb-parent-text{flex:1;}
-    .sb-chevron{color:#C4CDD2;transition:transform 0.22s ease;}
-    .sb-chevron.open{transform:rotate(180deg);}
-    .sb-submenu{overflow:hidden;max-height:0;transition:max-height 0.28s cubic-bezier(0.4,0,0.2,1);}
-    .sb-submenu.open{max-height:300px;}
-    .sb-subitem{
-      display:flex;align-items:center;gap:7px;padding:7px 10px 7px 30px;border-radius:8px;
-      font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:#A7B0B5;
-      text-decoration:none;cursor:pointer;border:none;background:none;width:100%;
-      transition:background 0.13s ease,color 0.13s ease;
-    }
-    .sb-subitem:hover{background:#EEF3F5;color:#1E2A2F;}
-    .sb-subitem.active{color:#1FA6B5;background:rgba(31,166,181,0.07);font-weight:600;}
-    .sb-divider{height:1px;background:#EEF3F5;margin:10px 0;}
-    .sb-spacer{flex:1;}
-    .sb-upgrade{
-      background:linear-gradient(135deg,rgba(31,166,181,0.08),rgba(14,142,160,0.04));
-      border:1px solid rgba(31,166,181,0.18);border-radius:14px;padding:14px;margin-top:4px;
-    }
-    .sb-upgrade-title{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:#1E2A2F;}
-    .sb-upgrade-sub{font-size:11px;color:#A7B0B5;margin-top:2px;line-height:1.5;}
-    .sb-upgrade-btn{
-      margin-top:10px;width:100%;background:linear-gradient(135deg,#1FA6B5,#0E8EA0);
-      color:#fff;border:none;border-radius:8px;font-family:'Roboto Mono',monospace;
-      font-size:12px;font-weight:500;padding:8px;cursor:pointer;
-      box-shadow:0 3px 10px rgba(31,166,181,0.35);
-      transition:transform 0.18s ease,box-shadow 0.18s ease;
-    }
-    .sb-upgrade-btn:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(31,166,181,0.4);}
-
-    /* ── Views ── */
-    .view-section{display:none;}
-    .view-section.active{display:block;}
-    #view-generator.active{display:flex;flex-direction:column;height:calc(100vh - 68px);}
-
-    /* ── Dashboard ── */
-    .dash-wrap{padding:28px 32px;}
-    .dash-greeting-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
-    .dash-greeting-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.02em;color:#1E2A2F;margin-bottom:4px;}
-    .dash-greeting-sub{font-family:'Inter',sans-serif;font-size:14px;color:#A7B0B5;line-height:1.6;}
-    .dash-usage-card{
-      background:#fff;border:1px solid #EEF3F5;border-radius:14px;padding:16px 18px;
-      min-width:220px;box-shadow:0 1px 4px rgba(30,42,47,0.05);
-    }
-    .dash-usage-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-    .dash-usage-lbl{font-family:'Roboto Mono',monospace;font-size:10px;color:#A7B0B5;letter-spacing:0.04em;}
-    .dash-usage-count{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:#1FA6B5;}
-    .dash-usage-bar-track{height:5px;background:#EEF3F5;border-radius:100px;overflow:hidden;}
-    .dash-usage-bar-fill{height:100%;background:linear-gradient(90deg,#1FA6B5,#0E8EA0);border-radius:100px;transition:width 0.6s ease;}
-    .dash-usage-plan{font-size:11.5px;color:#A7B0B5;margin-top:8px;}
-    .dash-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
-    .stat-card{
-      background:#fff;border:1px solid #EEF3F5;border-radius:14px;padding:18px;
-      display:flex;flex-direction:column;gap:6px;
-      box-shadow:0 1px 4px rgba(30,42,47,0.04);
-      transition:transform 0.18s ease,box-shadow 0.18s ease;
-    }
-    .stat-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(30,42,47,0.08);}
-    .stat-icon{font-size:22px;margin-bottom:2px;}
-    .stat-num{font-family:'Montserrat',sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.02em;color:#1E2A2F;}
-    .stat-label{font-family:'Inter',sans-serif;font-size:12px;color:#A7B0B5;}
-    .dash-section{margin-bottom:28px;}
-    .dash-section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
-    .dash-section-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;color:#1E2A2F;}
-    .dash-section-sub{font-family:'Inter',sans-serif;font-size:13px;color:#A7B0B5;margin-top:2px;}
-    .dash-see-all{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:#1FA6B5;text-decoration:none;cursor:pointer;border:none;background:none;padding:0;}
-    .dash-see-all:hover{text-decoration:underline;}
-    .cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
-    .cat-card{
-      background:#fff;border:1px solid #EEF3F5;border-radius:16px;overflow:hidden;cursor:pointer;
-      box-shadow:0 1px 4px rgba(30,42,47,0.04);
-      transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.2s ease;
-    }
-    .cat-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(30,42,47,0.12);}
-    .cat-img-wrap{position:relative;aspect-ratio:3/2;overflow:hidden;}
-    .cat-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease;}
-    .cat-card:hover .cat-img{transform:scale(1.04);}
-    .cat-overlay{
-      position:absolute;inset:0;background:linear-gradient(to top,rgba(14,26,32,0.7),transparent 50%);
-      display:flex;align-items:flex-end;padding:10px;
-      opacity:0;transition:opacity 0.2s ease;
-    }
-    .cat-card:hover .cat-overlay{opacity:1;}
-    .cat-start{font-family:'Roboto Mono',monospace;font-size:10px;color:#fff;letter-spacing:0.04em;}
-    .cat-body{padding:12px 14px;display:flex;align-items:center;gap:9px;}
-    .cat-emoji{font-size:18px;flex-shrink:0;}
-    .cat-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:13.5px;color:#1E2A2F;}
-    .cat-desc{font-family:'Inter',sans-serif;font-size:11px;color:#A7B0B5;margin-top:1px;}
-    .recent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-    .recent-photo{border-radius:12px;overflow:hidden;aspect-ratio:4/5;cursor:pointer;position:relative;}
-    .recent-photo img{width:100%;height:100%;object-fit:cover;display:block;}
-    .recent-photo:hover img{transform:scale(1.03);transition:transform 0.3s ease;}
-    .dash-empty{
-      grid-column:1/-1;display:flex;flex-direction:column;align-items:center;
-      padding:44px 24px;text-align:center;
-      background:#fff;border:1.5px dashed #D8E0E4;border-radius:16px;
-    }
-    .dash-empty-icon{font-size:36px;margin-bottom:12px;}
-    .dash-empty-text{font-family:'Inter',sans-serif;font-size:14px;color:#A7B0B5;line-height:1.7;margin-bottom:18px;}
-
-    /* ── Generator ── */
-    .gen-header{padding:18px 22px 0;background:#fff;border-bottom:1px solid #EEF3F5;flex-shrink:0;}
-    .gen-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:19px;color:#1E2A2F;}
-    .gen-sub{font-family:'Inter',sans-serif;font-size:13px;color:#A7B0B5;margin-top:3px;}
-    .gen-tabs{display:flex;gap:6px;margin-top:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:1px;}
-    .gen-tabs::-webkit-scrollbar{display:none;}
-    .gen-tab{
-      display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;
-      font-family:'Roboto Mono',monospace;font-size:11.5px;font-weight:500;
-      color:#A7B0B5;border:1.5px solid #EEF3F5;background:#fff;cursor:pointer;white-space:nowrap;
-      transition:color 0.15s ease,border-color 0.15s ease,background 0.15s ease;
-    }
-    .gen-tab:hover{color:#1E2A2F;border-color:rgba(31,166,181,0.3);}
-    .gen-tab.active{background:#1FA6B5;color:#fff;border-color:#1FA6B5;box-shadow:0 2px 10px rgba(31,166,181,0.35);}
-    .gen-tab.locked{opacity:0.45;cursor:not-allowed;}
-    .lock-badge{font-size:10px;}
-    .gen-body{display:flex;flex:1;overflow:hidden;}
-    .gen-left{
-      width:340px;flex-shrink:0;overflow-y:auto;
-      border-right:1px solid #EEF3F5;background:#fff;
-    }
-    .gen-left::-webkit-scrollbar{width:3px;}
-    .gen-left::-webkit-scrollbar-thumb{background:#EEF3F5;border-radius:2px;}
-    .gen-right{flex:1;overflow-y:auto;background:#F0F4F5;padding:20px;}
-    .gen-right::-webkit-scrollbar{width:5px;}
-    .gen-right::-webkit-scrollbar-thumb{background:#C8D4D8;border-radius:3px;}
-    .tab-content{display:none;padding:18px;flex-direction:column;gap:18px;}
-    .tab-content.active{display:flex;}
-
-    /* Form components in left panel */
-    .form-sec{display:flex;flex-direction:column;gap:8px;}
-    .form-sec-title{font-family:'Roboto Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:#A7B0B5;padding:2px 0 4px;border-bottom:1px solid #EEF3F5;}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-    .form-field{display:flex;flex-direction:column;gap:5px;}
-    .form-label{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#1E2A2F;letter-spacing:0.01em;}
-    .form-select,.form-input-text{
-      width:100%;padding:10px 12px;border:1.5px solid #E8EDEF;border-radius:9px;
-      background:#F9FBFB;font-family:'Inter',sans-serif;font-size:13px;color:#1E2A2F;
-      outline:none;transition:border-color 0.18s ease,box-shadow 0.18s ease,background 0.18s ease;
-      -webkit-appearance:none;appearance:none;
-    }
-    .form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23A7B0B5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;}
-    .form-select:focus,.form-input-text:focus{border-color:#1FA6B5;background:#fff;box-shadow:0 0 0 3px rgba(31,166,181,0.12);}
-    .custom-input{margin-top:6px;display:none;}
-    .upload-grid{display:grid;gap:10px;}
-    .upload-grid.col2{grid-template-columns:1fr 1fr;}
-    .upload-top-lbl{font-family:'Inter',sans-serif;font-size:11.5px;font-weight:600;color:#1E2A2F;margin-bottom:5px;}
-    .upload-box{
-      border:1.5px dashed #C8D4D8;border-radius:12px;padding:18px 10px;
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      gap:6px;cursor:pointer;background:#FAFCFC;
-      transition:border-color 0.18s ease,background 0.18s ease;min-height:100px;
-    }
-    .upload-box:hover{border-color:#1FA6B5;background:rgba(31,166,181,0.04);}
-    .upload-box.has-file{border-color:#1FA6B5;background:rgba(31,166,181,0.05);padding:6px;cursor:default;}
-    .upload-box.has-file img{width:100%;height:100%;object-fit:cover;border-radius:8px;max-height:130px;}
-    .upload-icon-svg{color:#C4CDD2;}
-    .upload-label-txt{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:#A7B0B5;text-align:center;line-height:1.5;}
-    .upload-hint-txt{font-family:'Roboto Mono',monospace;font-size:9px;color:#C4CDD2;text-align:center;letter-spacing:0.03em;}
-    .upload-clear{position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:rgba(239,68,68,0.85);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;line-height:1;}
-    .upload-relative{position:relative;}
-    .btn-generate{
-      display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
-      background:linear-gradient(135deg,#1FA6B5 0%,#0C8A9A 100%);color:#fff;
-      font-family:'Roboto Mono',monospace;font-size:13px;font-weight:500;letter-spacing:0.03em;
-      padding:14px 20px;border:none;border-radius:12px;cursor:pointer;
-      box-shadow:0 4px 16px rgba(31,166,181,0.40);
-      transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.2s ease;
-    }
-    .btn-generate:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(31,166,181,0.50);}
-    .btn-generate:active{transform:translateY(0);}
-    .btn-generate:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
-    .gen-bottom{padding:16px 18px;border-top:1px solid #EEF3F5;background:#fff;flex-shrink:0;}
-
-    /* Mode toggle (Studio) */
-    .mode-toggle{display:flex;background:#EEF3F5;border-radius:10px;padding:3px;gap:2px;}
-    .mode-btn{
-      flex:1;padding:7px 10px;border-radius:8px;border:none;cursor:pointer;
-      font-family:'Roboto Mono',monospace;font-size:11px;font-weight:500;color:#A7B0B5;background:none;
-      transition:background 0.15s ease,color 0.15s ease,box-shadow 0.15s ease;
-    }
-    .mode-btn.active{background:#fff;color:#1FA6B5;box-shadow:0 1px 4px rgba(30,42,47,0.1);}
-
-    /* Output panel */
-    .output-empty{
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      text-align:center;padding:32px 20px;min-height:340px;
-    }
-    .output-empty-icon{font-size:42px;margin-bottom:14px;}
-    .output-empty-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:17px;color:#1E2A2F;margin-bottom:6px;}
-    .output-empty-sub{font-family:'Inter',sans-serif;font-size:13.5px;color:#A7B0B5;line-height:1.7;max-width:280px;margin:0 auto 20px;}
-    .output-example-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:320px;margin:0 auto;opacity:0.35;}
-    .output-example-grid img{border-radius:10px;width:100%;aspect-ratio:4/5;object-fit:cover;}
-    .output-loading-hdr{margin-bottom:16px;}
-    .loading-badge{
-      display:inline-flex;align-items:center;gap:8px;
-      background:rgba(31,166,181,0.1);border:1px solid rgba(31,166,181,0.2);
-      border-radius:100px;padding:7px 14px;
-      font-family:'Roboto Mono',monospace;font-size:11px;color:#1FA6B5;
-    }
-    .loading-dot{width:7px;height:7px;border-radius:50%;background:#1FA6B5;animation:pulseDot 1.2s ease-in-out infinite;}
-    .loading-sub{font-family:'Inter',sans-serif;font-size:12.5px;color:#A7B0B5;margin-top:8px;}
-    .skeleton-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
-    .skeleton-card{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #EEF3F5;}
-    .skeleton-img{aspect-ratio:4/5;background:linear-gradient(90deg,#EEF3F5 25%,#F4F6F8 50%,#EEF3F5 75%);background-size:400% 100%;animation:shimmer 1.6s infinite;}
-    .skeleton-footer{padding:10px 12px;display:flex;justify-content:space-between;align-items:center;}
-    .skeleton-bar{height:10px;background:#EEF3F5;border-radius:100px;animation:shimmer 1.6s infinite;background-size:400% 100%;}
-    @keyframes shimmer{0%{background-position:100% 50%}100%{background-position:-100% 50%}}
-    .results-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-    .results-badge{
-      display:inline-flex;align-items:center;gap:7px;
-      background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);
-      border-radius:100px;padding:6px 13px;
-      font-family:'Roboto Mono',monospace;font-size:11px;color:#10B981;
-    }
-    .output-grid-premium{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
-    .result-card{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #EEF3F5;box-shadow:0 1px 4px rgba(30,42,47,0.05);}
-    .result-img-wrap{position:relative;overflow:hidden;cursor:pointer;}
-    /* aspect-ratio di-set dinamis via JS saat generate */
-    .ratio-bar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
-    .ratio-bar-lbl{font-family:'Roboto Mono',monospace;font-size:10px;font-weight:500;color:#A7B0B5;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap;}
-    .ratio-btn-group{display:flex;gap:6px;flex-wrap:wrap;}
-    .ratio-btn{
-      font-family:'Roboto Mono',monospace;font-size:11px;font-weight:500;
-      padding:5px 11px;border-radius:7px;border:1.5px solid #E2E8EA;
-      background:#fff;color:#A7B0B5;cursor:pointer;
-      transition:border-color 0.15s ease,color 0.15s ease,background 0.15s ease;
-    }
-    .ratio-btn:hover{border-color:#1FA6B5;color:#1FA6B5;}
-    .ratio-btn.active{border-color:#1FA6B5;background:#1FA6B5;color:#fff;}
-    .result-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s ease;}
-    .result-img-wrap:hover .result-img{transform:scale(1.03);}
-    .result-overlay{
-      position:absolute;inset:0;background:rgba(14,26,32,0.4);
-      display:flex;align-items:center;justify-content:center;
-      opacity:0;transition:opacity 0.2s ease;
-    }
-    .result-img-wrap:hover .result-overlay{opacity:1;}
-    .result-overlay-btn{
-      background:rgba(255,255,255,0.9);color:#1E2A2F;border:none;border-radius:9px;
-      padding:8px 14px;cursor:pointer;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;
-    }
-    .result-footer{padding:10px 12px;display:flex;align-items:center;justify-content:space-between;}
-    .result-label{font-family:'Roboto Mono',monospace;font-size:9.5px;color:#A7B0B5;letter-spacing:0.03em;}
-    .result-actions{display:flex;gap:6px;}
-    .result-btn{
-      display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:7px;border:1.5px solid #EEF3F5;
-      background:#fff;font-family:'Roboto Mono',monospace;font-size:10px;font-weight:500;color:#A7B0B5;cursor:pointer;
-      transition:border-color 0.15s ease,color 0.15s ease,background 0.15s ease;
-    }
-    .result-btn:hover{border-color:#1FA6B5;color:#1FA6B5;}
-    .result-btn-dl{background:#1FA6B5;color:#fff;border-color:#1FA6B5;}
-    .result-btn-dl:hover{background:#0E8EA0;border-color:#0E8EA0;color:#fff;}
-    .btn-regen-all{
-      display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:9px;
-      border:1.5px solid #EEF3F5;background:#fff;cursor:pointer;
-      font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;color:#1E2A2F;
-      transition:border-color 0.15s ease,background 0.15s ease;
-    }
-    .btn-regen-all:hover{border-color:#1FA6B5;background:rgba(31,166,181,0.04);}
-
-    /* ── History ── */
-    .hist-wrap{padding:28px 32px;}
-    .hist-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.02em;color:#1E2A2F;margin-bottom:4px;}
-    .hist-sub{font-family:'Inter',sans-serif;font-size:13.5px;color:#A7B0B5;}
-    .hist-filter-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0;}
-    .cat-filter-btn{
-      padding:7px 15px;border-radius:100px;border:1.5px solid #EEF3F5;background:#fff;
-      font-family:'Roboto Mono',monospace;font-size:11px;font-weight:500;color:#A7B0B5;cursor:pointer;
-      transition:all 0.15s ease;
-    }
-    .cat-filter-btn:hover{border-color:rgba(31,166,181,0.3);color:#1E2A2F;}
-    .cat-filter-btn.active{background:#1FA6B5;color:#fff;border-color:#1FA6B5;}
-    .hist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:4px;}
-    .hist-photo{border-radius:14px;overflow:hidden;position:relative;cursor:pointer;aspect-ratio:4/5;box-shadow:0 1px 4px rgba(30,42,47,0.06);}
-    .hist-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s ease;}
-    .hist-photo:hover img{transform:scale(1.04);}
-    .hist-photo-badge{position:absolute;bottom:8px;left:8px;background:rgba(14,26,32,0.65);backdrop-filter:blur(6px);border-radius:100px;padding:3px 9px;font-family:'Roboto Mono',monospace;font-size:8.5px;color:#fff;letter-spacing:0.04em;}
-    .hist-photo-dl{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,0.92);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s ease;color:#1E2A2F;}
-    .hist-photo:hover .hist-photo-dl{opacity:1;}
-    .hist-empty{display:flex;flex-direction:column;align-items:center;padding:60px 24px;text-align:center;background:#fff;border:1.5px dashed #D8E0E4;border-radius:16px;margin-top:4px;}
-
-    /* ── Account ── */
-    .acct-wrap{padding:28px 32px;max-width:720px;}
-    .acct-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.02em;color:#1E2A2F;margin-bottom:4px;}
-    .acct-sub{font-family:'Inter',sans-serif;font-size:13.5px;color:#A7B0B5;margin-bottom:24px;}
-    .acct-card{background:#fff;border:1px solid #EEF3F5;border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 1px 4px rgba(30,42,47,0.04);}
-    .acct-card-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:#1E2A2F;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #EEF3F5;}
-    .acct-field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
-    .acct-label{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#1E2A2F;}
-    .acct-value{font-family:'Inter',sans-serif;font-size:14px;color:#A7B0B5;padding:10px 12px;background:#F4F6F8;border-radius:9px;border:1.5px solid #EEF3F5;}
-    .plan-badge{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(31,166,181,0.10),rgba(14,142,160,0.06));border:1px solid rgba(31,166,181,0.20);}
-    .plan-badge-text{font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:#1FA6B5;}
-    .plan-badge-sub{font-family:'Roboto Mono',monospace;font-size:10px;color:#A7B0B5;margin-top:2px;}
-    .btn-logout{
-      display:flex;align-items:center;gap:8px;padding:11px 20px;border-radius:10px;
-      background:rgba(239,68,68,0.07);border:1.5px solid rgba(239,68,68,0.18);
-      color:#EF4444;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:600;cursor:pointer;
-      transition:background 0.15s ease,border-color 0.15s ease;
-    }
-    .btn-logout:hover{background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.3);}
-
-    /* ── Toast ── */
-    #toast-container{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;}
-    .toast{
-      display:flex;align-items:center;gap:10px;padding:12px 16px;
-      border-radius:12px;min-width:240px;max-width:340px;
-      font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;
-      box-shadow:0 4px 20px rgba(30,42,47,0.18);
-      transform:translateX(calc(100% + 30px));transition:transform 0.32s cubic-bezier(0.34,1.56,0.64,1),opacity 0.28s ease;
-      opacity:0;
-    }
-    .toast.show{transform:translateX(0);opacity:1;}
-    .toast.success{background:#fff;border:1.5px solid rgba(16,185,129,0.25);color:#059669;}
-    .toast.error{background:#fff;border:1.5px solid rgba(239,68,68,0.25);color:#EF4444;}
-    .toast.info{background:#fff;border:1.5px solid rgba(31,166,181,0.25);color:#1FA6B5;}
-    .toast-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;}
-    .toast.success .toast-icon{background:rgba(16,185,129,0.1);}
-    .toast.error .toast-icon{background:rgba(239,68,68,0.1);}
-    .toast.info .toast-icon{background:rgba(31,166,181,0.1);}
-
-    /* ── Lightbox ── */
-    #lightbox{
-      position:fixed;inset:0;z-index:9998;background:rgba(14,26,32,0.92);
-      display:none;align-items:center;justify-content:center;
-      backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-    }
-    #lightbox.open{display:flex;}
-    #lightbox-img{max-width:90vw;max-height:90vh;border-radius:16px;object-fit:contain;}
-    #lightbox-close{position:absolute;top:20px;right:20px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.12);border:none;cursor:pointer;color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;}
-    #lightbox-close:hover{background:rgba(255,255,255,0.22);}
-    #lightbox-dl{position:absolute;bottom:24px;right:24px;}
-
-    /* ── Mobile sidebar ── */
-    #sidebar-overlay{position:fixed;inset:0;background:rgba(30,42,47,0.5);z-index:39;display:none;backdrop-filter:blur(2px);}
-    #sidebar-mobile{
-      position:fixed;left:-280px;top:0;bottom:0;width:280px;z-index:40;
-      background:#fff;border-right:1px solid #EEF3F5;
-      padding:18px 12px;display:flex;flex-direction:column;gap:1px;overflow-y:auto;
-      transition:left 0.3s cubic-bezier(0.4,0,0.2,1);
-      box-shadow:4px 0 20px rgba(30,42,47,0.10);
-    }
-    #sidebar-mobile.open{left:0;}
-    #sidebar-mobile .sb-logo{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:0 8px;}
-    #sidebar-mobile .sb-logo img{height:28px;width:auto;}
-
-    /* ── Btn secondary ── */
-    .btn-secondary{
-      display:flex;align-items:center;gap:6px;padding:9px 16px;border-radius:10px;
-      border:1.5px solid #EEF3F5;background:#fff;cursor:pointer;
-      font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:#1E2A2F;
-      transition:border-color 0.15s ease,background 0.15s ease;
-    }
-    .btn-secondary:hover{border-color:#1FA6B5;background:rgba(31,166,181,0.04);}
-    .btn-sm{font-size:12.5px;padding:8px 16px;}
-    .btn-primary-sm{
-      display:inline-flex;align-items:center;gap:6px;
-      padding:9px 18px;border:none;border-radius:10px;
-      background:linear-gradient(135deg,#1FA6B5,#0E8EA0);color:#fff;
-      font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;
+    .nav-logo img{height:38px;width:auto;}
+    .nav-links{display:flex;align-items:center;gap:28px;}
+    .nav-link{font-size:13.5px;font-weight:500;color:var(--grey-soft);text-decoration:none;transition:color 0.15s;}
+    .nav-link:hover{color:var(--charcoal);}
+    .nav-cta{
+      background:var(--teal);color:#fff;border:none;border-radius:9px;
+      padding:9px 20px;font-family:'Roboto Mono',monospace;font-size:12.5px;font-weight:500;
+      cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:7px;
       box-shadow:0 3px 12px rgba(31,166,181,0.35);
-      transition:transform 0.18s ease,box-shadow 0.18s ease;
+      transition:background 0.15s,transform 0.15s,box-shadow 0.15s;
     }
-    .btn-primary-sm:hover{transform:translateY(-1px);box-shadow:0 5px 16px rgba(31,166,181,0.45);}
+    .nav-cta:hover{background:var(--teal-dark);transform:translateY(-1px);box-shadow:0 5px 16px rgba(31,166,181,0.45);}
 
-    /* ── Animations ── */
-    @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.45;transform:scale(0.6)}}
-    @keyframes spin{to{transform:rotate(360deg)}}
-    .spinning{animation:spin 0.75s linear infinite;}
-
-    /* ── Mobile responsive ── */
-    @media (max-width:1023px) {
-      #sidebar{display:none;}
-      .tb-hamburger{display:flex;}
-      .tb-nav{display:none;}
-      .tb-usage{display:none;}
-      .cat-grid{grid-template-columns:repeat(3,1fr);}
-      .dash-stats-grid{grid-template-columns:repeat(3,1fr);}
-      .recent-grid{grid-template-columns:repeat(2,1fr);}
-      .gen-body{flex-direction:column;height:auto;}
-      .gen-left{width:100%;border-right:none;border-bottom:1px solid #EEF3F5;}
-      .gen-right{height:auto;min-height:300px;}
-      .output-grid-premium{grid-template-columns:1fr 1fr;}
-      #view-generator.active{height:auto;}
+    /* ─── HERO ─── */
+    #hero{
+      text-align:center;padding:72px 24px 60px;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% -5%, rgba(31,166,181,0.12) 0%, transparent 70%);
     }
-    @media (max-width:767px) {
-      .dash-wrap,.hist-wrap,.acct-wrap{padding:20px 16px;}
-      .cat-grid{grid-template-columns:repeat(2,1fr);}
-      .dash-stats-grid{grid-template-columns:1fr 1fr;}
-      .recent-grid{grid-template-columns:repeat(2,1fr);}
-      .output-grid-premium{grid-template-columns:1fr;}
-      .form-row{grid-template-columns:1fr;}
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      background:rgba(31,166,181,0.09);border:1px solid rgba(31,166,181,0.18);
+      border-radius:100px;padding:6px 14px;
+      font-family:'Roboto Mono',monospace;font-size:11px;color:var(--teal);font-weight:500;
+      margin-bottom:20px;
+    }
+    .hero-title{
+      font-size:clamp(28px,5vw,46px);font-weight:800;letter-spacing:-0.02em;
+      color:var(--charcoal);margin-bottom:16px;
+    }
+    .hero-title span{color:var(--teal);}
+    .hero-sub{
+      font-size:clamp(14px,2.5vw,17px);color:var(--grey-soft);max-width:520px;
+      margin:0 auto 32px;line-height:1.7;
+    }
+    .hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .btn-primary{
+      display:inline-flex;align-items:center;gap:8px;
+      background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;
+      border:none;border-radius:12px;padding:14px 28px;
+      font-family:'Roboto Mono',monospace;font-size:13px;font-weight:500;
+      cursor:pointer;text-decoration:none;
+      box-shadow:0 4px 16px rgba(31,166,181,0.40);
+      transition:transform 0.2s,box-shadow 0.2s;
+    }
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(31,166,181,0.50);}
+    .btn-secondary{
+      display:inline-flex;align-items:center;gap:8px;
+      background:#fff;color:var(--charcoal);border:1.5px solid var(--grey-mid);
+      border-radius:12px;padding:13px 28px;
+      font-family:'Inter',sans-serif;font-size:14px;font-weight:500;
+      cursor:pointer;text-decoration:none;
+      transition:border-color 0.15s,transform 0.15s;
+    }
+    .btn-secondary:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-1px);}
+    .hero-trust{
+      margin-top:32px;font-family:'Roboto Mono',monospace;font-size:11px;color:var(--grey-soft);
+      display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
+    }
+    .hero-trust span{display:flex;align-items:center;gap:5px;}
+
+    /* ─── SECTION LAYOUT ─── */
+    .section{padding:64px 24px;max-width:1100px;margin:0 auto;}
+    .section-sm{padding:48px 24px;max-width:1100px;margin:0 auto;}
+    .section-label{
+      font-family:'Roboto Mono',monospace;font-size:10.5px;font-weight:500;
+      letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);
+      text-align:center;margin-bottom:10px;
+    }
+    .section-title{
+      font-size:clamp(22px,3.5vw,32px);font-weight:700;letter-spacing:-0.02em;
+      color:var(--charcoal);text-align:center;margin-bottom:12px;
+    }
+    .section-sub{font-size:15px;color:var(--grey-soft);text-align:center;max-width:480px;margin:0 auto 48px;line-height:1.7;}
+
+    /* ─── HOW IT WORKS ─── */
+    #how-it-works{background:var(--grey-light);}
+    .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+    .step-card{
+      background:#fff;border-radius:16px;padding:28px 20px;text-align:center;
+      border:1px solid var(--grey-light);
+      box-shadow:0 1px 4px rgba(30,42,47,0.04);
+      transition:transform 0.2s,box-shadow 0.2s;
+    }
+    .step-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(30,42,47,0.09);}
+    .step-num{
+      width:40px;height:40px;border-radius:50%;background:var(--teal);color:#fff;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;
+      margin:0 auto 16px;
+    }
+    .step-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:var(--charcoal);margin-bottom:8px;}
+    .step-desc{font-size:13px;color:var(--grey-soft);line-height:1.6;}
+
+    /* ─── SERVICES ─── */
+    #services{padding:72px 24px;max-width:1100px;margin:0 auto;}
+    .services-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+    .svc-card{
+      background:#fff;border:1px solid var(--grey-light);border-radius:20px;padding:36px 32px;
+      transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;
+    }
+    .svc-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(30,42,47,0.10);border-color:rgba(31,166,181,0.3);}
+    .svc-icon{font-size:40px;margin-bottom:16px;}
+    .svc-name{font-family:'Montserrat',sans-serif;font-weight:800;font-size:22px;color:var(--charcoal);margin-bottom:6px;}
+    .svc-tagline{font-size:14px;color:var(--grey-soft);margin-bottom:20px;line-height:1.6;}
+    .svc-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px;}
+    .svc-features li{font-size:13.5px;color:var(--charcoal);display:flex;align-items:center;gap:8px;}
+    .svc-features li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;}
+    .svc-price-from{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--grey-soft);margin-bottom:4px;}
+    .svc-price{font-family:'Montserrat',sans-serif;font-weight:800;font-size:28px;color:var(--charcoal);margin-bottom:16px;}
+    .svc-price sub{font-size:14px;font-weight:500;color:var(--grey-soft);}
+    .svc-cta{
+      display:block;width:100%;text-align:center;
+      background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;
+      border:none;border-radius:11px;padding:13px;
+      font-family:'Roboto Mono',monospace;font-size:13px;font-weight:500;
+      cursor:pointer;text-decoration:none;
+      box-shadow:0 3px 12px rgba(31,166,181,0.35);
+      transition:transform 0.15s,box-shadow 0.15s;
+    }
+    .svc-cta:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(31,166,181,0.45);}
+
+    /* ─── PRICING ─── */
+    #pricing{background:var(--grey-light);}
+    .pricing-tabs{display:flex;justify-content:center;gap:6px;margin-bottom:40px;}
+    .pricing-tab{
+      padding:9px 22px;border-radius:100px;border:1.5px solid var(--grey-mid);background:#fff;
+      font-family:'Roboto Mono',monospace;font-size:12px;font-weight:500;color:var(--grey-soft);
+      cursor:pointer;transition:all 0.15s;
+    }
+    .pricing-tab.active{background:var(--teal);color:#fff;border-color:var(--teal);}
+    .pricing-tab:hover:not(.active){border-color:var(--teal);color:var(--teal);}
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:900px;margin:0 auto;}
+    .price-card{
+      background:#fff;border-radius:18px;padding:28px 22px;
+      border:1.5px solid var(--grey-light);
+      display:flex;flex-direction:column;
+      transition:transform 0.2s,box-shadow 0.2s;
+    }
+    .price-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(30,42,47,0.09);}
+    .price-card.featured{
+      border-color:var(--teal);background:#fff;
+      box-shadow:0 4px 20px rgba(31,166,181,0.15);
+      position:relative;
+    }
+    .price-card.featured::before{
+      content:'Paling Direkomendasikan';
+      position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+      background:var(--teal);color:#fff;
+      font-family:'Roboto Mono',monospace;font-size:10px;font-weight:500;
+      padding:4px 14px;border-radius:100px;white-space:nowrap;
+    }
+    .price-tier{font-family:'Roboto Mono',monospace;font-size:11px;font-weight:500;color:var(--grey-soft);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;}
+    .price-name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:18px;color:var(--charcoal);margin-bottom:4px;}
+    .price-amount{font-family:'Montserrat',sans-serif;font-weight:800;font-size:32px;color:var(--charcoal);margin-bottom:2px;}
+    .price-amount sub{font-size:15px;font-weight:500;color:var(--grey-soft);}
+    .price-fotos{font-size:12px;color:var(--grey-soft);margin-bottom:20px;}
+    .price-divider{height:1px;background:var(--grey-light);margin-bottom:18px;}
+    .price-features{list-style:none;display:flex;flex-direction:column;gap:8px;flex:1;margin-bottom:22px;}
+    .price-features li{font-size:13px;color:var(--charcoal);display:flex;align-items:flex-start;gap:8px;}
+    .price-features li::before{content:'✓';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px;}
+    .price-cta{
+      display:block;width:100%;text-align:center;
+      border-radius:11px;padding:12px;
+      font-family:'Roboto Mono',monospace;font-size:12.5px;font-weight:500;
+      cursor:pointer;text-decoration:none;
+      transition:all 0.15s;
+    }
+    .price-card.featured .price-cta{
+      background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;
+      box-shadow:0 3px 12px rgba(31,166,181,0.35);
+    }
+    .price-card.featured .price-cta:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(31,166,181,0.45);}
+    .price-card:not(.featured) .price-cta{
+      background:#fff;color:var(--charcoal);border:1.5px solid var(--grey-mid);
+    }
+    .price-card:not(.featured) .price-cta:hover{border-color:var(--teal);color:var(--teal);}
+
+    /* ─── BUNDLE ─── */
+    #bundle{
+      background:linear-gradient(135deg,var(--charcoal) 0%,#0D1E25 100%);
+      padding:64px 24px;text-align:center;
+    }
+    .bundle-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      background:rgba(255,122,90,0.15);border:1px solid rgba(255,122,90,0.35);
+      border-radius:100px;padding:5px 14px;
+      font-family:'Roboto Mono',monospace;font-size:10.5px;color:var(--coral);font-weight:500;
+      margin-bottom:16px;
+    }
+    .bundle-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(22px,3.5vw,32px);color:#fff;margin-bottom:10px;}
+    .bundle-desc{font-size:15px;color:rgba(255,255,255,0.65);max-width:480px;margin:0 auto 8px;line-height:1.7;}
+    .bundle-includes{font-family:'Roboto Mono',monospace;font-size:11px;color:rgba(255,255,255,0.45);margin-bottom:24px;}
+    .bundle-price{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(28px,4vw,42px);color:#fff;margin-bottom:6px;}
+    .bundle-price sub{font-size:16px;font-weight:500;color:rgba(255,255,255,0.6);}
+    .bundle-note{font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:28px;}
+    .bundle-cta{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--coral);color:#fff;
+      border:none;border-radius:12px;padding:15px 32px;
+      font-family:'Roboto Mono',monospace;font-size:13.5px;font-weight:500;
+      cursor:pointer;text-decoration:none;
+      box-shadow:0 4px 16px rgba(255,122,90,0.45);
+      transition:transform 0.15s,box-shadow 0.15s;
+    }
+    .bundle-cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,122,90,0.55);}
+
+    /* ─── TRUST ─── */
+    .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+    .trust-item{text-align:center;padding:24px 16px;}
+    .trust-icon{font-size:32px;margin-bottom:12px;}
+    .trust-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;color:var(--charcoal);margin-bottom:6px;}
+    .trust-desc{font-size:12.5px;color:var(--grey-soft);line-height:1.6;}
+
+    /* ─── FOOTER ─── */
+    footer{background:var(--charcoal);color:rgba(255,255,255,0.5);padding:40px 24px;text-align:center;}
+    .footer-logo img{height:32px;width:auto;margin-bottom:12px;opacity:0.8;}
+    .footer-tagline{font-size:13px;margin-bottom:20px;color:rgba(255,255,255,0.45);}
+    .footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:20px;flex-wrap:wrap;}
+    .footer-links a{font-size:12.5px;color:rgba(255,255,255,0.45);text-decoration:none;transition:color 0.15s;}
+    .footer-links a:hover{color:rgba(255,255,255,0.8);}
+    .footer-copy{font-size:11.5px;color:rgba(255,255,255,0.3);}
+
+    /* ─── PRICING PANELS ─── */
+    .pricing-panel{display:none;}
+    .pricing-panel.active{display:block;}
+
+    /* ─── MOBILE RESPONSIVE ─── */
+    @media (max-width:900px){
+      .steps-grid{grid-template-columns:repeat(2,1fr);}
+      .pricing-grid{grid-template-columns:1fr;max-width:400px;}
+      .trust-grid{grid-template-columns:repeat(2,1fr);}
+    }
+    @media (max-width:640px){
+      .nav-links{display:none;}
+      .hero{padding:52px 20px 44px;}
+      .section,.section-sm{padding:48px 20px;}
+      #services,#pricing{padding:48px 20px;}
+      .services-grid{grid-template-columns:1fr;}
+      .steps-grid{grid-template-columns:1fr 1fr;gap:12px;}
+      .step-card{padding:20px 16px;}
+      .trust-grid{grid-template-columns:1fr 1fr;gap:8px;}
+      .trust-item{padding:16px 8px;}
+      .pricing-tabs{gap:4px;}
+      .pricing-tab{padding:8px 14px;font-size:11px;}
+      #bundle{padding:48px 20px;}
     }
   </style>
 </head>
 <body>
-<div id="app-wrapper">
 
-<!-- ═══════════ TOPBAR ═══════════ -->
-<header id="topbar">
-  <button class="tb-hamburger" onclick="openMobileSidebar()" aria-label="Buka menu">
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><line x1="2" y1="5" x2="16" y2="5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="2" y1="9" x2="16" y2="9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="2" y1="13" x2="16" y2="13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-  </button>
-  <a class="tb-logo" href="#" onclick="navigateTo('dashboard');return false;">
+<!-- ═══════════ NAV ═══════════ -->
+<nav id="nav">
+  <a class="nav-logo" href="#">
     <img src="brand_asset/Logo potretai.png" alt="PotretAI Studio">
   </a>
-  <div class="tb-spacer"></div>
-  <nav class="tb-nav">
-    <button class="tb-nav-item active" data-view="dashboard" onclick="navigateTo('dashboard')">Dashboard</button>
-    <button class="tb-nav-item" data-view="generator" onclick="navigateTo('generator')">Generator</button>
-    <button class="tb-nav-item" data-view="history" onclick="navigateTo('history')">Riwayat</button>
-  </nav>
-  <div class="tb-spacer"></div>
-  <div class="tb-right">
-    <div class="tb-usage">
-      <div class="tb-usage-dot"></div>
-      <span class="tb-usage-text"><span id="usage-remaining">196</span> foto tersisa</span>
-    </div>
-    <div class="tb-divider"></div>
-    <div class="tb-avatar-wrap" id="avatar-trigger" onclick="toggleAvatarMenu()">
-      <div class="tb-avatar"><span id="avatar-initials">RS</span></div>
-      <span class="tb-username" id="topbar-username">Rina</span>
-      <svg class="tb-chevron" id="tb-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 5.5l3 3 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div class="avatar-dropdown" id="avatar-dropdown">
-        <div class="dd-header">
-          <div class="dd-name" id="dropdown-fullname">Rina Setiawati</div>
-          <div class="dd-email" id="dropdown-email">rina@email.com</div>
-        </div>
-        <div class="dd-divider"></div>
-        <button class="dd-item" onclick="navigateTo('account');closeAvatarMenu();">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-          Pengaturan Akun
-        </button>
-        <button class="dd-item" onclick="showToast('Fitur bantuan segera hadir','info');closeAvatarMenu();">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          Bantuan
-        </button>
-        <div class="dd-divider"></div>
-        <a class="dd-item logout" href="login-masuk.html">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-          Keluar
-        </a>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- ═══════════ MAIN LAYOUT ═══════════ -->
-<div id="main-layout">
-
-<!-- ═══════════ SIDEBAR DESKTOP ═══════════ -->
-<nav id="sidebar">
-  <div class="sb-section-lbl">Menu Utama</div>
-  <button class="sb-item active" data-view="dashboard" onclick="navigateTo('dashboard')">
-    <svg class="sb-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-    Dashboard
-  </button>
-  <div class="sb-parent" id="sb-gen-parent" onclick="toggleSbSubmenu()">
-    <svg class="sb-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-    <span class="sb-parent-text">Generator</span>
-    <svg class="sb-chevron" id="sb-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 5.5l3 3 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </div>
-  <div class="sb-submenu open" id="sb-submenu">
-    <button class="sb-subitem" data-tab="studio" onclick="navigateTo('generator','studio')">&#128247; Studio Foto AI</button>
-    <button class="sb-subitem" data-tab="wisuda" onclick="navigateTo('generator','wisuda')">&#127891; Wisuda AI</button>
-  </div>
-  <button class="sb-item" data-view="history" onclick="navigateTo('history')">
-    <svg class="sb-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-    Riwayat
-  </button>
-  <div class="sb-divider"></div>
-  <div class="sb-section-lbl">Akun</div>
-  <button class="sb-item" data-view="account" onclick="navigateTo('account')">
-    <svg class="sb-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-    Pengaturan
-  </button>
-  <div class="sb-spacer"></div>
-  <div class="sb-upgrade">
-    <div style="font-size:20px;margin-bottom:8px;">&#9889;</div>
-    <div class="sb-upgrade-title">Plan Aktif: Premium</div>
-    <div class="sb-upgrade-sub">Akses 5 generator &middot; 200 foto/bln</div>
-    <button class="sb-upgrade-btn" onclick="navigateTo('account')">Lihat Detail Plan</button>
-  </div>
-</nav>
-
-<!-- ═══════════ CONTENT AREA ═══════════ -->
-<main id="content-area">
-
-<!-- ═══════════ VIEW: DASHBOARD ═══════════ -->
-<section id="view-dashboard" class="view-section active">
-<div class="dash-wrap">
-
-  <!-- Greeting -->
-  <div class="dash-greeting-row">
-    <div>
-      <div class="dash-greeting-title">Selamat datang, <span id="user-firstname">Rina</span> &#128075;</div>
-      <div class="dash-greeting-sub">Buat foto AI profesional — pilih kategori di bawah.</div>
-    </div>
-    <div class="dash-usage-card">
-      <div class="dash-usage-top">
-        <span class="dash-usage-lbl">PENGGUNAAN BULAN INI</span>
-        <span class="dash-usage-count"><span id="d-used">4</span> / <span id="d-total">200</span></span>
-      </div>
-      <div class="dash-usage-bar-track"><div class="dash-usage-bar-fill" id="d-usage-fill" style="width:2%;"></div></div>
-      <div class="dash-usage-plan">Plan: <strong style="color:#1FA6B5;">Founding Premium</strong> &middot; Reset 1 April 2025</div>
-    </div>
-  </div>
-
-  <!-- Quick stats -->
-  <div class="dash-stats-grid">
-    <div class="stat-card">
-      <div class="stat-icon">&#128247;</div>
-      <div class="stat-num" id="stat-total">4</div>
-      <div class="stat-label">Total Foto Dibuat</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">&#128336;</div>
-      <div class="stat-num" id="stat-last">Baru saja</div>
-      <div class="stat-label">Sesi Terakhir</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-icon">&#11088;</div>
-      <div class="stat-num">Premium</div>
-      <div class="stat-label">Plan Aktif</div>
-    </div>
-  </div>
-
-  <!-- Kategori Generator -->
-  <div class="dash-section">
-    <div class="dash-section-hdr">
-      <div>
-        <div class="dash-section-title">Pilih Kategori Foto</div>
-        <div class="dash-section-sub">Klik kategori untuk mulai generate foto AI</div>
-      </div>
-    </div>
-    <div class="cat-grid">
-      <div class="cat-card" onclick="navigateTo('generator','studio')">
-        <div class="cat-img-wrap">
-          <img class="cat-img" src="https://placehold.co/400x280/1E2A2F/1FA6B5?text=Studio" alt="Studio Foto AI" loading="lazy">
-          <div class="cat-overlay"><span class="cat-start">Pilih Paket &#8594;</span></div>
-        </div>
-        <div class="cat-body">
-          <div class="cat-emoji">&#128247;</div>
-          <div><div class="cat-title">Studio Foto AI</div><div class="cat-desc">40+ tema indoor & outdoor</div></div>
-        </div>
-      </div>
-      <div class="cat-card" onclick="navigateTo('generator','wisuda')">
-        <div class="cat-img-wrap">
-          <img class="cat-img" src="https://placehold.co/400x280/0D1E25/1FA6B5?text=Wisuda" alt="Wisuda AI" loading="lazy">
-          <div class="cat-overlay"><span class="cat-start">Pilih Paket &#8594;</span></div>
-        </div>
-        <div class="cat-body">
-          <div class="cat-emoji">&#127891;</div>
-          <div><div class="cat-title">Wisuda AI</div><div class="cat-desc">Foto kelulusan estetik & elegan</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Foto Terbaru -->
-  <div class="dash-section">
-    <div class="dash-section-hdr">
-      <div class="dash-section-title">Foto Terbaru</div>
-      <button class="dash-see-all" onclick="navigateTo('history')">Lihat semua &#8594;</button>
-    </div>
-    <div class="recent-grid" id="dashboard-recent">
-      <div class="dash-empty" id="dashboard-empty">
-        <div class="dash-empty-icon">&#128444;</div>
-        <div class="dash-empty-text">Belum ada foto yang dibuat.<br>Mulai generate sekarang!</div>
-        <button class="btn-primary-sm" onclick="navigateTo('generator')">Buat Foto Pertama</button>
-      </div>
-    </div>
-  </div>
-
-</div>
-</section>
-
-<!-- ═══════════ VIEW: GENERATOR ═══════════ -->
-<section id="view-generator" class="view-section">
-
-  <!-- Header + Tabs -->
-  <div class="gen-header">
-    <div class="gen-title">Foto Studio & Wisuda Premium</div>
-    <div class="gen-sub">Pilih paket, upload foto wajah — hasil profesional tanpa ke studio</div>
-    <div class="gen-tabs" role="tablist">
-      <button class="gen-tab active" data-tab="studio" onclick="switchTab('studio')" role="tab">&#128247; Studio Foto AI</button>
-      <button class="gen-tab" data-tab="wisuda"  onclick="switchTab('wisuda')"  role="tab">&#127891; Wisuda AI</button>
-    </div>
-  </div>
-
-  <!-- Two-panel body -->
-  <div class="gen-body">
-
-    <!-- LEFT PANEL -->
-    <div class="gen-left" id="gen-form-panel">
-
-      <!-- ===== TAB: STUDIO FOTO ===== -->
-      <div class="tab-content active" id="tab-studio">
-        <div class="form-sec">
-          <div class="form-sec-title">&#128101; Mode Studio</div>
-          <div class="mode-toggle">
-            <button class="mode-btn active" data-mode="solo_wanita" onclick="setStudioMode('solo_wanita',this)">Solo Wanita</button>
-            <button class="mode-btn" data-mode="solo_pria"   onclick="setStudioMode('solo_pria',this)">Solo Pria</button>
-          </div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#128247; Foto Referensi Wajah</div>
-          <div class="upload-grid col2" id="st-upload-grid">
-            <div id="st-upload-wanita-wrap"><div class="upload-top-lbl" id="st-upload-lbl-w">Foto Wanita</div><div class="upload-relative"><div class="upload-box" id="upload-st-wanita" onclick="triggerUpload('inp-st-wanita')"><input type="file" id="inp-st-wanita" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-st-wanita')"><svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag</span><span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span></div></div></div>
-            <div id="st-upload-pria-wrap" style="display:none"><div class="upload-top-lbl">Foto Pria</div><div class="upload-relative"><div class="upload-box" id="upload-st-pria" onclick="triggerUpload('inp-st-pria')"><input type="file" id="inp-st-pria" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-st-pria')"><svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag</span><span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span></div></div></div>
-          </div>
-          <div style="margin-top:10px;padding:10px 12px;background:rgba(31,166,181,0.07);border-radius:10px;border:1px solid rgba(31,166,181,0.18);">
-            <div style="font-size:.72rem;font-weight:700;color:#1FA6B5;margin-bottom:6px;letter-spacing:.04em;">📸 PANDUAN FOTO TERBAIK</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:.7rem;line-height:1.6;">
-              <span style="color:#34c759;">✓ Foto solo (1 wajah)</span>
-              <span style="color:#ff3b30;">✗ Foto grup/ramai</span>
-              <span style="color:#34c759;">✓ Wajah menghadap depan</span>
-              <span style="color:#ff3b30;">✗ Wajah menyamping jauh</span>
-              <span style="color:#34c759;">✓ Pencahayaan terang merata</span>
-              <span style="color:#ff3b30;">✗ Foto gelap / blur</span>
-              <span style="color:#34c759;">✓ Ekspresi natural / senyum</span>
-              <span style="color:#ff3b30;">✗ Tertutup masker / kacamata</span>
-            </div>
-          </div>
-        </div>
-        <div class="form-sec" id="st-outfit-sec">
-          <div class="form-sec-title">&#128083; Outfit Studio</div>
-          <div class="form-field" id="st-outfit-wanita-field"><label class="form-label">Outfit Wanita</label><select class="form-select" id="st-outfit-wanita"><option value="evening_gown">Evening Gown Navy</option><option value="korean_fashion">Korean Fashion Cream</option><option value="batik_modern">Batik Modern</option><option value="editorial">Editorial High Fashion</option><option value="casual_chic">Casual Chic</option></select></div>
-          <div class="form-field" id="st-outfit-pria-field" style="display:none"><label class="form-label">Outfit Pria</label><select class="form-select" id="st-outfit-pria"><option value="korean_fashion">Korean Minimal Turtleneck</option><option value="business_formal">Business Formal</option><option value="batik_premium">Batik Premium</option><option value="all_black_st">All Black Minimalis</option><option value="all_white_st">All White Clean</option></select></div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#127968; Tema &amp; Lighting</div>
-          <div class="form-field"><label class="form-label">Tema Background</label><select class="form-select" id="st-tema"><option value="korean_studio">Korean Soft Studio</option><option value="luxury_white">Luxury White Seamless</option><option value="marble_studio">Marble Elegant</option><option value="editorial">Editorial Abstract</option><option value="vogue_studio">Vogue Style</option><option value="pastel_studio">Pastel Dreamy</option><option value="minimal_concrete">Concrete Industrial</option><option value="penthouse">Penthouse City View</option><option value="japanese_minimal">Japanese Minimal</option><option value="velvet_luxury">Velvet Luxury</option></select></div>
-          <div class="form-field"><label class="form-label">Lighting</label><select class="form-select" id="st-lighting"><option value="butterfly">Butterfly (Glamour)</option><option value="rembrandt">Rembrandt (Dramatis)</option><option value="high_key">High Key (Bersih Terang)</option><option value="loop">Loop (Natural)</option><option value="low_key">Low Key (Moody)</option><option value="ring_light">Ring Light (Beauty)</option><option value="split">Split (Artistik)</option></select></div>
-        </div>
-        <div class="form-sec">
-          <div class="form-sec-title">&#127775; Gaya Foto</div>
-          <div class="form-row">
-            <div class="form-field"><label class="form-label">Pose</label><select class="form-select" id="st-pose"><option value="classic_standing">Standing Klasik</option><option value="beauty_closeup">Beauty Close-up</option><option value="medium_portrait">Medium Portrait</option><option value="34_portrait">3/4 Portrait</option><option value="sitting">Duduk Elegan</option></select></div>
-            <div class="form-field"><label class="form-label">Ekspresi</label><select class="form-select" id="st-ekspresi"><option value="elegant">Elegan &amp; Percaya Diri</option><option value="professional">Professional</option><option value="soft_natural">Soft Natural</option><option value="intense">Intense Editorial</option><option value="playful">Playful Natural</option></select></div>
-            <div class="form-field"><label class="form-label">Color Grade</label><select class="form-select" id="st-grade"><option value="ultra_clean">Ultra Clean White</option><option value="dark_luxury">Dark Luxury</option><option value="warm_cinematic">Warm Cinematic</option><option value="bw_fine_art">Hitam Putih Fine Art</option><option value="golden_regal">Golden Regal</option></select></div>
-            <div class="form-field"><label class="form-label">Kamera</label><select class="form-select" id="st-kamera"><option value="hasselblad">Hasselblad X2D</option><option value="sony_a7r5">Sony A7R V</option><option value="fuji_gfx">Fujifilm GFX 100S</option><option value="canon_r5">Canon EOS R5</option></select></div>
-          </div>
-        </div>
-        <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAACrY2J6Znp3ydDOq" data-callback="onTurnstileSuccess" data-size="invisible"></div>
-        <div class="gen-bottom"><button class="btn-generate" id="btn-gen-pw" onclick="startGenerate()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg><span id="btn-gen-pw-label">Generate 2 Foto</span><svg id="btn-gen-pw-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></button></div>
-      </div><!-- /tab-studio -->
-
-    </div><!-- /gen-left -->
-
-    <!-- RIGHT PANEL: Output -->
-    <div class="gen-right" id="gen-output-panel">
-
-      <!-- Aspect Ratio Selector -->
-      <div class="ratio-bar">
-        <span class="ratio-bar-lbl">Rasio Foto</span>
-        <div class="ratio-btn-group">
-          <button class="ratio-btn active" data-ratio="4:5" data-w="1024" data-h="1280" onclick="setRatio(this)">4:5</button>
-          <button class="ratio-btn" data-ratio="2:3" data-w="1024" data-h="1536" onclick="setRatio(this)">2:3</button>
-          <button class="ratio-btn" data-ratio="9:16" data-w="1024" data-h="1820" onclick="setRatio(this)">9:16</button>
-          <button class="ratio-btn" data-ratio="16:9" data-w="1536" data-h="1024" onclick="setRatio(this)">16:9</button>
-          <button class="ratio-btn" data-ratio="1:1" data-w="1024" data-h="1024" onclick="setRatio(this)">1:1</button>
-        </div>
-      </div>
-
-      <!-- Empty state -->
-      <div id="output-empty">
-        <div class="output-empty">
-          <div class="output-empty-icon">&#10024;</div>
-          <div class="output-empty-title">Siap untuk generate</div>
-          <div class="output-empty-sub">Isi form di sebelah kiri, lalu klik "Generate 2 Foto" — hasil dalam 15–30 detik.</div>
-          <div class="output-example-grid">
-            <img src="https://placehold.co/260x325/1FA6B5/FFFFFF?text=" alt="" loading="lazy" style="border-radius:10px;">
-            <img src="https://placehold.co/260x325/0E8EA0/FFFFFF?text=" alt="" loading="lazy" style="border-radius:10px;">
-            <img src="https://placehold.co/260x325/1E2A2F/1FA6B5?text=" alt="" loading="lazy" style="border-radius:10px;">
-            <img src="https://placehold.co/260x325/0D1E25/1FA6B5?text=" alt="" loading="lazy" style="border-radius:10px;">
-          </div>
-        </div>
-      </div>
-
-      <!-- Loading state (skeleton shimmer) -->
-      <div id="output-loading" style="display:none;">
-        <div class="output-loading-hdr">
-          <div class="loading-badge"><span class="loading-dot"></span> Sedang memproses AI...</div>
-          <div class="loading-sub">Estimasi waktu: 15–30 detik. Jangan tutup halaman ini.</div>
-        </div>
-        <div class="skeleton-grid">
-          <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-footer"><div class="skeleton-bar" style="width:70px;"></div><div class="skeleton-bar" style="width:50px;"></div></div></div>
-          <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-footer"><div class="skeleton-bar" style="width:60px;"></div><div class="skeleton-bar" style="width:55px;"></div></div></div>
-        </div>
-      </div>
-
-      <!-- Results -->
-      <div id="output-results" style="display:none;">
-        <div class="results-hdr">
-          <div class="results-badge">&#10003; 4 foto berhasil dibuat</div>
-          <button class="btn-regen-all" onclick="startGenerate()">&#8635; Generate Ulang</button>
-        </div>
-        <div class="output-grid-premium" id="results-grid"></div>
-      </div>
-
-    </div><!-- /gen-right -->
-  </div><!-- /gen-body -->
-
-</section><!-- /view-generator -->
-
-<!-- ═══════════ VIEW: HISTORY ═══════════ -->
-<section id="view-history" class="view-section">
-<div class="hist-wrap">
-  <div class="hist-title">Riwayat Foto</div>
-  <div class="hist-sub">Semua foto yang pernah kamu generate</div>
-  <div class="hist-filter-tabs">
-    <button class="cat-filter-btn active" data-filter="all"    onclick="filterHistory('all',this)">Semua</button>
-    <button class="cat-filter-btn" data-filter="studio" onclick="filterHistory('studio',this)">Studio Foto</button>
-    <button class="cat-filter-btn" data-filter="wisuda"  onclick="filterHistory('wisuda',this)">Wisuda</button>
-  </div>
-  <div class="hist-grid" id="history-grid">
-    <div class="hist-empty" id="history-empty">
-      <div style="font-size:36px;margin-bottom:12px;">&#128444;</div>
-      <div style="font-family:'Inter',sans-serif;font-size:14px;color:#A7B0B5;margin-bottom:16px;">Belum ada foto di riwayat.<br>Mulai generate sekarang!</div>
-      <button class="btn-primary-sm" onclick="navigateTo('generator')">Generate Sekarang</button>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- ═══════════ VIEW: ACCOUNT ═══════════ -->
-<section id="view-account" class="view-section">
-<div class="acct-wrap">
-  <div class="acct-title">Pengaturan Akun</div>
-  <div class="acct-sub">Kelola informasi akun dan plan kamu</div>
-
-  <div class="acct-card">
-    <div class="acct-card-title">Informasi Akun</div>
-    <div class="acct-field"><div class="acct-label">Nama</div><div class="acct-value" id="acct-name">Rina Setiawati</div></div>
-    <div class="acct-field"><div class="acct-label">Email</div><div class="acct-value" id="acct-email">rina@email.com</div></div>
-    <div class="acct-field"><div class="acct-label">Bergabung sejak</div><div class="acct-value">Maret 2025</div></div>
-  </div>
-
-  <div class="acct-card">
-    <div class="acct-card-title">Plan Aktif</div>
-    <div class="plan-badge">
-      <span style="font-size:20px;">&#11088;</span>
-      <div>
-        <div class="plan-badge-text">Founding Premium</div>
-        <div class="plan-badge-sub">Lifetime Access &middot; Studio Foto & Wisuda AI</div>
-      </div>
-    </div>
-    <div style="margin-top:16px;padding:14px;background:#F4F6F8;border-radius:12px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <span style="font-family:'Roboto Mono',monospace;font-size:10px;color:#A7B0B5;letter-spacing:0.04em;">PENGGUNAAN BULAN INI</span>
-        <span style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;color:#1FA6B5;"><span id="acct-used">4</span> / 200 foto</span>
-      </div>
-      <div style="height:5px;background:#EEF3F5;border-radius:100px;overflow:hidden;"><div style="height:100%;width:2%;background:linear-gradient(90deg,#1FA6B5,#0E8EA0);border-radius:100px;"></div></div>
-      <div style="font-family:'Inter',sans-serif;font-size:11.5px;color:#A7B0B5;margin-top:8px;">Reset otomatis tanggal 1 setiap bulan &middot; 00:00 WIB</div>
-    </div>
-    <div style="margin-top:14px;">
-      <div style="font-family:'Roboto Mono',monospace;font-size:10px;color:#A7B0B5;letter-spacing:0.04em;margin-bottom:10px;">AKSES GENERATOR</div>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#128247; Studio Foto AI</span></div>
-        <div style="display:flex;align-items:center;gap:10px;"><span style="color:#10B981;">&#10003;</span><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;">&#127891; Wisuda AI</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="acct-card">
-    <div class="acct-card-title">Sesi & Keamanan</div>
-    <a class="btn-logout" href="login-masuk.html">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-      Keluar dari Akun
+  <div class="nav-links">
+    <a href="#layanan" class="nav-link">Layanan</a>
+    <a href="#harga" class="nav-link">Harga</a>
+    <a href="#cara-pesan" class="nav-link">Cara Pesan</a>
+    <a href="login-masuk.html" class="nav-cta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Masuk
     </a>
   </div>
-</div>
-</section>
-
-</main><!-- /content-area -->
-</div><!-- /main-layout -->
-</div><!-- /app-wrapper -->
-
-<!-- ═══════════ MOBILE SIDEBAR OVERLAY ═══════════ -->
-<div id="sidebar-overlay" onclick="closeMobileSidebar()"></div>
-<nav id="sidebar-mobile">
-  <div class="sb-logo">
-    <img src="brand_asset/Logo potretai.png" alt="PotretAI">
-    <button onclick="closeMobileSidebar()" style="background:none;border:none;cursor:pointer;color:#A7B0B5;padding:4px;">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><line x1="2" y1="2" x2="16" y2="16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="16" y1="2" x2="2" y2="16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-  <div class="sb-section-lbl">Menu Utama</div>
-  <button class="sb-item" data-view="dashboard" onclick="navigateTo('dashboard');closeMobileSidebar()">
-    <svg class="sb-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-    Dashboard
-  </button>
-  <button class="sb-item" onclick="navigateTo('generator');closeMobileSidebar()">
-    <svg class="sb-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-    Generator
-  </button>
-  <button class="sb-item" data-view="history" onclick="navigateTo('history');closeMobileSidebar()">
-    <svg class="sb-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-    Riwayat
-  </button>
-  <div class="sb-divider"></div>
-  <button class="sb-item" data-view="account" onclick="navigateTo('account');closeMobileSidebar()">
-    <svg class="sb-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-    Pengaturan
-  </button>
 </nav>
 
-<!-- ═══════════ LIGHTBOX ═══════════ -->
-<div id="lightbox" onclick="closeLightbox(event)">
-  <button id="lightbox-close" onclick="closeLightbox(null,true)">&times;</button>
-  <img id="lightbox-img" src="" alt="Foto AI PotretAI">
-  <div id="lightbox-dl" style="position:absolute;bottom:24px;right:24px;">
-    <button class="btn-primary-sm" id="lightbox-dl-btn" onclick="lightboxDownload()">&#8595; Unduh Foto</button>
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero">
+  <div class="hero-badge">✨ AI Photo Studio Indonesia</div>
+  <h1 class="hero-title">Foto Studio & Wisuda<br><span>Premium dengan AI</span></h1>
+  <p class="hero-sub">Cukup upload 1 foto wajah — hasil foto studio profesional atau foto wisuda elegan, tanpa perlu datang ke studio. Pesan via WhatsApp, bayar via QRIS.</p>
+  <div class="hero-ctas">
+    <a href="#harga" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      Lihat Paket
+    </a>
+    <a href="login.html" class="btn-secondary">
+      Daftar Gratis &rarr;
+    </a>
   </div>
-</div>
+  <div class="hero-trust">
+    <span>&#9989; Tanpa perlu ke studio</span>
+    <span>&#9989; Hasil premium dalam hitungan menit</span>
+    <span>&#9989; Bayar via QRIS pribadi</span>
+  </div>
+</section>
 
-<!-- ═══════════ TOAST CONTAINER ═══════════ -->
-<div id="toast-container" aria-live="polite"></div>
+<!-- ═══════════ HOW IT WORKS ═══════════ -->
+<section id="cara-pesan">
+  <div class="section">
+    <div class="section-label">Cara Pesan</div>
+    <h2 class="section-title">Proses Mudah &amp; Transparan</h2>
+    <p class="section-sub">4 langkah sederhana untuk mendapat foto premium tanpa ribet</p>
 
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-title">Pilih Paket</div>
+        <div class="step-desc">Pilih paket Studio Foto atau Wisuda yang sesuai kebutuhan dan budget kamu</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-title">Kirim Foto Wajah</div>
+        <div class="step-desc">Upload 1 foto wajah yang jelas — cukup 1 foto untuk hasil terbaik</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-title">Bayar via QRIS</div>
+        <div class="step-desc">Transfer ke nomor QRIS pribadi kami — mudah lewat DANA, GoPay, OVO, atau bank apapun</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-title">Hasil Diproses</div>
+        <div class="step-desc">Foto diproses dan dikirim langsung via WhatsApp dalam waktu singkat</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SERVICES ═══════════ -->
+<section id="layanan">
+  <div class="section">
+    <div class="section-label">Layanan Kami</div>
+    <h2 class="section-title">Dua Solusi Foto Premium</h2>
+    <p class="section-sub">Pilih sesuai kebutuhan — indoor premium atau kelulusan elegan</p>
+
+    <div class="services-grid">
+      <!-- Studio Foto AI -->
+      <div class="svc-card">
+        <div class="svc-icon">&#128247;</div>
+        <div class="svc-name">Studio Foto AI</div>
+        <div class="svc-tagline">Foto indoor premium — tanpa perlu sewa studio profesional. Cocok untuk photo profile, portfolio, atau kenangan estetik.</div>
+        <ul class="svc-features">
+          <li>40+ tema indoor &amp; outdoor</li>
+          <li>Outfit profesional &amp; fashion</li>
+          <li>Hasil seperti difoto di studio sungguhan</li>
+          <li>Cukup 1 foto wajah saja</li>
+        </ul>
+        <div class="svc-price-from">Mulai dari</div>
+        <div class="svc-price">Rp 69.000<sub> / paket</sub></div>
+        <a href="#harga" class="svc-cta">Lihat Paket Studio Foto</a>
+      </div>
+
+      <!-- Wisuda AI -->
+      <div class="svc-card">
+        <div class="svc-icon">&#127891;</div>
+        <div class="svc-name">Wisuda AI</div>
+        <div class="svc-tagline">Foto kelulusan elegan dengan nuansa profesional — tampil percaya diri di momen spesial tanpa biaya mahal ke studio.</div>
+        <ul class="svc-features">
+          <li>Tema outdoor &amp; indoor graduation</li>
+          <li>Background aesthetic &amp; estetik</li>
+          <li>Hasil premium seperti di studio wisuda</li>
+          <li>Cukup 1 foto wajah saja</li>
+        </ul>
+        <div class="svc-price-from">Mulai dari</div>
+        <div class="svc-price">Rp 79.000<sub> / paket</sub></div>
+        <a href="#harga" class="svc-cta">Lihat Paket Wisuda</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PRICING ═══════════ -->
+<section id="harga">
+  <div class="section">
+    <div class="section-label">Harga</div>
+    <h2 class="section-title">Paket Tersedia</h2>
+    <p class="section-sub">Pilih sesuai jumlah foto yang kamu butuhkan</p>
+
+    <div class="pricing-tabs">
+      <button class="pricing-tab active" onclick="showPricingPanel('studio')">Studio Foto AI</button>
+      <button class="pricing-tab" onclick="showPricingPanel('wisuda')">Wisuda AI</button>
+    </div>
+
+    <!-- STUDIO FOTO PRICING -->
+    <div class="pricing-panel active" id="panel-studio">
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-tier">PAKET</div>
+          <div class="price-name">Spark</div>
+          <div class="price-amount">Rp 69.000</div>
+          <div class="price-fotos">4 foto hasil</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li>40+ tema indoor &amp; outdoor</li>
+            <li>Pilihan outfit lengkap</li>
+            <li>Hasil dalam hitungan menit</li>
+            <li>Kirim via WhatsApp</li>
+          </ul>
+          <a href="login.html" class="price-cta">Pilih Paket Ini</a>
+        </div>
+        <div class="price-card featured">
+          <div class="price-tier">PAKET</div>
+          <div class="price-name">Signature</div>
+          <div class="price-amount">Rp 119.000</div>
+          <div class="price-fotos">8 foto hasil</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li>40+ tema indoor &amp; outdoor</li>
+            <li>Pilihan outfit lengkap</li>
+            <li>Foto lebih banyak &amp; varied</li>
+            <li>Hasil dalam hitungan menit</li>
+            <li>Kirim via WhatsApp</li>
+          </ul>
+          <a href="login.html" class="price-cta">Pilih Paket Ini</a>
+        </div>
+        <div class="price-card">
+          <div class="price-tier">PAKET</div>
+          <div class="price-name">Prestige</div>
+          <div class="price-amount">Rp 179.000</div>
+          <div class="price-fotos">12 foto hasil</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li>40+ tema indoor &amp; outdoor</li>
+            <li>Pilihan outfit lengkap</li>
+            <li>Foto paling banyak &amp; lengkap</li>
+            <li>Hasil paling lengkap &amp; premium</li>
+            <li>Kirim via WhatsApp</li>
+          </ul>
+          <a href="login.html" class="price-cta">Pilih Paket Ini</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- WISUDA PRICING -->
+    <div class="pricing-panel" id="panel-wisuda">
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-tier">PAKET</div>
+          <div class="price-name">Spark</div>
+          <div class="price-amount">Rp 79.000</div>
+          <div class="price-fotos">4 foto hasil</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li>20+ tema graduation</li>
+            <li>Background estetik</li>
+            <li>Hasil seperti di studio wisuda</li>
+            <li>Kirim via WhatsApp</li>
+          </ul>
+          <a href="login.html" class="price-cta">Pilih Paket Ini</a>
+        </div>
+        <div class="price-card featured">
+          <div class="price-tier">PAKET</div>
+          <div class="price-name">Signature</div>
+          <div class="price-amount">Rp 129.000</div>
+          <div class="price-fotos">8 foto hasil</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li>20+ tema graduation</li>
+            <li>Background estetik</li>
+            <li>Foto lebih banyak &amp; varied</li>
+            <li>Hasil premium dalam hitungan menit</li>
+            <li>Kirim via WhatsApp</li>
+          </ul>
+          <a href="login.html" class="price-cta">Pilih Paket Ini</a>
+        </div>
+        <div class="price-card">
+          <div class="price-tier">PAKET</div>
+          <div class="price-name">Prestige</div>
+          <div class="price-amount">Rp 189.000</div>
+          <div class="price-fotos">12 foto hasil</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li>20+ tema graduation</li>
+            <li>Background paling estetik</li>
+            <li>Foto paling lengkap &amp; premium</li>
+            <li>Hasil paling lengkap &amp; premium</li>
+            <li>Kirim via WhatsApp</li>
+          </ul>
+          <a href="login.html" class="price-cta">Pilih Paket Ini</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ BUNDLE ═══════════ -->
+<section id="bundle">
+  <div class="section-sm">
+    <div class="bundle-badge">&#9733; BEST VALUE</div>
+    <h2 class="bundle-title">PotretAI Best Deal</h2>
+    <p class="bundle-desc">Dapat Studio Signature + Wisuda Signature — 16 foto premium total. Paket paling hemat untuk foto studio dan kelulusan sekaligus.</p>
+    <div class="bundle-includes">Studio Signature (8 foto) + Wisuda Signature (8 foto)</div>
+    <div class="bundle-price">Rp 199.000<sub> (hemat Rp 59.000)</sub></div>
+    <div class="bundle-note">Proses pesan via WhatsApp &middot; Bayar via QRIS pribadi</div>
+    <a href="login.html" class="bundle-cta">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.074-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.198 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.793c.003.206 0 .411-.01.617a3.11 3.11 0 01-.042 3.115L15 19l2.881-2.696a3.11 3.11 0 01.258-.617c.082-.277.082-.582.01-.916"/></svg>
+      Pesan Best Deal via WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════ TRUST ═══════════ -->
+<section id="trust">
+  <div class="section">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">&#128247;</div>
+        <div class="trust-title">Hasil Premium</div>
+        <div class="trust-desc">Foto studio &amp; wisuda berkualitas seperti difoto di studio profesional sungguhan</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">&#128640;</div>
+        <div class="trust-title">Proses Mudah</div>
+        <div class="trust-desc">Cukup upload 1 foto wajah, pilih paket — sisanya ditangani oleh tim kami</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">&#128179;</div>
+        <div class="trust-title">Bayar via QRIS</div>
+        <div class="trust-desc">Transfer ke QRIS pribadi — bisa lewat DANA, GoPay, OVO, atau aplikasi bank apapun</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">&#128172;</div>
+        <div class="trust-title">Pesan via WhatsApp</div>
+        <div class="trust-desc">Konsultasi dan pemesanan langsung via WhatsApp — respons cepat dan ramah</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-logo">
+    <img src="brand_asset/Logo potretai.png" alt="PotretAI">
+  </div>
+  <p class="footer-tagline">Foto Studio & Wisuda Premium dengan AI &mdash; tanpa perlu ke studio</p>
+  <div class="footer-links">
+    <a href="#layanan">Layanan</a>
+    <a href="#harga">Harga</a>
+    <a href="#cara-pesan">Cara Pesan</a>
+    <a href="login.html">Daftar</a>
+    <a href="login-masuk.html">Masuk</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 PotretAI Studio. Semua hak dilindungi.</p>
+</footer>
+
+<!-- ═══════════ PRICING TABS SCRIPT ═══════════ -->
 <script>
-'use strict';
-
-// ═══════════════════════════════════════════════════════════
-// CONSTANTS & DATA MAPS
-// ═══════════════════════════════════════════════════════════
-
-// ── API Key TIDAK ADA di sini — tersimpan aman di Cloudflare Worker ──
-const WORKER_URL = 'https://potretai-worker.potretaiv3.workers.dev';
-
-let _turnstileToken = '';
-function onTurnstileSuccess(token) { _turnstileToken = token; }
-function getTurnstileToken() { return _turnstileToken; }
-
-// Untuk testing lokal (wrangler dev), gunakan:
-// const WORKER_URL = 'http://localhost:8787';
-
-const AUTO_MODIFIERS = `ultra realistic, photorealistic, 8k resolution, professional photography, sharp focus, high detail skin texture, cinematic lighting, natural lighting, depth of field, bokeh, professional lens, 85mm lens, full frame camera, RAW photo, HDR, realistic skin tones, no text, no watermark`;
-
-const CATEGORY_MODIFIERS = {
-  studio: `professional studio photography, controlled studio lighting, fashion editorial, clean studio setup`,
-};
-
-const DESKRIPSI_MAP = {
-  indonesian_male:'handsome Indonesian man', sea_male:'handsome Southeast Asian man',
-  eastasian_male:'handsome East Asian man', caucasian_male:'handsome Caucasian man',
-  indonesian_female:'beautiful Indonesian woman', sea_female:'beautiful Southeast Asian woman',
-  eastasian_female:'beautiful East Asian woman', caucasian_female:'beautiful Caucasian woman',
-};
-
-const OUTFIT_MAP = {
-  korean_fashion:'Korean fashion minimal grey turtleneck slim cut, clean modern',
-  business_formal:'business formal navy suit, white shirt, tie, polished professional',
-  batik_premium:'premium batik shirt contemporary print, dark trousers, Indonesian elegant',
-  all_black_st:'all black outfit, black shirt, black trousers, minimal powerful',
-  all_white_st:'all white outfit, white shirt, white trousers, clean minimal',
-  casual_street:'casual streetwear, graphic tee, jogger pants, sneakers, urban',
-  evening_gown:'evening gown deep navy blue strapless pleated bodice, sophisticated',
-  batik_modern:'modern batik dress contemporary cut, Indonesian fashion forward',
-  editorial_st:'editorial fashion outfit, avant-garde, high fashion conceptual',
-  editorial:'editorial fashion outfit, avant-garde, high fashion conceptual',
-  casual_chic:'casual chic top and skirt, modern fashion, stylish everyday look',
-};
-
-const POSE_MAP = {
-  beauty_closeup:'close-up beauty shot, face and shoulders, flawless detail',
-  medium_portrait:'medium portrait, 3/4 framing, natural body language',
-  '34_portrait':'3/4 portrait, three-quarter body framing, elegant pose',
-  classic_standing:'classic standing portrait, elegant formal pose, eye contact',
-  sitting:'elegant sitting pose, relaxed natural posture, studio setting',
-};
-
-const EKSPRESI_MAP = {
-  elegant:'elegant serious expression, confident composed, editorial look',
-  playful:'playful natural expression, fun lighthearted, genuine smile',
-  professional:'professional confident expression, strong direct gaze',
-  soft_natural:'soft natural expression, relaxed genuine, approachable warmth',
-  intense:'intense editorial expression, high fashion serious, powerful gaze',
-  candid_laugh:'genuine candid laughter, joyful smile, real natural moment',
-};
-
-const GRADE_MAP = {
-  warm_cinematic:'warm cinematic color grade, golden tones, film-like warmth',
-  bright_airy:'bright and airy, light and soft tones, white lifted shadows',
-  dark_moody:'dark and moody, deep shadows, rich contrast, cinematic blacks',
-  soft_pastel:'soft pastel tones, muted colors, dreamy light palette',
-  vivid_bold:'vivid bold colors, high saturation, punchy vibrant tones',
-  ultra_clean:'ultra clean white tones, crisp bright exposure, flawless skin',
-  dark_luxury:'dark luxury moody, deep rich blacks, editorial elegance',
-  classic_warm:'classic warm tones, natural skin warmth, timeless film look',
-  bw_fine_art:'black and white fine art, high contrast, silver gelatin tones',
-  golden_regal:'golden regal warm tones, rich amber, sophisticated warmth',
-};
-
-const KAMERA_MAP = {
-  sony_a7r5:'shot on Sony A7R V',
-  canon_r5:'shot on Canon EOS R5',
-  fuji_gfx:'shot on Fujifilm GFX 100S',
-  hasselblad:'shot on Hasselblad X2D',
-};
-
-
-
-const STUDIO_LIGHTING_MAP = {
-  butterfly:'butterfly lighting soft top light symmetrical glamour, catchlight in eyes',
-  rembrandt:'Rembrandt lighting deep shadow dramatic side light, triangle under eye',
-  loop:'loop lighting natural shadow under nose, soft wrap, everyday flattering',
-  split:'split lighting dramatic half face light, bold shadow, artistic',
-  broad:'broad lighting wide soft illumination, full face brightness',
-  high_key:'high key soft box lighting, bright even, shadow-free clean studio',
-  low_key:'low key dramatic lighting, deep blacks, moody artistic shadow',
-  ring_light:'ring light beauty lighting, circular catchlight, flawless skin glow',
-};
-
-const STUDIO_TEMA_MAP = {
-  korean_studio:'Korean soft studio background, minimalist white backdrop with subtle gradient',
-  luxury_white:'luxury white seamless studio, flawless bright backdrop, high-end fashion',
-  marble_studio:'marble textured studio background, elegant veined marble white and grey',
-  editorial:'editorial fashion studio, abstract dramatic backdrop, fashion magazine set',
-  vogue_studio:'Vogue-style studio, sophisticated fashion backdrop, editorial luxury',
-  pastel_studio:'pastel studio background, soft pink lavender mint, dreamy aesthetic',
-  minimal_concrete:'minimalist concrete studio, raw industrial grey, modern editorial',
-  penthouse:'penthouse lifestyle studio, floor-to-ceiling windows, city view',
-  japanese_minimal:'Japanese minimalist studio, off-white washi paper backdrop, zen aesthetic',
-  velvet_luxury:'deep velvet luxury backdrop, rich jewel tones, sumptuous texture',
-};
-
-// ═══════════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════════
-
-const AppState = {
-  currentView: 'dashboard',
-  currentTab: 'studio',
-  studioMode: 'solo_wanita',
-  isGenerating: false,
-  generatedImages: [],  // [{url, tab, timestamp}]
-  usageRemaining: 196,
-  lightboxIndex: 0,
-  faceUrls: {},  // {boxId: 'https://fal.media/...'} — URL foto wajah di fal storage
-  ratio: { label: '4:5', w: 1024, h: 1280 }, // aspect ratio aktif
-};
-
-function setRatio(btn) {
-  document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  AppState.ratio = { label: btn.dataset.ratio, w: +btn.dataset.w, h: +btn.dataset.h };
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: AppController
-// ═══════════════════════════════════════════════════════════
-
-function navigateTo(view, tab) {
-  // Hide all views
-  document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
-  // Show target
-  const el = document.getElementById('view-' + view);
-  if (el) el.classList.add('active');
-  // Update topbar nav
-  document.querySelectorAll('.tb-nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === view));
-  // Update sidebar items
-  document.querySelectorAll('#sidebar .sb-item, #sidebar-mobile .sb-item').forEach(b => b.classList.toggle('active', b.dataset.view === view));
-  // Update sidebar subitems
-  document.querySelectorAll('.sb-subitem').forEach(b => b.classList.toggle('active', tab && b.dataset.tab === tab));
-  AppState.currentView = view;
-  if (tab) switchTab(tab);
-  // Open submenu if navigating to generator
-  if (view === 'generator') {
-    const sm = document.getElementById('sb-submenu');
-    const ch = document.getElementById('sb-chevron');
-    if (sm) sm.classList.add('open');
-    if (ch) ch.classList.add('open');
-  }
-  // Refresh history if navigating to it
-  if (view === 'history') renderHistory('all');
-  // Refresh dashboard recent
-  if (view === 'dashboard') renderDashboardRecent();
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: Tab Switcher
-// ═══════════════════════════════════════════════════════════
-
-function switchTab(tab) {
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-  const el = document.getElementById('tab-' + tab);
-  if (el) el.classList.add('active');
-  document.querySelectorAll('.gen-tab').forEach(b => {
-    b.classList.toggle('active', b.dataset.tab === tab);
-    b.setAttribute('aria-selected', b.dataset.tab === tab);
-  });
-  document.querySelectorAll('.sb-subitem').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-  AppState.currentTab = tab;
-  // Reset output on tab switch
-  showEmpty();
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: Sidebar submenu
-// ═══════════════════════════════════════════════════════════
-
-function toggleSbSubmenu() {
-  const sm = document.getElementById('sb-submenu');
-  const ch = document.getElementById('sb-chevron');
-  if (!sm) return;
-  sm.classList.toggle('open');
-  if (ch) ch.classList.toggle('open');
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: Studio mode toggle
-// ═══════════════════════════════════════════════════════════
-
-function setStudioMode(mode, btn) {
-  AppState.studioMode = mode;
-  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b === btn));
-  const wWrap = document.getElementById('st-upload-wanita-wrap');
-  const pWrap = document.getElementById('st-upload-pria-wrap');
-  const wField = document.getElementById('st-outfit-wanita-field');
-  const pField = document.getElementById('st-outfit-pria-field');
-  if (mode === 'solo_wanita') {
-    wWrap.style.display = ''; pWrap.style.display = 'none';
-    if (wField) wField.style.display = ''; if (pField) pField.style.display = 'none';
-    document.getElementById('st-upload-grid').className = 'upload-grid';
-  } else if (mode === 'solo_pria') {
-    wWrap.style.display = 'none'; pWrap.style.display = '';
-    if (wField) wField.style.display = 'none'; if (pField) pField.style.display = '';
-    document.getElementById('st-upload-grid').className = 'upload-grid';
-  } else { // pasangan
-    wWrap.style.display = ''; pWrap.style.display = '';
-    if (wField) wField.style.display = ''; if (pField) pField.style.display = '';
-    document.getElementById('st-upload-grid').className = 'upload-grid col2';
-  }
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: Form helpers
-// ═══════════════════════════════════════════════════════════
-
-function checkCustom(select, customId) {
-  const ci = document.getElementById(customId);
-  if (!ci) return;
-  ci.style.display = select.value === 'custom' ? 'block' : 'none';
-  if (select.value === 'custom') ci.focus();
-}
-
-function val(id) {
-  const el = document.getElementById(id);
-  return el ? el.value : '';
-}
-
-function resolve(map, key, customId) {
-  if (key === 'custom' && customId) return val(customId).trim() || key;
-  return map[key] || key;
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: PromptBuilder
-// ═══════════════════════════════════════════════════════════
-
-const PromptBuilder = {
-
-  buildStudio(hf = {}) {
-    const mode = AppState.studioMode;
-    let subjek;
-    if (mode === 'solo_wanita') {
-      const subj = hf.wanita ? 'a woman' : resolve(DESKRIPSI_MAP,'indonesian_female');
-      subjek = `${subj}, wearing ${resolve(OUTFIT_MAP, val('st-outfit-wanita'))}`;
-    } else {
-      const subj = hf.pria ? 'a man' : resolve(DESKRIPSI_MAP,'indonesian_male');
-      subjek = `${subj}, wearing ${resolve(OUTFIT_MAP, val('st-outfit-pria'))}`;
-    }
-    const tema = resolve(STUDIO_TEMA_MAP, val('st-tema'));
-    const light = resolve(STUDIO_LIGHTING_MAP, val('st-lighting'));
-    const pose = resolve(POSE_MAP, val('st-pose'));
-    const eks  = resolve(EKSPRESI_MAP, val('st-ekspresi'));
-    const grd  = resolve(GRADE_MAP, val('st-grade'));
-    const kam  = resolve(KAMERA_MAP, val('st-kamera'));
-    return `${subjek}, ${pose}, ${eks}, studio background: ${tema}, ${light}, ${grd}, ${kam}, 85mm f/1.4, ${CATEGORY_MODIFIERS.studio}, ${AUTO_MODIFIERS}`;
-  },
-
-  build(tab) {
-    const faceSlots = {
-      studio: { pria: 'upload-st-pria', wanita: 'upload-st-wanita' },
-    };
-    const slots = faceSlots[tab] || {};
-    const hf = {
-      pria:   !!(slots.pria   && AppState.faceUrls[slots.pria]),
-      wanita: !!(slots.wanita && AppState.faceUrls[slots.wanita]),
-    };
-    const builders = {
-      studio: () => this.buildStudio(hf),
-    };
-    const prompt = builders[tab]?.() || '';
-    console.log(`[PotretAI Prompt] tab=${tab} | hasFace=${JSON.stringify(hf)}\n${prompt}`);
-    return prompt;
-  }
-};
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: FalEngine
-// ═══════════════════════════════════════════════════════════
-
-const FalEngine = {
-
-  // Generate 1 foto via Cloudflare Worker (Queue API — non-blocking)
-  async generateSingle(prompt, seed, referenceUrls = []) {
-    // Step 1: Submit job to worker (returns immediately with job_id)
-    const submitRes = await fetch(`${WORKER_URL}/generate`, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json', 'x-turnstile-token': getTurnstileToken() },
-      body:    JSON.stringify({ prompt, seed, face_image_url: referenceUrls[0] || null, img_w: AppState.ratio.w, img_h: AppState.ratio.h }),
+  function showPricingPanel(tab) {
+    document.querySelectorAll('.pricing-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.pricing-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + tab).classList.add('active');
+    document.querySelectorAll('.pricing-tab').forEach(t => {
+      const label = t.textContent.trim();
+      if ((tab === 'studio' && label.includes('Studio')) ||
+          (tab === 'wisuda' && label.includes('Wisuda'))) {
+        t.classList.add('active');
+      }
     });
-
-    const submitData = await submitRes.json().catch(() => ({}));
-    if (!submitRes.ok) throw new Error(submitData.error || `Error ${submitRes.status}`);
-
-    // Backwards compat: if worker returned url directly (legacy sync)
-    if (submitData.url) return submitData.url;
-
-    const job_id = submitData.job_id;
-    if (!job_id) throw new Error('Worker tidak memberikan job_id. Coba lagi.');
-
-    // Step 2: Poll /job-status every 4s, max 120s
-    const deadline = Date.now() + 120_000;
-    while (Date.now() < deadline) {
-      await new Promise(r => setTimeout(r, 4000));
-      const statusRes = await fetch(`${WORKER_URL}/job-status?job_id=${encodeURIComponent(job_id)}`, {
-        headers: { 'x-turnstile-token': getTurnstileToken() },
-      });
-      const statusData = await statusRes.json().catch(() => ({}));
-      if (statusData.status === 'completed') return statusData.url || null;
-      if (statusData.status === 'failed') throw new Error(statusData.error || 'AI generation gagal.');
-      // 'pending' → keep polling
-    }
-    throw new Error('Timeout: generate terlalu lama. Coba lagi.');
-  },
-
-  // Generate 2 foto paralel
-  async generateAll(prompt, referenceUrls = []) {
-    const seeds = Array(2).fill(0).map(() => Math.floor(Math.random() * 900000));
-    const results = await Promise.all(
-      seeds.map(s => this.generateSingle(prompt, s, referenceUrls).catch(err => {
-        console.warn('[PotretAI] Single generate failed:', err.message);
-        return null;
-      }))
-    );
-    return results;
   }
-};
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: GalleryRenderer
-// ═══════════════════════════════════════════════════════════
-
-const GalleryRenderer = {
-  render(urls, tab) {
-    const grid = document.getElementById('results-grid');
-    if (!grid) return;
-    const { label: ratioLabel, w: rW, h: rH } = AppState.ratio;
-    const ratioCSS = `${rW}/${rH}`;
-    const makeCard = (url, i) => url ? `
-      <div class="result-card">
-        <div class="result-img-wrap" style="aspect-ratio:${ratioCSS}" onclick="openLightbox('${url}')">
-          <img class="result-img" src="${url}" alt="Foto AI ${tab} ${i+1}" loading="lazy"
-            onerror="this.src='https://placehold.co/${rW}x${rH}/EEF3F5/A7B0B5?text=Gagal+Load'">
-          <div class="result-overlay">
-            <button class="result-overlay-btn" onclick="event.stopPropagation();openLightbox('${url}')">&#128269; Buka Penuh</button>
-            <button class="result-overlay-btn" style="margin-left:8px;" onclick="event.stopPropagation();downloadImage('${url}','${tab}-${i+1}')">&#8595; Unduh</button>
-          </div>
-        </div>
-        <div class="result-footer">
-          <span class="result-label">${ratioLabel} &middot; ${rW}&times;${rH}</span>
-          <div class="result-actions">
-            <button class="result-btn result-btn-dl" onclick="downloadImage('${url}','${tab}-${i+1}')">&#8595; Unduh</button>
-          </div>
-        </div>
-      </div>` : `
-      <div class="result-card">
-        <div style="aspect-ratio:${ratioCSS};background:#EEF3F5;display:flex;align-items:center;justify-content:center;">
-          <div style="text-align:center;color:#A7B0B5;">
-            <div style="font-size:28px;margin-bottom:8px;">&#9888;</div>
-            <div style="font-size:12px;">Gagal generate</div>
-          </div>
-        </div>
-        <div class="result-footer"><span class="result-label">Error</span></div>
-      </div>`;
-
-    grid.innerHTML = urls.map((url, i) => makeCard(url, i)).join('');
-    showResults();
-  }
-};
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: UploadManager
-// ═══════════════════════════════════════════════════════════
-
-const UploadFiles = {};
-
-function triggerUpload(inputId) {
-  const inp = document.getElementById(inputId);
-  if (inp) inp.click();
-}
-
-function handleUpload(input, boxId) {
-  const file = input.files[0];
-  if (!file) return;
-  if (file.size > 5 * 1024 * 1024) { showToast('Ukuran foto maks 5MB','error'); return; }
-  UploadFiles[boxId] = file;
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const box = document.getElementById(boxId);
-    if (!box) return;
-    box.innerHTML = `
-      <div style="position:relative;width:100%;height:100%;min-height:100px;">
-        <img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;max-height:140px;display:block;">
-        <button class="upload-clear" onclick="clearUpload('${boxId}','${input.id}');event.stopPropagation();">&times;</button>
-        <div id="us-${boxId}" style="position:absolute;bottom:5px;left:5px;display:flex;align-items:center;gap:4px;background:rgba(31,166,181,0.9);color:#fff;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;padding:2px 7px;border-radius:5px;pointer-events:none;">
-          <svg style="animation:spin 0.8s linear infinite;flex-shrink:0" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>
-          Mengupload...
-        </div>
-      </div>`;
-    box.classList.add('has-file');
-    box.onclick = null;
-    // Upload ke fal.ai storage di background
-    uploadFaceToStorage(file, boxId, input.id, e.target.result);
-  };
-  reader.readAsDataURL(file);
-}
-
-async function uploadFaceToStorage(file, boxId, inputId, previewSrc) {
-  const setStatus = (type, label) => {
-    const el = document.getElementById(`us-${boxId}`);
-    if (!el) return;
-    const colors = { uploading: 'rgba(31,166,181,0.9)', success: 'rgba(34,197,94,0.88)', failed: 'rgba(239,68,68,0.88)' };
-    el.style.background = colors[type] || colors.uploading;
-    el.innerHTML = type === 'uploading'
-      ? `<svg style="animation:spin 0.8s linear infinite;flex-shrink:0" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg> ${label}`
-      : label;
-    if (type === 'failed') {
-      el.style.pointerEvents = 'auto';
-      el.style.cursor = 'pointer';
-      el.title = 'Klik untuk retry upload';
-      el.onclick = () => {
-        el.style.pointerEvents = 'none';
-        el.style.cursor = 'default';
-        setStatus('uploading', 'Mencoba ulang...');
-        uploadFaceToStorage(file, boxId, inputId, previewSrc);
-      };
-    }
-  };
-
-  try {
-    const formData = new FormData();
-    formData.append('face', file);
-    const res = await fetch(`${WORKER_URL}/upload-face`, {
-      method: 'POST',
-      body:   formData,
-    });
-    const data = await res.json().catch(() => ({}));
-    if (data.face_image_url) {
-      AppState.faceUrls[boxId] = data.face_image_url;
-      setStatus('success', '✓ Foto siap');
-      console.log('[PotretAI] Face uploaded:', boxId, data.face_image_url);
-    } else {
-      setStatus('failed', '✗ Gagal — retry');
-      console.warn('[PotretAI] Face upload failed:', boxId, data);
-      showToast('Foto wajah gagal diupload. Klik badge merah untuk retry.', 'error');
-    }
-  } catch (e) {
-    setStatus('failed', '✗ Gagal — retry');
-    console.warn('[PotretAI] Face upload error:', boxId, e);
-    showToast('Foto wajah gagal diupload. Klik badge merah untuk retry.', 'error');
-  }
-}
-
-function getFaceUrls(tab) {
-  const slotMap = {
-    studio: ['upload-st-pria', 'upload-st-wanita'],
-  };
-  return (slotMap[tab] || []).map(id => AppState.faceUrls[id]).filter(Boolean);
-}
-
-function clearUpload(boxId, inputId) {
-  UploadFiles[boxId] = null;
-  delete AppState.faceUrls[boxId];
-  const box = document.getElementById(boxId);
-  if (box) {
-    box.innerHTML = `<svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="upload-label-txt">Klik atau drag</span><span class="upload-hint-txt">JPG PNG WEBP &middot; Max 10MB</span>`;
-    box.classList.remove('has-file');
-    box.onclick = () => triggerUpload(inputId);
-  }
-  const inp = document.getElementById(inputId);
-  if (inp) inp.value = '';
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: Output state
-// ═══════════════════════════════════════════════════════════
-
-function showEmpty() {
-  document.getElementById('output-empty').style.display = 'block';
-  document.getElementById('output-loading').style.display = 'none';
-  document.getElementById('output-results').style.display = 'none';
-}
-function showLoading() {
-  document.getElementById('output-empty').style.display = 'none';
-  document.getElementById('output-loading').style.display = 'block';
-  document.getElementById('output-results').style.display = 'none';
-}
-function showResults() {
-  document.getElementById('output-loading').style.display = 'none';
-  document.getElementById('output-results').style.display = 'block';
-}
-
-// ═══════════════════════════════════════════════════════════
-// MAIN GENERATE FLOW
-// ═══════════════════════════════════════════════════════════
-
-async function startGenerate() {
-  if (AppState.isGenerating) { showToast('Sedang dalam proses generate...','info'); return; }
-  if (AppState.usageRemaining < 2) { showToast('Kuota foto habis. Reset tanggal 1 bulan depan.','error'); return; }
-
-  const tab = AppState.currentTab;
-
-  // Cek apakah ada file yang dipilih tapi belum ter-upload ke server
-  const slotMap = {
-    studio: ['upload-st-pria', 'upload-st-wanita'],
-  };
-  const slots = slotMap[tab] || [];
-  const pendingUpload = slots.some(id => UploadFiles[id] && !AppState.faceUrls[id]);
-  if (pendingUpload) {
-    showToast('Foto referensi belum selesai diupload. Tunggu badge hijau atau klik badge merah untuk retry.', 'error');
-    return;
-  }
-
-  const prompt = PromptBuilder.build(tab);
-  const faceUrls = getFaceUrls(tab);
-
-  // Lock UI
-  AppState.isGenerating = true;
-  setBtnLoading(tab, true);
-  showLoading();
-
-  // Pessimistic deduction
-  AppState.usageRemaining -= 4;
-  updateUsageUI();
-
-  try {
-    const urls = await FalEngine.generateAll(prompt, faceUrls);
-    const valid = urls.filter(Boolean);
-    if (valid.length === 0) throw new Error('Semua foto gagal dibuat');
-
-    // Store in history
-    urls.forEach(url => {
-      if (url) AppState.generatedImages.unshift({ url, tab, timestamp: Date.now() });
-    });
-
-    GalleryRenderer.render(urls, tab);
-    showToast(`${valid.length} foto berhasil dibuat! &#10024;`, 'success');
-    renderDashboardRecent();
-  } catch (err) {
-    // Refund on failure
-    AppState.usageRemaining += 4;
-    updateUsageUI();
-    showEmpty();
-    const errMsg = err.message || 'Gagal generate foto. Coba lagi.';
-    showToast(errMsg, 'error');
-    console.error('[PotretAI]', err);
-  } finally {
-    AppState.isGenerating = false;
-    setBtnLoading(tab, false);
-  }
-}
-
-const TAB_BTN_ID = { studio:'pw', wisuda:'ws' };
-
-function setBtnLoading(tab, loading) {
-  const pfx  = TAB_BTN_ID[tab] || tab.slice(0,2);
-  const btn  = document.getElementById('btn-gen-' + pfx);
-  const lbl  = document.getElementById('btn-gen-' + pfx + '-label');
-  const spin = document.getElementById('btn-gen-' + pfx + '-spin');
-  if (!btn) return;
-  btn.disabled = loading;
-  if (lbl) lbl.textContent = loading ? 'Memproses AI...' : 'Generate 2 Foto';
-  if (spin) spin.style.display = loading ? 'block' : 'none';
-  // Find icon (first svg)
-  const icon = btn.querySelector('svg:not(.spinning)');
-  if (icon) icon.style.display = loading ? 'none' : '';
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: Usage UI update
-// ═══════════════════════════════════════════════════════════
-
-function updateUsageUI() {
-  const rem = Math.max(0, AppState.usageRemaining);
-  const total = 200;
-  const used = total - rem;
-  const pct = Math.min(100, (used / total) * 100);
-  const el = document.getElementById('usage-remaining');
-  if (el) el.textContent = rem;
-  const du = document.getElementById('d-used');
-  if (du) du.textContent = used;
-  const fill = document.getElementById('d-usage-fill');
-  if (fill) fill.style.width = pct + '%';
-  const acctUsed = document.getElementById('acct-used');
-  if (acctUsed) acctUsed.textContent = used;
-  const statTotal = document.getElementById('stat-total');
-  if (statTotal) statTotal.textContent = AppState.generatedImages.length;
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: History & Dashboard
-// ═══════════════════════════════════════════════════════════
-
-function renderHistory(filter) {
-  const grid = document.getElementById('history-grid');
-  const empty = document.getElementById('history-empty');
-  if (!grid) return;
-  const imgs = filter === 'all'
-    ? AppState.generatedImages
-    : AppState.generatedImages.filter(i => i.tab === filter);
-  if (imgs.length === 0) {
-    grid.innerHTML = '';
-    grid.appendChild(empty || createHistoryEmpty());
-    if (empty) empty.style.display = 'flex';
-    return;
-  }
-  if (empty) empty.style.display = 'none';
-  grid.innerHTML = imgs.map(({url, tab, timestamp}) => `
-    <div class="hist-photo">
-      <img src="${url}" alt="${tab}" loading="lazy" onclick="openLightbox('${url}')"
-        onerror="this.src='https://placehold.co/200x250?text=Error'">
-      <div class="hist-photo-badge">${{studio:'Studio Foto',wisuda:'Wisuda'}[tab] || tab}</div>
-      <button class="hist-photo-dl" onclick="downloadImage('${url}','${tab}');event.stopPropagation();" title="Unduh">&#8595;</button>
-    </div>`).join('');
-}
-
-function filterHistory(filter, btn) {
-  document.querySelectorAll('.cat-filter-btn').forEach(b => b.classList.toggle('active', b === btn));
-  renderHistory(filter);
-}
-
-function renderDashboardRecent() {
-  const recent = AppState.generatedImages.slice(0, 4);
-  const wrap = document.getElementById('dashboard-recent');
-  const empty = document.getElementById('dashboard-empty');
-  if (!wrap) return;
-  if (recent.length === 0) {
-    if (empty) empty.style.display = 'flex';
-    return;
-  }
-  if (empty) empty.style.display = 'none';
-  // Remove old photo items but keep empty div
-  wrap.querySelectorAll('.recent-photo').forEach(e => e.remove());
-  recent.forEach(({url, tab}) => {
-    const div = document.createElement('div');
-    div.className = 'recent-photo';
-    div.innerHTML = `<img src="${url}" alt="${tab}" loading="lazy" onclick="openLightbox('${url}')" onerror="this.src='https://placehold.co/200x250?text=Error'">`;
-    wrap.appendChild(div);
-  });
-  const statLast = document.getElementById('stat-last');
-  if (statLast && AppState.generatedImages.length > 0) statLast.textContent = 'Baru saja';
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: Lightbox
-// ═══════════════════════════════════════════════════════════
-
-let _lightboxUrl = '';
-
-function openLightbox(url) {
-  _lightboxUrl = url;
-  const lb = document.getElementById('lightbox');
-  const img = document.getElementById('lightbox-img');
-  if (!lb || !img) return;
-  img.src = url;
-  lb.classList.add('open');
-}
-
-function closeLightbox(e, force) {
-  if (!force && e && e.target !== document.getElementById('lightbox')) return;
-  document.getElementById('lightbox').classList.remove('open');
-}
-
-function lightboxDownload() {
-  if (_lightboxUrl) downloadImage(_lightboxUrl, 'potretai');
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: Download
-// ═══════════════════════════════════════════════════════════
-
-async function downloadImage(url, filename) {
-  try {
-    showToast('Mengunduh foto...', 'info');
-    const res = await fetch(url);
-    const blob = await res.blob();
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `potretai-${filename}-${Date.now()}.jpg`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(a.href);
-    showToast('Foto berhasil diunduh! &#127881;', 'success');
-  } catch {
-    showToast('Gagal mengunduh. Coba klik kanan > Simpan gambar.', 'error');
-  }
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: Toast
-// ═══════════════════════════════════════════════════════════
-
-function showToast(msg, type = 'info') {
-  const c = document.getElementById('toast-container');
-  if (!c) return;
-  const t = document.createElement('div');
-  t.className = 'toast ' + type;
-  const icons = { success:'✓', error:'✕', info:'ℹ' };
-  t.innerHTML = `<div class="toast-icon">${icons[type] || icons.info}</div><span>${msg}</span>`;
-  c.appendChild(t);
-  requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add('show')));
-  setTimeout(() => {
-    t.classList.remove('show');
-    setTimeout(() => t.remove(), 320);
-  }, 3500);
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: Avatar dropdown
-// ═══════════════════════════════════════════════════════════
-
-function toggleAvatarMenu() {
-  const dd = document.getElementById('avatar-dropdown');
-  const ch = document.getElementById('tb-chevron');
-  if (!dd) return;
-  const open = dd.classList.toggle('open');
-  if (ch) ch.classList.toggle('open', open);
-  if (open) {
-    setTimeout(() => {
-      document.addEventListener('click', function closeDD(e) {
-        if (!e.target.closest('#avatar-trigger')) {
-          dd.classList.remove('open');
-          if (ch) ch.classList.remove('open');
-          document.removeEventListener('click', closeDD);
-        }
-      });
-    }, 0);
-  }
-}
-
-function closeAvatarMenu() {
-  const dd = document.getElementById('avatar-dropdown');
-  const ch = document.getElementById('tb-chevron');
-  if (dd) dd.classList.remove('open');
-  if (ch) ch.classList.remove('open');
-}
-
-// ═══════════════════════════════════════════════════════════
-// MODULE: Mobile sidebar
-// ═══════════════════════════════════════════════════════════
-
-function openMobileSidebar() {
-  document.getElementById('sidebar-mobile').classList.add('open');
-  document.getElementById('sidebar-overlay').style.display = 'block';
-}
-
-function closeMobileSidebar() {
-  document.getElementById('sidebar-mobile').classList.remove('open');
-  document.getElementById('sidebar-overlay').style.display = 'none';
-}
-
-// ═══════════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════════
-
-document.addEventListener('DOMContentLoaded', () => {
-  navigateTo('dashboard');
-  switchTab('studio');
-  updateUsageUI();
-  // Open sidebar submenu by default
-  const sm = document.getElementById('sb-submenu');
-  if (sm) sm.classList.add('open');
-  // Keyboard shortcut: ESC closes lightbox
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox(null, true);
-  });
-});
 </script>
+
 </body>
 </html>
