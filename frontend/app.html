@@ -285,6 +285,12 @@
       content:'';position:absolute;top:-24px;right:-24px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(31,166,181,0.14) 0%,transparent 70%);pointer-events:none;
     }
     .svc-card:hover{transform:translateY(-2px);border-color:#D7E9ED;box-shadow:0 16px 28px rgba(19,32,40,0.07);}
+    .svc-card.locked{opacity:0.96;}
+    .svc-card.locked::before{
+      content:'Premium Only';position:absolute;top:14px;right:14px;z-index:2;
+      font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;
+      color:#0E8EA0;background:#ECFAFC;border:1px solid rgba(31,166,181,0.16);border-radius:999px;padding:5px 8px;
+    }
     .svc-card-inner{display:flex;min-height:100%;}
     .svc-body{padding:16px;display:flex;flex-direction:column;justify-content:space-between;min-width:0;width:100%;}
     .svc-topline{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
@@ -306,6 +312,8 @@
       flex-shrink:0;
     }
     .svc-cta:hover{transform:translateY(-1px);background:#ECFAFC;border-color:#1FA6B5;color:#1E2A2F;}
+    .svc-card.locked .svc-cta{color:#0E8EA0;background:#F7FBFC;}
+    .svc-card.locked .svc-cta:hover{background:#ECFAFC;}
     .svc-meta{font-family:'Roboto Mono',monospace;font-size:10px;color:#91A3AB;letter-spacing:0.04em;text-transform:uppercase;}
     .dash-stats-row{display:grid;grid-template-columns:1fr;gap:10px;}
     .stat-card{
@@ -762,7 +770,7 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
         Wisuda AI
       </button>
-      <button class="sb-subitem" id="sb-beauty-item" data-tab="beauty_retouch" onclick="navigateTo('generator','beauty_retouch')">
+      <button class="sb-subitem" id="sb-beauty-item" data-tab="beauty_retouch" onclick="openBeautyRetouch()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 3.64L18 8.2l-3 2.92.71 4.13L12 13.3l-3.71 1.95.71-4.13-3-2.92 4.2-.56L12 3z"/></svg>
         Beauty Retouch
       </button>
@@ -919,22 +927,22 @@
               </div>
             </div>
           </div>
-          <div class="svc-card" id="beauty-service-card" onclick="navigateTo('generator','beauty_retouch')">
+          <div class="svc-card" id="beauty-service-card" onclick="openBeautyRetouch()">
             <div class="svc-card-inner">
               <div class="svc-body">
                 <div class="svc-topline">
-                  <div class="svc-pill">
+                  <div class="svc-pill" id="beauty-service-pill">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 3.64L18 8.2l-3 2.92.71 4.13L12 13.3l-3.71 1.95.71-4.13-3-2.92 4.2-.56L12 3z"/></svg>
                     Premium
                   </div>
                 </div>
                 <div>
                   <div class="svc-name">Beauty Retouch</div>
-                  <div class="svc-desc">Glow up premium dengan identity tetap mirip dan hasil portrait lebih polished.</div>
+                  <div class="svc-desc" id="beauty-service-desc">Glow up premium dengan identity tetap mirip dan hasil portrait lebih polished.</div>
                 </div>
                 <div class="svc-footer">
-                  <div class="svc-meta">Premium Only</div>
-                  <button class="svc-cta" onclick="event.stopPropagation();navigateTo('generator','beauty_retouch')">
+                  <div class="svc-meta" id="beauty-service-meta">Premium Only</div>
+                  <button class="svc-cta" id="beauty-service-cta" onclick="event.stopPropagation();openBeautyRetouch()">
                     Buka Generator
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                   </button>
@@ -1028,7 +1036,7 @@
     <div class="gen-tabs" role="tablist">
       <button class="gen-tab active" data-tab="studio_foto" onclick="switchTab('studio_foto')" role="tab">Studio Foto AI</button>
       <button class="gen-tab"        data-tab="wisuda"      onclick="switchTab('wisuda')"       role="tab">Wisuda AI</button>
-      <button class="gen-tab"        data-tab="beauty_retouch" id="gen-tab-beauty" onclick="switchTab('beauty_retouch')" role="tab">Beauty Retouch</button>
+      <button class="gen-tab"        data-tab="beauty_retouch" id="gen-tab-beauty" onclick="openBeautyRetouch()" role="tab">Beauty Retouch</button>
     </div>
   </div>
 
@@ -1912,7 +1920,7 @@
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
       Wisuda AI
     </button>
-    <button class="sb-subitem" id="sb-beauty-item-mobile" data-tab="beauty_retouch" onclick="navigateTo('generator','beauty_retouch');closeMobileSidebar();">
+    <button class="sb-subitem" id="sb-beauty-item-mobile" data-tab="beauty_retouch" onclick="openBeautyRetouch();closeMobileSidebar();">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 3.64L18 8.2l-3 2.92.71 4.13L12 13.3l-3.71 1.95.71-4.13-3-2.92 4.2-.56L12 3z"/></svg>
       Beauty Retouch
     </button>
@@ -2613,9 +2621,34 @@ function applyPackageGates() {
   const beautySidebarMobile = document.getElementById('sb-beauty-item-mobile');
   const beautyCard = document.getElementById('beauty-service-card');
   const beautyHistoryFilter = document.getElementById('history-filter-beauty');
-  [beautyTab, beautySidebar, beautySidebarMobile, beautyCard, beautyHistoryFilter].forEach((el) => {
-    if (el) el.style.display = pkg.beauty.enabled ? '' : 'none';
+  [beautyTab, beautySidebar, beautySidebarMobile, beautyCard].forEach((el) => {
+    if (el) el.style.display = '';
   });
+  if (beautyHistoryFilter) beautyHistoryFilter.style.display = pkg.beauty.enabled ? '' : 'none';
+  if (beautyTab) {
+    beautyTab.classList.toggle('active', AppState.currentTab === 'beauty_retouch' && pkg.beauty.enabled);
+    beautyTab.title = pkg.beauty.enabled ? '' : 'Upgrade ke Signature untuk akses Beauty Retouch';
+  }
+  [beautySidebar, beautySidebarMobile].forEach((el) => {
+    if (!el) return;
+    el.classList.toggle('active', AppState.currentTab === 'beauty_retouch' && pkg.beauty.enabled);
+    el.title = pkg.beauty.enabled ? '' : 'Beauty Retouch tersedia di Signature dan Prestige';
+  });
+  const beautyDesc = document.getElementById('beauty-service-desc');
+  const beautyMeta = document.getElementById('beauty-service-meta');
+  const beautyCta = document.getElementById('beauty-service-cta');
+  const beautyPill = document.getElementById('beauty-service-pill');
+  if (beautyCard) beautyCard.classList.toggle('locked', !pkg.beauty.enabled);
+  if (beautyDesc) beautyDesc.textContent = pkg.beauty.enabled
+    ? (pkg.key === 'prestige'
+        ? 'Beauty Retouch premium aktif dengan jalur polish dan privilege lebih tinggi.'
+        : 'Glow up natural, rapi, dan premium tanpa mengubah identitas wajah.')
+    : 'Glow-up premium yang tetap menjaga wajah asli. Tersedia di Signature & Prestige.';
+  if (beautyMeta) beautyMeta.textContent = pkg.beauty.enabled
+    ? (pkg.key === 'prestige' ? 'Premium Polish Ready' : 'Included in Signature')
+    : 'Upgrade ke Signature';
+  if (beautyCta) beautyCta.innerHTML = `${pkg.beauty.enabled ? 'Buka Beauty Retouch' : 'Upgrade ke Signature'} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
+  if (beautyPill) beautyPill.innerHTML = `${pkg.beauty.enabled ? 'Included' : 'Premium Only'}`;
   if (!pkg.beauty.enabled && AppState.currentTab === 'beauty_retouch') switchTab('studio_foto');
   document.querySelectorAll('.count-row .count-reco').forEach((el) => {
     const radioName = el.parentElement?.querySelector('input[type="radio"]')?.name || '';
@@ -2632,6 +2665,22 @@ function setCurrentPackage(tier, options = {}) {
   localStorage.setItem('potretai_package_tier', tier);
   if (options.grantCredits !== false) TokenManager.setBalance(pkg.credits);
   applyPackageGates();
+}
+
+function openBeautyRetouch() {
+  const pkg = getCurrentPackageConfig();
+  if (pkg.beauty?.enabled) {
+    navigateTo('generator', 'beauty_retouch');
+    return;
+  }
+  const modal = document.getElementById('modal-beli-token');
+  if (modal) modal.style.display = 'flex';
+  const signatureCard = document.getElementById('pkg-card-signature');
+  if (signatureCard) {
+    signatureCard.style.boxShadow = '0 0 0 3px rgba(31,166,181,0.16), 0 14px 28px rgba(31,166,181,0.12)';
+    setTimeout(() => { signatureCard.style.boxShadow = ''; }, 1800);
+  }
+  showToast('Beauty Retouch tersedia di Signature dan Prestige.', 'info');
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -4387,18 +4436,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     <div style="font-size:11px;font-weight:600;color:#A7B0B5;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px">Paket PotretAI</div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;">
-      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('spark')">
+      <div id="pkg-card-spark" style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('spark')">
         <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Spark</div>
         <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 69.000</div>
         <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">8 kredit · 2 foto</div>
       </div>
-      <div style="border:1.5px solid #1FA6B5;border-radius:10px;padding:12px;cursor:pointer;background:rgba(31,166,181,0.06);" onclick="handleBuyPackage('signature')">
+      <div id="pkg-card-signature" style="border:1.5px solid #1FA6B5;border-radius:10px;padding:12px;cursor:pointer;background:rgba(31,166,181,0.06);" onclick="handleBuyPackage('signature')">
         <div style="font-size:10px;font-weight:600;color:#1FA6B5;margin-bottom:2px">REKOMENDASI</div>
         <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Signature</div>
         <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 119.000</div>
         <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">20 kredit · 2 &amp; 4 foto</div>
       </div>
-      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('prestige')">
+      <div id="pkg-card-prestige" style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('prestige')">
         <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Prestige</div>
         <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 179.000</div>
         <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">40 kredit · full library</div>
