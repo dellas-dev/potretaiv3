@@ -106,15 +106,26 @@ const CORS_ORIGINS = [
 ];
 
 function jsonRes(data, status, origin) {
-  const allow = CORS_ORIGINS.includes(origin) ? origin : CORS_ORIGINS[0];
+  const allow = resolveAllowedOrigin(origin);
+  const headers = {
+    'Content-Type':                 'application/json',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+    'Vary':                         'Origin',
+  };
+  if (allow) headers['Access-Control-Allow-Origin'] = allow;
   return new Response(JSON.stringify(data), {
     status,
-    headers: {
-      'Content-Type':                 'application/json',
-      'Access-Control-Allow-Origin':  allow,
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Vary':                         'Origin',
-    },
+    headers,
   });
+}
+
+function normalizeOrigin(origin) {
+  return (origin || '').trim().replace(/\/$/, '');
+}
+
+function resolveAllowedOrigin(origin) {
+  const normalizedOrigin = normalizeOrigin(origin);
+  if (!normalizedOrigin || normalizedOrigin === 'null') return null;
+  return CORS_ORIGINS.find((allowed) => normalizeOrigin(allowed) === normalizedOrigin) || null;
 }

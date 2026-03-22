@@ -31,7 +31,7 @@
 
     /* ── Topbar ── */
     #topbar{
-      position:sticky;top:0;z-index:50;height:68px;
+      position:sticky;top:0;z-index:50;height:144px;
       background:rgba(255,255,255,0.88);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);
       border-bottom:1px solid rgba(221,230,234,0.9);
       display:flex;align-items:center;padding:0 24px;gap:0;
@@ -45,15 +45,15 @@
     .tb-hamburger:hover{background:#EEF3F5;color:#1E2A2F;}
     .tb-logo{
       display:flex;align-items:center;justify-content:flex-start;text-decoration:none;flex-shrink:0;line-height:0;
-      min-width:0;padding:2px 0;overflow:hidden;
+      min-width:0;padding:0;overflow:hidden;
     }
     .tb-logo-frame{
-      width:148px;height:40px;display:flex;align-items:center;justify-content:flex-start;
+      width:460px;height:112px;display:flex;align-items:center;justify-content:flex-start;
       overflow:hidden;flex-shrink:0;
     }
     .tb-logo img{
-      display:block;height:34px;width:auto;max-width:148px;
-      object-fit:contain;object-position:left center;filter:none;transform:scale(1.06);transform-origin:left center;
+      display:block;height:108px;width:auto;max-width:460px;
+      object-fit:contain;object-position:left center;filter:none;
     }
     .tb-spacer{flex:1;}
     .tb-nav{display:flex;align-items:center;gap:4px;}
@@ -123,7 +123,7 @@
     /* ── Sidebar ── */
     #sidebar{
       width:244px;flex-shrink:0;
-      height:calc(100vh - 68px);position:sticky;top:68px;
+      height:calc(100vh - 144px);position:sticky;top:144px;
       overflow-y:auto;background:#FFFFFF;
       border-right:1px solid rgba(238,243,245,0.92);
       padding:14px 12px 16px;display:flex;flex-direction:column;gap:6px;
@@ -199,7 +199,7 @@
     /* ── Views ── */
     .view-section{display:none;}
     .view-section.active{display:block;}
-    #view-generator.active{display:flex;flex-direction:column;height:calc(100vh - 68px);}
+    #view-generator.active{display:flex;flex-direction:column;height:calc(100vh - 144px);}
 
     /* ── Dashboard ── */
     .dash-wrap{padding:30px 36px 30px;max-width:1020px;}
@@ -641,6 +641,9 @@
       .tb-hamburger{display:flex;}
       .tb-nav{display:none;}
       .tb-usage{display:none;}
+      #topbar{height:92px;}
+      .tb-logo-frame{width:248px;height:64px;}
+      .tb-logo img{height:58px;max-width:248px;}
       .svc-grid{grid-template-columns:1fr;}
       .dash-stats-row{grid-template-columns:1fr 1fr;}
       .recent-grid{grid-template-columns:repeat(3,1fr);}
@@ -652,6 +655,9 @@
       #view-generator.active{height:auto;}
     }
     @media (max-width:767px) {
+      #topbar{height:76px;padding:0 16px;}
+      .tb-logo-frame{width:188px;height:46px;}
+      .tb-logo img{height:40px;max-width:188px;}
       .dash-wrap,.hist-wrap,.acct-wrap{padding:20px 16px;}
       .dash-hero{padding:24px 20px;}
       .dash-hero-inner{grid-template-columns:1fr;}

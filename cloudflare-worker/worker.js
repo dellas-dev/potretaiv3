@@ -258,22 +258,27 @@ export default {
 
 // ── Helpers ─────────────────────────────────────────────────────────
 function isAllowedOrigin(origin) {
-  if (!origin || origin === 'null') return true;
-  return ALLOWED_ORIGINS.some(o => origin === o);
+  const normalizedOrigin = normalizeOrigin(origin);
+  if (!normalizedOrigin || normalizedOrigin === 'null') return true;
+  return ALLOWED_ORIGINS.some(o => normalizeOrigin(o) === normalizedOrigin);
 }
 
 function corsHeaders(origin) {
-  const allowed = isAllowedOrigin(origin) ? origin : ALLOWED_ORIGINS[0];
-  return {
-    'Access-Control-Allow-Origin': allowed,
+  const allowed = resolveAllowedOrigin(origin);
+  const headers = {
     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
     'Access-Control-Max-Age': '86400',
     'Vary': 'Origin',
   };
+  if (allowed) headers['Access-Control-Allow-Origin'] = allowed;
+  return headers;
 }
 
 function handleCors(origin) {
+  if (!isAllowedOrigin(origin)) {
+    return new Response(null, { status: 403, headers: corsHeaders('') });
+  }
   return new Response(null, { status: 204, headers: corsHeaders(origin) });
 }
 
@@ -294,4 +299,14 @@ function translateError(status, errBody) {
     503: 'AI server overload. Coba lagi.',
   };
   return msgs[status] || errBody?.detail || `AI error (${status})`;
+}
+
+function normalizeOrigin(origin) {
+  return (origin || '').trim().replace(/\/$/, '');
+}
+
+function resolveAllowedOrigin(origin) {
+  const normalizedOrigin = normalizeOrigin(origin);
+  if (!normalizedOrigin || normalizedOrigin === 'null') return null;
+  return ALLOWED_ORIGINS.find(o => normalizeOrigin(o) === normalizedOrigin) || null;
 }
