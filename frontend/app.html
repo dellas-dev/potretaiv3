@@ -1369,6 +1369,9 @@
         <option value="orange_cardigan">Orange Knit Cardigan + White Mini Skirt</option>
         <option value="denim_set">Denim Tube Top + Pleated Denim Mini Skirt</option>
         <option value="cream_blouse">Cream Bow-tie Blouse + Brown Mini Skirt</option>
+        <option value="linen_set">Linen Vest + Wide-leg Trousers</option>
+        <option value="satin_skirt">Soft Knit Top + Satin Midi Skirt</option>
+        <option value="trench_minimal">Trench Coat Light + Inner Monochrome</option>
       </optgroup>
       <optgroup label="── FORMAL ELEGAN ──">
         <option value="white_blazer">White Oversized Blazer + Wide-leg Trousers</option>
@@ -1377,6 +1380,8 @@
         <option value="black_gown">Black Off-Shoulder Fitted Midi Dress</option>
         <option value="red_jumpsuit">Red Tailored Jumpsuit + Pearl Detail</option>
         <option value="lace_midi">White Lace Overlay Midi Dress</option>
+        <option value="blazer_dress">Structured Blazer Dress Minimal</option>
+        <option value="quiet_luxury_set">Quiet Luxury Shirt + Tailored Pants</option>
       </optgroup>
     </select>
   </div>
@@ -1402,6 +1407,9 @@
         <option value="m_turtleneck">Turtleneck Hitam + Slim Trousers Abu</option>
         <option value="m_cardigan_coord">Oversized Cardigan Beige + Kemeja Inner Putih</option>
         <option value="m_denim_coord">Denim Jacket + Celana Denim Matching</option>
+        <option value="m_knit_polo">Knit Polo Premium + Tailored Trousers</option>
+        <option value="m_overshirt_clean">Overshirt Clean + Inner Tee + Trousers</option>
+        <option value="m_resort_shirt">Resort Shirt Premium + Linen Trousers</option>
       </optgroup>
       <optgroup label="── FORMAL ELEGAN ──">
         <option value="m_white_suit">White Suit Blazer + Kemeja Inner Putih + Heels</option>
@@ -1409,6 +1417,8 @@
         <option value="m_black_suit">Black Formal Suit + Kemeja Putih + Dasi</option>
         <option value="m_grey_blazer">Grey Blazer + Kemeja Putih + Black Trousers</option>
         <option value="m_batik_formal">Batik Formal Lengan Panjang + Celana Hitam Rapi</option>
+        <option value="m_old_money">Kemeja Putih Premium + Celana Tailored Beige</option>
+        <option value="m_relaxed_suit">Relaxed Suit Earth Tone + Open Collar Shirt</option>
       </optgroup>
     </select>
   </div>
@@ -1430,6 +1440,16 @@
         <option value="standing_leaning">Lean Santai ke Dinding / Railing</option>
         <option value="walking_candid">Jalan Pelan ke Kamera — Candid</option>
         <option value="looking_away">Tatapan Sedikit Menjauh</option>
+      </optgroup>
+      <optgroup label="── OUTDOOR TREND ──">
+        <option value="outdoor_walk_sidewalk">Jalan Santai di Sidewalk / Jalan Kota</option>
+        <option value="outdoor_railing">Bersandar Santai di Railing / Pagar</option>
+        <option value="outdoor_turn_back">Berjalan Lalu Menoleh ke Kamera</option>
+        <option value="outdoor_hold_jacket">Pegang Jaket / Tas Outdoor Editorial</option>
+        <option value="outdoor_coffee">Memegang Kopi / Properti Lifestyle</option>
+        <option value="outdoor_stairs">Pose di Tangga / Step Clean</option>
+        <option value="outdoor_landscape_stand">Berdiri Natural di Landscape Outdoor</option>
+        <option value="outdoor_candid_laugh">Laughing Candid Outdoor</option>
       </optgroup>
       <optgroup label="── HALF BODY / CLOSE-UP ──">
         <option value="halfbody_natural_smile">Half Body — Natural Smile</option>
@@ -2730,6 +2750,22 @@ function buildSoloPrompt(tab) {
           'full body, walking slowly toward camera, candid natural movement, premium lifestyle portrait, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
         looking_away:
           'full body, standing, face turned slightly away at three-quarter angle, serene premium gaze, complete figure head to toe, ' + FRAMING_FULL_BODY,
+        outdoor_walk_sidewalk:
+          'full body, walking naturally on premium outdoor sidewalk or city path, clean lifestyle movement, relaxed shoulders, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        outdoor_railing:
+          'full body, leaning softly on railing or fence, natural outdoor editorial pose, relaxed premium body language, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        outdoor_turn_back:
+          'full body, walking away slightly then turning back toward camera, candid outdoor fashion portrait, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        outdoor_hold_jacket:
+          'full body, holding jacket or bag naturally while standing outdoors, polished editorial city portrait, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        outdoor_coffee:
+          'three quarter body, holding coffee cup or lifestyle prop naturally outdoors, premium cafe-street portrait, ' + FRAMING_THREE_QUARTER,
+        outdoor_stairs:
+          'full body, posing naturally on outdoor steps or stairs, clean architectural portrait composition, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        outdoor_landscape_stand:
+          'full body, standing naturally in premium outdoor landscape, calm posture, refined aspirational portrait mood, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        outdoor_candid_laugh:
+          'three quarter body, natural laughing candid pose outdoors, premium lifestyle portrait, ' + FRAMING_THREE_QUARTER,
         halfbody_natural_smile:
           'half body waist up, facing camera, natural smile, relaxed shoulders, premium clean portrait composition, ' + FRAMING_HALF_BODY,
         halfbody_over_shoulder:
@@ -2763,6 +2799,11 @@ function buildSoloPrompt(tab) {
       emerald_dress:    'woman wearing emerald satin wrap midi dress, gold strappy stiletto heels',
       lace_midi:        'woman wearing white lace overlay midi dress, white kitten heels',
       plaid_coord:      'woman wearing plaid oversized blazer, matching plaid mini skirt, knee-high leather boots',
+      linen_set:        'woman wearing premium beige linen vest, matching wide-leg trousers, minimal sandals or heels',
+      satin_skirt:      'woman wearing soft fitted knit top, champagne satin midi skirt, elegant minimal heels',
+      trench_minimal:   'woman wearing light beige trench coat over monochrome inner outfit, premium city styling',
+      blazer_dress:     'woman wearing structured blazer dress, clean tailored silhouette, premium heels',
+      quiet_luxury_set: 'woman wearing crisp premium shirt, tailored cream trousers, refined quiet luxury styling',
     };
     const OUTFIT_M = {
       m_white_tshirt_jeans:   'man wearing white crew-neck t-shirt, slim fit dark jeans, white leather sneakers',
@@ -2776,6 +2817,11 @@ function buildSoloPrompt(tab) {
       m_white_suit:           'man wearing all-white blazer suit, white dress shirt, white oxford leather shoes',
       m_navy_suit:            'man wearing navy blue suit, white dress shirt, subtle tie, black oxford leather shoes',
       m_black_suit:           'man wearing black formal suit, white dress shirt, black leather oxford shoes',
+      m_knit_polo:            'man wearing premium knit polo shirt, tailored cream trousers, clean leather loafers',
+      m_overshirt_clean:      'man wearing minimal overshirt, clean white inner tee, tailored dark trousers, modern sneakers',
+      m_resort_shirt:         'man wearing premium resort shirt, lightweight linen trousers, refined relaxed luxury styling',
+      m_old_money:            'man wearing premium white shirt, beige tailored trousers, brown loafers, old money styling',
+      m_relaxed_suit:         'man wearing relaxed earth-tone suit, open collar shirt, clean modern formal styling',
     };
     const BACKGROUND = {
       white_clean:   'pure white seamless studio backdrop',
