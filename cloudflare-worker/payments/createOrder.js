@@ -10,7 +10,7 @@
  *   waiting_payment → proof_uploaded → approved | rejected
  *
  * Request body (JSON):
- *   { user_id: string, plan: "starter" | "pro" | "unlimited" }
+ *   { user_id: string, plan: "spark" | "signature" | "prestige" | "topup_mini" | "topup_plus" | "topup_pro" }
  *
  * Response:
  *   201 { success: true, order_id, plan, price, created_at }
@@ -18,9 +18,12 @@
 
 // ── Plan catalogue ────────────────────────────────────────────────────────────
 const PLANS = {
-  starter:   { price: 97000  },
-  pro:       { price: 197000 },
-  unlimited: { price: 397000 },
+  spark:      { price: 69000,  type: 'package' },
+  signature:  { price: 119000, type: 'package' },
+  prestige:   { price: 179000, type: 'package' },
+  topup_mini: { price: 39000,  type: 'topup' },
+  topup_plus: { price: 69000,  type: 'topup' },
+  topup_pro:  { price: 149000, type: 'topup' },
 };
 
 // ── Order ID generator ────────────────────────────────────────────────────────
@@ -69,6 +72,7 @@ export async function createOrder(request, env) {
     user_id:   user_id.trim(),
     plan,
     price:     PLANS[plan].price,
+    order_type: PLANS[plan].type,
     status:    'waiting_payment',
     proof_url: null,
     created_at,
