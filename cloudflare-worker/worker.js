@@ -14,6 +14,8 @@ import { handleHistoryRoute, handleGetCreditRoute } from './history/historyRoute
 import { createOrder } from './payments/createOrder.js';
 import { submitProof } from './payments/submitProof.js';
 import { verifyPayment } from './payments/verifyPayment.js';
+import { checkDailyLimit, recordGenerationCost } from './utils/costControl.js';
+import { recordGeneration } from './utils/analytics.js';
 
 const ALLOWED_ORIGINS = [
   'https://potretai.studiocreative.id',
@@ -135,6 +137,11 @@ export default {
           return jsonResponse({ error: 'User identity required', code: 'USER_ID_REQUIRED' }, 401, origin);
         }
 
+        const allowedToday = await checkDailyLimit(env);
+        if (!allowedToday) {
+          return jsonResponse({ error: 'Batas generate harian tercapai. Coba lagi besok atau hubungi admin.' }, 429, origin);
+        }
+
         let chargeMeta = null;
         if (userId && env.USER_CREDITS) {
           try {
@@ -162,6 +169,8 @@ export default {
           package_tier: chargeMeta?.package_tier || 'anonymous',
           status: 'processing',
           prompt_length: safePrompt.length,
+          output_profile: '768x1152@18',
+          estimated_cost_units: photoCount,
         }, env);
 
         const REPLICATE_KEY = env.REPLICATE_KEY || '';
@@ -258,7 +267,11 @@ export default {
           package_tier: chargeMeta?.package_tier || 'anonymous',
           status: 'success',
           result_count: urls.length,
+          output_profile: '768x1152@18',
+          estimated_cost_units: photoCount,
         }, env);
+        await recordGeneration(env, userId || 'anonymous');
+        await recordGenerationCost(env);
         const latestCredit = userId ? await getUserCredit(userId, env) : null;
         return jsonResponse({ success: true, urls, credit: latestCredit }, 200, origin);
       }
@@ -285,6 +298,11 @@ export default {
 
         if (requiresIdentity && !userId) {
           return jsonResponse({ error: 'User identity required', code: 'USER_ID_REQUIRED' }, 401, origin);
+        }
+
+        const allowedToday = await checkDailyLimit(env);
+        if (!allowedToday) {
+          return jsonResponse({ error: 'Batas generate harian tercapai. Coba lagi besok atau hubungi admin.' }, 429, origin);
         }
 
         let chargeMeta = null;
@@ -314,6 +332,8 @@ export default {
           package_tier: chargeMeta?.package_tier || 'anonymous',
           status: 'processing',
           prompt_length: safePromptId.length,
+          output_profile: '768x1152@18',
+          estimated_cost_units: photoCount,
         }, env);
 
         const seeds = Array.from({ length: photoCount }, (_, i) =>
@@ -382,7 +402,11 @@ export default {
           package_tier: chargeMeta?.package_tier || 'anonymous',
           status: 'success',
           result_count: urls.length,
+          output_profile: '768x1152@18',
+          estimated_cost_units: photoCount,
         }, env);
+        await recordGeneration(env, userId || 'anonymous');
+        await recordGenerationCost(env);
         const latestCredit = userId ? await getUserCredit(userId, env) : null;
         return jsonResponse({ success: true, urls, credit: latestCredit }, 200, origin);
       }

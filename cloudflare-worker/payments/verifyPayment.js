@@ -20,6 +20,7 @@
 
 import { addCommission } from '../affiliate/referral.js';
 import { addCredit }     from '../utils/creditManager.js';
+import { recordRevenue } from '../utils/analytics.js';
 
 const VALID_ACTIONS = new Set(['approve', 'reject']);
 
@@ -115,6 +116,7 @@ export async function verifyPayment(request, env) {
     // Affiliate commission
     if (order.price) {
       await addCommission(order.user_id, order.price, env);
+      await recordRevenue(env, order.price);
     }
   }
 
