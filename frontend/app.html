@@ -1857,6 +1857,7 @@
         <button class="btn-primary-sm" type="button" onclick="adminVerifyOrder('approve')">Approve Order</button>
         <button class="btn-secondary" type="button" onclick="adminVerifyOrder('reject')">Reject Order</button>
         <button class="btn-secondary" type="button" onclick="adminFetchStats()">Refresh Stats</button>
+        <button class="btn-secondary" type="button" onclick="adminRunSystemCheck()">Run System Check</button>
       </div>
       <div id="admin-verify-status" style="font-family:'Inter',sans-serif;font-size:12px;color:#6B7C86;line-height:1.6;"></div>
       <div id="admin-stats-panel" style="margin-top:10px;padding:12px;border:1px solid #E8EEF1;border-radius:12px;background:#F8FBFC;display:flex;flex-direction:column;gap:10px;">
@@ -1865,6 +1866,7 @@
         <div id="admin-stats-summary" style="font-family:'Inter',sans-serif;font-size:12px;color:#1E2A2F;line-height:1.7;">Klik Refresh Stats untuk memuat ringkasan hari ini.</div>
         <div id="admin-stats-orders" style="font-family:'Roboto Mono',monospace;font-size:10px;color:#6B7C86;line-height:1.6;white-space:pre-wrap;"></div>
         <div id="admin-stats-generates" style="font-family:'Roboto Mono',monospace;font-size:10px;color:#6B7C86;line-height:1.6;white-space:pre-wrap;"></div>
+        <div id="admin-system-check" style="font-family:'Roboto Mono',monospace;font-size:10px;color:#6B7C86;line-height:1.6;white-space:pre-wrap;"></div>
       </div>
     </div>
   </div>
@@ -4260,6 +4262,64 @@ async function adminFetchStats() {
     if (summaryEl) summaryEl.textContent = err.message || 'Gagal memuat statistik admin';
     showToast(`❌ ${err.message || 'Gagal memuat statistik admin'}`, 'error');
   }
+}
+
+async function adminRunSystemCheck() {
+  const out = document.getElementById('admin-system-check');
+  const profile = getStoredUserProfile();
+  if (!out) return;
+  out.textContent = 'Menjalankan system check...';
+
+  const checks = [];
+
+  async function check(label, fn) {
+    try {
+      const value = await fn();
+      checks.push(`PASS  ${label} :: ${value}`);
+    } catch (err) {
+      checks.push(`FAIL  ${label} :: ${err.message}`);
+    }
+  }
+
+  await check('worker health', async () => {
+    const res = await fetch(`${WORKER_URL}/`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return data.version || 'ok';
+  });
+
+  await check('credit route', async () => {
+    const res = await fetch(`${WORKER_URL}/get-credit/${encodeURIComponent(profile.userId)}`, {
+      headers: getWorkerJsonHeaders(),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return `${data.package_tier || data.plan} · ${data.credits_remaining} kredit`;
+  });
+
+  await check('beta status', async () => {
+    const res = await fetch(`${WORKER_URL}/beta-status/${encodeURIComponent(profile.userId)}`, {
+      headers: getWorkerJsonHeaders(),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return `enabled=${data.beta_enabled ? 'yes' : 'no'} allowed=${data.allowed ? 'yes' : 'no'}`;
+  });
+
+  await check('package gating ui', async () => {
+    const pkg = getCurrentPackageConfig();
+    const beautyVisible = document.getElementById('gen-tab-beauty')?.style.display !== 'none';
+    return `${pkg.label} · beauty=${beautyVisible ? 'visible' : 'hidden'}`;
+  });
+
+  await check('generator labels', async () => {
+    const sf = document.getElementById('btn-gen-sf-label')?.textContent || '-';
+    const ws = document.getElementById('btn-gen-ws-label')?.textContent || '-';
+    const br = document.getElementById('btn-gen-br-label')?.textContent || '-';
+    return `SF=${sf} | WS=${ws} | BR=${br}`;
+  });
+
+  out.textContent = checks.join('\n');
 }
 
 async function refreshBetaStatus() {
