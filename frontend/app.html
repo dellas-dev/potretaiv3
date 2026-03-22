@@ -2032,9 +2032,7 @@ async function syncBackendCreditToUI() {
   const profile = getStoredUserProfile();
   if (!profile.userId) return;
   try {
-    const res = await fetch(`${WORKER_URL}/get-credit/${encodeURIComponent(profile.userId)}`, {
-      headers: getWorkerJsonHeaders(),
-    });
+    const res = await fetch(`${WORKER_URL}/get-credit/${encodeURIComponent(profile.userId)}`);
     if (!res.ok) return;
     const credit = await res.json();
     if (!credit || typeof credit.credits_remaining !== 'number') return;
@@ -4294,18 +4292,14 @@ async function adminRunSystemCheck() {
   });
 
   await check('credit route', async () => {
-    const res = await fetch(`${WORKER_URL}/get-credit/${encodeURIComponent(profile.userId)}`, {
-      headers: getWorkerJsonHeaders(),
-    });
+    const res = await fetch(`${WORKER_URL}/get-credit/${encodeURIComponent(profile.userId)}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     return `${data.package_tier || data.plan} · ${data.credits_remaining} kredit`;
   });
 
   await check('beta status', async () => {
-    const res = await fetch(`${WORKER_URL}/beta-status/${encodeURIComponent(profile.userId)}`, {
-      headers: getWorkerJsonHeaders(),
-    });
+    const res = await fetch(`${WORKER_URL}/beta-status/${encodeURIComponent(profile.userId)}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     return `enabled=${data.beta_enabled ? 'yes' : 'no'} allowed=${data.allowed ? 'yes' : 'no'}`;
@@ -4332,9 +4326,7 @@ async function refreshBetaStatus() {
   if (!statusEl) return;
   const profile = getStoredUserProfile();
   try {
-    const res = await fetch(`${WORKER_URL}/beta-status/${encodeURIComponent(profile.userId)}`, {
-      headers: getWorkerJsonHeaders(),
-    });
+    const res = await fetch(`${WORKER_URL}/beta-status/${encodeURIComponent(profile.userId)}`);
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || 'Gagal memuat beta status');
     statusEl.textContent = [
@@ -4348,16 +4340,20 @@ async function refreshBetaStatus() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  if (new URLSearchParams(location.search).get('admin') === '1') {
+  const params = new URLSearchParams(location.search);
+  if (params.get('admin') === '1') {
     localStorage.setItem('potretai_admin_mode', 'true');
   }
+  const forcedTier = params.get('tier');
   updateUserProfileUI();
   navigateTo('dashboard');
   switchTab('wisuda');
   updateUsageUI();
   const storedTier = localStorage.getItem('potretai_package_tier');
   const hasStoredCredits = localStorage.getItem(TokenManager.STORAGE_KEY) !== null;
-  if (!storedTier) {
+  if (forcedTier && PACKAGE_CONFIG[forcedTier]) {
+    setCurrentPackage(forcedTier, { grantCredits: true });
+  } else if (!storedTier) {
     setCurrentPackage('spark', { grantCredits: !hasStoredCredits });
   } else {
     applyPackageGates();
