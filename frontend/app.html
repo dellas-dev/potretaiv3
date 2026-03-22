@@ -833,7 +833,7 @@
       <div class="dash-hero-usage">
         <div>
           <div class="dash-hero-usage-card-title" id="hero-plan-name">Signature</div>
-          <div class="dash-hero-usage-card-sub" id="hero-plan-sub">Paket utama untuk Studio Foto AI dan Wisuda AI.</div>
+          <div class="dash-hero-usage-card-sub" id="hero-plan-sub">Paket utama untuk Studio Foto AI, Wisuda AI, dan fitur premium Beauty Retouch.</div>
         </div>
         <div class="dash-hero-usage-top">
           <span class="dash-hero-usage-lbl">PENGGUNAAN BULAN INI</span>
@@ -1821,7 +1821,7 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       <div>
         <div class="plan-badge-text" id="acct-plan-name">Signature</div>
-        <div class="plan-badge-sub" id="acct-plan-sub">20 kredit &middot; Studio Foto AI + Wisuda AI</div>
+        <div class="plan-badge-sub" id="acct-plan-sub">20 kredit &middot; Studio Foto AI + Wisuda AI + Beauty Retouch</div>
       </div>
     </div>
     <div style="margin-top:16px;padding:14px;background:#F4F6F8;border-radius:12px;">
@@ -2500,8 +2500,8 @@ const PACKAGE_CONFIG = {
 const SelectOptionCache = {};
 
 function getCurrentPackageConfig() {
-  const tier = localStorage.getItem('potretai_package_tier') || 'signature';
-  return PACKAGE_CONFIG[tier] || PACKAGE_CONFIG.signature;
+  const tier = localStorage.getItem('potretai_package_tier') || 'spark';
+  return PACKAGE_CONFIG[tier] || PACKAGE_CONFIG.spark;
 }
 
 function cacheSelectOptions(selectId) {
@@ -4455,8 +4455,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     </div>
     <div style="border:1.5px solid #FF7A5A;border-radius:10px;padding:14px;margin-bottom:16px;background:rgba(255,122,90,0.06);">
       <div style="font-size:10px;font-weight:600;color:#FF7A5A;margin-bottom:3px">AKSES SEMUA LAYANAN</div>
-      <div style="font-size:14px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Setiap paket mencakup Studio Foto AI + Wisuda AI</div>
-      <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:2px 0 0">Perbedaannya ada di jumlah kredit, akses 4 foto, dan kedalaman library.</div>
+      <div style="font-size:14px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Semua paket mencakup Studio Foto AI + Wisuda AI, dan tier premium membuka Beauty Retouch</div>
+      <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:2px 0 0">Perbedaannya ada di jumlah kredit, akses 4 foto, kedalaman library, dan akses Beauty Retouch.</div>
     </div>
 
     <div style="font-size:11px;font-weight:600;color:#A7B0B5;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px">Top Up Kredit</div>
@@ -4494,7 +4494,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     <img id="qris-img" src="" alt="QRIS Code" style="width:200px;height:200px;border-radius:8px;border:0.5px solid var(--color-border-tertiary,#d0d8dc);display:block;margin:0 auto 14px">
 
     <p style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:0 0 16px;line-height:1.6" id="qris-desc">
-      Paket aktif akan memberi akses ke Studio Foto AI dan Wisuda AI sesuai tier yang dipilih.<br><br>
+      Paket aktif akan memberi akses ke layanan sesuai tier yang dipilih, termasuk Beauty Retouch untuk Signature dan Prestige.<br><br>
       Setelah transfer, kirim bukti pembayaran via WhatsApp:<br>
       <a href="https://wa.me/62XXXXXXXXXX?text=Bukti+bayar+PotretAI" target="_blank" style="color:#1FA6B5;font-weight:500">+62 XXX-XXXX-XXXX</a><br>
       Paket atau kredit top up akan aktif dalam 1×5 menit
