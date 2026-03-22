@@ -762,6 +762,10 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
         Wisuda AI
       </button>
+      <button class="sb-subitem" id="sb-beauty-item" data-tab="beauty_retouch" onclick="navigateTo('generator','beauty_retouch')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 3.64L18 8.2l-3 2.92.71 4.13L12 13.3l-3.71 1.95.71-4.13-3-2.92 4.2-.56L12 3z"/></svg>
+        Beauty Retouch
+      </button>
     </div>
 
     <button class="sb-item" data-view="history" onclick="navigateTo('history')">
@@ -865,7 +869,7 @@
         <div class="dash-section-hdr">
           <div>
             <div class="dash-section-title">Masuk ke Generator</div>
-            <div class="dash-section-sub">Dua workspace utama untuk mulai membuat hasil foto AI tanpa alur yang membingungkan.</div>
+            <div class="dash-section-sub">Workspace utama untuk mulai membuat hasil foto AI tanpa alur yang membingungkan.</div>
           </div>
         </div>
         <div class="svc-grid">
@@ -915,6 +919,29 @@
               </div>
             </div>
           </div>
+          <div class="svc-card" id="beauty-service-card" onclick="navigateTo('generator','beauty_retouch')">
+            <div class="svc-card-inner">
+              <div class="svc-body">
+                <div class="svc-topline">
+                  <div class="svc-pill">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 3.64L18 8.2l-3 2.92.71 4.13L12 13.3l-3.71 1.95.71-4.13-3-2.92 4.2-.56L12 3z"/></svg>
+                    Premium
+                  </div>
+                </div>
+                <div>
+                  <div class="svc-name">Beauty Retouch</div>
+                  <div class="svc-desc">Glow up premium dengan identity tetap mirip dan hasil portrait lebih polished.</div>
+                </div>
+                <div class="svc-footer">
+                  <div class="svc-meta">Premium Only</div>
+                  <button class="svc-cta" onclick="event.stopPropagation();navigateTo('generator','beauty_retouch')">
+                    Buka Generator
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -955,7 +982,7 @@
             <div class="stat-info">
               <div class="stat-label">Plan Aktif</div>
               <div class="stat-num">Premium</div>
-              <div class="stat-meta">Akses aktif untuk kedua layanan.</div>
+              <div class="stat-meta">Akses aktif sesuai paket yang sedang digunakan.</div>
             </div>
           </div>
         </div>
@@ -974,7 +1001,7 @@
     <div class="recent-grid" id="dashboard-recent">
       <div class="dash-empty" id="dashboard-empty">
         <div class="dash-empty-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#C4CDD2" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-        <div class="dash-empty-text">Belum ada foto yang dibuat. Mulai generate sekarang dan hasil pertama akan langsung muncul di area ini.</div>
+      <div class="dash-empty-text">Belum ada hasil yang dibuat. Mulai generate sekarang dan hasil pertama akan langsung muncul di area ini.</div>
         <button class="btn-primary-sm" onclick="navigateTo('generator')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
           Buat Foto Pertama
@@ -1001,6 +1028,7 @@
     <div class="gen-tabs" role="tablist">
       <button class="gen-tab active" data-tab="studio_foto" onclick="switchTab('studio_foto')" role="tab">Studio Foto AI</button>
       <button class="gen-tab"        data-tab="wisuda"      onclick="switchTab('wisuda')"       role="tab">Wisuda AI</button>
+      <button class="gen-tab"        data-tab="beauty_retouch" id="gen-tab-beauty" onclick="switchTab('beauty_retouch')" role="tab">Beauty Retouch</button>
     </div>
   </div>
 
@@ -1260,7 +1288,7 @@
         </div>
       </div><!-- /tab-wisuda -->
 
-      <!-- ══════════════ TAB: STUDIO KOREA ══════════════ -->
+      <!-- ══════════════ TAB: STUDIO FOTO ══════════════ -->
       <div class="tab-content active" id="tab-studio_foto">
 <!-- MODE TOGGLE -->
   <div class="form-sec">
@@ -1604,6 +1632,85 @@
 </div>
 </div><!-- /tab-studio_foto -->
 
+      <!-- ══════════════ TAB: BEAUTY RETOUCH ══════════════ -->
+      <div class="tab-content" id="tab-beauty_retouch">
+        <div class="form-sec">
+          <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Foto Referensi</div>
+          <div class="upload-grid">
+            <div>
+              <div class="upload-top-lbl">Upload Foto Referensi</div>
+              <div class="upload-relative">
+                <div class="upload-box" id="upload-br-wajah" onclick="triggerUpload('inp-br-wajah')">
+                  <input type="file" id="inp-br-wajah" accept="image/*" style="display:none" onchange="handleUpload(this,'upload-br-wajah')">
+                  <svg class="upload-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span class="upload-label-txt">Klik atau drag foto wanita</span>
+                  <span class="upload-hint-txt">JPG PNG WEBP · 1 wajah · portrait terang</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-helper"><strong>Upload 1 foto wanita</strong> dengan wajah jelas, terang, dan disarankan half body atau portrait. Hindari blur, group photo, dan wajah tertutup.</div>
+        </div>
+
+        <div class="form-sec">
+          <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>Beauty Settings</div>
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label">Beauty Style</label>
+              <select class="form-select" id="br-style">
+                <option value="natural_premium" selected>Natural Premium</option>
+                <option value="beauty_glam">Beauty Glam</option>
+                <option value="semi_transformasi">Semi-Transformasi</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Body Refinement</label>
+              <select class="form-select" id="br-body">
+                <option value="natural" selected>Natural</option>
+                <option value="slightly_slim">Slightly Slim</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Skin Finish</label>
+              <select class="form-select" id="br-skin">
+                <option value="brighter_skin">Brighter Skin</option>
+                <option value="smoother_skin">Smoother Skin</option>
+                <option value="radiant_skin">Radiant Skin</option>
+                <option value="glowing_complexion" selected>Glowing Complexion</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Outfit Style</label>
+              <select class="form-select" id="br-outfit">
+                <option value="casual_chic">Casual Chic</option>
+                <option value="korean_soft" selected>Korean Soft</option>
+                <option value="office_formal">Office Formal</option>
+                <option value="elegant_dress">Elegant Dress</option>
+                <option value="party_glam">Party Glam</option>
+                <option value="luxury_studio">Luxury Studio</option>
+                <option value="soft_feminine">Soft Feminine</option>
+                <option value="hijab_elegant">Hijab Elegant</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-helper"><strong>Beauty Retouch</strong> menjaga wajah tetap mirip, hanya dipoles lebih cantik, rapi, glowing, dan premium. Cocok untuk profil, Instagram, branding, dan portrait personal.</div>
+        </div>
+
+        <div class="gen-bottom">
+          <div class="count-row">
+            <span class="count-label">Jumlah foto</span>
+            <label class="count-option"><input type="radio" name="photo-count-br" value="2" checked> 2 foto</label>
+            <span class="count-reco">Premium only · 2 kredit per generate</span>
+          </div>
+          <button class="btn-generate" id="btn-gen-br" onclick="startGenerate()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span id="btn-gen-br-label">Generate 2 Beauty Retouch</span>
+            <svg id="btn-gen-br-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          </button>
+          <div class="gen-cta-note">Generate 2 hasil premium dengan identity tetap mirip dan retouch lebih elegan.</div>
+        </div>
+      </div><!-- /tab-beauty_retouch -->
+
     </div><!-- /gen-left -->
 
     <!-- RIGHT PANEL: Output -->
@@ -1675,6 +1782,7 @@
     <button class="cat-filter-btn active" data-filter="all"          onclick="filterHistory('all',this)">Semua</button>
     <button class="cat-filter-btn" data-filter="wisuda"             onclick="filterHistory('wisuda',this)">Wisuda</button>
     <button class="cat-filter-btn" data-filter="studio_foto"       onclick="filterHistory('studio_foto',this)">Studio Foto</button>
+    <button class="cat-filter-btn" data-filter="beauty_retouch" id="history-filter-beauty" onclick="filterHistory('beauty_retouch',this)">Beauty Retouch</button>
   </div>
   <div class="hist-grid" id="history-grid">
     <div class="hist-empty" id="history-empty">
@@ -1721,6 +1829,7 @@
       <div style="display:flex;flex-direction:column;gap:6px;">
         <div style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Studio Foto AI</span></div>
         <div style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>Wisuda AI</span></div>
+        <div id="acct-beauty-access" style="display:flex;align-items:center;gap:10px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span style="font-family:'Inter',sans-serif;font-size:13.5px;color:#1E2A2F;"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 3.64L18 8.2l-3 2.92.71 4.13L12 13.3l-3.71 1.95.71-4.13-3-2.92 4.2-.56L12 3z"/></svg>Beauty Retouch</span></div>
       </div>
     </div>
   </div>
@@ -1795,6 +1904,10 @@
     <button class="sb-subitem" data-tab="wisuda" onclick="navigateTo('generator','wisuda');closeMobileSidebar();">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
       Wisuda AI
+    </button>
+    <button class="sb-subitem" id="sb-beauty-item-mobile" data-tab="beauty_retouch" onclick="navigateTo('generator','beauty_retouch');closeMobileSidebar();">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 3.64L18 8.2l-3 2.92.71 4.13L12 13.3l-3.71 1.95.71-4.13-3-2.92 4.2-.56L12 3z"/></svg>
+      Beauty Retouch
     </button>
   </div>
   <button class="sb-item" data-view="history" onclick="navigateTo('history');closeMobileSidebar()">
@@ -2320,17 +2433,17 @@ const TokenManager = {
 };
 
 function getSelectedPhotoCount(tab) {
-  const tabSuffix = { studio_foto: 'sf', wisuda: 'ws' }[tab] || tab;
+  const tabSuffix = { studio_foto: 'sf', wisuda: 'ws', beauty_retouch: 'br' }[tab] || tab;
   return parseInt(document.querySelector(`input[name="photo-count-${tabSuffix}"]:checked`)?.value || '2', 10);
 }
 
 function getGenerateLabel(tab, count) {
-  const serviceLabel = tab === 'wisuda' ? 'Wisuda' : 'Studio';
+  const serviceLabel = tab === 'wisuda' ? 'Wisuda' : tab === 'beauty_retouch' ? 'Beauty Retouch' : 'Studio';
   return `Generate ${count} Foto ${serviceLabel}`;
 }
 
 function refreshGenerateButtonLabels() {
-  ['wisuda', 'studio_foto'].forEach((tab) => {
+  ['wisuda', 'studio_foto', 'beauty_retouch'].forEach((tab) => {
     const pfx = TAB_BTN_ID[tab] || tab.slice(0, 2);
     const lbl = document.getElementById('btn-gen-' + pfx + '-label');
     if (!lbl) return;
@@ -2346,6 +2459,7 @@ const PACKAGE_CONFIG = {
     canGenerate4: false,
     studio: { femaleOutfits: 10, maleOutfits: 10, locations: 12, femalePoses: 10, malePoses: 10, lighting: 4 },
     wisuda: { outfits: 6, backgrounds: 6, poses: 6, lighting: 3, toga: 3, sash: 3, props: 3 },
+    beauty: { enabled: false, styles: 0, body: 0, skin: 0, outfits: 0 },
     summary: '8 kredit · 2 foto per generate',
   },
   signature: {
@@ -2355,6 +2469,7 @@ const PACKAGE_CONFIG = {
     canGenerate4: true,
     studio: { femaleOutfits: 20, maleOutfits: 20, locations: 28, femalePoses: 20, malePoses: 20, lighting: 6 },
     wisuda: { outfits: 10, backgrounds: 10, poses: 10, lighting: 4, toga: 5, sash: 5, props: 5 },
+    beauty: { enabled: true, styles: 3, body: 2, skin: 4, outfits: 8 },
     summary: '20 kredit · 2 & 4 foto per generate',
   },
   prestige: {
@@ -2364,6 +2479,7 @@ const PACKAGE_CONFIG = {
     canGenerate4: true,
     studio: { femaleOutfits: Infinity, maleOutfits: Infinity, locations: Infinity, femalePoses: Infinity, malePoses: Infinity, lighting: Infinity },
     wisuda: { outfits: Infinity, backgrounds: Infinity, poses: Infinity, lighting: Infinity, toga: Infinity, sash: Infinity, props: Infinity },
+    beauty: { enabled: true, styles: Infinity, body: Infinity, skin: Infinity, outfits: Infinity },
     summary: '40 kredit · full library + priority',
   },
 };
@@ -2413,7 +2529,7 @@ function applySelectLimit(selectId, limit) {
 }
 
 function rememberSelectValues() {
-  ['sk-outfit-female','sk-outfit-male','sk-background','sk-pose-female','sk-pose-male','sk-lighting','ws-outfit-wanita','ws-outfit-pria','ws-background','ws-pose-wanita','ws-pose-pria','ws-lighting','ws-toga','ws-salempang','ws-props']
+  ['sk-outfit-female','sk-outfit-male','sk-background','sk-pose-female','sk-pose-male','sk-lighting','ws-outfit-wanita','ws-outfit-pria','ws-background','ws-pose-wanita','ws-pose-pria','ws-lighting','ws-toga','ws-salempang','ws-props','br-style','br-body','br-skin','br-outfit']
     .forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.dataset.currentValue = el.value;
@@ -2446,19 +2562,21 @@ function updatePackageUI() {
   const acctPlanSub = document.getElementById('acct-plan-sub');
   const dTotalCredits = document.getElementById('d-total-credits');
   const acctTotalCredits = document.getElementById('acct-total-credits');
+  const acctBeautyAccess = document.getElementById('acct-beauty-access');
   if (currentPlanName) currentPlanName.textContent = pkg.label;
   if (currentPlanMeta) currentPlanMeta.textContent = pkg.summary;
   if (heroPlanName) heroPlanName.textContent = pkg.label;
   if (heroPlanSub) heroPlanSub.textContent = pkg.key === 'spark'
     ? 'Paket awal yang efisien untuk Studio Foto AI dan Wisuda AI.'
     : pkg.key === 'signature'
-      ? 'Paket utama dengan akses terbaik untuk Studio Foto AI dan Wisuda AI.'
-      : 'Akses penuh untuk library premium Studio Foto AI dan Wisuda AI.';
+      ? 'Paket utama dengan akses terbaik untuk Studio Foto AI, Wisuda AI, dan Beauty Retouch.'
+      : 'Akses penuh untuk library premium termasuk Beauty Retouch.';
   if (heroPlanMeta) heroPlanMeta.textContent = `Plan: ${pkg.label} · ${pkg.summary}`;
   if (acctPlanName) acctPlanName.textContent = pkg.label;
-  if (acctPlanSub) acctPlanSub.textContent = pkg.summary;
+  if (acctPlanSub) acctPlanSub.textContent = pkg.summary + (pkg.beauty?.enabled ? ' · Beauty Retouch aktif' : ' · Studio Foto AI + Wisuda AI');
   if (dTotalCredits) dTotalCredits.textContent = String(pkg.credits);
   if (acctTotalCredits) acctTotalCredits.textContent = String(pkg.credits);
+  if (acctBeautyAccess) acctBeautyAccess.style.display = pkg.beauty?.enabled ? 'flex' : 'none';
 }
 
 function applyPackageGates() {
@@ -2479,8 +2597,21 @@ function applyPackageGates() {
   applySelectLimit('ws-toga', pkg.wisuda.toga);
   applySelectLimit('ws-salempang', pkg.wisuda.sash);
   applySelectLimit('ws-props', pkg.wisuda.props);
+  applySelectLimit('br-style', pkg.beauty.styles);
+  applySelectLimit('br-body', pkg.beauty.body);
+  applySelectLimit('br-skin', pkg.beauty.skin);
+  applySelectLimit('br-outfit', pkg.beauty.outfits);
   applyPackageToPhotoCount('photo-count-sf', pkg.canGenerate4);
   applyPackageToPhotoCount('photo-count-ws', pkg.canGenerate4);
+  const beautyTab = document.getElementById('gen-tab-beauty');
+  const beautySidebar = document.getElementById('sb-beauty-item');
+  const beautySidebarMobile = document.getElementById('sb-beauty-item-mobile');
+  const beautyCard = document.getElementById('beauty-service-card');
+  const beautyHistoryFilter = document.getElementById('history-filter-beauty');
+  [beautyTab, beautySidebar, beautySidebarMobile, beautyCard, beautyHistoryFilter].forEach((el) => {
+    if (el) el.style.display = pkg.beauty.enabled ? '' : 'none';
+  });
+  if (!pkg.beauty.enabled && AppState.currentTab === 'beauty_retouch') switchTab('studio_foto');
   document.querySelectorAll('.count-reco').forEach((el) => {
     el.textContent = pkg.canGenerate4 ? 'Default: 2 foto · 4 foto tersedia' : 'Default: 2 foto · 4 foto khusus Signature/Prestige';
   });
@@ -2758,6 +2889,7 @@ const PromptBuilder = {
     const faceSlots = {
       wisuda:      { pria: 'upload-ws-wajah', wanita: 'upload-ws-wajah' },
       studio_foto: { pria: 'upload-sk-wajah', wanita: 'upload-sk-wajah' },
+      beauty_retouch: { wanita: 'upload-br-wajah' },
     };
     const slots = faceSlots[tab] || {};
     const hf = {
@@ -2766,6 +2898,7 @@ const PromptBuilder = {
     };
     const builders = {
       wisuda:       () => this.buildWisuda(hf),
+      beauty_retouch: () => buildBeautyRetouchPrompt(),
     };
     const prompt = builders[tab]?.() || '';
     // Debug: lihat prompt di browser console (F12 → Console)
@@ -2773,6 +2906,55 @@ const PromptBuilder = {
     return prompt;
   }
 };
+
+const BEAUTY_STYLE_MAP = {
+  natural_premium: 'a subtle premium beauty retouch with soft natural elegance and minimal makeup',
+  beauty_glam: 'a polished glam beauty look with refined makeup and luxurious elegance',
+  semi_transformasi: 'a stronger glow-up effect with elevated beauty enhancement and premium fashionable styling',
+};
+
+const SKIN_STYLE_MAP = {
+  brighter_skin: 'slightly brighter skin tone with natural realism',
+  smoother_skin: 'smoother skin texture while keeping realistic skin detail',
+  radiant_skin: 'a radiant healthy-looking complexion',
+  glowing_complexion: 'a glowing complexion with soft premium lighting',
+};
+
+const BODY_STYLE_MAP = {
+  natural: 'maintain natural body proportions with only minimal refinement',
+  slightly_slim: 'make the silhouette slightly slimmer while staying realistic and elegant',
+};
+
+const OUTFIT_STYLE_MAP = {
+  casual_chic: 'a modern casual chic outfit, elegant and feminine',
+  korean_soft: 'a soft Korean-inspired feminine outfit, clean and stylish',
+  office_formal: 'a polished office formal outfit, classy and professional',
+  elegant_dress: 'an elegant dress with refined feminine luxury',
+  party_glam: 'a glamorous premium party outfit, stylish and confident',
+  luxury_studio: 'a sophisticated luxury studio fashion outfit, high-end and elegant',
+  soft_feminine: 'a soft feminine outfit, graceful, delicate, and premium',
+  hijab_elegant: 'an elegant modest fashion look with premium hijab styling',
+};
+
+function buildBeautyRetouchPrompt() {
+  const beauty = document.getElementById('br-style')?.value || 'natural_premium';
+  const body = document.getElementById('br-body')?.value || 'natural';
+  const skin = document.getElementById('br-skin')?.value || 'glowing_complexion';
+  const outfit = document.getElementById('br-outfit')?.value || 'korean_soft';
+
+  const beautyText = BEAUTY_STYLE_MAP[beauty] || BEAUTY_STYLE_MAP.natural_premium;
+  const bodyText = BODY_STYLE_MAP[body] || BODY_STYLE_MAP.natural;
+  const skinText = SKIN_STYLE_MAP[skin] || SKIN_STYLE_MAP.glowing_complexion;
+  const outfitText = OUTFIT_STYLE_MAP[outfit] || OUTFIT_STYLE_MAP.korean_soft;
+
+  return `Preserve the same woman from the reference photo. Keep facial identity, overall pose, and composition very similar to the original. Make her look more beautiful in a natural and premium way, while keeping her fully recognizable.
+
+Apply ${beautyText}. Apply ${skinText}. Refine the eyes, lips, eyebrows, teeth, nose, and hair in an elegant and realistic way. Apply ${bodyText}. Dress her in ${outfitText}.
+
+Create a premium portrait result with soft flattering light, realistic skin details, polished but believable beauty retouch, clean high-end photography look, elegant feminine styling, natural realism.
+
+Do not change identity. Do not over-edit the face. Do not create unrealistic body proportions. Avoid plastic skin, exaggerated whitening, distorted anatomy, and broken clothing details. Keep the result natural, believable, and premium.`.trim();
+}
 
 // ═══════════════════════════════════════════════════════════
 // MODULE: FalEngine
@@ -2830,6 +3012,32 @@ const FalEngine = {
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
       const err = new Error(data.error || 'Generate profesional gagal');
+      err.credit = data.credit || null;
+      throw err;
+    }
+    return data;
+  },
+
+  async generateBeautyRetouch(prompt, faceUrl) {
+    showToast('✨ Beauty Retouch sedang diproses...', 'info');
+    const res = await fetch(`${WORKER_URL}/generate-beauty-retouch`, {
+      method: 'POST',
+      headers: getWorkerJsonHeaders(),
+      body: JSON.stringify({
+        prompt,
+        face_url: faceUrl,
+        count: 2,
+        service: 'beauty_retouch',
+        request_id: crypto.randomUUID(),
+        beauty_style: document.getElementById('br-style')?.value || 'natural_premium',
+        body_refinement: document.getElementById('br-body')?.value || 'natural',
+        skin_style: document.getElementById('br-skin')?.value || 'glowing_complexion',
+        outfit_style: document.getElementById('br-outfit')?.value || 'korean_soft',
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const err = new Error(data.error || 'Beauty Retouch gagal');
       err.credit = data.credit || null;
       throw err;
     }
@@ -3574,7 +3782,7 @@ async function startGenerate() {
     let creditMeta = null;
 
     // ── SOLO MENUS (flux-pulid) ────────────────────────────────────
-    if (tab === 'wisuda' || tab === 'studio_foto') {
+  if (tab === 'wisuda' || tab === 'studio_foto') {
       const faceBoxId = tab === 'wisuda' ? 'upload-ws-wajah' : 'upload-sk-wajah';
       const faceFile = UploadFiles[faceBoxId] || null;
       const prompt   = buildSoloPrompt(tab);
@@ -3587,6 +3795,17 @@ async function startGenerate() {
         showToast('⚠️ Upload foto wajah dulu untuk hasil terbaik', 'info');
       }
       const result = await FalEngine.generateSolo(prompt, faceUrl || '', photoCount);
+      urls = result.urls || [];
+      creditMeta = result.credit || null;
+    }
+
+    if (tab === 'beauty_retouch') {
+      const faceFile = UploadFiles['upload-br-wajah'] || null;
+      if (!faceFile) throw new Error('Foto referensi Beauty Retouch wajib diupload');
+      const faceUrl = await FalEngine.uploadFace(faceFile);
+      const prompt = buildBeautyRetouchPrompt();
+      console.log('[Beauty Retouch Prompt]', prompt);
+      const result = await FalEngine.generateBeautyRetouch(prompt, faceUrl || '');
       urls = result.urls || [];
       creditMeta = result.credit || null;
     }
@@ -3624,7 +3843,7 @@ async function startGenerate() {
 }
 
 const TAB_BTN_ID = {
-  wisuda:'ws', studio_foto:'sf',
+  wisuda:'ws', studio_foto:'sf', beauty_retouch:'br',
 };
 
 function setBtnLoading(tab, loading) {
@@ -3683,7 +3902,7 @@ function renderHistory(filter) {
     <div class="hist-photo">
       <img src="${url}" alt="${tab}" loading="lazy" onclick="openLightbox('${url}')"
         onerror="this.src='https://placehold.co/200x250?text=Error'">
-      <div class="hist-photo-badge">${{wisuda:'Wisuda',studio_foto:'Studio'}[tab] || tab}</div>
+      <div class="hist-photo-badge">${{wisuda:'Wisuda',studio_foto:'Studio',beauty_retouch:'Beauty'}[tab] || tab}</div>
       <button class="hist-photo-dl" onclick="downloadImage('${url}','${tab}');event.stopPropagation();" title="Unduh"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
     </div>`).join('');
 }

@@ -36,6 +36,7 @@ const BETA_PROTECTED_PATHS = new Set([
   '/upload-face',
   '/generate-pulid',
   '/generate-instantid',
+  '/generate-beauty-retouch',
   '/create-order',
   '/submit-payment-proof',
 ]);
@@ -433,6 +434,114 @@ export default {
           result_count: urls.length,
           output_profile: '768x1152@18',
           estimated_cost_units: photoCount,
+        }, env);
+        await recordGeneration(env, userId || 'anonymous');
+        await recordGenerationCost(env);
+        const latestCredit = userId ? await getUserCredit(userId, env) : null;
+        return jsonResponse({ success: true, urls, credit: latestCredit }, 200, origin);
+      }
+
+      if (path === '/generate-beauty-retouch') {
+        const body = await request.json();
+        if (!body.prompt) return jsonResponse({ error: 'prompt required' }, 400, origin);
+        if (!body.face_url) return jsonResponse({ error: 'face_url required' }, 400, origin);
+
+        const userId = request.headers.get('X-User-Id') || body.user_id || '';
+        const requestId = body.request_id || crypto.randomUUID();
+        const service = 'beauty_retouch';
+        const photoCount = 2;
+        const requiresIdentity = !/^https?:\/\/(localhost|127\.0\.0\.1)/.test(origin || '');
+
+        if (requiresIdentity && !userId) {
+          return jsonResponse({ error: 'User identity required', code: 'USER_ID_REQUIRED' }, 401, origin);
+        }
+
+        const allowedToday = await checkDailyLimit(env);
+        if (!allowedToday) {
+          return jsonResponse({ error: 'Batas generate harian tercapai. Coba lagi besok atau hubungi admin.' }, 429, origin);
+        }
+
+        let chargeMeta = null;
+        if (userId && env.USER_CREDITS) {
+          try {
+            chargeMeta = await chargeGenerate(userId, { photoCount, service, requestId }, env);
+          } catch (err) {
+            await writeGenerateLog(userId, {
+              request_id: requestId,
+              endpoint: path,
+              service,
+              photo_count: photoCount,
+              status: 'rejected_quota',
+              reason: err.message,
+            }, env);
+            const latestCredit = userId ? await getUserCredit(userId, env) : null;
+            return jsonResponse({ error: err.message || 'Kredit habis. Silakan upgrade paket.', credit: latestCredit }, 402, origin);
+          }
+        }
+
+        await writeGenerateLog(userId, {
+          request_id: requestId,
+          endpoint: path,
+          service,
+          photo_count: photoCount,
+          charged_credits: chargeMeta?.cost || 0,
+          package_tier: chargeMeta?.package_tier || 'anonymous',
+          status: 'processing',
+          prompt_length: body.prompt.length,
+          output_profile: 'beauty_retouch',
+          estimated_cost_units: 2,
+        }, env);
+
+        const payload = {
+          prompt: body.prompt,
+          image_url: body.face_url,
+          num_images: 2,
+          output_format: 'jpeg',
+        };
+
+        const res = await fetch('https://fal.run/fal-ai/flux-pro/kontext', {
+          method: 'POST',
+          headers: {
+            Authorization: `Key ${apiKey}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const errText = await res.text().catch(() => '');
+          const refundedCredit = chargeMeta && userId
+            ? await refundGenerate(userId, { photoCount, service, requestId, reason: 'beauty_retouch_failed' }, env)
+            : null;
+          return jsonResponse({
+            error: `Beauty Retouch gagal: ${errText.slice(0, 200)}`,
+            credit: refundedCredit,
+          }, 502, origin);
+        }
+
+        const data = await res.json().catch(() => null);
+        const urls = data?.images?.map((x) => x.url).filter(Boolean) || [];
+        if (!urls.length) {
+          const refundedCredit = chargeMeta && userId
+            ? await refundGenerate(userId, { photoCount, service, requestId, reason: 'empty_result' }, env)
+            : null;
+          return jsonResponse({
+            error: 'Beauty Retouch tidak menghasilkan gambar.',
+            credit: refundedCredit,
+          }, 502, origin);
+        }
+
+        await writeGenerateLog(userId, {
+          request_id: requestId,
+          endpoint: path,
+          service,
+          photo_count: photoCount,
+          charged_credits: chargeMeta?.cost || 0,
+          package_tier: chargeMeta?.package_tier || 'anonymous',
+          status: 'success',
+          result_count: urls.length,
+          output_profile: 'beauty_retouch',
+          estimated_cost_units: 2,
         }, env);
         await recordGeneration(env, userId || 'anonymous');
         await recordGenerationCost(env);

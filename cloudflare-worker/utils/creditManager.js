@@ -13,6 +13,7 @@ const PACKAGE_PLANS = {
     features: {
       studio: { femaleOutfits: 10, maleOutfits: 10, locations: 12, femalePoses: 10, malePoses: 10, lighting: 4 },
       wisuda: { outfits: 6, backgrounds: 6, poses: 6, lighting: 3 },
+      beauty: { enabled: false, styles: 0, body: 0, skin: 0, outfits: 0 },
     },
   },
   signature: {
@@ -24,6 +25,7 @@ const PACKAGE_PLANS = {
     features: {
       studio: { femaleOutfits: 20, maleOutfits: 20, locations: 28, femalePoses: 20, malePoses: 20, lighting: 6 },
       wisuda: { outfits: 10, backgrounds: 10, poses: 10, lighting: 4 },
+      beauty: { enabled: true, styles: 3, body: 2, skin: 4, outfits: 8 },
     },
   },
   prestige: {
@@ -35,6 +37,7 @@ const PACKAGE_PLANS = {
     features: {
       studio: { femaleOutfits: 'all', maleOutfits: 'all', locations: 'all', femalePoses: 'all', malePoses: 'all', lighting: 'all' },
       wisuda: { outfits: 'all', backgrounds: 'all', poses: 'all', lighting: 'all' },
+      beauty: { enabled: true, styles: 'all', body: 'all', skin: 'all', outfits: 'all' },
     },
   },
   trial: {
@@ -46,6 +49,7 @@ const PACKAGE_PLANS = {
     features: {
       studio: { femaleOutfits: 6, maleOutfits: 6, locations: 6, femalePoses: 6, malePoses: 6, lighting: 2 },
       wisuda: { outfits: 4, backgrounds: 4, poses: 4, lighting: 2 },
+      beauty: { enabled: false, styles: 0, body: 0, skin: 0, outfits: 0 },
     },
   },
   starter: {
@@ -71,10 +75,12 @@ function PACKAGE_PLANS_SHIM(tier) {
     ? {
         studio: { femaleOutfits: 'all', maleOutfits: 'all', locations: 'all', femalePoses: 'all', malePoses: 'all', lighting: 'all' },
         wisuda: { outfits: 'all', backgrounds: 'all', poses: 'all', lighting: 'all' },
+        beauty: { enabled: true, styles: 'all', body: 'all', skin: 'all', outfits: 'all' },
       }
     : {
         studio: { femaleOutfits: 20, maleOutfits: 20, locations: 28, femalePoses: 20, malePoses: 20, lighting: 6 },
         wisuda: { outfits: 10, backgrounds: 10, poses: 10, lighting: 4 },
+        beauty: { enabled: true, styles: 3, body: 2, skin: 4, outfits: 8 },
       };
 }
 
@@ -209,7 +215,8 @@ export async function writeGenerateLog(loginId, payload, env) {
   }
 }
 
-export function getCreditCostForPhotoCount(photoCount) {
+export function getCreditCostForPhotoCount(photoCount, service = 'studio_foto') {
+  if (service === 'beauty_retouch') return 2;
   return photoCount >= 4 ? 2 : 1;
 }
 
@@ -288,19 +295,20 @@ export function checkCategoryAccess(credit, category) {
   if (!credit?.features) return true;
   if (category === 'studio' || category === 'studio_foto') return !!credit.features.studio;
   if (category === 'wisuda') return !!credit.features.wisuda;
+  if (category === 'beauty' || category === 'beauty_retouch') return !!credit.features.beauty?.enabled;
   return true;
 }
 
 export async function chargeGenerate(loginId, { photoCount = 2, service = 'studio_foto', requestId = crypto.randomUUID() } = {}, env) {
   const credit = await ensureUserCredit(loginId, env);
-  const effectiveService = service === 'wisuda' ? 'wisuda' : 'studio_foto';
+  const effectiveService = service === 'wisuda' ? 'wisuda' : service === 'beauty_retouch' ? 'beauty_retouch' : 'studio_foto';
   if (!checkCategoryAccess(credit, effectiveService)) {
     throw new Error('Paket saat ini belum memiliki akses ke layanan ini');
   }
   if (photoCount >= 4 && !credit.can_generate_4) {
     throw new Error('4 foto hanya tersedia untuk paket Signature dan Prestige');
   }
-  const cost = getCreditCostForPhotoCount(photoCount);
+  const cost = getCreditCostForPhotoCount(photoCount, effectiveService);
   if (credit.credits_remaining < cost) {
     throw new Error('Generate quota exhausted');
   }
@@ -329,7 +337,7 @@ export async function chargeGenerate(loginId, { photoCount = 2, service = 'studi
 
 export async function refundGenerate(loginId, { photoCount = 2, service = 'studio_foto', requestId = crypto.randomUUID(), reason = 'generate_failed' } = {}, env) {
   const credit = await ensureUserCredit(loginId, env);
-  const refund = getCreditCostForPhotoCount(photoCount);
+  const refund = getCreditCostForPhotoCount(photoCount, service);
   credit.credits_remaining += refund;
   credit.generates_remaining = credit.credits_remaining;
   await saveUserCredit(loginId, credit, env);
