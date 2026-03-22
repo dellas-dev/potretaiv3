@@ -1064,89 +1064,138 @@
         <div class="form-sec">
           <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/></svg>Outfit Wisuda</div>
 
-          <!-- Outfit Wanita (default tampil) -->
           <div class="form-field" id="ws-outfit-wanita-wrap">
             <label class="form-label">Outfit Wanita</label>
-            <select class="form-select" id="ws-outfit-wanita" onchange="checkCustom(this,'ws-outfit-c')">
-      <option value="toga_black">Toga Hitam + Mortarboard Emas</option>
-      <option value="toga_black_red">Toga Hitam + Hood Merah (Teknik/Hukum)</option>
-      <option value="toga_black_blue">Toga Hitam + Hood Biru (Ekonomi/Sosial)</option>
-      <option value="toga_black_yellow">Toga Hitam + Hood Kuning (Kedokteran)</option>
-      <option value="toga_maroon">Toga Maroon + Mortarboard Gold</option>
-      <option value="toga_navy">Toga Navy Blue + Mortarboard Gold</option>
-    </select>
+            <select class="form-select" id="ws-outfit-wanita">
+              <option value="w_kebaya_kutubaru">Kebaya Kutubaru Klasik</option>
+              <option value="w_kebaya_brokat" selected>Kebaya Brokat Modern</option>
+              <option value="w_dress_satin">Dress Satin Minimalis</option>
+              <option value="w_kebaya_encim">Kebaya Encim</option>
+              <option value="w_peplum_kebaya">Peplum Kebaya</option>
+              <option value="w_batik_dress">Batik Dress Modern</option>
+              <option value="w_organza_skirt">Organza Top + Skirt</option>
+              <option value="w_pantsuit">Tailored Pantsuit Wanita</option>
+              <option value="w_kebaya_cape">Kebaya Cape</option>
+              <option value="w_tunik_brokat">Tunik Brokat Hijab Friendly</option>
+            </select>
           </div>
 
-          <!-- Outfit Pria (default tersembunyi) -->
           <div class="form-field" id="ws-outfit-pria-wrap" style="display:none">
             <label class="form-label">Outfit Pria</label>
-            <select class="form-select" id="ws-outfit-pria" onchange="checkCustom(this,'ws-outfit-c')">
-      <option value="toga_black">Toga Hitam + Mortarboard Emas</option>
-      <option value="toga_black_red">Toga Hitam + Hood Merah (Teknik/Hukum)</option>
-      <option value="toga_black_blue">Toga Hitam + Hood Biru (Ekonomi/Sosial)</option>
-      <option value="toga_black_yellow">Toga Hitam + Hood Kuning (Kedokteran)</option>
-      <option value="toga_maroon">Toga Maroon + Mortarboard Gold</option>
-      <option value="toga_navy">Toga Navy Blue + Mortarboard Gold</option>
-    </select>
+            <select class="form-select" id="ws-outfit-pria">
+              <option value="m_classic_black" selected>Classic Black Suit</option>
+              <option value="m_navy_slim">Navy Blue Slim-fit</option>
+              <option value="m_batik_premium">Batik Lengan Panjang Premium</option>
+              <option value="m_turtleneck_blazer">Turtleneck &amp; Blazer</option>
+              <option value="m_grey_checkered">Grey Checkered Suit</option>
+              <option value="m_earth_tone_suit">Earth Tone Suit</option>
+              <option value="m_vest_shirt">Vest &amp; Shirt Semi Formal</option>
+              <option value="m_full_white">Full White Suit</option>
+              <option value="m_batik_outer">Batik Outer / Kimono Batik</option>
+              <option value="m_suspender_style">Suspender Style Classic</option>
+            </select>
           </div>
 
-          <input type="text" class="form-input-text custom-input" id="ws-outfit-c" placeholder="Contoh: toga biru, kebaya emas, jas coklat...">
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label">Toga</label>
+              <select class="form-select" id="ws-toga">
+                <option value="toga_black_classic" selected>Toga Hitam Klasik</option>
+                <option value="toga_black_matte">Toga Hitam Premium Matte</option>
+                <option value="toga_black_formal">Toga Hitam + Mortarboard Formal</option>
+                <option value="toga_carried">Toga Digenggam / Disampirkan</option>
+                <option value="no_toga">Tanpa Toga</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Salempang / Medali</label>
+              <select class="form-select" id="ws-salempang">
+                <option value="cumlaude_green" selected>Salempang Cumlaude Hijau</option>
+                <option value="cumlaude_maroon">Salempang Cumlaude Marun</option>
+                <option value="sash_black_gold">Salempang Hitam Emas</option>
+                <option value="campus_green">Salempang Kampus Hijau</option>
+                <option value="campus_maroon">Salempang Kampus Marun</option>
+                <option value="medal_gold_orange">Medali Wisuda Emas / Oranye</option>
+                <option value="no_sash">Tanpa Salempang / Medali</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div class="form-sec">
           <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Background / Lokasi</div>
           <div class="form-field">
             <label class="form-label">Pilih Background</label>
-            <select class="form-select" id="ws-background" onchange="checkCustom(this,'ws-bg-c')">
-      <optgroup label="── FRENCH BAROQUE / KLASIK EROPA ──">
-        <option value="baroque_white_full">Baroque Putih Full Set — Fireplace + Armchair + Bunga</option>
-        <option value="baroque_white_simple">Baroque Putih Simple — Armchair + Bunga Minimal</option>
-        <option value="baroque_arch_window">Baroque Arch Window — Relung Jendela Klasik</option>
-        <option value="baroque_pastel_flowers">Baroque Pastel Bunga — Meja + Kursi + Lilin</option>
-        <option value="baroque_full_flowers">Baroque Grand Full Bunga — Set Mewah Penuh</option>
-      </optgroup>
-      <optgroup label="── WHITE PANEL MODERN KLASIK ──">
-        <option value="white_wainscoting_flowers">White Wainscoting + Jendela + Bunga Putih</option>
-        <option value="white_panel_minimal">White Panel Minimal — Bersih Elegan</option>
-        <option value="white_pillar_classic">White Pillar — Kolom Klasik Putih</option>
-      </optgroup>
-      <optgroup label="── DARK DRAMATIC ──">
-        <option value="dark_black_moody">Dark Black Moody — Dramatik Elegan</option>
-        <option value="dark_navy_classic">Dark Navy Classic — Biru Gelap Elegan</option>
-        <option value="dark_grey_elegant">Dark Grey — Abu Gelap Fine Art</option>
-      </optgroup>
-      <optgroup label="── STUDIO CLEAN ──">
-        <option value="white_seamless_studio">Studio Putih Seamless Bersih</option>
-        <option value="grey_elegant_studio">Studio Abu Elegan Neutral</option>
-        <option value="cream_classic_studio">Studio Krem Klasik Hangat</option>
-        <option value="garden_window_indoor">Window Garden — Jendela + Tanaman Indoor</option>
-      </optgroup>
-      </select>
-            <input type="text" class="form-input-text custom-input" id="ws-bg-c" placeholder="Contoh: taman bunga, perpustakaan, pantai...">
+            <select class="form-select" id="ws-background">
+              <option value="grey_drape" selected>Grey Drape Studio</option>
+              <option value="white_classic_arch">White Classic Arch</option>
+              <option value="white_seamless_floral">White Seamless Floral</option>
+              <option value="black_editorial_panel">Black Editorial Panel</option>
+              <option value="blush_classic_floral">Blush Classic Floral</option>
+              <option value="beige_arch_pampas">Beige Arch Pampas</option>
+            </select>
           </div>
         </div>
         <div class="form-sec">
           <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><path d="M12 8v8M9 21l3-5 3 5"/></svg>Pose &amp; Properti</div>
           <div class="form-row">
-            <div class="form-field">
-              <label class="form-label">Pose</label>
-              <select class="form-select" id="ws-pose">
-                <option value="standing_diploma_raised">Berdiri — Angkat Ijazah Tinggi, Gembira</option>
-                <option value="standing_diploma_chest">Berdiri — Ijazah di Dada, Senyum Natural</option>
-                <option value="standing_diploma_side">Berdiri 3/4 Angle — Ijazah di Samping</option>
-                <option value="standing_proud">Berdiri Tegak — Pose Natural Bangga</option>
-                <option value="sitting_elegant">Duduk Elegan — di Kursi Baroque</option>
+            <div class="form-field" id="ws-pose-wanita-wrap">
+              <label class="form-label">Pose Wanita</label>
+              <select class="form-select" id="ws-pose-wanita">
+                <option value="f_facing_forward">Facing Forward</option>
+                <option value="f_side_profile">Side Profile</option>
+                <option value="f_sitting_cross_legged">Sitting Cross-legged</option>
+                <option value="f_hands_on_waist">Hands on Waist</option>
+                <option value="f_shoulder_lean">Shoulder Lean</option>
+                <option value="f_kneeling_pose">Kneeling Pose</option>
+                <option value="f_chin_on_hand">Chin on Hand</option>
+                <option value="f_the_hug">The Hug</option>
+                <option value="f_look_down">Look Down</option>
+                <option value="f_lying_down">Lying Down</option>
+                <option value="f_the_stroll">The Stroll</option>
+                <option value="f_the_turn">The Turn</option>
+                <option value="f_hair_sweep">Hair Sweep</option>
+                <option value="f_windy_gaze">Windy Gaze</option>
+                <option value="f_wide_arms">Wide Arms</option>
+                <option value="f_tilted_head">Tilted Head</option>
+                <option value="f_one_leg_forward">One Leg Forward</option>
+                <option value="f_back_pose">Back Pose</option>
+                <option value="f_soft_squat">Soft Squat</option>
+                <option value="f_laughing_out_loud">Laughing Out Loud</option>
+              </select>
+            </div>
+            <div class="form-field" id="ws-pose-pria-wrap" style="display:none">
+              <label class="form-label">Pose Pria</label>
+              <select class="form-select" id="ws-pose-pria">
+                <option value="m_classic_stand">The Classic Stand</option>
+                <option value="m_arms_crossed">Arms Crossed</option>
+                <option value="m_hands_in_pockets">Hands in Pockets</option>
+                <option value="m_adjusting_cuff">Adjusting Cuff</option>
+                <option value="m_leaning_back">Leaning Back</option>
+                <option value="m_sitting_upright">Sitting Upright</option>
+                <option value="m_jawline">The Jawline</option>
+                <option value="m_thumb_in_pocket">Thumb in Pocket</option>
+                <option value="m_hand_to_face">Hand to Face</option>
+                <option value="m_relaxed_sit">The Relaxed Sit</option>
+                <option value="m_steady_walk">Steady Walk</option>
+                <option value="m_lookout">The Lookout</option>
+                <option value="m_neck_touch">Neck Touch</option>
+                <option value="m_lean_forward">The Lean Forward</option>
+                <option value="m_one_hand_in_pocket">One Hand in Pocket</option>
+                <option value="m_shoulder_shrug">Shoulder Shrug</option>
+                <option value="m_wide_stance">Wide Stance</option>
+                <option value="m_looking_down">Looking Down</option>
+                <option value="m_back_lean">Back Lean</option>
+                <option value="m_running_hand_hair">Running Hand Through Hair</option>
               </select>
             </div>
             <div class="form-field">
               <label class="form-label">Properti</label>
               <select class="form-select" id="ws-props">
-                <option value="holding rolled diploma scroll proudly">Gulungan Ijazah</option>
-                <option value="holding open diploma certificate, reading proudly">Ijazah Terbuka</option>
-                <option value="holding large bouquet of red roses, graduation gift">Buket Mawar Merah</option>
-                <option value="holding bright sunflower bouquet, celebratory fresh">Buket Bunga Matahari</option>
-                <option value="holding mixed flower bouquet, colorful celebratory">Buket Bunga Mix</option>
-                <option value="holding small graduation teddy bear with mini toga, cute prop">Teddy Bear Toga Mini</option>
-                <option value="">Tidak Ada Properti</option>
+                <option value="diploma_folder_green" selected>Map Ijazah Hijau Formal</option>
+                <option value="diploma_folder_blue">Map Ijazah Biru Formal</option>
+                <option value="rolled_diploma">Gulungan Ijazah</option>
+                <option value="diploma_folder_black">Folder Wisuda Hitam</option>
+                <option value="no_props">Tanpa Properti</option>
               </select>
             </div>
           </div>
@@ -1157,11 +1206,10 @@
             <div class="form-field">
               <label class="form-label">Pencahayaan</label>
               <select class="form-select" id="ws-lighting">
-      <option value="soft_natural_indoor">Soft Natural Indoor — Cahaya Alami Lembut (Terbaik)</option>
-      <option value="window_side_natural">Window Side Light — Cahaya Jendela Samping</option>
-      <option value="bright_studio_clean">Bright Studio — Studio Terang Bersih</option>
-      <option value="golden_warm_indoor">Golden Warm Indoor — Hangat Keemasan</option>
-      <option value="high_key_bright">High Key Bright — Putih Bersinar</option>
+      <option value="iphone_soft_daylight" selected>Soft Daylight Natural — Clean</option>
+      <option value="iphone_indoor_bright">Indoor Ambient Bright</option>
+      <option value="iphone_neutral_white">Neutral White Daylight</option>
+      <option value="iphone_window_clean">Window Daylight Clean</option>
       </select>
             </div>
             <div class="form-field">
@@ -2365,7 +2413,7 @@ function applySelectLimit(selectId, limit) {
 }
 
 function rememberSelectValues() {
-  ['sk-outfit-female','sk-outfit-male','sk-background','sk-pose-female','sk-pose-male','sk-lighting','ws-outfit-wanita','ws-outfit-pria','ws-background','ws-pose','ws-lighting']
+  ['sk-outfit-female','sk-outfit-male','sk-background','sk-pose-female','sk-pose-male','sk-lighting','ws-outfit-wanita','ws-outfit-pria','ws-background','ws-pose-wanita','ws-pose-pria','ws-lighting']
     .forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.dataset.currentValue = el.value;
@@ -2425,7 +2473,8 @@ function applyPackageGates() {
   applySelectLimit('ws-outfit-wanita', pkg.wisuda.outfits);
   applySelectLimit('ws-outfit-pria', pkg.wisuda.outfits);
   applySelectLimit('ws-background', pkg.wisuda.backgrounds);
-  applySelectLimit('ws-pose', pkg.wisuda.poses);
+  applySelectLimit('ws-pose-wanita', pkg.wisuda.poses);
+  applySelectLimit('ws-pose-pria', pkg.wisuda.poses);
   applySelectLimit('ws-lighting', pkg.wisuda.lighting);
   applyPackageToPhotoCount('photo-count-sf', pkg.canGenerate4);
   applyPackageToPhotoCount('photo-count-ws', pkg.canGenerate4);
@@ -2646,8 +2695,12 @@ function setWisudaMode(mode, btn) {
   // Show/hide outfit wraps
   const wWrap = document.getElementById('ws-outfit-wanita-wrap');
   const pWrap = document.getElementById('ws-outfit-pria-wrap');
+  const pwWrap = document.getElementById('ws-pose-wanita-wrap');
+  const ppWrap = document.getElementById('ws-pose-pria-wrap');
   if (wWrap) wWrap.style.display = mode === 'pria' ? 'none' : '';
   if (pWrap) pWrap.style.display = mode === 'pria' ? ''     : 'none';
+  if (pwWrap) pwWrap.style.display = mode === 'pria' ? 'none' : '';
+  if (ppWrap) ppWrap.style.display = mode === 'pria' ? '' : 'none';
 
   // Show/hide appropriate ethnicity options based on gender
   const ethSel = document.getElementById('ws-ethnicity');
@@ -2693,74 +2746,7 @@ function resolve(map, key, customId) {
 const PromptBuilder = {
 
   buildWisuda(hf = {}) {
-    const SUBJ = {
-      indonesian_f:'beautiful Indonesian woman, warm golden skin, dark lustrous hair',
-      indonesian_m:'handsome Indonesian man, warm skin tone, dark neat hair',
-      javanese_f:'beautiful Javanese woman, graceful features, warm complexion',
-      chinese_indo_f:'beautiful Chinese-Indonesian woman, fair porcelain skin',
-      chinese_indo_m:'handsome Chinese-Indonesian man, fair skin, sharp features',
-      korean_f:'beautiful Korean woman, fair dewy skin, K-beauty makeup',
-      sea_f:'beautiful Southeast Asian woman, warm tan skin, graceful',
-      sea_m:'handsome Southeast Asian man, warm tan skin',
-    };
-    const LIGHT = {
-      golden_hour:'warm golden hour sunlight, soft long shadows, magic hour glow',
-      studio_high_key:'high-key studio lighting, bright even soft box, clean bright',
-      soft_morning:'gentle soft morning light, fresh dewy atmosphere',
-      window_natural:'natural window side light, soft diffused organic indoor lighting',
-      overcast_soft:'overcast sky, perfectly soft diffused natural light, no harsh shadows',
-    };
-    const GRADE = {
-      bright_airy:'bright and airy color grade, lifted whites, clean fresh tones',
-      warm_cinematic:'warm cinematic color grade, golden honey tones, film warmth',
-      soft_pastel:'soft pastel muted palette, dreamy romantic tones',
-      neutral_film:'neutral true-to-life, organic film grain, authentic tones',
-      bw_fine_art:'black and white fine art, rich silver tones, timeless monochrome',
-    };
-    const FRAMING = {
-      full_body:'full body portrait, head to toe, complete outfit visible, standing',
-      three_quarter:'3/4 body portrait, three-quarter length from head to knee',
-      half_body:'half body portrait, waist up, natural upper body framing',
-      close_up:'close-up portrait, face and shoulders, expressive detail',
-      wide_shot:'wide environmental shot, subject smaller in grand setting, architectural',
-    };
-    const wisudaMode     = AppState.wisudaMode || 'wanita';
-    const wisudaModeSubj = wisudaMode;
-    const defaultSubjKey = wisudaModeSubj === 'pria' ? 'indonesian_m' : 'indonesian_f';
-    const subject  = hf.wanita || hf.pria ? 'a person' : (SUBJ[val('ws-ethnicity')] || SUBJ[defaultSubjKey]);
-    const jenjang  = { s1:"Bachelor's degree graduate", s2:"Master's degree graduate", s3:"Doctoral degree graduate" }[val('ws-jenjang')] || 'university graduate';
-    const outfitId   = wisudaMode === 'pria' ? 'ws-outfit-pria' : 'ws-outfit-wanita';
-    const outfitEl   = document.getElementById(outfitId);
-    const outfit     = outfitEl?.value === 'custom' ? val('ws-outfit-c') : (outfitEl?.value || 'black academic toga robe, graduation cap, mortarboard');
-    const bgEl     = document.getElementById('ws-background');
-    const bg       = bgEl?.value === 'custom' ? val('ws-bg-c') : (bgEl?.value || 'university campus grounds');
-    const pose     = val('ws-pose') || 'full body standing proud, holding diploma scroll';
-    const props    = val('ws-props');
-    const framingCmd = FRAMING[val('ws-framing')] || FRAMING.full_body;
-    const lensCmd    = val('ws-lens') || '35mm f/1.4 wide prime lens, natural full body';
-    const lighting   = LIGHT[val('ws-lighting')] || LIGHT.golden_hour;
-    const grade      = GRADE[val('ws-grade')] || GRADE.bright_airy;
-    // Negative modifier untuk full body agar tidak auto-crop ke portrait
-    const isFullBody = val('ws-framing') === 'full_body' || !val('ws-framing');
-    const negHint    = isFullBody ? 'full body shot showing feet, do not crop, full length portrait' : '';
-    const parts      = [
-      framingCmd,
-      negHint,
-      subject,
-      jenjang,
-      pose,
-      outfit,
-      bg,
-      lighting,
-      props,
-      'proud joyful academic achievement expression, bright confident eyes',
-      grade,
-      lensCmd,
-      'shot on Canon EOS R5',
-      'graduation photography, academic achievement, milestone portrait',
-      'ultra realistic, photorealistic, sharp focus, professional photography, no text, no watermark',
-    ];
-    return parts.filter(Boolean).join(', ');
+    return buildSoloPrompt('wisuda');
   },
 
   build(tab) {
@@ -3384,89 +3370,109 @@ function buildSoloPrompt(tab) {
   // ══════════════════════════════════════════════════════════════
   if (tab === 'wisuda') {
     const POSE = {
-      standing_diploma_raised:
-        'full body, standing upright, one arm raised holding graduation diploma scroll up high, other hand making peace sign or open, joyful celebratory expression, complete figure head to toe, ' + FRAMING_FULL_BODY,
-      standing_diploma_chest:
-        'full body, standing, both hands holding rolled diploma scroll at chest level, proud confident posture, warm natural smile facing camera, complete figure head to toe, ' + FRAMING_FULL_BODY,
-      standing_diploma_side:
-        'full body, standing at slight three-quarter angle, one hand holding diploma at side, other arm relaxed, natural confident pose, complete figure head to toe, ' + FRAMING_FULL_BODY,
-      standing_proud:
-        'full body, standing tall upright facing camera, both arms slightly open at sides in confident welcoming pose, proud achievement expression, complete figure head to toe, ' + FRAMING_FULL_BODY,
-      sitting_elegant:
-        'seated elegantly on baroque armchair, legs crossed, holding diploma on lap, 3/4 body portrait, ' + FRAMING_THREE_QUARTER,
+      f_facing_forward:      'standing upright facing camera, hands relaxed at sides, elegant formal posture',
+      f_side_profile:        'standing in side profile, face turned slightly toward camera, refined jawline emphasis',
+      f_sitting_cross_legged:'sitting cross-legged in a relaxed elegant posture',
+      f_hands_on_waist:      'standing with both hands on waist, shaping a confident feminine silhouette',
+      f_shoulder_lean:       'standing with one shoulder slightly higher, subtle dynamic body line',
+      f_kneeling_pose:       'kneeling upright with straight posture, high-fashion portrait pose',
+      f_chin_on_hand:        'seated with one hand lightly supporting chin, calm thoughtful expression',
+      f_the_hug:             'arms crossed softly across chest, gentle protected relaxed expression',
+      f_look_down:           'soft downward gaze with subtle smile, sweet modest expression',
+      f_lying_down:          'lying down elegantly with one hand near face, refined editorial composition',
+      f_the_stroll:          'walking slowly forward with small graceful steps, relaxed outdoor motion',
+      f_the_turn:            'body turned away then looking back toward camera, elegant turning pose',
+      f_hair_sweep:          'one hand gently sweeping hair behind ear, natural feminine movement',
+      f_windy_gaze:          'hair moving softly in wind while gazing into the distance',
+      f_wide_arms:           'arms slightly opened to sides, light and free premium outdoor gesture',
+      f_tilted_head:         'head tilted softly toward shoulder while looking at camera',
+      f_one_leg_forward:     'one leg slightly forward for a long elegant body line',
+      f_back_pose:           'back facing camera with soft body turn and scenic awareness',
+      f_soft_squat:          'soft low squat with one knee lower, clean fashion-forward edge',
+      f_laughing_out_loud:   'natural open laugh with face turned slightly away, bright candid energy',
+      m_classic_stand:       'standing upright, hands natural at sides, strong clean masculine posture',
+      m_arms_crossed:        'arms crossed over chest, confident composed presence',
+      m_hands_in_pockets:    'both hands fully in pockets, relaxed masculine stance',
+      m_adjusting_cuff:      'subtle gesture adjusting cuff or watch, polished detail-focused pose',
+      m_leaning_back:        'leaning back lightly in a relaxed controlled posture',
+      m_sitting_upright:     'sitting upright with open stance and straight posture',
+      m_jawline:             'face turned forty-five degrees away from camera to emphasize jawline',
+      m_thumb_in_pocket:     'thumbs hooked in pockets with relaxed confident stance',
+      m_hand_to_face:        'one hand touching chin or jawline, thoughtful premium expression',
+      m_relaxed_sit:         'relaxed seated pose with one leg resting over the other',
+      m_steady_walk:         'walking steadily toward camera with direct focused gaze',
+      m_lookout:             'standing tall while looking off to the side or distance',
+      m_neck_touch:          'one hand touching back of neck, relaxed masculine editorial gesture',
+      m_lean_forward:        'slight lean forward with confident cool body language',
+      m_one_hand_in_pocket:  'one hand in pocket, one hand relaxed outside, modern casual stance',
+      m_shoulder_shrug:      'subtle raised shoulder while moving casually, natural stylish motion',
+      m_wide_stance:         'standing with feet wider apart, grounded masculine silhouette',
+      m_looking_down:        'looking down while standing or walking, introspective premium mood',
+      m_back_lean:           'leaning backward in a relaxed pose with one leg crossing naturally',
+      m_running_hand_hair:   'hand moving through hair in a casual premium gesture',
     };
     const wisudaMode   = AppState.wisudaMode || 'wanita';
     const isWisudaMale = wisudaMode === 'pria';
-    const GOWN = {
-      toga_black:        isWisudaMale
-        ? 'black academic graduation gown, black mortarboard cap with gold tassel, black leather dress shoes, male graduate'
-        : 'black academic graduation gown, black mortarboard cap with gold tassel, black heels or flats, female graduate',
-      toga_black_red:    isWisudaMale
-        ? 'black graduation gown, red faculty hood trim, gold tassel mortarboard, black leather shoes, male graduate'
-        : 'black graduation gown, red faculty hood trim, gold tassel mortarboard, black heels, female graduate',
-      toga_black_blue:   isWisudaMale
-        ? 'black graduation gown, blue faculty hood trim, gold tassel mortarboard, black leather shoes, male graduate'
-        : 'black graduation gown, blue faculty hood trim, gold tassel mortarboard, black heels, female graduate',
-      toga_black_yellow: isWisudaMale
-        ? 'black graduation gown, yellow faculty hood trim, gold tassel mortarboard, black leather shoes, male graduate'
-        : 'black graduation gown, yellow faculty hood trim, gold tassel mortarboard, black heels, female graduate',
-      toga_maroon:       isWisudaMale
-        ? 'deep maroon graduation gown, matching mortarboard, gold tassel, dark leather shoes, male graduate'
-        : 'deep maroon graduation gown, matching mortarboard, gold tassel, dark heels, female graduate',
-      toga_navy:         isWisudaMale
-        ? 'navy blue graduation gown, matching mortarboard, gold tassel, dark leather shoes, male graduate'
-        : 'navy blue graduation gown, matching mortarboard, gold tassel, navy heels, female graduate',
+    const OUTFIT_W = {
+      w_kebaya_kutubaru:   'woman wearing classic kutubaru kebaya with elegant timeless graduation styling',
+      w_kebaya_brokat:     'woman wearing modern brocade kebaya with premium bead detail and refined graduation styling',
+      w_dress_satin:       'woman wearing minimalist satin dress with elegant luxurious graduation styling',
+      w_kebaya_encim:      'woman wearing refined encim kebaya with bright premium color and floral embroidery',
+      w_peplum_kebaya:     'woman wearing peplum kebaya with flattering waistline and polished graduation silhouette',
+      w_batik_dress:       'woman wearing modern batik dress with premium formal cut and elegant shape',
+      w_organza_skirt:     'woman wearing organza top with elegant skirt, structured luxurious graduation styling',
+      w_pantsuit:          'woman wearing tailored blazer and trousers, strong clean power woman graduation styling',
+      w_kebaya_cape:       'woman wearing kebaya with dramatic cape detail, elegant premium graduation styling',
+      w_tunik_brokat:      'woman wearing long brocade tunic, hijab-friendly modest premium graduation styling',
+    };
+    const OUTFIT_M = {
+      m_classic_black:     'man wearing classic black suit, crisp white shirt, and polished formal graduation styling',
+      m_navy_slim:         'man wearing navy blue slim-fit suit, youthful polished premium graduation styling',
+      m_batik_premium:     'man wearing exclusive long-sleeve batik, formal premium graduation styling',
+      m_turtleneck_blazer: 'man wearing black turtleneck with elegant blazer, stylish modern graduation look',
+      m_grey_checkered:    'man wearing grey checkered suit with refined textured formal styling',
+      m_earth_tone_suit:   'man wearing earth-tone suit in brown cream or khaki, premium warm formal graduation styling',
+      m_vest_shirt:        'man wearing formal vest with shirt and tie, smart semi-formal graduation styling',
+      m_full_white:        'man wearing full white suit, clean standout formal graduation styling',
+      m_batik_outer:       'man wearing modern batik outer over plain shirt, premium artistic graduation styling',
+      m_suspender_style:   'man wearing white shirt, tailored trousers, and suspenders, classic refined graduation styling',
+    };
+    const TOGA = {
+      toga_black_classic: 'classic black graduation toga with black mortarboard cap, formal academic styling',
+      toga_black_matte:   'premium matte black graduation toga with structured drape and formal mortarboard',
+      toga_black_formal:  'formal black graduation toga and mortarboard cap with polished academic styling',
+      toga_carried:       'graduation toga carried over the arm or draped nearby, mortarboard included as graduation attribute',
+      no_toga:            'no graduation toga, formal graduation outfit only',
+    };
+    const SASH = {
+      cumlaude_green:    'green cumlaude sash clearly visible across the body, academic honor styling',
+      cumlaude_maroon:   'maroon cumlaude sash clearly visible across the body, academic honor styling',
+      sash_black_gold:   'black sash with gold trim, formal academic distinction styling',
+      campus_green:      'green campus graduation sash, official formal graduation styling',
+      campus_maroon:     'maroon campus graduation sash, official formal graduation styling',
+      medal_gold_orange: 'gold or orange academic medal ribbon visible on the chest, formal graduation honor detail',
+      no_sash:           'no sash or medal visible',
     };
     const BACKGROUND = {
-      baroque_white_full:
-        'elegant white French baroque studio interior, ornate white wall panels with carved moldings, white marble fireplace with floral arrangement, baroque wooden armchair with cream upholstery, large flower vase arrangement on left, white decorative room divider screen on right, soft natural diffused indoor light, luxury white studio set',
-      baroque_white_simple:
-        'white French baroque studio, ornate carved white wall panel, cream baroque armchair with wooden frame, small bouquet of roses on chair, soft diffused natural indoor light, elegant minimal luxury set',
-      baroque_arch_window:
-        'white studio with large arched niche window frame on wall, cream painted walls, small antique chair inside arched alcove, soft natural light through arch, elegant clean Indonesian graduation studio',
-      white_wainscoting_flowers:
-        'clean white wainscoting wall panels, tall frosted glass windows, light wood floor, simple wooden stool, two white flower arrangements on floor, soft natural daylight from windows, fresh clean modern classic studio',
-      white_panel_minimal:
-        'pure white classic wall paneling, white molding details, bright clean white floor, minimal elegant studio, soft even natural indoor light',
-      white_pillar_classic:
-        'white classical interior, white decorative columns, white wall with molding, clean bright indoor light, elegant simple graduation studio',
-      dark_black_moody:
-        'solid dark charcoal grey studio wall no gradient, vintage wooden desk with stack of old books and warm glowing brass desk lamp on right side, three-point studio lighting, subject sharply separated from dark solid background by bright key light, dramatic editorial graduation portrait, no vignette no gradient background',
-      dark_navy_classic:
-        'solid deep navy blue painted studio wall no gradient, classic wooden bookshelf with books in background right side, warm amber reading lamp, professional three-point studio lighting separating subject from solid background, sophisticated graduation portrait studio',
-      dark_grey_elegant:
-        'solid dark slate grey studio wall no gradient no vignette, minimal dark studio, one warm practical light source visible on left side, clean professional studio lighting, subject lit with soft key light against solid dark wall, fine art graduation portrait',
-      baroque_full_flowers:
-        'grand white baroque studio set, ornate plaster ceiling medallion, white carved wall panels, antique white fireplace mantel covered in cascading pink blue and white flower arrangement, large urn vase with lush flowers on left, French baroque armchair with roses, white lattice decorative screen, soft diffused natural light, full luxury graduation studio',
-      baroque_pastel_flowers:
-        'white French baroque interior, ornate white wall panels, small round white pedestal table with flowers, baroque wooden armchair, soft pastel pink white and blue flower arrangements, elegant candles, soft natural diffused indoor light',
-      white_seamless_studio:
-        'pure white seamless studio backdrop, bright clean professional white, even soft studio light',
-      grey_elegant_studio:
-        'soft warm grey seamless studio backdrop, elegant neutral, professional graduation portrait',
-      cream_classic_studio:
-        'warm cream off-white studio backdrop, classic elegant graduation portrait backdrop',
-      garden_window_indoor:
-        'white studio with large bright window, green plants and flowers visible through window, soft natural daylight streaming in, fresh airy indoor-outdoor feeling',
+      grey_drape:             'premium grey textured drape studio backdrop with soft folds, elegant neutral graduation portrait setup',
+      white_classic_arch:     'white classic arch interior with subtle decorative wall details, elegant bright graduation studio',
+      white_seamless_floral:  'clean white seamless graduation studio with white pedestal, floral arrangement, and refined bright formal setup',
+      black_editorial_panel:  'black editorial wall paneling with greenery accents and polished formal graduation styling',
+      blush_classic_floral:   'soft blush classic wall with white floral decor and premium feminine graduation styling',
+      beige_arch_pampas:      'warm beige arch backdrop with pampas styling and elegant neutral graduation atmosphere',
     };
     const LIGHTING = {
-      soft_natural_indoor:
-        'soft diffused natural indoor daylight, no harsh shadows, even flattering light, clean bright studio, NO gradient background, solid background',
-      window_side_natural:
-        'large natural window side light from left, gentle warm shadows on right, beautiful natural indoor light, solid background no gradient',
-      bright_studio_clean:
-        'large softbox studio lighting, bright even clean illumination, soft open shadows, professional catchlights, solid background no vignette',
-      golden_warm_indoor:
-        'warm golden soft indoor ambient light, slightly warm white balance, flattering warm glow, practical light sources visible, solid background no gradient',
-      high_key_bright:
-        'high-key bright studio lighting, near-shadowless clean bright environment, fresh commercial portrait, solid white background',
+      iphone_soft_daylight: 'clean soft daylight, balanced exposure, natural contrast, realistic skin tones, premium iPhone portrait look',
+      iphone_indoor_bright: 'bright indoor ambient light, soft even illumination, clean premium iPhone-style portrait lighting',
+      iphone_neutral_white: 'neutral white daylight, accurate exposure, crisp detail, realistic true-to-life colors',
+      iphone_window_clean:  'clean window daylight, bright soft directional light, balanced skin tones, modern premium portrait look',
     };
     const PROPS = {
-      diploma_cap:     'holding graduation diploma scroll in one hand, wearing full graduation gown and mortarboard cap',
-      diploma_only:    'holding graduation diploma scroll proudly with both hands',
-      cap_toss:        'joyfully tossing graduation cap into the air, laughing, celebratory moment',
-      bouquet_flowers: 'holding beautiful flower bouquet, wearing graduation gown and cap',
-      no_props:        'wearing graduation gown and mortarboard cap, hands naturally at sides',
+      diploma_folder_green: 'holding green formal diploma folder clearly in hand, official graduation document presentation',
+      diploma_folder_blue:  'holding blue formal diploma folder clearly in hand, official graduation document presentation',
+      rolled_diploma:       'holding rolled diploma scroll clearly and proudly',
+      diploma_folder_black: 'holding black graduation folder or document book, formal premium presentation',
+      no_props:             'no additional graduation props in hand',
     };
 
     const GRADE_WS = {
@@ -3476,40 +3482,51 @@ function buildSoloPrompt(tab) {
       neutral_film:   'neutral true-to-life tones, authentic organic colors',
       bw_fine_art:    'black and white fine art, rich monochrome, timeless',
     };
-    const outfitId   = wisudaMode === 'pria' ? 'ws-outfit-pria' : 'ws-outfit-wanita';
+    const outfitId   = isWisudaMale ? 'ws-outfit-pria' : 'ws-outfit-wanita';
+    const poseId     = isWisudaMale ? 'ws-pose-pria' : 'ws-pose-wanita';
     const outfitEl   = document.getElementById(outfitId);
-    const subj  = ETHNICITY[g('ws-ethnicity')] || (wisudaMode === 'pria' ? ETHNICITY.indonesian_m : ETHNICITY.indonesian_f);
-    const genderPosePrefix = isWisudaMale ? 'male graduate, man, ' : 'female graduate, woman, ';
-    const poseRaw = POSE[g('ws-pose')] || POSE.standing_diploma_raised;
-    const pose  = genderPosePrefix + poseRaw;
-    const gown  = GOWN[outfitEl?.value]           || GOWN.toga_black;
+    const subj  = ETHNICITY[g('ws-ethnicity')] || (isWisudaMale ? ETHNICITY.indonesian_m : ETHNICITY.indonesian_f);
+    const pose  = POSE[g(poseId)] || (isWisudaMale ? POSE.m_classic_stand : POSE.f_facing_forward);
+    const outfit = (isWisudaMale ? OUTFIT_M[outfitEl?.value] : OUTFIT_W[outfitEl?.value]) || (isWisudaMale ? OUTFIT_M.m_classic_black : OUTFIT_W.w_kebaya_brokat);
+    const toga  = TOGA[g('ws-toga')] || TOGA.toga_black_classic;
+    const sash  = SASH[g('ws-salempang')] || SASH.cumlaude_green;
     const propsRaw = g('ws-props') || '';
-    const props = PROPS[propsRaw] || propsRaw || 'holding graduation diploma scroll in one hand';
-    const bg    = BACKGROUND[g('ws-background')]  || BACKGROUND.baroque_white_simple;
-    const light = LIGHTING[g('ws-lighting')]      || LIGHTING.soft_natural_indoor;
-    const lens  = 'shot on Sony A7R V with 35mm f/1.8 lens, full frame sensor, wide enough to capture complete figure';
+    const props = PROPS[propsRaw] || PROPS.diploma_folder_green;
+    const bg    = BACKGROUND[g('ws-background')]  || BACKGROUND.grey_drape;
+    const light = LIGHTING[g('ws-lighting')]      || LIGHTING.iphone_soft_daylight;
+    const lens  = 'shot on Sony A7R V with 35mm f/1.8 lens, full frame sensor, clean premium graduation portrait perspective';
     const grade = GRADE_WS[g('ws-grade')]         || GRADE_WS.bright_airy;
+    const framing = {
+      full_body: 'full body graduation portrait, complete figure visible, subject occupying about 50 to 60 percent of frame, do not crop feet',
+      three_quarter: 'three quarter graduation portrait, head to below knee, subject occupying about 60 to 70 percent of frame',
+      half_body: 'half body graduation portrait, waist up, subject occupying about 70 to 80 percent of frame',
+      close_up: 'close-up graduation portrait, shoulders visible, subject occupying about 80 to 90 percent of frame',
+      wide_shot: 'wide graduation portrait, subject smaller in frame with full studio set clearly visible',
+    }[g('ws-framing')] || 'full body graduation portrait, complete figure visible, subject occupying about 50 to 60 percent of frame, do not crop feet';
 
     const parts = [
-      pose,
       subj,
+      outfit,
+      toga,
+      sash,
+      pose,
+      framing,
       bg,
-      gown,
       props,
       light,
       lens,
       grade,
-      'proud joyful expression, natural warm smile',
+      'proud joyful graduation expression, natural warm smile',
       QUALITY,
     ].filter(Boolean);
 
     let prompt = parts.join(', ');
-    if (prompt.length > 900) {
-      const cut = prompt.lastIndexOf(',', 900);
-      prompt = cut > 600 ? prompt.substring(0, cut) : prompt.substring(0, 900);
+    if (prompt.length > 1100) {
+      const cut = prompt.lastIndexOf(',', 1100);
+      prompt = cut > 700 ? prompt.substring(0, cut) : prompt.substring(0, 1100);
     }
-    prompt += ', ultra realistic photography, natural studio lighting, solid non-gradient background, sharp focus, no watermark';
-    console.log('[WS prompt]', prompt.length, 'chars | framing: full body 60%');
+    prompt += ', ultra realistic photography, clean premium graduation portrait, realistic skin tones, sharp focus, no watermark';
+    console.log('[WS prompt]', prompt.length, 'chars | framing:', framing);
     return prompt;
   }
 
