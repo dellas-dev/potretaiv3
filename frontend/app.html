@@ -1684,6 +1684,25 @@
       Keluar dari Akun
     </a>
   </div>
+
+  <div class="acct-card" id="admin-verify-card" style="display:none;">
+    <div class="acct-card-title">Admin Verification Helper</div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div>
+        <label class="acct-label" for="admin-order-id">Order ID</label>
+        <input id="admin-order-id" type="text" placeholder="ORD-123456" style="width:100%;margin-top:6px;padding:10px 12px;border:1px solid #E5ECEF;border-radius:10px;font-family:'Roboto Mono',monospace;font-size:12px;color:#1E2A2F;background:#fff;">
+      </div>
+      <div>
+        <label class="acct-label" for="admin-secret-key">Admin Key</label>
+        <input id="admin-secret-key" type="password" placeholder="Masukkan ADMIN_KEY" style="width:100%;margin-top:6px;padding:10px 12px;border:1px solid #E5ECEF;border-radius:10px;font-family:'Roboto Mono',monospace;font-size:12px;color:#1E2A2F;background:#fff;">
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn-primary-sm" type="button" onclick="adminVerifyOrder('approve')">Approve Order</button>
+        <button class="btn-secondary" type="button" onclick="adminVerifyOrder('reject')">Reject Order</button>
+      </div>
+      <div id="admin-verify-status" style="font-family:'Inter',sans-serif;font-size:12px;color:#6B7C86;line-height:1.6;"></div>
+    </div>
+  </div>
 </div>
 </section>
 
@@ -3781,6 +3800,8 @@ async function handleBuyPackage(pkg) {
   document.getElementById('qris-proof-file').value    = '';
   document.getElementById('qris-proof-status').textContent = '';
   document.getElementById('qris-order-id').textContent = orderId || 'Akan dibuat saat pembayaran dikonfirmasi';
+  const adminOrderInput = document.getElementById('admin-order-id');
+  if (adminOrderInput && orderId && isAdminMode()) adminOrderInput.value = orderId;
   document.getElementById('modal-qris').style.display  = 'flex';
 }
 
@@ -3837,7 +3858,58 @@ function adminActivatePackage(tier) {
   showToast(`✅ Paket ${getCurrentPackageConfig().label} aktif`, 'success');
 }
 
+function isAdminMode() {
+  return localStorage.getItem('potretai_admin_mode') === 'true';
+}
+
+function applyAdminMode() {
+  const card = document.getElementById('admin-verify-card');
+  if (card) card.style.display = isAdminMode() ? '' : 'none';
+}
+
+function enableAdminMode() {
+  localStorage.setItem('potretai_admin_mode', 'true');
+  applyAdminMode();
+  showToast('✅ Admin mode aktif', 'success');
+}
+
+function disableAdminMode() {
+  localStorage.removeItem('potretai_admin_mode');
+  applyAdminMode();
+  showToast('ℹ️ Admin mode nonaktif', 'info');
+}
+
+async function adminVerifyOrder(action) {
+  const orderId = (document.getElementById('admin-order-id')?.value || '').trim();
+  const adminKey = (document.getElementById('admin-secret-key')?.value || '').trim();
+  const statusEl = document.getElementById('admin-verify-status');
+  if (!orderId || !adminKey) {
+    if (statusEl) statusEl.textContent = 'Isi Order ID dan Admin Key terlebih dahulu.';
+    return;
+  }
+
+  if (statusEl) statusEl.textContent = `${action === 'approve' ? 'Menyetujui' : 'Menolak'} order ${orderId}...`;
+  try {
+    const res = await fetch(`${WORKER_URL}/verify-payment`, {
+      method: 'POST',
+      headers: getWorkerJsonHeaders(),
+      body: JSON.stringify({ order_id: orderId, action, admin_key: adminKey }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Verifikasi order gagal');
+    if (statusEl) statusEl.textContent = `Order ${data.order_id} berhasil ${data.status}.`;
+    showToast(`✅ Order ${data.order_id} ${data.status}`, 'success');
+    await syncBackendCreditToUI();
+  } catch (err) {
+    if (statusEl) statusEl.textContent = err.message || 'Verifikasi order gagal';
+    showToast(`❌ ${err.message || 'Verifikasi order gagal'}`, 'error');
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
+  if (new URLSearchParams(location.search).get('admin') === '1') {
+    localStorage.setItem('potretai_admin_mode', 'true');
+  }
   updateUserProfileUI();
   navigateTo('dashboard');
   switchTab('wisuda');
@@ -3851,6 +3923,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   TokenManager.updateUI();
   await syncBackendCreditToUI();
+  applyAdminMode();
   refreshGenerateButtonLabels();
   document.querySelectorAll('input[name="photo-count-sf"], input[name="photo-count-ws"]').forEach((input) => {
     input.addEventListener('change', refreshGenerateButtonLabels);
