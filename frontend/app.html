@@ -1879,6 +1879,16 @@ async function syncBackendCreditToUI() {
   }
 }
 
+function applyCreditState(credit) {
+  if (!credit || typeof credit.credits_remaining !== 'number') return;
+  const backendTier = credit.package_tier || credit.plan || 'spark';
+  setCurrentPackage(backendTier, { grantCredits: false });
+  TokenManager.setBalance(credit.credits_remaining);
+  AppState.usageRemaining = credit.credits_remaining;
+  AppState.packageCredits = PACKAGE_CONFIG[backendTier]?.credits || credit.credits_remaining;
+  updateUsageUI();
+}
+
 // ── Turnstile token (diisi otomatis oleh widget invisible) ──
 let _turnstileToken = '';
 function onTurnstileSuccess(token) { _turnstileToken = token; }
@@ -2798,8 +2808,12 @@ const FalEngine = {
       body: JSON.stringify({ prompt, face_url: faceUrl, count, service: AppState.currentTab }),
     });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.error || 'Generate gagal');
-    return data.urls || [];
+    if (!res.ok) {
+      const err = new Error(data.error || 'Generate gagal');
+      err.credit = data.credit || null;
+      throw err;
+    }
+    return data;
   },
 
   // Generate requested professional headshots via InstantID
@@ -2811,8 +2825,12 @@ const FalEngine = {
       body: JSON.stringify({ prompt, face_url: faceUrl, count, service: AppState.currentTab }),
     });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.error || 'Generate profesional gagal');
-    return data.urls || [];
+    if (!res.ok) {
+      const err = new Error(data.error || 'Generate profesional gagal');
+      err.credit = data.credit || null;
+      throw err;
+    }
+    return data;
   },
 
 };
@@ -3501,23 +3519,25 @@ async function startGenerate() {
   const photoCount = getSelectedPhotoCount(tab);
   console.log(`[PotretAI] photoCount: ${photoCount}`);
 
-  // Check token balance — skip on localhost for testing
+  // Check token balance — skip local check when backend identity is available
   const isLocalDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'file:';
+  const useBackendQuota = !isLocalDev && !!getWorkerUserId();
   const tokenCost = photoCount >= 4 ? 2 : 1;
-  if (!isLocalDev && !TokenManager.consume(tokenCost)) {
+  if (!useBackendQuota && !isLocalDev && !TokenManager.consume(tokenCost)) {
     showToast('❌ Kredit habis. Pesan paket via WhatsApp untuk lanjut.', 'error');
     document.getElementById('modal-beli-token')?.style.setProperty('display', 'flex');
     return;
   }
 
   AppState.isGenerating = true;
-  AppState.usageRemaining -= photoCount;
+  if (!useBackendQuota) AppState.usageRemaining -= tokenCost;
   updateUsageUI();
   setBtnLoading(tab, true);
   showLoading();
 
   try {
     let urls = [];
+    let creditMeta = null;
 
     // ── SOLO MENUS (flux-pulid) ────────────────────────────────────
     if (tab === 'wisuda' || tab === 'studio_foto') {
@@ -3532,11 +3552,15 @@ async function startGenerate() {
       } else {
         showToast('⚠️ Upload foto wajah dulu untuk hasil terbaik', 'info');
       }
-      urls = await FalEngine.generateSolo(prompt, faceUrl || '', photoCount);
+      const result = await FalEngine.generateSolo(prompt, faceUrl || '', photoCount);
+      urls = result.urls || [];
+      creditMeta = result.credit || null;
     }
 
     const valid = (urls || []).filter(Boolean);
     if (!valid.length) throw new Error('Semua foto gagal dibuat');
+
+    if (useBackendQuota && creditMeta) applyCreditState(creditMeta);
 
     valid.forEach(url => AppState.generatedImages.unshift({ url, tab, timestamp: Date.now() }));
     GalleryRenderer.render(urls, tab);
@@ -3548,8 +3572,13 @@ async function startGenerate() {
     renderDashboardRecent();
 
   } catch (err) {
-    AppState.usageRemaining += photoCount;
-    if (!isLocalDev) TokenManager.addTokens(tokenCost);
+    if (!useBackendQuota) {
+      AppState.usageRemaining += tokenCost;
+      if (!isLocalDev) TokenManager.addTokens(tokenCost);
+    } else {
+      if (err?.credit) applyCreditState(err.credit);
+      else await syncBackendCreditToUI();
+    }
     updateUsageUI();
     showEmpty();
     showToast(`❌ ${err.message || 'Gagal generate foto. Coba lagi.'}`, 'error');

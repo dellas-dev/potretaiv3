@@ -293,6 +293,13 @@ export function checkCategoryAccess(credit, category) {
 
 export async function chargeGenerate(loginId, { photoCount = 2, service = 'studio_foto', requestId = crypto.randomUUID() } = {}, env) {
   const credit = await ensureUserCredit(loginId, env);
+  const effectiveService = service === 'wisuda' ? 'wisuda' : 'studio_foto';
+  if (!checkCategoryAccess(credit, effectiveService)) {
+    throw new Error('Paket saat ini belum memiliki akses ke layanan ini');
+  }
+  if (photoCount >= 4 && !credit.can_generate_4) {
+    throw new Error('4 foto hanya tersedia untuk paket Signature dan Prestige');
+  }
   const cost = getCreditCostForPhotoCount(photoCount);
   if (credit.credits_remaining < cost) {
     throw new Error('Generate quota exhausted');
@@ -311,7 +318,13 @@ export async function chargeGenerate(loginId, { photoCount = 2, service = 'studi
     source: 'generate',
   }, env);
 
-  return { cost, balance_after: credit.credits_remaining, package_tier: credit.package_tier, request_id: requestId };
+  return {
+    cost,
+    balance_after: credit.credits_remaining,
+    package_tier: credit.package_tier,
+    can_generate_4: credit.can_generate_4,
+    request_id: requestId,
+  };
 }
 
 export async function refundGenerate(loginId, { photoCount = 2, service = 'studio_foto', requestId = crypto.randomUUID(), reason = 'generate_failed' } = {}, env) {

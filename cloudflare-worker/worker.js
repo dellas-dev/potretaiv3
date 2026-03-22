@@ -9,7 +9,7 @@
  *   R2_CDN_BASE     — CDN base URL for uploaded face photos
  */
 
-import { chargeGenerate, refundGenerate, writeGenerateLog } from './utils/creditManager.js';
+import { chargeGenerate, refundGenerate, writeGenerateLog, getUserCredit } from './utils/creditManager.js';
 import { handleHistoryRoute, handleGetCreditRoute } from './history/historyRoutes.js';
 import { createOrder } from './payments/createOrder.js';
 import { submitProof } from './payments/submitProof.js';
@@ -128,7 +128,12 @@ export default {
         const userId = request.headers.get('X-User-Id') || body.user_id || '';
         const requestId = body.request_id || crypto.randomUUID();
         const service = body.service || 'studio_foto';
+        const requiresIdentity = !/^https?:\/\/(localhost|127\.0\.0\.1)/.test(origin || '');
         console.log(`[PotretAI] photoCount: ${photoCount}`);
+
+        if (requiresIdentity && !userId) {
+          return jsonResponse({ error: 'User identity required', code: 'USER_ID_REQUIRED' }, 401, origin);
+        }
 
         let chargeMeta = null;
         if (userId && env.USER_CREDITS) {
@@ -143,7 +148,8 @@ export default {
               status: 'rejected_quota',
               reason: err.message,
             }, env);
-            return jsonResponse({ error: 'Kredit habis. Silakan upgrade paket atau top up.' }, 402, origin);
+            const latestCredit = userId ? await getUserCredit(userId, env) : null;
+            return jsonResponse({ error: err.message || 'Kredit habis. Silakan upgrade paket atau top up.', credit: latestCredit }, 402, origin);
           }
         }
 
@@ -223,8 +229,9 @@ export default {
           .map(r => r.value);
 
         if (!urls.length) {
+          let refundedCredit = null;
           if (chargeMeta && userId) {
-            await refundGenerate(userId, { photoCount, service, requestId, reason: 'generate_empty_result' }, env);
+            refundedCredit = await refundGenerate(userId, { photoCount, service, requestId, reason: 'generate_empty_result' }, env);
           }
           await writeGenerateLog(userId, {
             request_id: requestId,
@@ -238,7 +245,8 @@ export default {
           }, env);
           return jsonResponse({
             error: 'AI tidak menghasilkan gambar. Coba lagi.',
-            promptLength: safePrompt?.length
+            promptLength: safePrompt?.length,
+            credit: refundedCredit,
           }, 502, origin);
         }
         await writeGenerateLog(userId, {
@@ -251,7 +259,8 @@ export default {
           status: 'success',
           result_count: urls.length,
         }, env);
-        return jsonResponse({ success: true, urls }, 200, origin);
+        const latestCredit = userId ? await getUserCredit(userId, env) : null;
+        return jsonResponse({ success: true, urls, credit: latestCredit }, 200, origin);
       }
 
       // ── Route: Professional headshot via flux-pulid (parallel × 2-4) ──
@@ -271,7 +280,12 @@ export default {
         const userId = request.headers.get('X-User-Id') || body.user_id || '';
         const requestId = body.request_id || crypto.randomUUID();
         const service = body.service || 'instantid';
+        const requiresIdentity = !/^https?:\/\/(localhost|127\.0\.0\.1)/.test(origin || '');
         console.log(`[PotretAI] instantid photoCount: ${photoCount}`);
+
+        if (requiresIdentity && !userId) {
+          return jsonResponse({ error: 'User identity required', code: 'USER_ID_REQUIRED' }, 401, origin);
+        }
 
         let chargeMeta = null;
         if (userId && env.USER_CREDITS) {
@@ -286,7 +300,8 @@ export default {
               status: 'rejected_quota',
               reason: err.message,
             }, env);
-            return jsonResponse({ error: 'Kredit habis. Silakan upgrade paket atau top up.' }, 402, origin);
+            const latestCredit = userId ? await getUserCredit(userId, env) : null;
+            return jsonResponse({ error: err.message || 'Kredit habis. Silakan upgrade paket atau top up.', credit: latestCredit }, 402, origin);
           }
         }
 
@@ -342,8 +357,9 @@ export default {
           .map(r => r.value);
 
         if (!urls.length) {
+          let refundedCredit = null;
           if (chargeMeta && userId) {
-            await refundGenerate(userId, { photoCount, service, requestId, reason: 'generate_empty_result' }, env);
+            refundedCredit = await refundGenerate(userId, { photoCount, service, requestId, reason: 'generate_empty_result' }, env);
           }
           await writeGenerateLog(userId, {
             request_id: requestId,
@@ -355,7 +371,7 @@ export default {
             status: 'failed',
             reason: 'empty_result',
           }, env);
-          return jsonResponse({ error: 'Generate foto profesional gagal. Coba lagi.' }, 502, origin);
+          return jsonResponse({ error: 'Generate foto profesional gagal. Coba lagi.', credit: refundedCredit }, 502, origin);
         }
         await writeGenerateLog(userId, {
           request_id: requestId,
@@ -367,7 +383,8 @@ export default {
           status: 'success',
           result_count: urls.length,
         }, env);
-        return jsonResponse({ success: true, urls }, 200, origin);
+        const latestCredit = userId ? await getUserCredit(userId, env) : null;
+        return jsonResponse({ success: true, urls, credit: latestCredit }, 200, origin);
       }
 
       return jsonResponse({ error: 'Endpoint not found' }, 404, origin);
