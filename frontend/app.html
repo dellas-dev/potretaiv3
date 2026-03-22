@@ -785,8 +785,8 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       </div>
       <div class="sb-plan-info">
-        <div class="sb-plan-name">Founding Premium</div>
-        <div class="sb-plan-meta">200 foto &middot; per bulan</div>
+        <div class="sb-plan-name" id="current-plan-name">Signature</div>
+        <div class="sb-plan-meta" id="current-plan-meta">20 kredit &middot; Studio + Wisuda</div>
       </div>
     </div>
     <div class="sb-plan-usage">
@@ -820,15 +820,15 @@
       </div>
       <div class="dash-hero-usage">
         <div>
-          <div class="dash-hero-usage-card-title">Founding Premium</div>
-          <div class="dash-hero-usage-card-sub">Kapasitas bulanan untuk produksi portrait studio dan wisuda.</div>
+          <div class="dash-hero-usage-card-title" id="hero-plan-name">Signature</div>
+          <div class="dash-hero-usage-card-sub" id="hero-plan-sub">Paket utama untuk Studio Foto AI dan Wisuda AI.</div>
         </div>
         <div class="dash-hero-usage-top">
           <span class="dash-hero-usage-lbl">PENGGUNAAN BULAN INI</span>
           <span class="dash-hero-usage-count"><span id="d-used">4</span> / 200</span>
         </div>
         <div class="dash-hero-usage-track"><div class="dash-hero-usage-fill" id="d-usage-fill" style="width:2%;"></div></div>
-        <div class="dash-hero-usage-plan">Plan: Founding Premium &middot; Reset tiap tanggal 1</div>
+        <div class="dash-hero-usage-plan" id="hero-plan-meta">Plan: Signature &middot; 20 kredit aktif</div>
       </div>
     </div>
     <div class="dash-hero-dock">
@@ -1656,8 +1656,8 @@
     <div class="plan-badge">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1FA6B5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       <div>
-        <div class="plan-badge-text">Studio Foto & Wisuda AI</div>
-        <div class="plan-badge-sub">Lifetime Access &middot; Pesan via WhatsApp</div>
+        <div class="plan-badge-text" id="acct-plan-name">Signature</div>
+        <div class="plan-badge-sub" id="acct-plan-sub">20 kredit &middot; Studio Foto AI + Wisuda AI</div>
       </div>
     </div>
     <div style="margin-top:16px;padding:14px;background:#F4F6F8;border-radius:12px;">
@@ -2148,6 +2148,155 @@ function refreshGenerateButtonLabels() {
     if (!lbl) return;
     lbl.textContent = getGenerateLabel(tab, getSelectedPhotoCount(tab));
   });
+}
+
+const PACKAGE_CONFIG = {
+  spark: {
+    key: 'spark',
+    label: 'Spark',
+    credits: 8,
+    canGenerate4: false,
+    studio: { femaleOutfits: 10, maleOutfits: 10, locations: 12, femalePoses: 10, malePoses: 10, lighting: 4 },
+    wisuda: { outfits: 6, backgrounds: 6, poses: 6, lighting: 3 },
+    summary: '8 kredit · 2 foto per generate',
+  },
+  signature: {
+    key: 'signature',
+    label: 'Signature',
+    credits: 20,
+    canGenerate4: true,
+    studio: { femaleOutfits: 20, maleOutfits: 20, locations: 28, femalePoses: 20, malePoses: 20, lighting: 6 },
+    wisuda: { outfits: 10, backgrounds: 10, poses: 10, lighting: 4 },
+    summary: '20 kredit · 2 & 4 foto per generate',
+  },
+  prestige: {
+    key: 'prestige',
+    label: 'Prestige',
+    credits: 40,
+    canGenerate4: true,
+    studio: { femaleOutfits: Infinity, maleOutfits: Infinity, locations: Infinity, femalePoses: Infinity, malePoses: Infinity, lighting: Infinity },
+    wisuda: { outfits: Infinity, backgrounds: Infinity, poses: Infinity, lighting: Infinity },
+    summary: '40 kredit · full library + priority',
+  },
+};
+
+const SelectOptionCache = {};
+
+function getCurrentPackageConfig() {
+  const tier = localStorage.getItem('potretai_package_tier') || 'signature';
+  return PACKAGE_CONFIG[tier] || PACKAGE_CONFIG.signature;
+}
+
+function cacheSelectOptions(selectId) {
+  const select = document.getElementById(selectId);
+  if (!select || SelectOptionCache[selectId]) return;
+  SelectOptionCache[selectId] = Array.from(select.children).map((node) => node.cloneNode(true));
+}
+
+function applySelectLimit(selectId, limit) {
+  const select = document.getElementById(selectId);
+  if (!select) return;
+  cacheSelectOptions(selectId);
+  const original = SelectOptionCache[selectId] || [];
+  select.innerHTML = '';
+
+  let remaining = Number.isFinite(limit) ? limit : Number.MAX_SAFE_INTEGER;
+  original.forEach((node) => {
+    if (remaining <= 0) return;
+    if (node.tagName === 'OPTGROUP') {
+      const group = node.cloneNode(false);
+      Array.from(node.children).forEach((opt) => {
+        if (remaining > 0) {
+          group.appendChild(opt.cloneNode(true));
+          remaining -= 1;
+        }
+      });
+      if (group.children.length) select.appendChild(group);
+    } else {
+      select.appendChild(node.cloneNode(true));
+      remaining -= 1;
+    }
+  });
+
+  const currentValue = select.dataset.currentValue;
+  const hasCurrent = currentValue && Array.from(select.options).some((opt) => opt.value === currentValue);
+  if (hasCurrent) select.value = currentValue;
+  else if (select.options.length) select.value = select.options[0].value;
+}
+
+function rememberSelectValues() {
+  ['sk-outfit-female','sk-outfit-male','sk-background','sk-pose-female','sk-pose-male','sk-lighting','ws-outfit-wanita','ws-outfit-pria','ws-background','ws-pose','ws-lighting']
+    .forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.dataset.currentValue = el.value;
+    });
+}
+
+function applyPackageToPhotoCount(radiosName, canGenerate4) {
+  const fourRadio = document.querySelector(`input[name="${radiosName}"][value="4"]`);
+  const twoRadio = document.querySelector(`input[name="${radiosName}"][value="2"]`);
+  if (!fourRadio || !twoRadio) return;
+  const label = fourRadio.closest('label');
+  fourRadio.disabled = !canGenerate4;
+  if (label) {
+    label.style.opacity = canGenerate4 ? '1' : '0.45';
+    label.style.cursor = canGenerate4 ? 'pointer' : 'not-allowed';
+    label.title = canGenerate4 ? '' : '4 foto tersedia di Signature dan Prestige';
+  }
+  if (!canGenerate4 && fourRadio.checked) twoRadio.checked = true;
+}
+
+function updatePackageUI() {
+  const pkg = getCurrentPackageConfig();
+  const currentPlanName = document.getElementById('current-plan-name');
+  const currentPlanMeta = document.getElementById('current-plan-meta');
+  const heroPlanName = document.getElementById('hero-plan-name');
+  const heroPlanSub = document.getElementById('hero-plan-sub');
+  const heroPlanMeta = document.getElementById('hero-plan-meta');
+  const acctPlanName = document.getElementById('acct-plan-name');
+  const acctPlanSub = document.getElementById('acct-plan-sub');
+  if (currentPlanName) currentPlanName.textContent = pkg.label;
+  if (currentPlanMeta) currentPlanMeta.textContent = pkg.summary;
+  if (heroPlanName) heroPlanName.textContent = pkg.label;
+  if (heroPlanSub) heroPlanSub.textContent = pkg.key === 'spark'
+    ? 'Paket awal yang efisien untuk Studio Foto AI dan Wisuda AI.'
+    : pkg.key === 'signature'
+      ? 'Paket utama dengan akses terbaik untuk Studio Foto AI dan Wisuda AI.'
+      : 'Akses penuh untuk library premium Studio Foto AI dan Wisuda AI.';
+  if (heroPlanMeta) heroPlanMeta.textContent = `Plan: ${pkg.label} · ${pkg.summary}`;
+  if (acctPlanName) acctPlanName.textContent = pkg.label;
+  if (acctPlanSub) acctPlanSub.textContent = pkg.summary;
+}
+
+function applyPackageGates() {
+  const pkg = getCurrentPackageConfig();
+  rememberSelectValues();
+  applySelectLimit('sk-outfit-female', pkg.studio.femaleOutfits);
+  applySelectLimit('sk-outfit-male', pkg.studio.maleOutfits);
+  applySelectLimit('sk-background', pkg.studio.locations);
+  applySelectLimit('sk-pose-female', pkg.studio.femalePoses);
+  applySelectLimit('sk-pose-male', pkg.studio.malePoses);
+  applySelectLimit('sk-lighting', pkg.studio.lighting);
+  applySelectLimit('ws-outfit-wanita', pkg.wisuda.outfits);
+  applySelectLimit('ws-outfit-pria', pkg.wisuda.outfits);
+  applySelectLimit('ws-background', pkg.wisuda.backgrounds);
+  applySelectLimit('ws-pose', pkg.wisuda.poses);
+  applySelectLimit('ws-lighting', pkg.wisuda.lighting);
+  applyPackageToPhotoCount('photo-count-sf', pkg.canGenerate4);
+  applyPackageToPhotoCount('photo-count-ws', pkg.canGenerate4);
+  document.querySelectorAll('.count-reco').forEach((el) => {
+    el.textContent = pkg.canGenerate4 ? 'Default: 2 foto · 4 foto tersedia' : 'Default: 2 foto · 4 foto khusus Signature/Prestige';
+  });
+  refreshGenerateButtonLabels();
+  updatePackageUI();
+}
+
+function setCurrentPackage(tier, options = {}) {
+  const pkg = PACKAGE_CONFIG[tier];
+  if (!pkg) return;
+  localStorage.setItem('potretai_package_tier', tier);
+  if (options.grantCredits !== false) TokenManager.setBalance(pkg.credits);
+  applyPackageGates();
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -3496,18 +3645,15 @@ function handleBuyPackage(pkg) {
   document.getElementById('modal-beli-token').style.display = 'none';
 
   const config = {
-    studio_spark:    { amount: 69000,  photos: 4,  label: 'Studio Spark',    desc: '4 foto studio premium',      qris: 'img/qris-studio-spark.png'    },
-    studio_sign:     { amount: 119000, photos: 8,  label: 'Studio Signature', desc: '8 foto studio premium',      qris: 'img/qris-studio-sign.png'     },
-    studio_pres:     { amount: 179000, photos: 12, label: 'Studio Prestige', desc: '12 foto studio premium',     qris: 'img/qris-studio-pres.png'     },
-    wisuda_spark:    { amount: 79000,  photos: 4,  label: 'Wisuda Spark',    desc: '4 foto wisuda elegan',       qris: 'img/qris-wisuda-spark.png'    },
-    wisuda_sign:     { amount: 129000, photos: 8,  label: 'Wisuda Signature', desc: '8 foto wisuda elegan',       qris: 'img/qris-wisuda-sign.png'     },
-    wisuda_pres:     { amount: 189000, photos: 12, label: 'Wisuda Prestige', desc: '12 foto wisuda elegan',      qris: 'img/qris-wisuda-pres.png'     },
-    best_deal:        { amount: 199000, photos: 16, label: 'PotretAI Best Deal', desc: 'Studio Signature + Wisuda Signature', qris: 'img/qris-best-deal.png' },
+    spark:      { amount: 69000,  credits: 8,  label: 'PotretAI Spark',     desc: '8 kredit · 2 foto per generate',             qris: 'img/qris-studio-spark.png', tier: 'spark' },
+    signature:  { amount: 119000, credits: 20, label: 'PotretAI Signature', desc: '20 kredit · 2 & 4 foto · paket utama',      qris: 'img/qris-studio-sign.png',  tier: 'signature' },
+    prestige:   { amount: 179000, credits: 40, label: 'PotretAI Prestige',  desc: '40 kredit · full library · priority queue', qris: 'img/qris-studio-pres.png',  tier: 'prestige' },
   };
-  const c = config[pkg] || config.best_deal;
+  const c = config[pkg] || config.signature;
 
   document.getElementById('qris-title').textContent   = c.label + ' — Rp ' + c.amount.toLocaleString('id');
-  document.getElementById('qris-tokens').textContent  = c.photos + ' foto';
+  document.getElementById('qris-tokens').textContent  = c.credits + ' kredit';
+  document.getElementById('qris-desc').textContent    = c.desc;
   document.getElementById('qris-img').src             = c.qris;
   document.getElementById('qris-pkg').value           = pkg;
   document.getElementById('modal-qris').style.display  = 'flex';
@@ -3517,13 +3663,25 @@ function handleBuyPackage(pkg) {
 // Usage: adminAddToken(20) or adminAddToken(60)
 function adminAddToken(amount) {
   TokenManager.addTokens(amount);
-  showToast(`✅ ${amount} token berhasil ditambahkan!`, 'success');
+  showToast(`✅ ${amount} kredit berhasil ditambahkan!`, 'success');
+}
+
+function adminActivatePackage(tier) {
+  setCurrentPackage(tier, { grantCredits: true });
+  showToast(`✅ Paket ${getCurrentPackageConfig().label} aktif`, 'success');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   navigateTo('dashboard');
   switchTab('wisuda');
   updateUsageUI();
+  const storedTier = localStorage.getItem('potretai_package_tier');
+  const hasStoredCredits = localStorage.getItem(TokenManager.STORAGE_KEY) !== null;
+  if (!storedTier) {
+    setCurrentPackage('signature', { grantCredits: !hasStoredCredits });
+  } else {
+    applyPackageGates();
+  }
   TokenManager.updateUI();
   refreshGenerateButtonLabels();
   document.querySelectorAll('input[name="photo-count-sf"], input[name="photo-count-ws"]').forEach((input) => {
@@ -3548,56 +3706,30 @@ document.addEventListener('DOMContentLoaded', () => {
     <h2 style="font-size:18px;font-weight:500;margin:0 0 4px;color:var(--color-text-primary,#1E2A2F)">Pilih Paket</h2>
     <p style="font-size:13px;color:var(--color-text-secondary,#A7B0B5);margin:0 0 20px;line-height:1.5">Pesan via WhatsApp — bayar dengan QRIS. Proses cepat & mudah.</p>
 
-    <!-- Studio Foto AI -->
-    <div style="font-size:11px;font-weight:600;color:#A7B0B5;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px">Studio Foto AI</div>
+    <div style="font-size:11px;font-weight:600;color:#A7B0B5;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px">Paket PotretAI</div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;">
-      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('studio_spark')">
+      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('spark')">
         <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Spark</div>
         <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 69.000</div>
-        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">4 foto</div>
+        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">8 kredit · 2 foto</div>
       </div>
-      <div style="border:1.5px solid #1FA6B5;border-radius:10px;padding:12px;cursor:pointer;background:rgba(31,166,181,0.06);" onclick="handleBuyPackage('studio_sign')">
+      <div style="border:1.5px solid #1FA6B5;border-radius:10px;padding:12px;cursor:pointer;background:rgba(31,166,181,0.06);" onclick="handleBuyPackage('signature')">
         <div style="font-size:10px;font-weight:600;color:#1FA6B5;margin-bottom:2px">REKOMENDASI</div>
         <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Signature</div>
         <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 119.000</div>
-        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">8 foto</div>
+        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">20 kredit · 2 &amp; 4 foto</div>
       </div>
-      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('studio_pres')">
+      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('prestige')">
         <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Prestige</div>
         <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 179.000</div>
-        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">12 foto</div>
+        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">40 kredit · full library</div>
       </div>
     </div>
-
-    <!-- Wisuda AI -->
-    <div style="font-size:11px;font-weight:600;color:#A7B0B5;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px">Wisuda AI</div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;">
-      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('wisuda_spark')">
-        <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Spark</div>
-        <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 79.000</div>
-        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">4 foto</div>
-      </div>
-      <div style="border:1.5px solid #1FA6B5;border-radius:10px;padding:12px;cursor:pointer;background:rgba(31,166,181,0.06);" onclick="handleBuyPackage('wisuda_sign')">
-        <div style="font-size:10px;font-weight:600;color:#1FA6B5;margin-bottom:2px">REKOMENDASI</div>
-        <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Signature</div>
-        <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 129.000</div>
-        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">8 foto</div>
-      </div>
-      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('wisuda_pres')">
-        <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Prestige</div>
-        <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 189.000</div>
-        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">12 foto</div>
-      </div>
-    </div>
-
-    <!-- Bundle -->
-    <div style="border:1.5px solid #FF7A5A;border-radius:10px;padding:14px;margin-bottom:16px;cursor:pointer;background:rgba(255,122,90,0.06);" onclick="handleBuyPackage('best_deal')">
-      <div style="font-size:10px;font-weight:600;color:#FF7A5A;margin-bottom:3px">BEST DEAL</div>
-      <div style="font-size:14px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">PotretAI Best Deal</div>
-      <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:2px 0 4px">Studio Signature + Wisuda Signature — 16 foto total</div>
-      <div style="font-size:20px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Rp 199.000</div>
+    <div style="border:1.5px solid #FF7A5A;border-radius:10px;padding:14px;margin-bottom:16px;background:rgba(255,122,90,0.06);">
+      <div style="font-size:10px;font-weight:600;color:#FF7A5A;margin-bottom:3px">AKSES SEMUA LAYANAN</div>
+      <div style="font-size:14px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Setiap paket mencakup Studio Foto AI + Wisuda AI</div>
+      <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:2px 0 0">Perbedaannya ada di jumlah kredit, akses 4 foto, dan kedalaman library.</div>
     </div>
 
     <button onclick="document.getElementById('modal-beli-token').style.display='none'" style="width:100%;padding:10px;border-radius:8px;border:0.5px solid var(--color-border-tertiary,#d0d8dc);background:transparent;font-size:13px;color:var(--color-text-secondary,#A7B0B5);cursor:pointer;">
@@ -3613,15 +3745,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     <img id="qris-img" src="" alt="QRIS Code" style="width:200px;height:200px;border-radius:8px;border:0.5px solid var(--color-border-tertiary,#d0d8dc);display:block;margin:0 auto 14px">
 
-    <p style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:0 0 16px;line-height:1.6">
+    <p style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:0 0 16px;line-height:1.6" id="qris-desc">
+      Paket aktif akan memberi akses ke Studio Foto AI dan Wisuda AI sesuai tier yang dipilih.<br><br>
       Setelah transfer, kirim bukti pembayaran via WhatsApp:<br>
       <a href="https://wa.me/62XXXXXXXXXX?text=Bukti+bayar+PotretAI" target="_blank" style="color:#1FA6B5;font-weight:500">+62 XXX-XXXX-XXXX</a><br>
-      Token akan aktif dalam 1×5 menit
+      Kredit akan aktif dalam 1×5 menit
     </p>
 
     <input type="hidden" id="qris-pkg">
     <p style="font-size:12px;color:var(--color-text-secondary,#A7B0B5);margin:0 0 14px">
-      Dapat <span id="qris-tokens" style="font-weight:500;color:var(--color-text-primary,#1E2A2F)">20 foto</span>
+      Dapat <span id="qris-tokens" style="font-weight:500;color:var(--color-text-primary,#1E2A2F)">20 kredit</span>
     </p>
 
     <button onclick="document.getElementById('modal-qris').style.display='none'" style="width:100%;padding:10px;border-radius:8px;border:0.5px solid var(--color-border-tertiary,#d0d8dc);background:transparent;font-size:13px;cursor:pointer;color:var(--color-text-secondary,#A7B0B5)">
