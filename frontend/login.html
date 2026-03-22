@@ -663,6 +663,10 @@
     return { userId, name };
   }
 
+  function resetLocalAppState() {
+    ['potretai_package_tier','potretai_tokens','potretai_admin_mode'].forEach((key) => localStorage.removeItem(key));
+  }
+
   // ── Mobile sync ───────────────────────────────────────────
   const mobileLogo = document.getElementById('mobile-logo');
   const backLink   = document.getElementById('back-link');
@@ -752,6 +756,7 @@
     document.getElementById('submit-spinner').style.display = 'block';
     // TODO: replace with Supabase auth.signUp({ email, password })
     await new Promise(r => setTimeout(r, 1600));
+    resetLocalAppState();
     persistUserIdentity(email, 'register');
     showSuccess();
   }
@@ -771,6 +776,7 @@
     btn.disabled = true;
     document.getElementById('google-label').textContent = 'Mengalihkan ke Google...';
     // TODO: Supabase auth.signInWithOAuth({ provider: 'google' })
+    resetLocalAppState();
     persistUserIdentity(`google.user.${Date.now()}@potretai.id`, 'google');
     setTimeout(() => { window.location.href = 'app.html'; }, 1200);
   }

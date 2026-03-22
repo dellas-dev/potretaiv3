@@ -731,7 +731,7 @@
           Bantuan
         </button>
         <div class="dd-divider"></div>
-        <a class="dd-item logout" href="login-masuk.html">
+        <a class="dd-item logout" href="login-masuk.html" onclick="clearAppSession()">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
           Keluar
         </a>
@@ -1679,7 +1679,7 @@
 
   <div class="acct-card">
     <div class="acct-card-title">Sesi & Keamanan</div>
-    <a class="btn-logout" href="login-masuk.html">
+    <a class="btn-logout" href="login-masuk.html" onclick="clearAppSession()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
       Keluar dari Akun
     </a>
@@ -1870,18 +1870,7 @@ async function syncBackendCreditToUI() {
     if (!res.ok) return;
     const credit = await res.json();
     if (!credit || typeof credit.credits_remaining !== 'number') return;
-
-    const localTier = localStorage.getItem('potretai_package_tier') || 'signature';
-    const localBalance = TokenManager.getBalance();
-    const backendTier = credit.package_tier || credit.plan || 'spark';
-    const backendLooksWeaker = (backendTier === 'spark' || backendTier === 'trial') && (localTier === 'signature' || localTier === 'prestige' || localBalance > credit.credits_remaining);
-    if (backendLooksWeaker) return;
-
-    setCurrentPackage(backendTier, { grantCredits: false });
-    TokenManager.setBalance(credit.credits_remaining);
-    AppState.usageRemaining = credit.credits_remaining;
-    AppState.packageCredits = PACKAGE_CONFIG[backendTier]?.credits || credit.credits_remaining;
-    updateUsageUI();
+    applyCreditState(credit);
   } catch (err) {
     console.warn('[PotretAI] syncBackendCreditToUI failed:', err.message);
   }
@@ -1895,6 +1884,17 @@ function applyCreditState(credit) {
   AppState.usageRemaining = credit.credits_remaining;
   AppState.packageCredits = PACKAGE_CONFIG[backendTier]?.credits || credit.credits_remaining;
   updateUsageUI();
+}
+
+function clearAppSession() {
+  [
+    'potretai_package_tier',
+    'potretai_tokens',
+    'potretai_admin_mode',
+    'potretai_user_id',
+    'potretai_user_email',
+    'potretai_user_name',
+  ].forEach((key) => localStorage.removeItem(key));
 }
 
 // ── Turnstile token (diisi otomatis oleh widget invisible) ──
@@ -4035,7 +4035,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const storedTier = localStorage.getItem('potretai_package_tier');
   const hasStoredCredits = localStorage.getItem(TokenManager.STORAGE_KEY) !== null;
   if (!storedTier) {
-    setCurrentPackage('signature', { grantCredits: !hasStoredCredits });
+    setCurrentPackage('spark', { grantCredits: !hasStoredCredits });
   } else {
     applyPackageGates();
   }
