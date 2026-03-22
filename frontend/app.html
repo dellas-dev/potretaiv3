@@ -1757,6 +1757,17 @@
 // Production : https://api.potretai.studiocreative.id
 const WORKER_URL = 'https://potretai-worker.potretaiv3.workers.dev';
 
+function getWorkerUserId() {
+  return localStorage.getItem('potretai_user_id') || '';
+}
+
+function getWorkerJsonHeaders() {
+  const headers = { 'Content-Type': 'application/json' };
+  const userId = getWorkerUserId();
+  if (userId) headers['X-User-Id'] = userId;
+  return headers;
+}
+
 // ── Turnstile token (diisi otomatis oleh widget invisible) ──
 let _turnstileToken = '';
 function onTurnstileSuccess(token) { _turnstileToken = token; }
@@ -2670,8 +2681,8 @@ const FalEngine = {
     showToast(`AI sedang membuat ${count} foto...`, 'info');
     const res = await fetch(`${WORKER_URL}/generate-pulid`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, face_url: faceUrl, count }),
+      headers: getWorkerJsonHeaders(),
+      body: JSON.stringify({ prompt, face_url: faceUrl, count, service: AppState.currentTab }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || 'Generate gagal');
@@ -2683,8 +2694,8 @@ const FalEngine = {
     showToast(`💼 Membuat ${count} foto profesional...`, 'info');
     const res = await fetch(`${WORKER_URL}/generate-instantid`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, face_url: faceUrl, count }),
+      headers: getWorkerJsonHeaders(),
+      body: JSON.stringify({ prompt, face_url: faceUrl, count, service: AppState.currentTab }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || 'Generate profesional gagal');

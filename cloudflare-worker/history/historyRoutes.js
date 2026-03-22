@@ -18,7 +18,7 @@
  */
 
 import { getUserHistory }  from './historyManager.js';
-import { getUserCredit }   from '../utils/creditManager.js';
+import { ensureUserCredit } from '../utils/creditManager.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
 /**
@@ -78,10 +78,7 @@ export async function handleGetCreditRoute(request, env, origin) {
   }
 
   try {
-    const credit = await getUserCredit(user_id, env);
-    if (!credit) {
-      return jsonRes({ error: 'User tidak ditemukan.' }, 404, origin);
-    }
+    const credit = await ensureUserCredit(user_id, env);
     return jsonRes(credit, 200, origin);
   } catch (err) {
     console.error('[history] handleGetCreditRoute error:', err.message);
@@ -110,7 +107,7 @@ function jsonRes(data, status, origin) {
   const headers = {
     'Content-Type':                 'application/json',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With, X-User-Id',
     'Vary':                         'Origin',
   };
   if (allow) headers['Access-Control-Allow-Origin'] = allow;

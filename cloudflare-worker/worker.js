@@ -9,6 +9,8 @@
  *   R2_CDN_BASE     — CDN base URL for uploaded face photos
  */
 
+import { chargeGenerate, refundGenerate, writeGenerateLog } from './utils/creditManager.js';
+
 const ALLOWED_ORIGINS = [
   'https://potretai.studiocreative.id',
   'https://potretai-v3-live.pages.dev',
@@ -99,7 +101,38 @@ export default {
 
         // Photo count: frontend can request 2–4 photos (default 2)
         const photoCount = Math.min(Math.max(parseInt(body.count) || 2, 2), 4);
+        const userId = request.headers.get('X-User-Id') || body.user_id || '';
+        const requestId = body.request_id || crypto.randomUUID();
+        const service = body.service || 'studio_foto';
         console.log(`[PotretAI] photoCount: ${photoCount}`);
+
+        let chargeMeta = null;
+        if (userId && env.USER_CREDITS) {
+          try {
+            chargeMeta = await chargeGenerate(userId, { photoCount, service, requestId }, env);
+          } catch (err) {
+            await writeGenerateLog(userId, {
+              request_id: requestId,
+              endpoint: path,
+              service,
+              photo_count: photoCount,
+              status: 'rejected_quota',
+              reason: err.message,
+            }, env);
+            return jsonResponse({ error: 'Kredit habis. Silakan upgrade paket atau top up.' }, 402, origin);
+          }
+        }
+
+        await writeGenerateLog(userId, {
+          request_id: requestId,
+          endpoint: path,
+          service,
+          photo_count: photoCount,
+          charged_credits: chargeMeta?.cost || 0,
+          package_tier: chargeMeta?.package_tier || 'anonymous',
+          status: 'processing',
+          prompt_length: safePrompt.length,
+        }, env);
 
         const REPLICATE_KEY = env.REPLICATE_KEY || '';
 
@@ -166,11 +199,34 @@ export default {
           .map(r => r.value);
 
         if (!urls.length) {
+          if (chargeMeta && userId) {
+            await refundGenerate(userId, { photoCount, service, requestId, reason: 'generate_empty_result' }, env);
+          }
+          await writeGenerateLog(userId, {
+            request_id: requestId,
+            endpoint: path,
+            service,
+            photo_count: photoCount,
+            charged_credits: chargeMeta?.cost || 0,
+            package_tier: chargeMeta?.package_tier || 'anonymous',
+            status: 'failed',
+            reason: 'empty_result',
+          }, env);
           return jsonResponse({
             error: 'AI tidak menghasilkan gambar. Coba lagi.',
             promptLength: safePrompt?.length
           }, 502, origin);
         }
+        await writeGenerateLog(userId, {
+          request_id: requestId,
+          endpoint: path,
+          service,
+          photo_count: photoCount,
+          charged_credits: chargeMeta?.cost || 0,
+          package_tier: chargeMeta?.package_tier || 'anonymous',
+          status: 'success',
+          result_count: urls.length,
+        }, env);
         return jsonResponse({ success: true, urls }, 200, origin);
       }
 
@@ -188,7 +244,38 @@ export default {
         }
 
         const photoCount = Math.min(Math.max(parseInt(body.count) || 2, 2), 4);
+        const userId = request.headers.get('X-User-Id') || body.user_id || '';
+        const requestId = body.request_id || crypto.randomUUID();
+        const service = body.service || 'instantid';
         console.log(`[PotretAI] instantid photoCount: ${photoCount}`);
+
+        let chargeMeta = null;
+        if (userId && env.USER_CREDITS) {
+          try {
+            chargeMeta = await chargeGenerate(userId, { photoCount, service, requestId }, env);
+          } catch (err) {
+            await writeGenerateLog(userId, {
+              request_id: requestId,
+              endpoint: path,
+              service,
+              photo_count: photoCount,
+              status: 'rejected_quota',
+              reason: err.message,
+            }, env);
+            return jsonResponse({ error: 'Kredit habis. Silakan upgrade paket atau top up.' }, 402, origin);
+          }
+        }
+
+        await writeGenerateLog(userId, {
+          request_id: requestId,
+          endpoint: path,
+          service,
+          photo_count: photoCount,
+          charged_credits: chargeMeta?.cost || 0,
+          package_tier: chargeMeta?.package_tier || 'anonymous',
+          status: 'processing',
+          prompt_length: safePromptId.length,
+        }, env);
 
         const seeds = Array.from({ length: photoCount }, (_, i) =>
           Math.floor(Math.random() * 900000) + i * 1000000
@@ -230,7 +317,32 @@ export default {
           .filter(r => r.status === 'fulfilled' && r.value)
           .map(r => r.value);
 
-        if (!urls.length) return jsonResponse({ error: 'Generate foto profesional gagal. Coba lagi.' }, 502, origin);
+        if (!urls.length) {
+          if (chargeMeta && userId) {
+            await refundGenerate(userId, { photoCount, service, requestId, reason: 'generate_empty_result' }, env);
+          }
+          await writeGenerateLog(userId, {
+            request_id: requestId,
+            endpoint: path,
+            service,
+            photo_count: photoCount,
+            charged_credits: chargeMeta?.cost || 0,
+            package_tier: chargeMeta?.package_tier || 'anonymous',
+            status: 'failed',
+            reason: 'empty_result',
+          }, env);
+          return jsonResponse({ error: 'Generate foto profesional gagal. Coba lagi.' }, 502, origin);
+        }
+        await writeGenerateLog(userId, {
+          request_id: requestId,
+          endpoint: path,
+          service,
+          photo_count: photoCount,
+          charged_credits: chargeMeta?.cost || 0,
+          package_tier: chargeMeta?.package_tier || 'anonymous',
+          status: 'success',
+          result_count: urls.length,
+        }, env);
         return jsonResponse({ success: true, urls }, 200, origin);
       }
 
@@ -267,7 +379,7 @@ function corsHeaders(origin) {
   const allowed = resolveAllowedOrigin(origin);
   const headers = {
     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With, X-User-Id',
     'Access-Control-Max-Age': '86400',
     'Vary': 'Origin',
   };
