@@ -3778,8 +3778,51 @@ async function handleBuyPackage(pkg) {
   document.getElementById('qris-desc').textContent    = c.desc;
   document.getElementById('qris-img').src             = c.qris;
   document.getElementById('qris-pkg').value           = pkg;
+  document.getElementById('qris-proof-file').value    = '';
+  document.getElementById('qris-proof-status').textContent = '';
   document.getElementById('qris-order-id').textContent = orderId || 'Akan dibuat saat pembayaran dikonfirmasi';
   document.getElementById('modal-qris').style.display  = 'flex';
+}
+
+async function submitPaymentProof() {
+  const orderId = (document.getElementById('qris-order-id')?.textContent || '').trim();
+  const fileInput = document.getElementById('qris-proof-file');
+  const statusEl = document.getElementById('qris-proof-status');
+  const btn = document.getElementById('qris-proof-btn');
+
+  if (!orderId || orderId === 'Akan dibuat saat pembayaran dikonfirmasi') {
+    if (statusEl) statusEl.textContent = 'Order belum siap. Coba buka paket lagi.';
+    return;
+  }
+  const file = fileInput?.files?.[0];
+  if (!file) {
+    if (statusEl) statusEl.textContent = 'Pilih file bukti pembayaran dulu.';
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('order_id', orderId);
+  formData.append('proof', file);
+
+  if (btn) btn.disabled = true;
+  if (statusEl) statusEl.textContent = 'Mengupload bukti pembayaran...';
+
+  try {
+    const res = await fetch(`${WORKER_URL}/submit-payment-proof`, {
+      method: 'POST',
+      body: formData,
+      headers: getWorkerUserId() ? { 'X-User-Id': getWorkerUserId() } : undefined,
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Upload bukti pembayaran gagal');
+    if (statusEl) statusEl.textContent = `Bukti bayar terkirim. Order ${data.order_id} menunggu verifikasi admin.`;
+    showToast('✅ Bukti pembayaran berhasil dikirim', 'success');
+  } catch (err) {
+    if (statusEl) statusEl.textContent = err.message || 'Upload bukti pembayaran gagal';
+    showToast(`❌ ${err.message || 'Upload bukti pembayaran gagal'}`, 'error');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
 }
 
 // Admin function — call from browser console after confirming payment via WA
@@ -3906,6 +3949,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       Order ID:<br>
       <span id="qris-order-id" style="font-family:'Roboto Mono',monospace;font-size:12px;color:var(--color-text-primary,#1E2A2F)">Menyiapkan order...</span>
     </p>
+
+    <div style="margin:0 0 14px;">
+      <label for="qris-proof-file" style="display:block;font-size:12px;font-weight:500;color:var(--color-text-primary,#1E2A2F);margin-bottom:6px;">Upload bukti pembayaran</label>
+      <input type="file" id="qris-proof-file" accept="image/jpeg,image/png,image/webp" style="display:block;width:100%;font-size:12px;color:var(--color-text-secondary,#A7B0B5);">
+      <p id="qris-proof-status" style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:8px 0 0;line-height:1.5;"></p>
+    </div>
+
+    <button id="qris-proof-btn" onclick="submitPaymentProof()" style="width:100%;padding:10px 12px;border-radius:8px;border:none;background:#1FA6B5;color:#fff;font-size:13px;font-weight:500;cursor:pointer;margin-bottom:10px;">
+      Kirim Bukti Pembayaran
+    </button>
 
     <button onclick="document.getElementById('modal-qris').style.display='none'" style="width:100%;padding:10px;border-radius:8px;border:0.5px solid var(--color-border-tertiary,#d0d8dc);background:transparent;font-size:13px;cursor:pointer;color:var(--color-text-secondary,#A7B0B5)">
       Tutup
