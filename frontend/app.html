@@ -2790,8 +2790,10 @@ const FalEngine = {
     showToast('📤 Mengupload foto referensi...', 'info');
     const formData = new FormData();
     formData.append('file', file);
+    const userId = getWorkerUserId();
     const res = await fetch(`${WORKER_URL}/upload-face`, {
       method: 'POST',
+      headers: userId ? { 'X-User-Id': userId } : undefined,
       body: formData,
     });
     const data = await res.json().catch(() => ({}));
