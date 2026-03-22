@@ -32,10 +32,20 @@ const ALLOWED_ORIGINS = [
   'null',
 ];
 
+const BETA_PROTECTED_PATHS = new Set([
+  '/upload-face',
+  '/generate-pulid',
+  '/generate-instantid',
+  '/create-order',
+  '/submit-payment-proof',
+]);
+
 export default {
   async fetch(request, env, _ctx) {
     const origin = request.headers.get('Origin') || '';
     const url = new URL(request.url);
+    const path = url.pathname;
+    const requestUserId = request.headers.get('X-User-Id') || '';
 
     // CORS preflight
     if (request.method === 'OPTIONS') return handleCors(origin);
@@ -43,6 +53,16 @@ export default {
     // Health check
     if (request.method === 'GET' && url.pathname === '/') {
       return jsonResponse({ status: 'ok', service: 'PotretAI Proxy', version: '3.0' }, 200, origin);
+    }
+
+    if (request.method === 'GET' && path.startsWith('/beta-status/')) {
+      const userId = decodeURIComponent(path.replace('/beta-status/', '').trim());
+      return jsonResponse({
+        success: true,
+        beta_enabled: isBetaModeEnabled(env),
+        user_id: userId,
+        allowed: isBetaUserAllowed(userId, env),
+      }, 200, origin);
     }
 
     if (request.method === 'GET' && url.pathname.startsWith('/history/')) {
@@ -88,9 +108,13 @@ export default {
     const apiKey = env.FAL_KEY || env.FAL_API_KEY;
     if (!apiKey) return jsonResponse({ error: 'Server configuration error' }, 500, origin);
 
-    const path = url.pathname;
-
     try {
+      if (BETA_PROTECTED_PATHS.has(path) && isBetaModeEnabled(env)) {
+        if (!requestUserId || !isBetaUserAllowed(requestUserId, env)) {
+          return jsonResponse({ error: 'Akses beta terbatas. Akun ini belum masuk allowlist beta.' }, 403, origin);
+        }
+      }
+
       // ── Route: Upload face photo to R2 storage ─────────────────────
       if (path === '/upload-face') {
         const formData = await request.formData();
@@ -443,6 +467,25 @@ function isAllowedOrigin(origin) {
   const normalizedOrigin = normalizeOrigin(origin);
   if (!normalizedOrigin || normalizedOrigin === 'null') return true;
   return ALLOWED_ORIGINS.some(o => normalizeOrigin(o) === normalizedOrigin);
+}
+
+function isBetaModeEnabled(env) {
+  return ['1', 'true', 'on', 'beta'].includes(String(env?.BETA_MODE || '').trim().toLowerCase());
+}
+
+function getBetaAllowlist(env) {
+  return String(env?.BETA_ALLOWLIST || '')
+    .split(/[\s,]+/)
+    .map((v) => v.trim())
+    .filter(Boolean);
+}
+
+function isBetaUserAllowed(userId, env) {
+  if (!isBetaModeEnabled(env)) return true;
+  if (!userId) return false;
+  const allowlist = getBetaAllowlist(env);
+  if (!allowlist.length) return false;
+  return allowlist.includes(userId);
 }
 
 function corsHeaders(origin) {

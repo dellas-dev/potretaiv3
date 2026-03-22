@@ -1704,6 +1704,7 @@
       <div id="admin-verify-status" style="font-family:'Inter',sans-serif;font-size:12px;color:#6B7C86;line-height:1.6;"></div>
       <div id="admin-stats-panel" style="margin-top:10px;padding:12px;border:1px solid #E8EEF1;border-radius:12px;background:#F8FBFC;display:flex;flex-direction:column;gap:10px;">
         <div style="font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#93A4AC;">Monitoring Snapshot</div>
+        <div id="admin-beta-status" style="font-family:'Roboto Mono',monospace;font-size:10px;color:#6B7C86;line-height:1.6;white-space:pre-wrap;">Beta status belum dimuat.</div>
         <div id="admin-stats-summary" style="font-family:'Inter',sans-serif;font-size:12px;color:#1E2A2F;line-height:1.7;">Klik Refresh Stats untuk memuat ringkasan hari ini.</div>
         <div id="admin-stats-orders" style="font-family:'Roboto Mono',monospace;font-size:10px;color:#6B7C86;line-height:1.6;white-space:pre-wrap;"></div>
         <div id="admin-stats-generates" style="font-family:'Roboto Mono',monospace;font-size:10px;color:#6B7C86;line-height:1.6;white-space:pre-wrap;"></div>
@@ -3901,6 +3902,7 @@ function isAdminMode() {
 function applyAdminMode() {
   const card = document.getElementById('admin-verify-card');
   if (card) card.style.display = isAdminMode() ? '' : 'none';
+  if (isAdminMode()) refreshBetaStatus();
 }
 
 function enableAdminMode() {
@@ -3995,6 +3997,26 @@ async function adminFetchStats() {
   } catch (err) {
     if (summaryEl) summaryEl.textContent = err.message || 'Gagal memuat statistik admin';
     showToast(`❌ ${err.message || 'Gagal memuat statistik admin'}`, 'error');
+  }
+}
+
+async function refreshBetaStatus() {
+  const statusEl = document.getElementById('admin-beta-status');
+  if (!statusEl) return;
+  const profile = getStoredUserProfile();
+  try {
+    const res = await fetch(`${WORKER_URL}/beta-status/${encodeURIComponent(profile.userId)}`, {
+      headers: getWorkerJsonHeaders(),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Gagal memuat beta status');
+    statusEl.textContent = [
+      `user_id: ${profile.userId}`,
+      `beta_enabled: ${data.beta_enabled ? 'yes' : 'no'}`,
+      `allowed: ${data.allowed ? 'yes' : 'no'}`,
+    ].join('\n');
+  } catch (err) {
+    statusEl.textContent = `beta status error: ${err.message}`;
   }
 }
 

@@ -11,6 +11,20 @@ Run PotretAI in a controlled beta with 10-20 paying users, validate unit economi
 - Keep `4 foto` for `Signature` and `Prestige` only
 - Start with the most stable presets and premium-ready dropdown combinations
 
+## Beta Access Guard
+
+If you want to enforce a strict beta cohort in production worker:
+
+- set `BETA_MODE=on`
+- set `BETA_ALLOWLIST=<comma-separated user_ids>`
+
+Protected routes will only allow listed users for:
+
+- upload face
+- generate
+- create order
+- submit payment proof
+
 ## User Cohort
 
 - Invite 10-20 users only
