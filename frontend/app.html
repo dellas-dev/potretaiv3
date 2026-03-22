@@ -1199,13 +1199,13 @@
         <div class="gen-bottom">
           <div class="count-row">
             <span class="count-label">Jumlah foto</span>
-            <label class="count-option"><input type="radio" name="photo-count-ws" value="2"> 2 foto</label>
-            <label class="count-option"><input type="radio" name="photo-count-ws" value="4" checked> 4 foto</label>
-            <span class="count-reco">Direkomendasikan: 4 foto</span>
+            <label class="count-option"><input type="radio" name="photo-count-ws" value="2" checked> 2 foto</label>
+            <label class="count-option"><input type="radio" name="photo-count-ws" value="4"> 4 foto</label>
+            <span class="count-reco">Default: 2 foto</span>
           </div>
           <button class="btn-generate" id="btn-gen-ws" onclick="startGenerate()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <span id="btn-gen-ws-label">Generate 4 Foto Wisuda</span>
+            <span id="btn-gen-ws-label">Generate 2 Foto Wisuda</span>
             <svg id="btn-gen-ws-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
           </button>
           <div class="gen-cta-note">Hasil generate akan muncul di panel kanan setelah proses selesai.</div>
@@ -1543,13 +1543,13 @@
 <div class="gen-bottom">
   <div class="count-row">
     <span class="count-label">Jumlah foto</span>
-    <label class="count-option"><input type="radio" name="photo-count-sf" value="2"> 2 foto</label>
-    <label class="count-option"><input type="radio" name="photo-count-sf" value="4" checked> 4 foto</label>
-    <span class="count-reco">Direkomendasikan: 4 foto</span>
+    <label class="count-option"><input type="radio" name="photo-count-sf" value="2" checked> 2 foto</label>
+    <label class="count-option"><input type="radio" name="photo-count-sf" value="4"> 4 foto</label>
+    <span class="count-reco">Default: 2 foto</span>
   </div>
   <button class="btn-generate" id="btn-gen-sf" onclick="startGenerate()">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-    <span id="btn-gen-sf-label">Generate 4 Foto Studio</span>
+    <span id="btn-gen-sf-label">Generate 2 Foto Studio</span>
     <svg id="btn-gen-sf-spin" class="spinning" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
   </button>
   <div class="gen-cta-note">Setelah generate berjalan, preview hasil muncul di area kanan.</div>
@@ -1607,7 +1607,7 @@
         <!-- Results -->
         <div id="output-results" class="output-stage" style="display:none;">
           <div class="results-hdr">
-            <div class="results-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 4 foto berhasil dibuat</div>
+            <div class="results-badge" id="results-badge-text"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 2 foto berhasil dibuat</div>
             <button class="btn-regen-all" onclick="startGenerate()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Generate Ulang</button>
           </div>
           <div class="output-grid-premium" id="results-grid"></div>
@@ -2125,11 +2125,30 @@ const TokenManager = {
     const bal = this.getBalance();
     const el = document.getElementById('token-balance-display');
     if (el) {
-      el.textContent = `${bal} foto tersisa`;
+      el.textContent = `${bal} kredit tersisa`;
       el.style.color = bal <= 2 ? 'var(--color-text-danger, #e53e3e)' : '';
     }
   },
 };
+
+function getSelectedPhotoCount(tab) {
+  const tabSuffix = { studio_foto: 'sf', wisuda: 'ws' }[tab] || tab;
+  return parseInt(document.querySelector(`input[name="photo-count-${tabSuffix}"]:checked`)?.value || '2', 10);
+}
+
+function getGenerateLabel(tab, count) {
+  const serviceLabel = tab === 'wisuda' ? 'Wisuda' : 'Studio';
+  return `Generate ${count} Foto ${serviceLabel}`;
+}
+
+function refreshGenerateButtonLabels() {
+  ['wisuda', 'studio_foto'].forEach((tab) => {
+    const pfx = TAB_BTN_ID[tab] || tab.slice(0, 2);
+    const lbl = document.getElementById('btn-gen-' + pfx + '-label');
+    if (!lbl) return;
+    lbl.textContent = getGenerateLabel(tab, getSelectedPhotoCount(tab));
+  });
+}
 
 // ═══════════════════════════════════════════════════════════
 // STATE
@@ -2497,7 +2516,7 @@ const FalEngine = {
     return data.url;
   },
 
-  // Generate 4 solo photos via flux-pulid
+  // Generate requested solo photos via flux-pulid
   async generateSolo(prompt, faceUrl, count = 4) {
     showToast(`AI sedang membuat ${count} foto...`, 'info');
     const res = await fetch(`${WORKER_URL}/generate-pulid`, {
@@ -2510,7 +2529,7 @@ const FalEngine = {
     return data.urls || [];
   },
 
-  // Generate 4 professional headshots via InstantID
+  // Generate requested professional headshots via InstantID
   async generateInstantID(prompt, faceUrl, count = 4) {
     showToast(`💼 Membuat ${count} foto profesional...`, 'info');
     const res = await fetch(`${WORKER_URL}/generate-instantid`, {
@@ -3205,16 +3224,15 @@ async function startGenerate() {
 
   const tab = AppState.currentTab;
 
-  // Read photo count from per-tab radio (default 4)
-  const tabSuffix = { studio_foto: 'sf', wisuda: 'ws' }[tab] || tab;
-  const photoCount = parseInt(document.querySelector(`input[name="photo-count-${tabSuffix}"]:checked`)?.value || '4');
+  // Read photo count from per-tab radio (default 2)
+  const photoCount = getSelectedPhotoCount(tab);
   console.log(`[PotretAI] photoCount: ${photoCount}`);
 
   // Check token balance — skip on localhost for testing
   const isLocalDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'file:';
-  const tokenCost = Math.ceil(photoCount / 4); // 1 token per 4 photos
+  const tokenCost = photoCount >= 4 ? 2 : 1;
   if (!isLocalDev && !TokenManager.consume(tokenCost)) {
-    showToast('❌ Kuota habis. Pesan paket via WhatsApp untuk lanjut.', 'error');
+    showToast('❌ Kredit habis. Pesan paket via WhatsApp untuk lanjut.', 'error');
     document.getElementById('modal-beli-token')?.style.setProperty('display', 'flex');
     return;
   }
@@ -3249,11 +3267,16 @@ async function startGenerate() {
 
     valid.forEach(url => AppState.generatedImages.unshift({ url, tab, timestamp: Date.now() }));
     GalleryRenderer.render(urls, tab);
-    showToast('🎉 4 foto berhasil dibuat!', 'success');
+    const badge = document.getElementById('results-badge-text');
+    if (badge) {
+      badge.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> ${valid.length} foto berhasil dibuat`;
+    }
+    showToast(`🎉 ${valid.length} foto berhasil dibuat!`, 'success');
     renderDashboardRecent();
 
   } catch (err) {
-    AppState.usageRemaining += 4;
+    AppState.usageRemaining += photoCount;
+    if (!isLocalDev) TokenManager.addTokens(tokenCost);
     updateUsageUI();
     showEmpty();
     showToast(`❌ ${err.message || 'Gagal generate foto. Coba lagi.'}`, 'error');
@@ -3275,10 +3298,7 @@ function setBtnLoading(tab, loading) {
   const spin = document.getElementById('btn-gen-' + pfx + '-spin');
   if (!btn) return;
   btn.disabled = loading;
-  const labels = {
-    wisuda:'Generate 4 Foto Wisuda', studio_foto:'Generate 4 Foto Studio',
-  };
-  if (lbl) lbl.textContent = loading ? 'AI sedang memproses...' : (labels[tab] || 'Generate 4 Foto');
+  if (lbl) lbl.textContent = loading ? 'AI sedang memproses...' : getGenerateLabel(tab, getSelectedPhotoCount(tab));
   if (spin) spin.style.display = loading ? 'block' : 'none';
   const icon = btn.querySelector('svg:not(.spinning)');
   if (icon) icon.style.display = loading ? 'none' : '';
@@ -3505,6 +3525,10 @@ document.addEventListener('DOMContentLoaded', () => {
   switchTab('wisuda');
   updateUsageUI();
   TokenManager.updateUI();
+  refreshGenerateButtonLabels();
+  document.querySelectorAll('input[name="photo-count-sf"], input[name="photo-count-ws"]').forEach((input) => {
+    input.addEventListener('change', refreshGenerateButtonLabels);
+  });
   const sm = document.getElementById('sb-submenu');
   if (sm) sm.classList.add('open');
   document.addEventListener('keydown', e => {

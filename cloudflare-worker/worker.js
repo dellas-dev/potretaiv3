@@ -97,8 +97,8 @@ export default {
           console.log(`[PotretAI] Prompt truncated: ${body.prompt.length} → ${safePrompt.length} chars`);
         }
 
-        // Photo count: frontend can request 2–4 photos (default 4)
-        const photoCount = Math.min(Math.max(parseInt(body.count) || 4, 2), 4);
+        // Photo count: frontend can request 2–4 photos (default 2)
+        const photoCount = Math.min(Math.max(parseInt(body.count) || 2, 2), 4);
         console.log(`[PotretAI] photoCount: ${photoCount}`);
 
         const REPLICATE_KEY = env.REPLICATE_KEY || '';
@@ -108,8 +108,8 @@ export default {
             prompt,
             reference_image_url: reqBody.face_url,
             num_images: 1,
-            image_size: { width: 832, height: 1216 },
-            num_inference_steps: 25,
+            image_size: { width: 768, height: 1152 },
+            num_inference_steps: 18,
             guidance_scale: 4.5,
             id_scale: 0.85,
             seed,
@@ -174,7 +174,7 @@ export default {
         return jsonResponse({ success: true, urls }, 200, origin);
       }
 
-      // ── Route: Professional headshot via flux-pulid (parallel × 4) ──
+      // ── Route: Professional headshot via flux-pulid (parallel × 2-4) ──
       if (path === '/generate-instantid') {
         const body = await request.json();
         if (!body.prompt)   return jsonResponse({ error: 'prompt required' }, 400, origin);
@@ -187,20 +187,20 @@ export default {
           safePromptId = cut > 800 ? safePromptId.substring(0, cut) : safePromptId.substring(0, 1200);
         }
 
-        const seeds = [
-          Math.floor(Math.random() * 900000),
-          Math.floor(Math.random() * 900000) + 1000000,
-          Math.floor(Math.random() * 900000) + 2000000,
-          Math.floor(Math.random() * 900000) + 3000000,
-        ];
+        const photoCount = Math.min(Math.max(parseInt(body.count) || 2, 2), 4);
+        console.log(`[PotretAI] instantid photoCount: ${photoCount}`);
+
+        const seeds = Array.from({ length: photoCount }, (_, i) =>
+          Math.floor(Math.random() * 900000) + i * 1000000
+        );
 
         const callOne = async (seed) => {
           const payload = {
             prompt: safePromptId,
             reference_image_url: body.face_url,
             num_images: 1,
-            image_size: { width: 832, height: 1216 },
-            num_inference_steps: 25,
+            image_size: { width: 768, height: 1152 },
+            num_inference_steps: 18,
             guidance_scale: 4.5,
             id_scale: 0.75,
             seed,
