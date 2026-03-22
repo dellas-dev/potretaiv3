@@ -11,6 +11,9 @@
 
 import { chargeGenerate, refundGenerate, writeGenerateLog } from './utils/creditManager.js';
 import { handleHistoryRoute, handleGetCreditRoute } from './history/historyRoutes.js';
+import { createOrder } from './payments/createOrder.js';
+import { submitProof } from './payments/submitProof.js';
+import { verifyPayment } from './payments/verifyPayment.js';
 
 const ALLOWED_ORIGINS = [
   'https://potretai.studiocreative.id',
@@ -45,6 +48,18 @@ export default {
 
     if (request.method === 'GET' && url.pathname.startsWith('/get-credit/')) {
       return handleGetCreditRoute(request, env, origin);
+    }
+
+    if (request.method === 'POST' && url.pathname === '/create-order') {
+      return withCors(await createOrder(request, env), origin);
+    }
+
+    if (request.method === 'POST' && url.pathname === '/submit-payment-proof') {
+      return withCors(await submitProof(request, env), origin);
+    }
+
+    if (request.method === 'POST' && url.pathname === '/verify-payment') {
+      return withCors(await verifyPayment(request, env), origin);
     }
 
     if (request.method !== 'POST') {
@@ -407,6 +422,17 @@ function jsonResponse(data, status, origin) {
   return new Response(JSON.stringify(data), {
     status,
     headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
+  });
+}
+
+function withCors(response, origin) {
+  const headers = new Headers(response.headers);
+  const cors = corsHeaders(origin);
+  Object.entries(cors).forEach(([key, value]) => headers.set(key, value));
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
   });
 }
 
