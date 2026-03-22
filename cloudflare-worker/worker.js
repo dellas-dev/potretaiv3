@@ -10,6 +10,7 @@
  */
 
 import { chargeGenerate, refundGenerate, writeGenerateLog } from './utils/creditManager.js';
+import { handleHistoryRoute, handleGetCreditRoute } from './history/historyRoutes.js';
 
 const ALLOWED_ORIGINS = [
   'https://potretai.studiocreative.id',
@@ -36,6 +37,14 @@ export default {
     // Health check
     if (request.method === 'GET' && url.pathname === '/') {
       return jsonResponse({ status: 'ok', service: 'PotretAI Proxy', version: '3.0' }, 200, origin);
+    }
+
+    if (request.method === 'GET' && url.pathname.startsWith('/history/')) {
+      return handleHistoryRoute(request, env, origin);
+    }
+
+    if (request.method === 'GET' && url.pathname.startsWith('/get-credit/')) {
+      return handleGetCreditRoute(request, env, origin);
     }
 
     if (request.method !== 'POST') {
