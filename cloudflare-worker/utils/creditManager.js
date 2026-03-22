@@ -92,6 +92,15 @@ const PLAN_ALIASES = {
   best_deal: 'prestige',
   prestige: 'prestige',
   pro: 'pro',
+  topup_mini: 'topup_mini',
+  topup_plus: 'topup_plus',
+  topup_pro: 'topup_pro',
+};
+
+const TOPUP_PLANS = {
+  topup_mini: 5,
+  topup_plus: 10,
+  topup_pro: 25,
 };
 
 function now() {
@@ -112,6 +121,10 @@ function buildGenerateLogKey(loginId, requestId = crypto.randomUUID()) {
 
 function normalizePlan(plan) {
   return PLAN_ALIASES[plan] || 'spark';
+}
+
+function isTopUpPlan(plan) {
+  return Object.prototype.hasOwnProperty.call(TOPUP_PLANS, normalizePlan(plan));
 }
 
 function buildCreditRecord(plan, loginId = '') {
@@ -240,6 +253,24 @@ export async function ensureUserCredit(loginId, env, defaultPlan = 'trial') {
 }
 
 export async function addCredit(loginId, plan, env) {
+  if (isTopUpPlan(plan)) {
+    const normalizedPlan = normalizePlan(plan);
+    const topupAmount = TOPUP_PLANS[normalizedPlan] || 0;
+    const credit = await ensureUserCredit(loginId, env);
+    credit.credits_remaining += topupAmount;
+    credit.generates_remaining = credit.credits_remaining;
+    await saveUserCredit(loginId, credit, env);
+    await writeLedger(loginId, {
+      type: 'topup_grant',
+      delta: topupAmount,
+      balance_after: credit.credits_remaining,
+      package_tier: credit.package_tier,
+      reference_id: crypto.randomUUID(),
+      source: normalizedPlan,
+    }, env);
+    return credit;
+  }
+
   const credit = buildCreditRecord(plan, loginId);
   await saveUserCredit(loginId, credit, env);
   await writeLedger(loginId, {

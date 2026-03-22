@@ -3659,6 +3659,9 @@ function handleBuyPackage(pkg) {
     spark:      { amount: 69000,  credits: 8,  label: 'PotretAI Spark',     desc: '8 kredit · 2 foto per generate',             qris: 'img/qris-studio-spark.png', tier: 'spark' },
     signature:  { amount: 119000, credits: 20, label: 'PotretAI Signature', desc: '20 kredit · 2 & 4 foto · paket utama',      qris: 'img/qris-studio-sign.png',  tier: 'signature' },
     prestige:   { amount: 179000, credits: 40, label: 'PotretAI Prestige',  desc: '40 kredit · full library · priority queue', qris: 'img/qris-studio-pres.png',  tier: 'prestige' },
+    topup_mini: { amount: 39000,  credits: 5,  label: 'Top Up Mini',        desc: 'Tambah 5 kredit tanpa mengubah paket aktif', qris: 'img/qris-studio-spark.png', tier: null },
+    topup_plus: { amount: 69000,  credits: 10, label: 'Top Up Plus',        desc: 'Tambah 10 kredit tanpa mengubah paket aktif', qris: 'img/qris-studio-sign.png',  tier: null },
+    topup_pro:  { amount: 149000, credits: 25, label: 'Top Up Pro',         desc: 'Tambah 25 kredit untuk usage intensif',      qris: 'img/qris-studio-pres.png',  tier: null },
   };
   const c = config[pkg] || config.signature;
 
@@ -3743,6 +3746,27 @@ document.addEventListener('DOMContentLoaded', () => {
       <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:2px 0 0">Perbedaannya ada di jumlah kredit, akses 4 foto, dan kedalaman library.</div>
     </div>
 
+    <div style="font-size:11px;font-weight:600;color:#A7B0B5;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px">Top Up Kredit</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;">
+      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('topup_mini')">
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Mini</div>
+        <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 39.000</div>
+        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">+5 kredit</div>
+      </div>
+      <div style="border:1.5px solid #1FA6B5;border-radius:10px;padding:12px;cursor:pointer;background:rgba(31,166,181,0.06);" onclick="handleBuyPackage('topup_plus')">
+        <div style="font-size:10px;font-weight:600;color:#1FA6B5;margin-bottom:2px">PRAKTIS</div>
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Plus</div>
+        <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 69.000</div>
+        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">+10 kredit</div>
+      </div>
+      <div style="border:0.5px solid var(--color-border-tertiary,#d0d8dc);border-radius:10px;padding:12px;cursor:pointer;" onclick="handleBuyPackage('topup_pro')">
+        <div style="font-size:12px;font-weight:600;color:var(--color-text-primary,#1E2A2F)">Pro</div>
+        <div style="font-size:18px;font-weight:600;color:var(--color-text-primary,#1E2A2F);margin:4px 0">Rp 149.000</div>
+        <div style="font-size:11px;color:var(--color-text-secondary,#A7B0B5)">+25 kredit</div>
+      </div>
+    </div>
+
     <button onclick="document.getElementById('modal-beli-token').style.display='none'" style="width:100%;padding:10px;border-radius:8px;border:0.5px solid var(--color-border-tertiary,#d0d8dc);background:transparent;font-size:13px;color:var(--color-text-secondary,#A7B0B5);cursor:pointer;">
       Tutup
     </button>
@@ -3760,7 +3784,7 @@ document.addEventListener('DOMContentLoaded', () => {
       Paket aktif akan memberi akses ke Studio Foto AI dan Wisuda AI sesuai tier yang dipilih.<br><br>
       Setelah transfer, kirim bukti pembayaran via WhatsApp:<br>
       <a href="https://wa.me/62XXXXXXXXXX?text=Bukti+bayar+PotretAI" target="_blank" style="color:#1FA6B5;font-weight:500">+62 XXX-XXXX-XXXX</a><br>
-      Kredit akan aktif dalam 1×5 menit
+      Paket atau kredit top up akan aktif dalam 1×5 menit
     </p>
 
     <input type="hidden" id="qris-pkg">
