@@ -3746,7 +3746,7 @@ function closeMobileSidebar() {
 // INIT
 // ═══════════════════════════════════════════════════════════
 
-function handleBuyPackage(pkg) {
+async function handleBuyPackage(pkg) {
   document.getElementById('modal-beli-token').style.display = 'none';
 
   const config = {
@@ -3759,11 +3759,26 @@ function handleBuyPackage(pkg) {
   };
   const c = config[pkg] || config.signature;
 
+  const profile = getStoredUserProfile();
+  let orderId = '';
+  try {
+    const res = await fetch(`${WORKER_URL}/create-order`, {
+      method: 'POST',
+      headers: getWorkerJsonHeaders(),
+      body: JSON.stringify({ user_id: profile.userId, plan: pkg }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.order_id) orderId = data.order_id;
+  } catch (err) {
+    console.warn('[PotretAI] create-order failed:', err.message);
+  }
+
   document.getElementById('qris-title').textContent   = c.label + ' — Rp ' + c.amount.toLocaleString('id');
   document.getElementById('qris-tokens').textContent  = c.credits + ' kredit';
   document.getElementById('qris-desc').textContent    = c.desc;
   document.getElementById('qris-img').src             = c.qris;
   document.getElementById('qris-pkg').value           = pkg;
+  document.getElementById('qris-order-id').textContent = orderId || 'Akan dibuat saat pembayaran dikonfirmasi';
   document.getElementById('modal-qris').style.display  = 'flex';
 }
 
@@ -3886,6 +3901,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     <input type="hidden" id="qris-pkg">
     <p style="font-size:12px;color:var(--color-text-secondary,#A7B0B5);margin:0 0 14px">
       Dapat <span id="qris-tokens" style="font-weight:500;color:var(--color-text-primary,#1E2A2F)">20 kredit</span>
+    </p>
+    <p style="font-size:11px;color:var(--color-text-secondary,#A7B0B5);margin:0 0 14px;line-height:1.6;">
+      Order ID:<br>
+      <span id="qris-order-id" style="font-family:'Roboto Mono',monospace;font-size:12px;color:var(--color-text-primary,#1E2A2F)">Menyiapkan order...</span>
     </p>
 
     <button onclick="document.getElementById('modal-qris').style.display='none'" style="width:100%;padding:10px;border-radius:8px;border:0.5px solid var(--color-border-tertiary,#d0d8dc);background:transparent;font-size:13px;cursor:pointer;color:var(--color-text-secondary,#A7B0B5)">
