@@ -2612,7 +2612,9 @@ function applyPackageGates() {
     if (el) el.style.display = pkg.beauty.enabled ? '' : 'none';
   });
   if (!pkg.beauty.enabled && AppState.currentTab === 'beauty_retouch') switchTab('studio_foto');
-  document.querySelectorAll('.count-reco').forEach((el) => {
+  document.querySelectorAll('.count-row .count-reco').forEach((el) => {
+    const radioName = el.parentElement?.querySelector('input[type="radio"]')?.name || '';
+    if (radioName === 'photo-count-br') return;
     el.textContent = pkg.canGenerate4 ? 'Default: 2 foto · 4 foto tersedia' : 'Default: 2 foto · 4 foto khusus Signature/Prestige';
   });
   refreshGenerateButtonLabels();
@@ -3082,6 +3084,7 @@ const GalleryRenderer = {
           <span class="result-label">${ratioLabel} &middot; ${rW}&times;${rH}</span>
           <div class="result-actions">
             <button class="result-btn result-btn-dl" onclick="downloadImage('${url}','${tab}-${i+1}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Unduh</button>
+            ${tab === 'beauty_retouch' ? `<button class="result-btn" onclick="showToast('Premium Polish segera hadir untuk hasil lebih halus dan tajam.','info')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 3.64L18 8.2l-3 2.92.71 4.13L12 13.3l-3.71 1.95.71-4.13-3-2.92 4.2-.56L12 3z"/></svg> Premium Polish</button>` : ''}
           </div>
         </div>
       </div>`;
@@ -3116,10 +3119,20 @@ function triggerUpload(inputId) {
 function handleUpload(input, boxId) {
   const file = input.files[0];
   if (!file) return;
+  if (!/^image\/(jpeg|png|webp|jpg)$/i.test(file.type)) {
+    showToast('Format foto harus JPG, PNG, atau WEBP', 'error');
+    return;
+  }
   if (file.size > 5 * 1024 * 1024) { showToast('Ukuran foto maks 5MB','error'); return; }
   UploadFiles[boxId] = file;
   const reader = new FileReader();
   reader.onload = (e) => {
+    const img = new Image();
+    img.onload = () => {
+      if ((boxId === 'upload-br-wajah') && (img.width < 768 || img.height < 768)) {
+        showToast('Beauty Retouch bekerja paling baik pada foto portrait terang minimal 768px.', 'error');
+        return;
+      }
     const box = document.getElementById(boxId);
     if (!box) return;
     box.innerHTML = `
@@ -3135,6 +3148,8 @@ function handleUpload(input, boxId) {
     box.onclick = null;
     // Upload ke fal.ai storage di background
     uploadFaceToStorage(file, boxId, input.id, e.target.result);
+    };
+    img.src = e.target.result;
   };
   reader.readAsDataURL(file);
 }
@@ -3171,8 +3186,10 @@ async function uploadFaceToStorage(file, boxId, inputId, previewSrc) {
     // multipart/form-data dengan field "face" — sesuai format yang diharapkan Worker
     const formData = new FormData();
     formData.append('file', file);
+    const userId = getWorkerUserId();
     const res = await fetch(`${WORKER_URL}/upload-face`, {
       method: 'POST',
+      headers: userId ? { 'X-User-Id': userId } : undefined,
       body:   formData,   // browser otomatis set Content-Type + boundary
     });
     const data = await res.json().catch(() => ({}));
