@@ -1758,7 +1758,72 @@
 const WORKER_URL = 'https://potretai-worker.potretaiv3.workers.dev';
 
 function getWorkerUserId() {
-  return localStorage.getItem('potretai_user_id') || '';
+  return ensureUserIdentity().userId || '';
+}
+
+function hashString(input) {
+  const value = String(input || '').trim().toLowerCase();
+  let hash = 0;
+  for (let i = 0; i < value.length; i++) hash = ((hash << 5) - hash) + value.charCodeAt(i);
+  return 'usr_' + Math.abs(hash).toString(36);
+}
+
+function titleCaseFromEmail(email) {
+  const local = String(email || '').split('@')[0] || 'pengguna';
+  return local
+    .split(/[._-]+/)
+    .filter(Boolean)
+    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+function ensureUserIdentity() {
+  let userId = localStorage.getItem('potretai_user_id') || '';
+  let email = localStorage.getItem('potretai_user_email') || '';
+  let name = localStorage.getItem('potretai_user_name') || '';
+
+  if (!userId) {
+    userId = hashString(email || `guest_${Date.now()}`);
+    localStorage.setItem('potretai_user_id', userId);
+  }
+  if (!email) {
+    email = `${userId}@local.potretai`;
+    localStorage.setItem('potretai_user_email', email);
+  }
+  if (!name) {
+    name = titleCaseFromEmail(email);
+    localStorage.setItem('potretai_user_name', name);
+  }
+
+  return { userId, email, name };
+}
+
+function getStoredUserProfile() {
+  const { userId, email, name } = ensureUserIdentity();
+  const shortName = (name || 'Pengguna').split(' ')[0] || 'Pengguna';
+  const initials = (name || 'PG')
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(part => part[0].toUpperCase())
+    .join('') || 'PG';
+  return { userId, email, name, shortName, initials };
+}
+
+function updateUserProfileUI() {
+  const profile = getStoredUserProfile();
+  const map = {
+    'topbar-username': profile.shortName,
+    'dropdown-fullname': profile.name,
+    'dropdown-email': profile.email,
+    'acct-name': profile.name,
+    'acct-email': profile.email,
+    'avatar-initials': profile.initials,
+  };
+  Object.entries(map).forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  });
 }
 
 function getWorkerJsonHeaders() {
@@ -1766,6 +1831,33 @@ function getWorkerJsonHeaders() {
   const userId = getWorkerUserId();
   if (userId) headers['X-User-Id'] = userId;
   return headers;
+}
+
+async function syncBackendCreditToUI() {
+  const profile = getStoredUserProfile();
+  if (!profile.userId) return;
+  try {
+    const res = await fetch(`${WORKER_URL}/get-credit/${encodeURIComponent(profile.userId)}`, {
+      headers: getWorkerJsonHeaders(),
+    });
+    if (!res.ok) return;
+    const credit = await res.json();
+    if (!credit || typeof credit.credits_remaining !== 'number') return;
+
+    const localTier = localStorage.getItem('potretai_package_tier') || 'signature';
+    const localBalance = TokenManager.getBalance();
+    const backendTier = credit.package_tier || credit.plan || 'spark';
+    const backendLooksWeaker = (backendTier === 'spark' || backendTier === 'trial') && (localTier === 'signature' || localTier === 'prestige' || localBalance > credit.credits_remaining);
+    if (backendLooksWeaker) return;
+
+    setCurrentPackage(backendTier, { grantCredits: false });
+    TokenManager.setBalance(credit.credits_remaining);
+    AppState.usageRemaining = credit.credits_remaining;
+    AppState.packageCredits = PACKAGE_CONFIG[backendTier]?.credits || credit.credits_remaining;
+    updateUsageUI();
+  } catch (err) {
+    console.warn('[PotretAI] syncBackendCreditToUI failed:', err.message);
+  }
 }
 
 // ── Turnstile token (diisi otomatis oleh widget invisible) ──
@@ -2259,6 +2351,7 @@ function applyPackageToPhotoCount(radiosName, canGenerate4) {
 
 function updatePackageUI() {
   const pkg = getCurrentPackageConfig();
+  AppState.packageCredits = pkg.credits;
   const currentPlanName = document.getElementById('current-plan-name');
   const currentPlanMeta = document.getElementById('current-plan-meta');
   const heroPlanName = document.getElementById('hero-plan-name');
@@ -2323,6 +2416,7 @@ const AppState = {
   isGenerating: false,
   generatedImages: [],  // [{url, tab, timestamp}]
   usageRemaining: 196,
+  packageCredits: 20,
   lightboxIndex: 0,
   faceUrls: {},
   ratio: { label: '4:5', w: 1024, h: 1280 },
@@ -3470,7 +3564,7 @@ function setBtnLoading(tab, loading) {
 
 function updateUsageUI() {
   const rem = Math.max(0, AppState.usageRemaining);
-  const total = 200;
+  const total = Math.max(rem, AppState.packageCredits || 20);
   const used = total - rem;
   const pct = Math.min(100, (used / total) * 100);
   const el = document.getElementById('usage-remaining');
@@ -3685,7 +3779,8 @@ function adminActivatePackage(tier) {
   showToast(`✅ Paket ${getCurrentPackageConfig().label} aktif`, 'success');
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  updateUserProfileUI();
   navigateTo('dashboard');
   switchTab('wisuda');
   updateUsageUI();
@@ -3697,6 +3792,7 @@ document.addEventListener('DOMContentLoaded', () => {
     applyPackageGates();
   }
   TokenManager.updateUI();
+  await syncBackendCreditToUI();
   refreshGenerateButtonLabels();
   document.querySelectorAll('input[name="photo-count-sf"], input[name="photo-count-ws"]').forEach((input) => {
     input.addEventListener('change', refreshGenerateButtonLabels);

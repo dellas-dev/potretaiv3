@@ -649,6 +649,32 @@
 <script>
   'use strict';
 
+  function makeUserId(seed) {
+    const value = String(seed || '').trim().toLowerCase();
+    let hash = 0;
+    for (let i = 0; i < value.length; i++) hash = ((hash << 5) - hash) + value.charCodeAt(i);
+    return 'usr_' + Math.abs(hash).toString(36);
+  }
+
+  function titleCaseFromEmail(email) {
+    const local = String(email || '').split('@')[0] || 'pengguna';
+    return local
+      .split(/[._-]+/)
+      .filter(Boolean)
+      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ');
+  }
+
+  function persistUserIdentity(email, source = 'email') {
+    const cleanEmail = String(email || '').trim().toLowerCase();
+    const name = titleCaseFromEmail(cleanEmail || source);
+    const userId = makeUserId(cleanEmail || `${source}_${Date.now()}`);
+    localStorage.setItem('potretai_user_id', userId);
+    localStorage.setItem('potretai_user_email', cleanEmail || `${userId}@local.potretai`);
+    localStorage.setItem('potretai_user_name', name);
+    return { userId, name };
+  }
+
   // ── Mobile sync ───────────────────────────────────────────
   const mobileLogo = document.getElementById('mobile-logo');
   const backLink   = document.getElementById('back-link');
@@ -713,6 +739,7 @@
       return;
     }
 
+    persistUserIdentity(email, 'login');
     showSuccess();
   }
 
@@ -731,6 +758,7 @@
     btn.disabled = true;
     document.getElementById('google-label').textContent = 'Mengalihkan ke Google...';
     // TODO: Supabase auth.signInWithOAuth({ provider: 'google' })
+    persistUserIdentity(`google.user.${Date.now()}@potretai.id`, 'google');
     setTimeout(() => { window.location.href = 'app.html'; }, 1200);
   }
 
