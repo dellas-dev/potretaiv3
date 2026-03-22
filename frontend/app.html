@@ -1812,7 +1812,9 @@
     <div class="acct-card-title">Informasi Akun</div>
     <div class="acct-field"><div class="acct-label">Nama</div><div class="acct-value" id="acct-name">Rina Setiawati</div></div>
     <div class="acct-field"><div class="acct-label">Email</div><div class="acct-value" id="acct-email">rina@email.com</div></div>
+    <div class="acct-field"><div class="acct-label">User ID</div><div class="acct-value" id="acct-user-id" style="font-family:'Roboto Mono',monospace;font-size:12px;">usr_local</div></div>
     <div class="acct-field"><div class="acct-label">Bergabung sejak</div><div class="acct-value">Maret 2025</div></div>
+    <button class="btn-secondary" type="button" onclick="copyUserId()" style="margin-top:12px;">Copy User ID</button>
   </div>
 
   <div class="acct-card">
@@ -2021,12 +2023,24 @@ function updateUserProfileUI() {
     'dropdown-email': profile.email,
     'acct-name': profile.name,
     'acct-email': profile.email,
+    'acct-user-id': profile.userId,
     'avatar-initials': profile.initials,
   };
   Object.entries(map).forEach(([id, value]) => {
     const el = document.getElementById(id);
     if (el) el.textContent = value;
   });
+}
+
+async function copyUserId() {
+  const userId = getStoredUserProfile().userId;
+  if (!userId) return;
+  try {
+    await navigator.clipboard.writeText(userId);
+    showToast('✅ User ID berhasil disalin', 'success');
+  } catch {
+    showToast('❌ Gagal menyalin User ID', 'error');
+  }
 }
 
 function getWorkerJsonHeaders() {
