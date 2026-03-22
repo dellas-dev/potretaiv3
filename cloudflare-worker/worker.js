@@ -14,6 +14,7 @@ import { handleHistoryRoute, handleGetCreditRoute } from './history/historyRoute
 import { createOrder } from './payments/createOrder.js';
 import { submitProof } from './payments/submitProof.js';
 import { verifyPayment } from './payments/verifyPayment.js';
+import { handleAdminStats } from './admin/adminStats.js';
 import { checkDailyLimit, recordGenerationCost } from './utils/costControl.js';
 import { recordGeneration } from './utils/analytics.js';
 
@@ -62,6 +63,10 @@ export default {
 
     if (request.method === 'POST' && url.pathname === '/verify-payment') {
       return withCors(await verifyPayment(request, env), origin);
+    }
+
+    if (request.method === 'POST' && url.pathname === '/admin-stats') {
+      return withCors(await handleAdminStats(request, env), origin);
     }
 
     if (request.method !== 'POST') {

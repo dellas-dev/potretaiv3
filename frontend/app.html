@@ -1699,8 +1699,15 @@
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <button class="btn-primary-sm" type="button" onclick="adminVerifyOrder('approve')">Approve Order</button>
         <button class="btn-secondary" type="button" onclick="adminVerifyOrder('reject')">Reject Order</button>
+        <button class="btn-secondary" type="button" onclick="adminFetchStats()">Refresh Stats</button>
       </div>
       <div id="admin-verify-status" style="font-family:'Inter',sans-serif;font-size:12px;color:#6B7C86;line-height:1.6;"></div>
+      <div id="admin-stats-panel" style="margin-top:10px;padding:12px;border:1px solid #E8EEF1;border-radius:12px;background:#F8FBFC;display:flex;flex-direction:column;gap:10px;">
+        <div style="font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#93A4AC;">Monitoring Snapshot</div>
+        <div id="admin-stats-summary" style="font-family:'Inter',sans-serif;font-size:12px;color:#1E2A2F;line-height:1.7;">Klik Refresh Stats untuk memuat ringkasan hari ini.</div>
+        <div id="admin-stats-orders" style="font-family:'Roboto Mono',monospace;font-size:10px;color:#6B7C86;line-height:1.6;white-space:pre-wrap;"></div>
+        <div id="admin-stats-generates" style="font-family:'Roboto Mono',monospace;font-size:10px;color:#6B7C86;line-height:1.6;white-space:pre-wrap;"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -3932,6 +3939,62 @@ async function adminVerifyOrder(action) {
   } catch (err) {
     if (statusEl) statusEl.textContent = err.message || 'Verifikasi order gagal';
     showToast(`❌ ${err.message || 'Verifikasi order gagal'}`, 'error');
+  }
+}
+
+async function adminFetchStats() {
+  const adminKey = (document.getElementById('admin-secret-key')?.value || '').trim();
+  const summaryEl = document.getElementById('admin-stats-summary');
+  const ordersEl = document.getElementById('admin-stats-orders');
+  const generatesEl = document.getElementById('admin-stats-generates');
+  if (!adminKey) {
+    if (summaryEl) summaryEl.textContent = 'Masukkan Admin Key terlebih dahulu untuk melihat statistik.';
+    return;
+  }
+
+  if (summaryEl) summaryEl.textContent = 'Memuat statistik hari ini...';
+  if (ordersEl) ordersEl.textContent = '';
+  if (generatesEl) generatesEl.textContent = '';
+
+  try {
+    const res = await fetch(`${WORKER_URL}/admin-stats`, {
+      method: 'POST',
+      headers: getWorkerJsonHeaders(),
+      body: JSON.stringify({ admin_key: adminKey }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Gagal memuat statistik admin');
+
+    if (summaryEl) {
+      summaryEl.innerHTML = `
+        <strong>Hari ini</strong>: ${data.today?.generations || 0} generate · ${data.today?.users || 0} user · Rp ${(data.today?.revenue || 0).toLocaleString('id-ID')} revenue<br>
+        <strong>Total</strong>: ${data.totals?.generations || 0} generate · ${data.totals?.users || 0} user · Rp ${(data.totals?.revenue || 0).toLocaleString('id-ID')} revenue<br>
+        <strong>Cost guard</strong>: ${(data.daily_cost?.generations || 0)} generate tercatat hari ini
+      `;
+    }
+
+    if (ordersEl) {
+      ordersEl.textContent = [
+        'Orders',
+        `waiting_payment: ${data.orders?.waiting_payment || 0}`,
+        `proof_uploaded: ${data.orders?.proof_uploaded || 0}`,
+        `approved: ${data.orders?.approved || 0}`,
+        `rejected: ${data.orders?.rejected || 0}`,
+        '',
+        'Recent Orders',
+        ...((data.orders?.recent || []).map((o) => `${o.order_id} · ${o.plan} · ${o.status} · Rp ${(o.price || 0).toLocaleString('id-ID')}`)),
+      ].join('\n');
+    }
+
+    if (generatesEl) {
+      generatesEl.textContent = [
+        'Recent Generates',
+        ...((data.recent_generates || []).map((g) => `${g.service} · ${g.photo_count} foto · ${g.status} · ${g.package_tier} · kredit ${g.charged_credits}`)),
+      ].join('\n');
+    }
+  } catch (err) {
+    if (summaryEl) summaryEl.textContent = err.message || 'Gagal memuat statistik admin';
+    showToast(`❌ ${err.message || 'Gagal memuat statistik admin'}`, 'error');
   }
 }
 
