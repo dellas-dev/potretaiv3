@@ -1275,11 +1275,11 @@
 
 <!-- BACKGROUND -->
   <div class="form-sec">
-    <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Background Studio</div>
+    <div class="form-sec-title"><svg style="display:inline;vertical-align:middle;margin-right:4px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A7B0B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Background &amp; Lokasi</div>
   <div class="form-field">
-    <label class="form-label">Pilih Background</label>
+    <label class="form-label">Pilih Background / Lokasi</label>
     <select class="form-select" id="sk-background">
-      <optgroup label="── NETRAL CLEAN (Terbaik) ──">
+      <optgroup label="── INDOOR STUDIO CLEAN ──">
         <option value="white_clean">Putih Seamless Bersih</option>
         <option value="grey_soft" selected>Abu Muda Lembut</option>
         <option value="grey_medium">Abu Medium Hangat</option>
@@ -1287,19 +1287,65 @@
         <option value="beige_sand">Beige Sand Natural</option>
         <option value="window_natural">Window Light — Cahaya Jendela Natural</option>
       </optgroup>
-      <optgroup label="── PASTEL FEMININ ──">
+      <optgroup label="── INDOOR SOFT COLOR ──">
         <option value="blush_pink">Blush Pink Lembut</option>
         <option value="dusty_rose">Dusty Rose Romantis</option>
         <option value="lavender_soft">Lavender Soft Dreamy</option>
         <option value="sage_green">Sage Green Fresh</option>
         <option value="sky_blue">Sky Blue Segar</option>
       </optgroup>
-      <optgroup label="── BOLD &amp; DRAMATIS ──">
+      <optgroup label="── INDOOR BOLD CLEAN ──">
         <option value="orange_bold">Orange Coral Bold</option>
         <option value="deep_burgundy">Burgundy Wine Rich</option>
         <option value="forest_green">Forest Green Deep</option>
         <option value="navy_dark">Navy Blue Elegan</option>
         <option value="black_clean">Hitam Seamless Dramatis</option>
+      </optgroup>
+      <optgroup label="── OUTDOOR PREMIUM — URBAN EDITORIAL ──">
+        <option value="urban_glass_facade">Glass Building Facade Modern</option>
+        <option value="urban_city_sidewalk">City Sidewalk Clean Modern</option>
+        <option value="urban_jakarta_rooftop">Jakarta Rooftop Skyline Clean</option>
+        <option value="urban_kota_tua">Koridor Kota Tua Heritage</option>
+        <option value="urban_bandung_heritage">Jalan Heritage Bandung</option>
+        <option value="urban_surabaya_citywalk">Surabaya Modern City Walk</option>
+        <option value="urban_cafe_outdoor">Cafe Semi Outdoor Estetik</option>
+        <option value="urban_rooftop_city">Rooftop City View Premium</option>
+        <option value="urban_hotel_courtyard">Courtyard Hotel Modern</option>
+        <option value="urban_luxury_storefront">Luxury Storefront Street</option>
+        <option value="urban_minimal_concrete">Minimal Concrete Wall Editorial</option>
+        <option value="urban_white_archway">White Archway Exterior</option>
+      </optgroup>
+      <optgroup label="── OUTDOOR PREMIUM — NATURE &amp; LEISURE INDONESIA ──">
+        <option value="indo_bali_resort_garden">Bali Tropical Resort Garden</option>
+        <option value="indo_bali_cliffside">Bali Cliffside Uluwatu Style</option>
+        <option value="indo_bali_rice_terrace">Bali Rice Terrace Soft Daylight</option>
+        <option value="indo_ubud_jungle_path">Ubud Jungle Path Premium</option>
+        <option value="indo_sumba_savanna">Sumba NTT Savanna Golden Hour</option>
+        <option value="indo_sumba_hills">Sumba Rolling Hills Premium</option>
+        <option value="indo_raja_ampat_deck">Raja Ampat Overwater Deck</option>
+        <option value="indo_wakatobi_coast">Wakatobi White Sand Coast</option>
+        <option value="indo_toba_lakeside">Danau Toba Lakeside Promenade</option>
+        <option value="indo_labuan_bajo_marina">Labuan Bajo Marina Premium</option>
+        <option value="indo_bandung_pine">Bandung Pine Forest Clean</option>
+        <option value="indo_bandung_tea_garden">Bandung Tea Garden Path</option>
+        <option value="indo_lembang_resort">Lembang Resort Garden</option>
+        <option value="indo_bogor_botanical">Bogor Botanical Garden</option>
+        <option value="indo_belitung_beach">Belitung Granite Beach</option>
+        <option value="indo_lombok_coastal_hill">Lombok Coastal Hill Clean</option>
+        <option value="indo_bromo_viewpoint">Bromo Viewpoint Clean Daylight</option>
+        <option value="indo_yogyakarta_candi">Yogyakarta Candi Stone Courtyard</option>
+      </optgroup>
+      <optgroup label="── OUTDOOR PREMIUM — ASPIRATIONAL INTERNATIONAL ──">
+        <option value="intl_paris_street">Parisian Street Soft Neutral</option>
+        <option value="intl_santorini_lane">Santorini White Lane</option>
+        <option value="intl_lake_como_garden">Lake Como Villa Garden</option>
+        <option value="intl_kyoto_alley">Kyoto Stone Alley Clean</option>
+        <option value="intl_seoul_cafe_street">Seoul Cafe Street Minimal</option>
+        <option value="intl_tokyo_side_street">Tokyo Modern Side Street</option>
+        <option value="intl_newyork_brownstone">New York Brownstone Block</option>
+        <option value="intl_central_park_path">Central Park Path Clean</option>
+        <option value="intl_california_palm">California Palm Street</option>
+        <option value="intl_dubai_promenade">Dubai Luxury Promenade</option>
       </optgroup>
     </select>
   </div>
@@ -1374,17 +1420,28 @@
   <div class="form-field">
     <label class="form-label">Pilih Pose <span id="sf-pose-hint" style="font-size:10px;color:#1FA6B5;font-family:'Roboto Mono',monospace;"></span></label>
     <select class="form-select" id="sk-pose">
-      <optgroup label="── BERDIRI ──">
-        <option value="standing_front">Berdiri Menghadap Kamera — Natural</option>
-        <option value="standing_hip">Berdiri — Satu Tangan di Pinggul</option>
-        <option value="standing_hair">Berdiri — Tangan Menyentuh Rambut</option>
-        <option value="three_quarter">3/4 Angle — Elegan Menyamping</option>
-        <option value="looking_away">Berdiri — Tatapan Jauh Dreamy</option>
+      <optgroup label="── STANDING TREND ──">
+        <option value="standing_front">Berdiri Natural Menghadap Kamera</option>
+        <option value="standing_angle_confident">Berdiri 3/4 Angle Confidence</option>
+        <option value="standing_one_foot_forward">Satu Kaki Maju — Editorial Clean</option>
+        <option value="standing_hand_in_pocket">Tangan di Saku / Pinggul Santai</option>
+        <option value="standing_touch_hair">Menyentuh Rambut / Kerah Natural</option>
+        <option value="standing_cross_arms_soft">Silang Tangan Ringan — Confident</option>
+        <option value="standing_leaning">Lean Santai ke Dinding / Railing</option>
+        <option value="walking_candid">Jalan Pelan ke Kamera — Candid</option>
+        <option value="looking_away">Tatapan Sedikit Menjauh</option>
       </optgroup>
-      <optgroup label="── DUDUK ──">
-        <option value="sitting_chair">Duduk di Kursi — Kaki Menyilang Elegan</option>
-        <option value="sitting_stool">Duduk di Stool / Cube — Tegak Elegan</option>
-        <option value="sitting_floor">Duduk di Lantai — Kaki Menyamping</option>
+      <optgroup label="── HALF BODY / CLOSE-UP ──">
+        <option value="halfbody_natural_smile">Half Body — Natural Smile</option>
+        <option value="halfbody_over_shoulder">Half Body — Over Shoulder Glance</option>
+        <option value="halfbody_hold_jacket">Half Body — Memegang Tas / Jaket</option>
+        <option value="closeup_clean">Close-Up Clean Portrait</option>
+      </optgroup>
+      <optgroup label="── SEATED ──">
+        <option value="sitting_chair">Duduk Tegak Clean Portrait</option>
+        <option value="sitting_relaxed">Duduk Santai Satu Kaki Maju</option>
+        <option value="sitting_side_elegant">Duduk Menyamping Elegan</option>
+        <option value="sitting_stool">Duduk di Stool / Cube</option>
       </optgroup>
     </select>
   </div>
@@ -1397,10 +1454,14 @@
     <div class="form-field">
       <label class="form-label">Pencahayaan</label>
       <select class="form-select" id="sk-lighting">
-        <option value="soft_studio">Soft Studio — Merata Bersih (Default)</option>
-        <option value="window_light">Window Light — Cahaya Jendela Natural</option>
-        <option value="high_key">High Key — Terang Bersih</option>
-        <option value="butterfly">Butterfly — Beauty Glamour</option>
+        <option value="iphone_soft_daylight">Soft Daylight Natural — Clean (Default)</option>
+        <option value="iphone_open_shade">Bright Open Shade — Rata Bersih</option>
+        <option value="iphone_cloudy_bright">Cloudy Bright — Lembut Natural</option>
+        <option value="iphone_window_clean">Window Daylight Clean</option>
+        <option value="iphone_indoor_bright">Indoor Ambient Bright</option>
+        <option value="iphone_neutral_white">Neutral White Daylight</option>
+        <option value="iphone_golden_clean">Golden Hour Clean</option>
+        <option value="iphone_night_flash">Night City Clean Flash</option>
       </select>
     </div>
     <div class="form-field">
@@ -2164,10 +2225,10 @@ function onSFFramingChange(val) {
   if (!poseSelect) return;
   const suggestMap = {
     full_body:     'standing_front',
-    three_quarter: 'three_quarter_side',
-    half_body:     'standing_touch_face',
-    seated_full:   'sitting_chair_cross',
-    close_up:      'standing_front',
+    three_quarter: 'standing_angle_confident',
+    half_body:     'halfbody_natural_smile',
+    seated_full:   'sitting_chair',
+    close_up:      'closeup_clean',
   };
   const suggested = suggestMap[val];
   if (suggested) {
@@ -2639,7 +2700,7 @@ function buildSoloPrompt(tab) {
   };
 
   // ── Shared quality tail ────────────────────────────────────────
-  const QUALITY = 'ultra realistic photography, sharp focus, clean accurate colors, professional studio portrait, no grain, no watermark, solid background no gradient, natural studio lighting';
+    const QUALITY = 'ultra realistic photography, sharp focus, clean accurate colors, premium portrait photo, realistic skin tones, crisp detail, no grain, no watermark';
 
   // ── Framing rules — injected into pose values ──────────────────
   const FRAMING_FULL_BODY     = 'full body head to toe, complete figure visible, 60 percent of frame, do not crop feet';
@@ -2649,25 +2710,43 @@ function buildSoloPrompt(tab) {
   // ══════════════════════════════════════════════════════════════
   // TAB: STUDIO FOTO
   // ══════════════════════════════════════════════════════════════
-  if (tab === 'studio_foto') {
-    const POSE = {
-      standing_front:
-        'full body, standing facing camera, arms relaxed naturally at sides, confident natural posture, complete figure head to toe including feet and shoes, ' + FRAMING_FULL_BODY,
-      standing_hip:
-        'full body, standing at slight angle, one hand on hip, other arm relaxed at side, natural confident pose, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
-      standing_hair:
-        'full body, standing, one hand gently touching hair, other arm at side with natural movement, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
-      three_quarter:
-        'three quarter body, standing at three-quarter angle to camera, arms relaxed, elegant composed pose, head to below knee, ' + FRAMING_THREE_QUARTER,
-      looking_away:
-        'full body, standing, face turned slightly away at three-quarter angle, serene distant gaze, complete figure head to toe, ' + FRAMING_FULL_BODY,
-      sitting_chair:
-        'seated on modern white chair, legs crossed elegantly, one hand resting on knee, upper body upright, 3/4 body portrait, ' + FRAMING_THREE_QUARTER,
-      sitting_stool:
-        'seated on white cube or stool, upright relaxed seated pose, both feet on floor, 3/4 body portrait, ' + FRAMING_THREE_QUARTER,
-      sitting_floor:
-        'sitting on floor, legs folded to one side, one arm propping body gently, gown or outfit spread naturally, full body seated floor pose, ' + FRAMING_FULL_BODY,
-    };
+    if (tab === 'studio_foto') {
+      const POSE = {
+        standing_front:
+          'full body, standing facing camera, arms relaxed naturally at sides, confident natural posture, complete figure head to toe including feet and shoes, ' + FRAMING_FULL_BODY,
+        standing_angle_confident:
+          'full body, standing at a slight three-quarter angle, relaxed shoulders, confident premium editorial posture, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        standing_one_foot_forward:
+          'full body, standing with one foot slightly forward, natural fashion-forward posture, relaxed hands, clean editorial energy, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        standing_hand_in_pocket:
+          'full body, standing naturally with one hand in pocket or resting lightly at hip, calm premium posture, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        standing_touch_hair:
+          'full body, standing naturally, one hand gently touching hair or collar, soft premium movement, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        standing_cross_arms_soft:
+          'full body, standing with arms crossed softly, confident but approachable body language, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        standing_leaning:
+          'full body, leaning lightly against wall or railing, relaxed editorial stance, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        walking_candid:
+          'full body, walking slowly toward camera, candid natural movement, premium lifestyle portrait, complete figure head to toe including shoes, ' + FRAMING_FULL_BODY,
+        looking_away:
+          'full body, standing, face turned slightly away at three-quarter angle, serene premium gaze, complete figure head to toe, ' + FRAMING_FULL_BODY,
+        halfbody_natural_smile:
+          'half body waist up, facing camera, natural smile, relaxed shoulders, premium clean portrait composition, ' + FRAMING_HALF_BODY,
+        halfbody_over_shoulder:
+          'half body, slight over-shoulder glance toward camera, polished modern portrait posture, ' + FRAMING_HALF_BODY,
+        halfbody_hold_jacket:
+          'half body, holding jacket, bag, or outerwear naturally in front of body, stylish clean commercial portrait, ' + FRAMING_HALF_BODY,
+        closeup_clean:
+          'close-up portrait, shoulders visible, slight angle, calm polished expression, premium clean headshot framing',
+        sitting_chair:
+          'seated upright on modern chair, clean posture, relaxed hands, premium portrait feel, ' + FRAMING_THREE_QUARTER,
+        sitting_relaxed:
+          'seated in a relaxed pose with one leg slightly forward, modern lifestyle portrait, composed premium body language, ' + FRAMING_THREE_QUARTER,
+        sitting_side_elegant:
+          'seated sideways with elegant posture, body angled gently to camera, refined premium portrait mood, ' + FRAMING_THREE_QUARTER,
+        sitting_stool:
+          'seated on white cube or stool, upright relaxed seated pose, both feet on floor, premium studio portrait, ' + FRAMING_THREE_QUARTER,
+      };
     const OUTFIT_F = {
       white_knit:       'woman wearing white ribbed knit mini dress, white sneakers or bare feet',
       white_blazer:     'woman wearing white oversized blazer, white wide-leg trousers, silver stiletto heels',
@@ -2711,15 +2790,60 @@ function buildSoloPrompt(tab) {
       sky_blue:      'soft powder blue solid backdrop',
       orange_bold:   'warm coral orange solid backdrop',
       deep_burgundy: 'deep burgundy wine solid backdrop',
+      forest_green:  'deep forest green solid backdrop',
       navy_dark:     'deep navy blue solid backdrop',
       black_clean:   'pure black seamless studio backdrop',
       window_natural:'white studio room, large window left side, soft natural daylight',
+      urban_glass_facade:      'modern glass building facade exterior, reflective architecture, premium urban editorial setting',
+      urban_city_sidewalk:     'clean modern city sidewalk, minimal urban lines, polished premium street portrait setting',
+      urban_jakarta_rooftop:   'Jakarta rooftop skyline with polished city backdrop and clean premium metropolitan portrait mood',
+      urban_kota_tua:          'heritage old town corridor with elegant colonial textures, clean premium editorial portrait setting',
+      urban_bandung_heritage:  'Bandung heritage street with refined colonial architecture and calm premium city atmosphere',
+      urban_surabaya_citywalk: 'Surabaya modern city walk with polished architecture and clean premium urban portrait feel',
+      urban_cafe_outdoor:      'stylish semi-outdoor cafe terrace, refined lifestyle setting, premium casual portrait backdrop',
+      urban_rooftop_city:      'modern rooftop with clean city skyline, premium metropolitan lifestyle setting',
+      urban_hotel_courtyard:   'luxury hotel courtyard exterior, modern architectural lines, polished hospitality backdrop',
+      urban_luxury_storefront: 'luxury storefront street with soft designer facade and polished premium urban backdrop',
+      urban_minimal_concrete:  'minimal concrete architectural wall, clean editorial exterior, modern premium portrait setting',
+      urban_white_archway:     'white exterior archway with soft shadows, elegant aspirational architectural backdrop',
+      indo_bali_resort_garden: 'luxury Bali tropical resort garden, lush greenery, refined premium holiday portrait setting',
+      indo_bali_cliffside:     'Bali cliffside resort exterior, clean ocean-facing luxury setting, premium portrait backdrop',
+      indo_bali_rice_terrace:  'Bali rice terrace landscape, soft daylight, clean premium tropical portrait setting',
+      indo_ubud_jungle_path:   'Ubud jungle pathway with refined tropical greenery and premium leisure portrait atmosphere',
+      indo_sumba_savanna:      'Sumba NTT savanna landscape, premium open scenery, clean golden natural backdrop',
+      indo_sumba_hills:        'Sumba rolling hills with calm premium landscape feel, clean natural luxury portrait setting',
+      indo_raja_ampat_deck:    'Raja Ampat overwater deck, clear tropical water, exclusive premium island portrait setting',
+      indo_wakatobi_coast:     'Wakatobi white sand coastline and resort edge, clean bright premium seaside setting',
+      indo_toba_lakeside:      'Danau Toba lakeside promenade with calm premium nature atmosphere and clean horizon',
+      indo_labuan_bajo_marina: 'Labuan Bajo marina promenade, premium coastal lifestyle backdrop with clean resort mood',
+      indo_bandung_pine:       'Bandung pine forest with soft clean daylight, premium natural leisure portrait setting',
+      indo_bandung_tea_garden: 'Bandung tea garden path, refined green landscape, clean premium countryside backdrop',
+      indo_lembang_resort:     'Lembang resort garden with crisp mountain air feel and polished premium leisure backdrop',
+      indo_bogor_botanical:    'Bogor botanical garden pathway, polished tropical greenery, clean premium outdoor portrait setting',
+      indo_belitung_beach:     'Belitung granite beach with bright clean premium coastal scenery',
+      indo_lombok_coastal_hill:'Lombok coastal hill with soft luxury resort atmosphere and clean horizon line',
+      indo_bromo_viewpoint:    'Bromo viewpoint in clean daylight, expansive premium landscape portrait setting',
+      indo_yogyakarta_candi:   'Yogyakarta candi stone courtyard with elegant heritage texture and premium cultural portrait setting',
+      intl_paris_street:       'Parisian street with elegant stone facade, soft neutral daylight, premium fashion portrait backdrop',
+      intl_santorini_lane:     'Santorini white lane with bright clean architectural textures and aspirational luxury mood',
+      intl_lake_como_garden:   'Lake Como villa garden, luxury European landscape backdrop, refined premium portrait setting',
+      intl_kyoto_alley:        'Kyoto stone alley with calm clean traditional textures, elegant premium portrait backdrop',
+      intl_seoul_cafe_street:  'Seoul minimal cafe street, modern premium lifestyle setting with clean urban composition',
+      intl_tokyo_side_street:  'Tokyo modern side street with polished architecture and clean premium city energy',
+      intl_newyork_brownstone: 'New York brownstone block with refined editorial city portrait atmosphere',
+      intl_central_park_path:  'Central Park pathway with soft natural greenery and clean premium leisure mood',
+      intl_california_palm:    'California palm-lined street with bright clean premium lifestyle portrait setting',
+      intl_dubai_promenade:    'Dubai luxury promenade with polished architecture and premium aspirational atmosphere',
     };
     const LIGHTING = {
-      soft_studio:  'large softbox studio lighting, bright even illumination, soft open shadows',
-      window_light: 'natural window side light, soft directional daylight, clean indoor light',
-      high_key:     'high-key bright studio lighting, near-shadowless, fresh clean light',
-      butterfly:    'butterfly lighting, symmetrical catchlights in eyes, beauty studio quality',
+      iphone_soft_daylight: 'clean soft daylight, balanced exposure, natural contrast, realistic skin tones, premium iPhone portrait look',
+      iphone_open_shade:    'bright open shade lighting, even facial light, clean balanced exposure, realistic skin tones',
+      iphone_cloudy_bright: 'soft cloudy bright daylight, gentle contrast, clean premium mobile portrait lighting',
+      iphone_window_clean:  'clean window daylight, bright soft directional light, balanced skin tones, modern premium portrait look',
+      iphone_indoor_bright: 'bright indoor ambient light, soft even illumination, clean premium iPhone-style portrait lighting',
+      iphone_neutral_white: 'neutral white daylight, accurate exposure, crisp detail, realistic true-to-life colors',
+      iphone_golden_clean:  'clean golden hour light, balanced warm highlights, soft natural skin tone rendering',
+      iphone_night_flash:   'clean night city flash look, balanced subject exposure, crisp detail, modern premium mobile portrait',
     };
     const GRADE = {
       clean_bright:    'clean bright exposure, true neutral white balance, accurate colors',
@@ -2735,10 +2859,12 @@ function buildSoloPrompt(tab) {
     const outfitEl = document.getElementById(sfMode === 'pria' ? 'sk-outfit-male' : 'sk-outfit-female');
     const outfitKey = outfitEl?.value || (sfMode === 'pria' ? 'm_white_tshirt_jeans' : 'white_knit');
     const outfit  = (sfMode === 'pria' ? OUTFIT_M[outfitKey] : OUTFIT_F[outfitKey]) || (sfMode === 'pria' ? OUTFIT_M.m_white_tshirt_jeans : OUTFIT_F.white_knit);
-    const bg      = BACKGROUND[g('sk-background')] || BACKGROUND.grey_soft;
-    const light   = LIGHTING[g('sk-lighting')]     || LIGHTING.soft_studio;
+    const bgKey   = g('sk-background') || 'grey_soft';
+    const bg      = BACKGROUND[bgKey] || BACKGROUND.grey_soft;
+    const light   = LIGHTING[g('sk-lighting')]     || LIGHTING.iphone_soft_daylight;
     const grade   = GRADE[g('sk-grade')]           || GRADE.clean_bright;
-    const lens    = 'shot on Sony A7R V with 35mm f/1.8 lens, full frame sensor, wide enough to capture complete figure';
+    const lens    = 'shot on Sony A7R V with 35mm f/1.8 lens, full frame sensor, clean modern portrait perspective';
+    const isOutdoor = !['white_clean','grey_soft','grey_medium','cream_warm','beige_sand','blush_pink','dusty_rose','lavender_soft','sage_green','sky_blue','orange_bold','deep_burgundy','forest_green','navy_dark','black_clean','window_natural'].includes(bgKey);
 
     const parts = [
       pose,
@@ -2757,7 +2883,9 @@ function buildSoloPrompt(tab) {
       const cut = prompt.lastIndexOf(',', 900);
       prompt = cut > 600 ? prompt.substring(0, cut) : prompt.substring(0, 900);
     }
-    prompt += ', ultra realistic photography, natural studio lighting, solid non-gradient background, sharp focus, no watermark';
+    prompt += isOutdoor
+      ? ', ultra realistic photography, premium outdoor portrait, balanced natural light, realistic skin tones, sharp focus, no watermark'
+      : ', ultra realistic photography, clean premium portrait, balanced light, realistic skin tones, solid non-gradient background, sharp focus, no watermark';
     console.log('[SF prompt]', prompt.length, 'chars | framing: full body 60%');
     return prompt;
   }
